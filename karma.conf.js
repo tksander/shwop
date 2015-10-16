@@ -6,9 +6,14 @@ module.exports = function(config) {
     frameworks: ['mocha', 'chai', 'sinon' ],
 
     // list of files / patterns to load in the browser
-    files: require('./include.conf.js').concat([
+    files: [
+      //angular source
+
+      //our app code
+
+      //our spec files
       'test/*.js'
-    ]),
+    ],
 
     // list of files to exclude
     exclude: [
