@@ -17,28 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > Shwop
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > An intuitive app for peer-to-peer buying and selling.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+   > This app makes the shopping experience intuitive, fun, and interactive! Post items for sale easily and quickly and shop with a flick of the thumb.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Browsing sites like CraigsList can be non-intuitive, tedious, and time-consuming.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > Shwop allows a shopper to make quick work of searching for and finding the things they want most.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "All the fun of window shopping on your mobile device."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Just sign up for an account and start shwopping!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > Wow, what a great shopping experience. I can't wait to go shwopping again!
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Just go to the site and get started on any web-enabled device today.
