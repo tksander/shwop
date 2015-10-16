@@ -1,0 +1,28 @@
+{
+  "name": "shwop",
+  "version": "1.0.0",
+  "description": "A peer-to-peer shopping app!",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClandestineCalavera/shwop.git"
+  },
+  "keywords": [
+    "shwop"
+  ],
+  "author": "ClandestineCalavera",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClandestineCalavera/shwop/issues"
+  },
+  "homepage": "https://github.com/ClandestineCalavera/shwop#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
