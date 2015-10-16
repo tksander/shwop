@@ -7,17 +7,15 @@ module.exports = {
 
   // retrieve all the products from the database
   allProducts: function (req, res, next) {
+    var findAll = Q.nbind(Product.find, Product);
 
-
-  // var findAll = Q.nbind(Product.find, Product);
-
-  // findAll({})
-  //   .then(function (products) {
-  //     res.json(product);
-  //   })
-  //   .fail(function (error) {
-  //     next(error);
-  //   });
+    findAll({})
+      .then(function (products) {
+        res.send(products);
+      })
+      .fail(function (error) {
+        next(error);
+      });
   },
 
   // adds a new product to the database

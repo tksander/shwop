@@ -12,7 +12,7 @@ module.exports = function(config) {
       //our app code
 
       //our spec files
-      'test/*.js'
+      'test/**/*.js'
     ],
 
     // list of files to exclude

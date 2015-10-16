@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/server/unit/utilities.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "karma-mocha": "^0.2.0",
     "karma-sinon": "^1.0.4",
     "mocha": "^2.3.3",
-    "sinon": "^1.17.1"
+    "sinon": "^1.17.1",
+    "supertest": "^1.1.0"
   }
 }
