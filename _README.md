@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - Product Owner: John Wareing
+  - Scrum Master: Corey Roy
+  - Development Team Members: Tommy Sander, Brett Sanders
 
 ## Table of Contents
 
