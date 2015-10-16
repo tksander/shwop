@@ -1,0 +1,24 @@
+<div id='container'>
+
+
+  <div class='navigation'>
+  <ul>
+    <li><a href='#/products' class='index'>All Products</a></li>
+    <li><a href='#/sell' class='create'>Sell Item</a></li>  <!-- TODO: Create '/sell' route -->
+    <li><a href='#/logout' class='logout'>Logout</a></li>
+  </ul>
+  </div>
+
+
+  <input type='text' ng-model='search' placeholder='filter' />
+
+  <div ng-repeat="product in data.products | filter:search | orderBy: created_at" class="product">
+ 
+
+    <img src='../assets/redirect_icon.png'/>
+    <div class='visits'><span class='count'>{{ product.visits }}</span>Visits</div>
+    <div class='title'>{{ product.title }}</div>
+    <div class='original'>{{ product.url }}</div>
+    <a href='http://localhost:8080/api/products/{{ product.code }}'>{{ product.base_url }}/{{ product.code }}</a>
+  </div>
+</div>
