@@ -3,14 +3,14 @@
 
   <div class='navigation'>
   <ul>
-    <li><a href='#/products' class='index'>All Products</a></li>
-    <li><a href='#/sell' class='sell'>Sell Item</a></li>
-    <li><a href='#/logout' class='logout'>Logout</a></li>
+    <li class='menu'><a href='#/products' class='index'>All Products</a></li>
+    <li class='menu'><a href='#/sell' class='sell'>Sell Item</a></li>
+    <li class='menu'><a href='#/logout' class='logout'>Logout</a></li>
   </ul>
   </div>
 
 
-  <input type='text' ng-model='search' placeholder='filter' />
+  <input class='input-box' type='text' ng-model='search' placeholder='search for specific item' />
 
   <div ng-repeat="product in data.products | filter:search | orderBy: created_at" class="product">
  

@@ -3,3 +3,21 @@ body {
   margin-top: 10px;
   font-family: arial, sans-serif;
 }
+
+li.menu {
+  list-style: none;
+  float: left;
+  padding: 0 10px;
+}
+
+.input-box {
+  margin: 5px auto;
+}
+
+#container {
+  width: 340px;   /*  Dimensions of iPhone 5/5s are 320 × 568  */
+  height: 600px;
+  margin: auto;
+  /*padding: 1px;*/
+  background-color: lightgray;
+}
