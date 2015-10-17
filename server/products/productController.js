@@ -21,7 +21,7 @@ module.exports = {
   // adds a new product to the database
   newProduct: function (req, res, next) {
 
-    
+    var product = req.body;
     // var url = req.body.url;
     // var createLink = Q.nbind(Link.create, Link);
     // var findLink = Q.nbind(Link.findOne, Link);
@@ -53,6 +53,14 @@ module.exports = {
     //   .fail(function (error) {
     //     next(error);
     //   });
+  },
+
+  updateProduct: function (req, res, next) {
+    // update the product
+  },
+
+  deleteProduct: function (req, res, next) {
+    // delete the product
   }
 
 };
