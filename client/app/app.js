@@ -5,7 +5,7 @@ angular.module('shwop', [
   'shwop.auth',
   'ngRoute'
 ])
-.config(function ($routeProvider, $httpProvider) {
+.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'app/auth/signin.html',
@@ -37,8 +37,8 @@ angular.module('shwop', [
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
     $httpProvider.interceptors.push('AttachTokens');
-})
-.factory('AttachTokens', function ($window) {
+}])
+.factory('AttachTokens', ['$window', function ($window) {
   // This is an $httpInterceptor.
   // Its job is to stop all outgoing requests,
   // then look in local storage and find the user's token,
@@ -54,8 +54,8 @@ angular.module('shwop', [
     }
   };
   return attach;
-})
-.run(function ($rootScope, $location, Auth) {
+}])
+.run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
   // Here inside the run phase of angular, our services and controllers
   // have just been registered and our app is ready.
   // However, we want to make sure the user is authorized.
@@ -68,4 +68,4 @@ angular.module('shwop', [
       $location.path('/signin');
     }
   });
-});
+}]);

@@ -2,7 +2,7 @@
 // in our signup/signin forms using the injected Auth service
 angular.module('shwop.auth', [])
 
-.controller('AuthController', function ($scope, $window, $location, Auth) {
+.controller('AuthController', ['$scope', '$window', '$location', 'Auth', function ($scope, $window, $location, Auth) {
   $scope.user = {};
 
   $scope.signin = function () {
@@ -26,4 +26,4 @@ angular.module('shwop.auth', [])
         console.error(error);
       });
   };
-});
+}]);
