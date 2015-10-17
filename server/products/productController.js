@@ -11,7 +11,7 @@ module.exports = {
 
     findAll({})
       .then(function (products) {
-        res.send(products);
+        res.send({products: products});
       })
       .fail(function (error) {
         next(error);
