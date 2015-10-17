@@ -1,0 +1,43 @@
+<div id='container'>
+
+  <!-- TODO: (1) Create 'addTag()' & 'addPhoto()'; (2) Create 'fileread' directive for uploading photo;
+        (3) Research photo file path validation  -->
+
+  <div class='navigation'>
+  <ul>
+    <li><a href='#/products' class='index'>All Products</a></li>
+    <li><a href='#/sell' class='sell'>Sell Item</a></li>
+    <li><a href='#/logout' class='logout'>Logout</a></li>
+  </ul>
+  </div>
+
+  <form name='sellForm' class='sellForm' ng-submit='addProduct()' novalidate>
+    <div class='input-field'>
+      <input id='price' name='price' type='number' ng-model='form.product.price' required>
+      <label>What is your asking price (in dollars)?</label>
+    </div>
+
+    <div class='row'>
+      <div class='input-field'>
+        <input id='tags' name='tags' type='text' ng-model='form.product.tag' ng-enter='form.addTag()' required>
+        <label for='tags'>Tags</label>
+      </div>
+      <div>
+        <a class='button' type='button' ng-click='form.addTag()'><em>add tag</em></a>
+      </div>
+    </div>
+
+    <div class='input-field'>
+      <input id='photo' name='photo' type='file' fileread="form.newProduct" required>
+      <label>Upload photo</label>
+      <div class='file-path-wrapper'>
+        <input class='file-path validate' type='text' ng-model='form.filePath'>
+      </div>
+      <div>
+        <a class="button" type="button" ng-click="form.addPhoto()"><em>add photo</em></a>
+      </div>
+    </div>
+
+      <button type='submit' value='Sell' ng-disabled='sellForm.$invalid'>Sell Item</button>
+  </form>
+</div>
