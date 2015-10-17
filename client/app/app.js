@@ -3,6 +3,7 @@ angular.module('shwop', [
   'shwop.products',
   'shwop.sell',
   'shwop.auth',
+  'mobile-angular-ui',
   'ngRoute'
 ])
 .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {

@@ -1,0 +1,15 @@
+{
+  "name": "shwop",
+  "version": "0.0.0",
+  "description": "An intuitive app for peer-to-peer buying and selling.",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mobile-angular-ui": "~1.2.0-rc.3"
+  }
+}

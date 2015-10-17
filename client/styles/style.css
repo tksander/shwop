@@ -14,6 +14,10 @@ li.menu {
   margin: 5px auto;
 }
 
+.navbar {
+  margin-bottom: 20px;
+}
+
 #container {
   width: 340px;   /*  Dimensions of iPhone 5/5s are 320 × 568  */
   height: 600px;
