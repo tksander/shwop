@@ -5,9 +5,9 @@
 
   <div class='navigation'>
   <ul>
-    <li><a href='#/products' class='index'>All Products</a></li>
-    <li><a href='#/sell' class='sell'>Sell Item</a></li>
-    <li><a href='#/logout' class='logout'>Logout</a></li>
+    <li class='menu'><a href='#/products' class='index'>All Products</a></li>
+    <li class='menu'><a href='#/sell' class='sell'>Sell Item</a></li>
+    <li class='menu'><a href='#/logout' class='logout'>Logout</a></li>
   </ul>
   </div>
 
@@ -28,13 +28,13 @@
     </div>
 
     <div class='input-field'>
-      <input id='photo' name='photo' type='file' fileread="form.newProduct" required>
+      <input id='photo' name='photo' type='file' fileread='form.newProduct' required>
       <label>Upload photo</label>
       <div class='file-path-wrapper'>
         <input class='file-path validate' type='text' ng-model='form.filePath'>
       </div>
       <div>
-        <a class="button" type="button" ng-click="form.addPhoto()"><em>add photo</em></a>
+        <a class='button' type='button' ng-click='form.addPhoto()'><em>add photo</em></a>
       </div>
     </div>
 
