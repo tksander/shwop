@@ -1,6 +1,6 @@
 angular.module('shwop.products', [])
 
-.controller('ProductController', function ($scope, Products) {
+.controller('ProductController', ['$scope', 'Products', function ($scope, Products) {
   $scope.data = {};
 
   $scope.getProducts = function () {
@@ -14,4 +14,4 @@ angular.module('shwop.products', [])
     });
   };
   $scope.getProducts();
-});
+}]);

@@ -1,6 +1,6 @@
 angular.module('shwop.sell', [])
 
-.controller('SellController', function ($http, $scope, $location, Products) {
+.controller('SellController', ['$http', '$scope', '$location', 'Products', function ($http, $scope, $location, Products) {
   $scope.product = {};
   $scope.addProduct = function () {
     Products.addProduct($scope.product)
@@ -11,4 +11,4 @@ angular.module('shwop.sell', [])
       console.log(err);
     });
   };
-});
+}]);

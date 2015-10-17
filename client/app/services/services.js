@@ -1,7 +1,7 @@
 angular.module('shwop.services', [])
 
 
-.factory('Products', function ($http) {
+.factory('Products', ['$http', function ($http) {
   var getProducts = function () {
     return $http({
       method: 'GET',
@@ -22,8 +22,8 @@ angular.module('shwop.services', [])
     addProduct: addProduct
   };
 
-})
-.factory('Users', function ($http) {
+}])
+.factory('Users', ['$http', function ($http) {
   var getUsers = function () {
     return $http({
       method: 'GET',
@@ -43,8 +43,8 @@ angular.module('shwop.services', [])
     getUsers: getUsers,
     addUser: addUser
   };
-})
-.factory('Auth', function ($http, $location, $window) {
+}])
+.factory('Auth', ['$http', '$location', '$window', function ($http, $location, $window) {
   // This auth service is responsible for authenticating the user
   // by exchanging the user's username and password
   // for a JWT from the server.
@@ -89,4 +89,4 @@ angular.module('shwop.services', [])
     isAuth: isAuth,
     signout: signout
   };
-});
+}]);
