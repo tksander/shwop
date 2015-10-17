@@ -21,8 +21,8 @@ var User = orm.define('User', {
 });
 
 var Product = orm.define('Product', {
-  photoURL: Sequelize.STRING,
-  price: Sequelize.DECIMAL,
+  photoURL: Sequelize.STRING(150),
+  price: Sequelize.DECIMAL(10, 2),
 });
 
 Product.belongsTo(User); // This will add UserId attribute to Product to hold the primary key value for User
@@ -31,25 +31,30 @@ var Tag = orm.define('Tag', {
   tagName: Sequelize.STRING(100)
 });
 
+// var Product_Tag = orm.define('Product_Tag', {});
+
 // Join Table:
 // Creates a new model called product_tag with the equivalent
 // foreign keys ProductID and UserId. 
-Tag.belongsToMany(Product, {through: 'Product_Tag'});
-Product.belongsToMany(Tag, {through: 'Product_Tag'});
+// Tag.belongsToMany(Product, {through: 'Product_Tag'});
+// Product.belongsToMany(Tag, {through: 'Product_Tag'});
 
 ////////////////////////////////////
 ////// Sync models to the database
 ////////////////////////////////////
 
-// {force: true} - adds a DROP TABLE IF EXISTS before
+// REMOVED FROM CODE: {force: true} - adds a DROP TABLE IF EXISTS before
 // trying to create the table
-User.sync({force: true})  
+User.sync()  
   .then(function () {
-    Product.sync({force: true})
+    Product.sync()
   })
   .then(function () {
-    Tag.sync({force: true})
+    Tag.sync()
   })
+  // .then(function () {
+  //   Product_Tag.sync()
+  // })
   .catch(function(error) {
     console.log('Error in database sync:' + error);
   });
@@ -58,6 +63,6 @@ User.sync({force: true})
 ////// Export each model
 ////////////////////////////////////
 
-module.exports = User;
-module.exports = Product;
-module.exports = Tag;
+exports.User = User;
+exports.Product = Product;
+exports.Tag = Tag;
