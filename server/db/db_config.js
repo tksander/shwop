@@ -50,9 +50,6 @@ User.sync({force: true})
   .then(function () {
     Tag.sync({force: true})
   })
-  .then(function () {
-    Product_Tag.sync({force: true})
-  })
   .catch(function(error) {
     console.log('Error in database sync:' + error);
   });
