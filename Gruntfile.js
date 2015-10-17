@@ -11,25 +11,17 @@ module.exports = function(grunt) {
       },
       createdb: {
         command: [
-        "mysql -u root  -e 'create database shwopDB;'",
+        "mysql -u root -e 'create database shwopDB;'",
         "echo Lets go shwoping!"
         ].join('&&')
       },
       truncateDB: {
         command: [
-        "mysql -u root  -e 'use database shwopDB;'",
-        "'truncate table Users;'",
-        "mysql -u root  -e 'truncate table Products;'",
-        "mysql -u root  -e 'truncate table Tags;'",
         "echo Shwoping cart cleared!"
         ].join('&&')
       },
       dropDB: {
         command: [
-        "mysql -u root  -e 'use database shwopDB;'",
-        "mysql -u root  -e 'drop table Users;'",
-        "mysql -u root  -e 'drop table Products;'",
-        "mysql -u root  -e 'drop table Tags;'",
         "echo You dropped all your shwopping bags!"
         ].join('&&')
       }
