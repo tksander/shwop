@@ -12,13 +12,8 @@
 
   <input class='input-box' type='text' ng-model='search' placeholder='search for specific item' />
 
-  <div ng-repeat="product in data.products | filter:search | orderBy: created_at" class="product">
- 
-
-    <img src='../assets/redirect_icon.png'/>
-    <div class='visits'><span class='count'>{{ product.visits }}</span>Visits</div>
-    <div class='title'>{{ product.title }}</div>
-    <div class='original'>{{ product.url }}</div>
-    <a href='http://localhost:8080/api/products/{{ product.code }}'>{{ product.base_url }}/{{ product.code }}</a>
+  <div ng-repeat='product in data.products | filter:search | orderBy: created_at' class='product'>
+    <img ng-src='{{ product.url }}' class='product-image'>
+    <div class='product-price'><strong>${{ product.price }}</strong></div>
   </div>
 </div>

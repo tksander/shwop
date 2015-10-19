@@ -27,6 +27,14 @@ module.exports = function(grunt) {
       }
     },
 
+    sass: {                                                        // Task
+      dist: {                                                      // Target
+        files: {                                                   // Dictionary of files
+          'client/styles/style.css': 'client/styles/style.scss',   // 'destination': 'source'
+        }
+      }
+    },
+
     // mochaTest: {
     //   test: {
     //     options: {
@@ -102,6 +110,7 @@ module.exports = function(grunt) {
   // grunt.loadNpmTasks('grunt-contrib-watch');
   // grunt.loadNpmTasks('grunt-contrib-concat');
   // grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
@@ -126,6 +135,8 @@ module.exports = function(grunt) {
   grunt.registerTask('test', [
     'mochaTest'
   ]);
+
+  grunt.registerTask('sass', ['sass']);
 
   grunt.registerTask('create', function(n) {
     grunt.task.run(['shell:createdb']);

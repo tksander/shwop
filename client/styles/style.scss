@@ -4,10 +4,12 @@ body {
   font-family: arial, sans-serif;
 }
 
-li.menu {
-  list-style: none;
-  float: left;
-  padding: 0 10px;
+li {
+  .menu {
+    list-style: none;
+    float: left;
+    padding: 0 10px;
+  }
 }
 
 .input-box {
