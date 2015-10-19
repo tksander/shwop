@@ -81,7 +81,9 @@ describe('Database', function () {
     //       });
     //     };
 
+
     //     expect(findNonExistantProduct()).to.throw(Error);
+
 
     //   });
     // });
