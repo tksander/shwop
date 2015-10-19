@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-describe('the todo.App', function() {
+describe('utilities ', function() {
   describe('the todo object', function(){
 
     it('should be an object', function(){

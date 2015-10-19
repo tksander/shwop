@@ -5,8 +5,8 @@ describe('API calls', function () {
   var app, JSONresponse, findAllStub;
 
   before(function () {
-    process.env.NODE_ENV = 'test';
-    app = require('../../../server/server');
+    // process.env.NODE_ENV = 'test';
+    // app = require('../../../server/server');
     
     JSONresponse = { products: 
       [{ id: 123, photoUrl: 'http://placehold.it/120x120&text=image1', price: 50.00, user_id: 111 },
@@ -23,7 +23,7 @@ describe('API calls', function () {
   });
 
   describe('GET /api/products', function () {
-    xit('should respond with a 200 status code', function (done) {
+    xit('should fetch jSON object of all products', function (done) {
       request(app)
         .get('/api/products')
         .set('Accept', 'application/json')
@@ -33,7 +33,7 @@ describe('API calls', function () {
   });
 
     describe('POST /api/products', function () {
-    xit('should respond with a 200 status code', function (done) {
+    xit('should add a new product to the database', function (done) {
       request(app)
         .get('/api/products')
         .set('Accept', 'application/json')
