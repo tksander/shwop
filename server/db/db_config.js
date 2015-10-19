@@ -72,3 +72,4 @@ User.sync()
 exports.User = User;
 exports.Product = Product;
 exports.Tag = Tag;
+exports.Orm = orm;
