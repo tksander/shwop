@@ -95,6 +95,9 @@ describe('Database', function () {
       });
     });
 
+
+
+
     // describe('Not find a record that doesn\'t exist', function () {
     //   it('should throw error when looking for non-existant record', function (done) {
         
@@ -111,7 +114,7 @@ describe('Database', function () {
     //         done();
     //       });
     //     };
-        
+
     // //     expect(findNonExistantProduct()).to.throw(Error);
     // //   });
     // // });
