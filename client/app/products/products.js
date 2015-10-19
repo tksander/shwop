@@ -1,6 +1,10 @@
 angular.module('shwop.products', [])
 
 .controller('ProductController', ['$scope', 'Products', function ($scope, Products) {
+  $scope.swiped = function(direction) {
+    alert('Swiped ' + direction);
+  };
+
   $scope.data = {};
 
   $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
@@ -18,4 +22,25 @@ angular.module('shwop.products', [])
   //   });
   // };
   // $scope.getProducts();
+}])
+
+.directive('dragMe', ['$drag', function($drag){
+  return {
+    controller: function($scope, $element) {
+      $drag.bind($element, 
+        {
+          // limit movement of element to its parent
+          transform: $drag.TRANSLATE_INSIDE($element.parent()),
+
+          // go back to initial position
+          end: function(drag) {
+            drag.reset();
+          }
+        },
+        { // release touch when movement is outside bounduaries
+          sensitiveArea: $element.parent()
+        }
+      );
+    }
+  };
 }]);

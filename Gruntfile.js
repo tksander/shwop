@@ -136,7 +136,7 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('sass', ['sass']);
+  grunt.registerTask('runSass', ['sass']);
 
   grunt.registerTask('create', function(n) {
     grunt.task.run(['shell:createdb']);
