@@ -17,13 +17,25 @@ describe('Database', function () {
     });
 
     // the before each section runs before each test
-    beforeEach(function () {
-      // Clears all the records from Products database
-      db.Product.destroy(
-        {where: 
-          {name: ''},
-          truncate: true
-        });
+    beforeEach(function (done) {
+
+      // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
+      db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
+      .then(function(){
+          return db.Orm.sync({ force: true });
+      })
+      .then(function(){
+
+          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
+      })
+      .then(function(){
+          console.log('Database synchronised.');
+          done();
+      })
+      .catch(function(error) {
+        console.log('Found an error: ', error);
+        done();
+      })
     });
 
     describe('Create one record', function () {
@@ -63,36 +75,38 @@ describe('Database', function () {
       });
     });
 
-    describe('Delete specific records', function () {
-      it('should find one record and delete from database', function (done) {
-        
-        db.Product.bulkCreate(JSONresponse.products)
-          .then(function () {
-            console.log('products created');
-          })
-        .then(function () {
-          db.Product.findOne({where: {name: 'book'}})
-          .then(function (product) {
-            product.destroy()
-              .then(function() {
-                console.log('Model destoryed.');
-                db.Product.findOne({where: {name: 'book'}})
-                  .then(function(product) {
-                    console.log('Result of find operation: ', product);
-                    expect(product).to.equal(null);
-                    db.Product.findOne({where: {name: 'racecar'}})
-                      .then(function(product) {
-                        console.log('Result of find operation: ', product.dataValues.name);
-                        expect(product.dataValues.name).to.equal('racecar');
-                        done();
-                      })
-                  })
-              })
-          });
-        });
-
-      });
-    });
+   describe('Delete specific records', function () {
+     it('should find one record and delete from database', function (done) {
+       
+       db.Product.bulkCreate(JSONresponse.products)
+         .then(function () {
+           console.log('products created');
+         })
+       .then(function () {
+         return db.Product.findOne({where: {name: 'book'}})
+       })
+       .then(function (product) {
+         return product.destroy()
+       })
+       .then(function() {
+         console.log('Model destoryed.');
+         return db.Product.findOne({where: {name: 'book'}})
+       })
+       .then(function(product) {
+         console.log('Result of find operation: ', product);
+         expect(product).to.equal(null);
+         return db.Product.findOne({where: {name: 'racecar'}})
+       })
+       .then(function(product) {
+         console.log('Result of find operation: ', product.dataValues.name);
+         expect(product.dataValues.name).to.equal('racecar');
+         done();
+       })
+       .catch(function(error) {
+         Console.log("Found this error:  ", error);
+       })
+     });
+   });
 
     describe('Updating a product record', function () {
 
