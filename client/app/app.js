@@ -2,6 +2,7 @@ angular.module('shwop', [
   'shwop.services',
   'shwop.products',
   'shwop.sell',
+  'shwop.bid',
   'shwop.auth',
   'mobile-angular-ui',
   'mobile-angular-ui.gestures',
@@ -29,6 +30,11 @@ angular.module('shwop', [
     .when('/sell', {
       templateUrl: 'app/sell/sell.html',
       controller: 'SellController',
+      css: '../styles/style.css'
+    })
+    .when('/bid', {
+      templateUrl: 'app/bid/bid.html',
+      controller: 'BidController',
       css: '../styles/style.css'
     });
     // .when('/products:items', {        // TODO: Syntax for filtered items

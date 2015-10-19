@@ -2,7 +2,11 @@ angular.module('shwop.products', [])
 
 .controller('ProductController', ['$scope', 'Products', function ($scope, Products) {
   $scope.swiped = function(direction) {
-    alert('Swiped ' + direction);
+    if (direction === "LEFT") {
+      alert('Swiped LEFT');
+    } else {
+      alert('Swiped RIGHT');
+    }
   };
 
   $scope.data = {};

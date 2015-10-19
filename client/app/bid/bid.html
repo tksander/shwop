@@ -1,0 +1,19 @@
+<div id='container'>
+
+  <div class='navigation'>
+  <ul>
+    <li class='menu'><a href='#/products' class='index'>All Products</a></li>
+    <li class='menu'><a href='#/sell' class='sell'>Sell Item</a></li>
+    <li class='menu'><a href='#/logout' class='logout'>Logout</a></li>
+  </ul>
+  </div>
+
+  <form name='bidForm' class='bidForm' ng-submit='sendBid()' novalidate>
+    <div class='input-field'>
+      <input id='price' name='price' type='number' ng-model='form.product.price' required>
+      <label>What would you like to bid for this item (in dollars)?</label>
+    </div>
+
+      <button type='submit' value='Bid' ng-disabled='bidForm.$invalid'>Bid Item</button>
+  </form>
+</div>
