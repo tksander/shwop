@@ -64,12 +64,43 @@ describe('Database', function () {
       });
     });
 
+    describe('Delete specific records', function () {
+      it('should find one record and delete from database', function (done) {
+        
+        db.Product.bulkCreate(JSONresponse.products)
+          .then(function () {
+            console.log('products created');
+          })
+        .then(function () {
+          db.Product.findOne({where: {name: 'book'}})
+          .then(function (product) {
+            product.destroy()
+              .then(function() {
+                console.log('Model destoryed.');
+                db.Product.findOne({where: {name: 'book'}})
+                  .then(function(product) {
+                    console.log('Result of find operation: ', product);
+                    expect(product).to.equal(null);
+                    db.Product.findOne({where: {name: 'racecar'}})
+                      .then(function(product) {
+                        console.log('Result of find operation: ', product.dataValues.name);
+                        expect(product.dataValues.name).to.equal('racecar');
+                        done();
+                      })
+                  })
+              })
+          });
+        });
+
+      });
+    });
+
     // describe('Not find a record that doesn\'t exist', function () {
     //   it('should throw error when looking for non-existant record', function (done) {
         
     //     var findNonExistantProduct = function () {
     //       return db.Product.findOne({
-    //         where: {name: 'coffee cup'}
+    //         where: {name: 'wallet'}
     //       }).then(function (product) {
     //         console.log('found the product');
     //         return product;
@@ -80,20 +111,10 @@ describe('Database', function () {
     //         done();
     //       });
     //     };
-
-    //     expect(findNonExistantProduct()).to.throw(Error);
-
-    //   });
-    // });
-
+        
+    // //     expect(findNonExistantProduct()).to.throw(Error);
+    // //   });
+    // // });
 
   });
 });
-
-// Check if one item was inputted 
-
-
-
-// Check data was added to the Products table in DB
-
-// Get all query to DB, should return 3 products
