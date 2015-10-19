@@ -18,7 +18,7 @@ describe('Database', function () {
       // Clears all the records from Products database
       db.Product.destroy(
         {where: 
-          {photoURL: 'http://placehold.it/120x120&text=image1'},
+          {name: ''},
           truncate: true
         });
     });
@@ -116,5 +116,49 @@ describe('Database', function () {
     // //   });
     // // });
 
+    describe('Updating a product record', function () {
+      it('should create a product record and update its price', function (done) {
+        var priceBefore = 24.24;
+        var priceAfter = 99.99;
+
+        db.Product.create({
+          name: 'ken griffey jr bobblehead',
+          photoURL: 'http://placehold.it/120x120&text=image1',
+          price: priceBefore
+        })
+        .then(function () {
+          return db.Product.findOne({
+            where: {name: 'ken griffey jr bobblehead'}
+          });
+        })
+        .then(function (product) {
+          expect(product.get('price')).to.equal(priceBefore);
+        })
+        .then(function () {
+          return db.Product.update({ price: priceAfter }, {
+            where: { name:'ken griffey jr bobblehead' }
+          });
+        })
+        .then(function () {
+          return db.Product.findOne({
+            where: {name: 'ken griffey jr bobblehead'}
+          });
+        })
+        .then(function (product) {
+          expect(product.get('price')).to.equal(priceAfter);
+          done();
+        });
+      });
+    });
+
   });
 });
+
+// Check if one item was inputted 
+
+
+
+// Check data was added to the Products table in DB
+
+// Get all query to DB, should return 3 products
+
