@@ -5,7 +5,7 @@ angular.module('shwop.products', [])
     if (direction === "LEFT") {
       alert('Swiped LEFT');
     } else {
-      alert('Swiped RIGHT');
+      Products.bid();
     }
   };
 

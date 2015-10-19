@@ -1,7 +1,7 @@
 angular.module('shwop.services', [])
 
 
-.factory('Products', ['$http', function ($http) {
+.factory('Products', ['$http', '$location', function ($http, $location) {
   var getProducts = function () {
     return $http({
       method: 'GET',
@@ -17,9 +17,14 @@ angular.module('shwop.services', [])
     });
   };
 
+  var bid = function() {
+    $location.path('/bid');
+  };
+
   return {
     getProducts: getProducts,
-    addProduct: addProduct
+    addProduct: addProduct,
+    bid: bid
   };
 
 }])
