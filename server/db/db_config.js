@@ -21,8 +21,9 @@ var User = orm.define('User', {
 });
 
 var Product = orm.define('Product', {
+  name: Sequelize.STRING(50),
   photoURL: Sequelize.STRING(150),
-  price: Sequelize.DECIMAL(10, 2),
+  price: Sequelize.DECIMAL(10, 2)
 });
 
 Product.belongsTo(User); // This will add UserId attribute to Product to hold the primary key value for User
@@ -47,15 +48,15 @@ var Tag = orm.define('Tag', {
 // trying to create the table
 User.sync()  
   .then(function () {
-    Product.sync()
+    Product.sync();
   })
   .then(function () {
-    Tag.sync()
+    Tag.sync();
   })
   // .then(function () {
   //   Product_Tag.sync()
   // })
-  .catch(function(error) {
+  .catch(function (error) {
     console.log('Error in database sync:' + error);
   });
 
