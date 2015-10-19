@@ -94,27 +94,6 @@ describe('Database', function () {
       });
     });
 
-    // describe('Not find a record that doesn\'t exist', function () {
-    //   it('should throw error when looking for non-existant record', function (done) {
-        
-    //     var findNonExistantProduct = function () {
-    //       return db.Product.findOne({
-    //         where: {name: 'wallet'}
-    //       }).then(function (product) {
-    //         console.log('found the product');
-    //         return product;
-    //         done();
-    //       }).catch(function () {
-    //         console.log('in the catch statement');
-    //         throw err;
-    //         done();
-    //       });
-    //     };
-        
-    // //     expect(findNonExistantProduct()).to.throw(Error);
-    // //   });
-    // // });
-
     describe('Updating a product record', function () {
 
       it('should create a product record and update its price', function (done) {
