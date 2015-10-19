@@ -4,6 +4,7 @@ angular.module('shwop', [
   'shwop.sell',
   'shwop.auth',
   'mobile-angular-ui',
+  'mobile-angular-ui.gestures',
   'ngRoute'
 ])
 .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
