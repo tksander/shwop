@@ -12,8 +12,8 @@ var orm = new Sequelize('shwopDB', 'root', '', {
 var User = orm.define('User', {
   firstName: Sequelize.STRING(25),
   lastName: Sequelize.STRING(25),
-  phoneNumber: Sequelize.STRING(20),
-  email: Sequelize.STRING(20),
+  phoneNumber: { type: Sequelize.STRING(20), allowNull: false},
+  email: { type: Sequelize.STRING(20), allowNull: false},
   latitude: Sequelize.FLOAT(40),
   longitude: Sequelize.FLOAT(40),
   hash: Sequelize.STRING(100),
