@@ -12,8 +12,8 @@ var orm = new Sequelize('shwopDB', 'root', '', {
 var User = orm.define('User', {
   firstName: Sequelize.STRING(25),
   lastName: Sequelize.STRING(25),
-  phoneNumber: Sequelize.STRING(20),
-  email: Sequelize.STRING(20),
+  phoneNumber: { type: Sequelize.STRING(20), allowNull: false},
+  email: { type: Sequelize.STRING(20), allowNull: false},
   latitude: Sequelize.FLOAT(40),
   longitude: Sequelize.FLOAT(40),
   hash: Sequelize.STRING(100),
@@ -21,9 +21,9 @@ var User = orm.define('User', {
 });
 
 var Product = orm.define('Product', {
-  name: Sequelize.STRING(50),
-  photoURL: Sequelize.STRING(150),
-  price: Sequelize.DECIMAL(10, 2)
+  name:     { type: Sequelize.STRING(50), allowNull: false},
+  photoURL: { type: Sequelize.STRING(150), allowNull: false},
+  price:    { type: Sequelize.DECIMAL(10, 2), allowNull: false}
 });
 
 Product.belongsTo(User); // This will add UserId attribute to Product to hold the primary key value for User

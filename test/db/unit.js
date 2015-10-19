@@ -5,6 +5,7 @@ describe('Database', function () {
   describe('Products table', function () {
     var JSONresponse;
 
+    // the before section runs once
     before(function () {
 
       JSONresponse = { products: 
@@ -12,8 +13,10 @@ describe('Database', function () {
          { name: 'racecar', photoURL: 'http://placehold.it/120x120&text=image2', price: 15.25 },
          { name: 'wallet', photoURL: 'http://placehold.it/120x120&text=image3', price: 101.99 }]
       };
+
     });
 
+    // the before each section runs before each test
     beforeEach(function () {
       // Clears all the records from Products database
       db.Product.destroy(
@@ -31,34 +34,30 @@ describe('Database', function () {
           photoURL: 'http://placehold.it/120x120&text=image1',
           price: 50.52 
         })
-        .then(function() {
-          db.Product.findOne({
+        .then(function () {
+          return db.Product.findOne({
             where: {name: 'old couch'}
-          })
-          .then(function(product) {
-            expect(product).to.exist;
-            expect(product.dataValues.name).to.equal('old couch');
-            done();
           });
+        })
+        .then(function (product) {
+          expect(product).to.exist;
+          expect(product.get('name')).to.equal('old couch');
+          done();
         });
 
       });
-
     });
 
     describe('Create multiple records', function () {
       it('should create 3 records and find within database', function (done) {
         
         db.Product.bulkCreate(JSONresponse.products)
-          .then(function () {
-            console.log('products created');
-          })
         .then(function () {
-          db.Product.findAll()
-          .then(function (products) {
-            expect(products.length).to.equal(3);
-            done();
-          });
+          return db.Product.findAll();
+        })
+        .then(function (products) {
+          expect(products.length).to.equal(3);
+          done();
         });
 
       });
@@ -95,28 +94,8 @@ describe('Database', function () {
       });
     });
 
-    // describe('Not find a record that doesn\'t exist', function () {
-    //   it('should throw error when looking for non-existant record', function (done) {
-        
-    //     var findNonExistantProduct = function () {
-    //       return db.Product.findOne({
-    //         where: {name: 'wallet'}
-    //       }).then(function (product) {
-    //         console.log('found the product');
-    //         return product;
-    //         done();
-    //       }).catch(function () {
-    //         console.log('in the catch statement');
-    //         throw err;
-    //         done();
-    //       });
-    //     };
-        
-    // //     expect(findNonExistantProduct()).to.throw(Error);
-    // //   });
-    // // });
-
     describe('Updating a product record', function () {
+
       it('should create a product record and update its price', function (done) {
         var priceBefore = 24.24;
         var priceAfter = 99.99;
@@ -149,6 +128,7 @@ describe('Database', function () {
           done();
         });
       });
+
     });
 
   });
