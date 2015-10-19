@@ -72,30 +72,30 @@ describe('Database', function () {
             console.log('products created');
           })
         .then(function () {
-          db.Product.findOne({where: {name: 'book'}})
-          .then(function (product) {
-            product.destroy()
-              .then(function() {
-                console.log('Model destoryed.');
-                db.Product.findOne({where: {name: 'book'}})
-                  .then(function(product) {
-                    console.log('Result of find operation: ', product);
-                    expect(product).to.equal(null);
-                    db.Product.findOne({where: {name: 'racecar'}})
-                      .then(function(product) {
-                        console.log('Result of find operation: ', product.dataValues.name);
-                        expect(product.dataValues.name).to.equal('racecar');
-                        done();
-                      })
-                  })
-              })
-          });
-        });
-
+          return db.Product.findOne({where: {name: 'book'}})
+        })
+        .then(function (product) {
+          return product.destroy()
+        })
+        .then(function() {
+          console.log('Model destoryed.');
+          return db.Product.findOne({where: {name: 'book'}})
+        })
+        .then(function(product) {
+          console.log('Result of find operation: ', product);
+          expect(product).to.equal(null);
+          return db.Product.findOne({where: {name: 'racecar'}})
+        })
+        .then(function(product) {
+          console.log('Result of find operation: ', product.dataValues.name);
+          expect(product.dataValues.name).to.equal('racecar');
+          done();
+        })
+        .catch(function(error) {
+          Console.log("Found this error:  ", error);
+        })
       });
     });
-
-
 
 
     // describe('Not find a record that doesn\'t exist', function () {
