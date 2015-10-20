@@ -20,7 +20,7 @@ angular.module('shwop.products', [])
   $scope.getAllProducts = function () {
     Products.getAllProducts()
     .then(function (promise) {
-      $scope.data.products = promise.data;
+      $scope.data.products = promise.data.products;
       Products.setCurrentProduct($scope.data.products[0]);
     })
     .catch(function (err) {
