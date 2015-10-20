@@ -73,4 +73,6 @@ User.sync()
 exports.User = User;
 exports.Product = Product;
 exports.Tag = Tag;
+// Not sure we'll need this, exporting for convenience in testing. 
+exports.Product_Tag = Product_Tag;
 exports.Orm = orm;
