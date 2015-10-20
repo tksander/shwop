@@ -3,7 +3,12 @@ angular.module('shwop.products', [])
 .controller('ProductController', ['$scope', 'Products', function ($scope, Products) {
   $scope.swiped = function(direction) {
     if (direction === "LEFT") {
-      alert('Swiped LEFT');
+      $scope.data.products.pop();
+      if ($scope.data.products.length === 0){
+        $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
+        {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
+        {url: '../../photos/plane.jpg', price: 35000}];
+      }
     } else {
       Products.bid();
     }
