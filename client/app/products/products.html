@@ -13,7 +13,7 @@
   <input class='input-box' type='text' ng-model='search' placeholder='search for specific item' />
 
  <!--  <div drag-me='' class='drag-me' ng-repeat='product in data.products | filter:search | orderBy: created_at' class='product'> -->
-  <div  ng-repeat='product in data.products | filter:search | orderBy: created_at' class='product'>
+  <div  ng-repeat='product in data.products.slice().reverse() | filter:search | orderBy: created_at' class='product'>
     <img ui-swipe-left='swiped("LEFT")' ui-swipe-right='swiped("RIGHT")' ng-src='{{ product.url }}' class='product-image'>
     <div class='product-price'><strong>${{ product.price }}</strong></div>
   </div>
