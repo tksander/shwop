@@ -36,9 +36,10 @@ li {
 }
 
 #container {
-  width: 340px;   /*  Dimensions of iPhone 5/5s are 320 × 568  */
-  height: 640px;
+  /*width: 340px;     Dimensions of iPhone 5/5s are 320 × 568  
+  height: 640px;*/
   margin: auto;
+  position: absolute;
   /*padding: 1px;*/
   background-color: lightgray;
 }
