@@ -10,10 +10,10 @@
 
   <form name='bidForm' class='bidForm' ng-submit='sendBid()' novalidate>
     <div class='input-field'>
-      <input id='price' name='price' type='number' ng-model='form.product.price' required>
+      <input id='price' name='price' type='number' ng-model='bid' required>
       <label>What would you like to bid for this item (in dollars)?</label>
     </div>
 
-      <button type='submit' value='Bid' ng-disabled='bidForm.$invalid'>Bid Item</button>
+      <button type='submit' value='Bid' ng-click='sendBid'>Bid Item</button>
   </form>
 </div>

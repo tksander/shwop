@@ -2,7 +2,9 @@ angular.module('shwop.services', [])
 
 
 .factory('Products', ['$http', '$location', function ($http, $location) {
+
   var currentProduct = null;
+
   var getProducts = function () {
     return $http({
       method: 'GET',
@@ -30,12 +32,25 @@ angular.module('shwop.services', [])
     return currentProduct;
   };
 
+  var sendBid = function(bidderId, productId, bidAmount) {
+    return $http({
+      method: 'POST',
+      url: '/api/bids',
+      data: {
+        bidderId: bidderId,
+        productId: productId,
+        bidAmount: bidAmount
+      }
+    });
+  };
+
   return {
     getProducts: getProducts,
     addProduct: addProduct,
     setCurrentProduct: setCurrentProduct,
     getCurrentProduct: getCurrentProduct,
-    bid: bid
+    bid: bid,
+    sendBid: sendBid
   };
 
 }])
