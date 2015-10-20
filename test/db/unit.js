@@ -6,6 +6,25 @@ var Promise = require("bluebird");
 describe('Database', function () {
   var db = require('../../server/db/db_config.js');
 
+  var clearDB = function (done) {
+    // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints\
+    db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
+    .then(function (){
+      return db.Orm.sync({ force: true });
+    })
+    .then(function (){
+      return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1');
+    })
+    .then(function (){
+      console.log('Database synchronised.');
+      done();
+    })
+    .catch(function (error) {
+      console.log('Found an error: ', error);
+      done();
+    });
+    };
+
   /*
    * This section includes all unit tests related to the
    * Products table in the database.
@@ -15,7 +34,6 @@ describe('Database', function () {
 
     // This runs once
     before(function () {
-
       JSONresponse = { products: 
         [{ name: 'book',    photoURL: 'http://placehold.it/120x120&text=image1', price: 50.00 },
          { name: 'racecar', photoURL: 'http://placehold.it/120x120&text=image2', price: 15.25 },
@@ -24,27 +42,14 @@ describe('Database', function () {
 
     });
 
+    after(function (done) {
+      clearDB(done);
+    });
+
     //This runs before each test
     beforeEach(function (done) {
-
-      // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
-      db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
-      .then(function(){
-          return db.Orm.sync({ force: true });
-      })
-      .then(function(){
-          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
-      })
-      .then(function(){
-          console.log('Database synchronised.');
-          done();
-      })
-      .catch(function(error) {
-        console.log('Found an error: ', error);
-        done();
-      })
-
-      });
+      clearDB(done);
+    });
 
     describe('Create one record', function () {
 
