@@ -1,19 +1,22 @@
 var express = require('express');
-// var db = require('./db/db_config.js')
+// var mongoose = require('mongoose');
 
 var app = express();
+
+// mongoose.connect('mongodb://localhost/shortly'); // connect to mongo database named shortly
 
 // configure our server with all the middleware and and routing
 require('./config/middleware.js')(app, express);
 
 // export our app for testing and flexibility, required by index.js
+
 app.listen(8080);
 
 module.exports = app;
 
 
 /* Walkthrough of the server
-  Express, mongoose, and our server are initialzed here
+  Express, mongoose, and our server are initialized here
   Next, we then inject our server and express into our config/middleware.js file for setup.
     We also exported our server for easy testing
   middleware.js requires all express middleware and sets it up
