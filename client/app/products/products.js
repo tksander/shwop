@@ -1,14 +1,17 @@
 angular.module('shwop.products', [])
 
 .controller('ProductController', ['$scope', 'Products', function ($scope, Products) {
+  
+
   $scope.swiped = function(direction) {
     if (direction === "LEFT") {
-      $scope.data.products.pop();
+      $scope.data.products.shift();
       if ($scope.data.products.length === 0){
         $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
         {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
         {url: '../../photos/plane.jpg', price: 35000}];
       }
+      Products.setCurrentProduct($scope.data.products[0]);
     } else {
       Products.bid();
     }
@@ -19,6 +22,8 @@ angular.module('shwop.products', [])
   $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
   {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
   {url: '../../photos/plane.jpg', price: 35000}];
+
+  Products.setCurrentProduct($scope.data.products[0]);
 
   // $scope.getProducts = function () {
   //   Products.getProducts()
