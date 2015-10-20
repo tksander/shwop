@@ -12,8 +12,8 @@ module.exports = function (app) {
 
   app.route('/')
     .get(productController.allProducts)
-    .post(productController.newProduct);
-
+    .post(productController.newProduct)
+    .put(productController.updateProduct)
+    .delete(productController.deleteProduct);
   // app.get('/:code', linksController.navToLink);
-
 };

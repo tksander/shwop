@@ -105,36 +105,37 @@ describe('Database', function () {
       });
     });
 
-   describe('Delete specific records', function () {
+    describe('Delete specific records', function () {
 
-     it('should find one record and delete from database', function (done) {
+      it('should find one record and delete from database', function (done) {
        
-       db.Product.bulkCreate(JSONresponse.products)
-       .then(function () {
-         return db.Product.findOne({ where: { name: 'book' } });
-       })
-       .then(function (product) {
-         return product.destroy();
-       })
-       .then(function() {
-         // console.log('Model destroyed.');
-         return db.Product.findOne({ where: { name: 'book' } });
-       })
-       .then(function (product) {
-         // console.log('Result of find operation: ', product);
-         expect(product).to.equal(null);
-         return db.Product.findOne({ where: {name: 'racecar'} });
-       })
-       .then(function (product) {
-         // console.log('Result of find operation: ', product.dataValues.name);
-         expect(product.dataValues.name).to.equal('racecar');
-         done();
-       })
-       .catch(function (error) {
+        db.Product.bulkCreate(JSONresponse.products)
+        .then(function () {
+          return db.Product.findOne({ where: { name: 'book' } });
+        })
+        .then(function (product) {
+          return product.destroy();
+        })
+        .then(function() {
+          // console.log('Model destroyed.');
+          return db.Product.findOne({ where: { name: 'book' } });
+        })
+        .then(function (product) {
+          // console.log('Result of find operation: ', product);
+          expect(product).to.equal(null);
+          return db.Product.findOne({ where: {name: 'racecar'} });
+        })
+        .then(function (product) {
+          // console.log('Result of find operation: ', product.dataValues.name);
+          expect(product.get('name')).to.equal('racecar');
+          done();
+        })
+        .catch(function (error) {
          console.log("Found this error:  ", error);
-       });
-     });
-   });
+        });
+
+      });
+    });
 
     describe('Updating a product record', function () {
 
