@@ -5,7 +5,7 @@ angular.module('shwop.services', [])
 
   var currentProduct = null;
 
-  var getProducts = function () {
+  var getAllProducts = function () {
     return $http({
       method: 'GET',
       url: '/api/products'
@@ -45,7 +45,7 @@ angular.module('shwop.services', [])
   };
 
   return {
-    getProducts: getProducts,
+    getAllProducts: getAllProducts,
     addProduct: addProduct,
     setCurrentProduct: setCurrentProduct,
     getCurrentProduct: getCurrentProduct,
