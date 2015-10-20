@@ -1,11 +1,17 @@
 var expect = require('chai').expect;
+var Sequelize = require('sequelize');
 
 describe('Database', function () {
   var db = require('../../server/db/db_config.js');
+
+  /*
+   * This section includes all unit tests related to the
+   * Products table in the database.
+   */
   describe('Products table', function () {
     var JSONresponse;
 
-    // the before section runs once
+    // This before statement runs once
     before(function () {
 
       JSONresponse = { products: 
@@ -16,26 +22,25 @@ describe('Database', function () {
 
     });
 
+
     beforeEach(function (done) {
-      console.log('Executing before protocol.');
 
-    // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
-    db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
-    .then(function(){
+      // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
+      db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
+      .then(function (){
         return db.Orm.sync({ force: true });
-    })
-    .then(function(){
-
-        return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
-    })
-    .then(function(){
+      })
+      .then(function (){
+        return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1');
+      })
+      .then(function (){
         console.log('Database synchronised.');
         done();
-    })
-    .catch(function(error) {
-      console.log('Found an error: ', error);
-      done();
-    })
+      })
+      .catch(function (error) {
+        console.log('Found an error: ', error);
+        done();
+      });
 
     });
 
@@ -58,6 +63,31 @@ describe('Database', function () {
           done();
         });
 
+      });
+
+      it('should throw an error if all required fields are not provided', function (done) {
+        
+        var postWithoutPhoto = function () {
+          db.Product.create({
+            name: 'gary payton vintage jersey',
+            price: 500.00 
+          })
+          .then(function () {
+            console.log('Warning! A product was successfully posted without a photo');
+            expect(undefined).to.be.ok;
+            done();
+          })
+          .catch(function (err) {
+            // console.log('in the catch statement');
+            // console.log('the err is ', err);
+            // throw err;
+            expect(err).to.be.ok;
+            done();
+          });
+        };
+
+        // expect(postWithoutPhoto).to.throw(Error);
+        postWithoutPhoto();
       });
     });
 
@@ -147,6 +177,26 @@ describe('Database', function () {
     });
 
   });
+
+
+  /*
+   * This section includes all unit tests related to the
+   * Users table in the database.
+   */
+  describe('Users table', function () {
+
+  });
+
+
+  /*
+   * This section includes all unit tests related to the
+   * Tags table in the database.
+   */
+  describe('Tags table', function () {
+
+  });
+
+
 });
 
 // Check if one item was inputted 
