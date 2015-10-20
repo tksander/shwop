@@ -35,6 +35,11 @@ module.exports = function(grunt) {
       }
     },
 
+    execute: {
+      target: {
+        src: ['server/db/dummy_data.js']
+      }
+    },
     // mochaTest: {
     //   test: {
     //     options: {
@@ -114,6 +119,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-execute');
 
   // grunt.registerTask('server-dev', function (target) {
   //   // Running nodejs in a different process and displaying output on the main console
@@ -162,13 +168,18 @@ module.exports = function(grunt) {
     grunt.task.run(['nodemon']);
   });
 
+  grunt.registerTask('dummy', function(n) {
+    grunt.task.run(['execute']);
+  });
+
   grunt.registerTask('start', function(n) {
     grunt.task.run(['nodemon']);
   });
 
-  grunt.registerTask('deploy', [
+  grunt.registerTask('deploy', function() {
       // add your production server task here
-  ]);
+  });
 
 
 };
+

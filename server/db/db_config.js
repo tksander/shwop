@@ -13,7 +13,7 @@ var User = orm.define('User', {
   firstName: Sequelize.STRING(25),
   lastName: Sequelize.STRING(25),
   phoneNumber: { type: Sequelize.STRING(20), allowNull: false},
-  email: { type: Sequelize.STRING(20), allowNull: false},
+  email: { type: Sequelize.STRING(50), allowNull: false},
   latitude: Sequelize.FLOAT(40),
   longitude: Sequelize.FLOAT(40),
   hash: Sequelize.STRING(100),
@@ -59,7 +59,7 @@ User.sync()
     Tag.sync();
   })
   .then(function () {
-    Product_Tag.sync()
+    Product_Tag.sync();
   })
   .catch(function (error) {
     console.log('Error in database sync:' + error);
