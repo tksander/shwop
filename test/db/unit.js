@@ -1,5 +1,7 @@
 var expect = require('chai').expect;
 var Sequelize = require('sequelize');
+var Promise = require("bluebird");
+
 
 describe('Database', function () {
   var db = require('../../server/db/db_config.js');
@@ -27,22 +29,22 @@ describe('Database', function () {
 
       // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
       db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
-      .then(function (){
-        return db.Orm.sync({ force: true });
+      .then(function(){
+          return db.Orm.sync({ force: true });
       })
-      .then(function (){
-        return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1');
+      .then(function(){
+          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
       })
-      .then(function (){
-        console.log('Database synchronised.');
-        done();
+      .then(function(){
+          console.log('Database synchronised.');
+          done();
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log('Found an error: ', error);
         done();
-      });
+      })
 
-    });
+      });
 
     describe('Create one record', function () {
 
@@ -171,7 +173,28 @@ describe('Database', function () {
           done();
         });
       });
+    });
 
+    describe('Adding to join table', function () {
+
+      it('should create a product and tag record', function (done) {
+
+        // var promise = Promise.map(['Black', 'Furry', 'Hat'], function(tag) {
+        //   return db.Tag.create({ tagName: tag });
+        // })
+        // console.log('array', promise);
+
+        new Promise(function() {
+            var tags = Promise.map( ['John', 'Jane', 'Pete'], function(tag) {
+              return db.Tag.create({ tagName: tag });
+            });
+            var product = db.Product.findOrCreate({id: 1});
+            return Promise.all([product, tags]);
+          })
+          .spread(function(product, tags) {return product.setTags(tags)})
+          .then(function(result) { console.log(result)})
+      
+      });
     });
 
   });
