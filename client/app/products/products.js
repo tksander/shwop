@@ -7,9 +7,7 @@ angular.module('shwop.products', [])
     if (direction === "LEFT") {
       $scope.data.products.shift();
       if ($scope.data.products.length === 0){
-        $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
-        {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
-        {url: '../../photos/plane.jpg', price: 35000}];
+        $scope.getAllProducts();
       }
       Products.setCurrentProduct($scope.data.products[0]);
     } else {
@@ -19,23 +17,23 @@ angular.module('shwop.products', [])
 
   $scope.data = {};
 
-  $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
-  {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
-  {url: '../../photos/plane.jpg', price: 35000}];
-
-  Products.setCurrentProduct($scope.data.products[0]);
-
-  // $scope.getProducts = function () {
-  //   Products.getProducts()
-  //   .then(function (promise) {
-  //     // console.log("promise.data", JSON.stringify(promise.data));
-  //     $scope.data.products = promise.data;
-  //   })
-  //   .catch(function (err) {
-  //     console.log(err);
-  //   });
-  // };
-  // $scope.getProducts();
+  $scope.getAllProducts = function () {
+    Products.getAllProducts()
+    .then(function (promise) {
+      $scope.data.products = promise.data;
+      Products.setCurrentProduct($scope.data.products[0]);
+    })
+    .catch(function (err) {
+      if (err){
+        console.log("/api/products GET failed. Populating products with dummy data.");
+        $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
+        {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
+        {url: '../../photos/plane.jpg', price: 35000}];
+        Products.setCurrentProduct($scope.data.products[0]);
+      }
+    });
+  };
+  $scope.getAllProducts();
 }])
 
 .directive('dragMe', ['$drag', function($drag){
