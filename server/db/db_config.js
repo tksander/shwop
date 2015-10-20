@@ -9,6 +9,7 @@ var orm = new Sequelize('shwopDB', 'root', '', {
 ////// Create table/model schemas
 ////////////////////////////////////
 
+
 var User = orm.define('User', {
   firstName: Sequelize.STRING(25),
   lastName: Sequelize.STRING(25),
@@ -33,10 +34,10 @@ var Tag = orm.define('Tag', {
 });
 
 var Product_Tag = orm.define('Product_Tag', {
-  id: {
-    type: Sequelize.INTEGER,
-    primaryKey: true
-  }
+  // id: {
+  //   type: Sequelize.INTEGER,
+  //   primaryKey: true
+  // }
 });
 
 // Join Table:
@@ -72,4 +73,6 @@ User.sync()
 exports.User = User;
 exports.Product = Product;
 exports.Tag = Tag;
+// Not sure we'll need this, exporting for convenience in testing. 
+exports.Product_Tag = Product_Tag;
 exports.Orm = orm;

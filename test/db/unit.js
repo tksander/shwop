@@ -1,5 +1,7 @@
 var expect = require('chai').expect;
 var Sequelize = require('sequelize');
+var Promise = require("bluebird");
+
 
 describe('Database', function () {
   var db = require('../../server/db/db_config.js');
@@ -27,22 +29,22 @@ describe('Database', function () {
 
       // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
       db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
-      .then(function (){
-        return db.Orm.sync({ force: true });
+      .then(function(){
+          return db.Orm.sync({ force: true });
       })
-      .then(function (){
-        return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1');
+      .then(function(){
+          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
       })
-      .then(function (){
-        console.log('Database synchronised.');
-        done();
+      .then(function(){
+          console.log('Database synchronised.');
+          done();
       })
-      .catch(function (error) {
+      .catch(function(error) {
         console.log('Found an error: ', error);
         done();
-      });
+      })
 
-    });
+      });
 
     describe('Create one record', function () {
 
@@ -171,17 +173,74 @@ describe('Database', function () {
           done();
         });
       });
-
     });
+
+    describe('Adding to join table', function () {
+
+      it('should create a product and tag record and associate in database', function (done) {
+
+        var tagsArr = [];
+        var names = ['Bobblehead', 'Baseball', 'Ken Griffey Jr']
+        for(var i = 0; i < names.length; i++) {
+          tagsArr.push(db.Tag.create({ tagName: names[i] }));
+        }
+        tagsArr.push(db.Product.create({
+                      name: 'ken griffey jr bobblehead',
+                      photoURL: 'http://placehold.it/120x120&text=image1',
+                      price: 55.55
+                      })
+        );
+
+        // Promise.all takes the array of promises and fulfills them at once
+        // https://www.promisejs.org/patterns/
+        Promise.all(tagsArr)
+          .then(function(results) {
+            console.log("all files were created");
+            product = results.pop();
+            // Save
+            product.setTags(results).then(function() {
+              // saved!
+              console.log('saved!');
+            })
+          })
+          .then(function() {
+            return db.Product.findOne({
+                where: { name: 'ken griffey jr bobblehead' }
+            })
+          })
+          .then(function(product) {
+            expect(product).to.exist;
+            // ok now they are saved
+            return product.getTags()
+          })
+          .then(function(associatedTasks){
+            expect(associatedTasks.length).to.equal(3);
+            expect(associatedTasks[0].dataValues.tagName).to.equal('Bobblehead');
+            done()
+          })
+      });
+    });
+
 
   });
 
+
+// write test for products user foreign key 
+  // read & write query 
 
   /*
    * This section includes all unit tests related to the
    * Users table in the database.
    */
   describe('Users table', function () {
+
+    // describe('Retrieves product associate with user', function () {
+
+    //     it('should return product associated with user', function (done) {
+    //       // create User
+    //      db.User.create({})
+    //     });
+    //   });
 
   });
 
