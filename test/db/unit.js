@@ -188,7 +188,7 @@ describe('Database', function () {
             // Save
             product.setTags(results).then(function() {
               // saved!
-              console.log('saved!');
+              // console.log('saved!');
             });
           })
           .then(function() {
@@ -230,7 +230,7 @@ describe('Database', function () {
           return db.Orm.sync({ force: true });
       })
       .then(function (){
-          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
+          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1');
       })
       .then(function (){
           console.log('Database synchronised.');
@@ -239,7 +239,7 @@ describe('Database', function () {
       .catch(function (error) {
         console.log('Found an error: ', error);
         done();
-      })
+      });
     });
 
     describe('Retrieves product associate with user', function () {
@@ -276,22 +276,22 @@ describe('Database', function () {
           return product.setUser(user);
         })
         .then(function () {
-          return db.Product.findOne({where: {name: 'ken griffey jr bobblehead'}}) 
+          return db.Product.findOne({where: {name: 'ken griffey jr bobblehead'}});
         })
         .then(function (product) {
           // console.log(product);
           return product.getUser(); // Get the User associate with this Product
         })
         .then(function (user) {
-          expect(user.dataValues.firstName).to.equal('Poopy')
+          expect(user.dataValues.firstName).to.equal('Poopy');
         })
         .then(function () {
-          return db.User.findOne({where: {firstName: 'Poopy'}})
+          return db.User.findOne({where: {firstName: 'Poopy'}});
         })
         .then(function (user) {
          return user.getProducts(); // Get the Product associated with this User, Returns an array
         })
-        .then(function(product) {
+        .then(function (product) {
           expect(product[0].dataValues.name).to.equal('ken griffey jr bobblehead');
           done();
         });
@@ -336,16 +336,16 @@ describe('Database', function () {
           return user.setProducts(results);
         })
         .then(function () {
-          return db.User.findOne({where: {firstName: 'Poopy'}})
+          return db.User.findOne({where: {firstName: 'Poopy'}});
         })
         .then(function (user) {
           return user.getProducts();
         })
         .then(function (products) {
-          expect(products.length).to.equal(2)
+          expect(products.length).to.equal(2);
           expect(products[0].dataValues.name).to.equal('ken griffey jr bobblehead');
           done();
-        })
+        });
       });
     });
 
@@ -356,9 +356,9 @@ describe('Database', function () {
    * This section includes all unit tests related to the
    * Tags table in the database.
    */
-  describe('Tags table', function () {
+  // describe('Tags table', function () {
 
-  });
+  // });
 
 
 });
