@@ -82,7 +82,7 @@ angular.module('shwop.services', [])
 }])
 .factory('Photos', function($http) {
   var resizeImage = function (file, height, callback) {
-    // Takes an uploaded file, resizes it based on height and calls the callback sending it a Blob
+    // Takes an uploaded file, resizes it based on height, and calls the callback, sending it a Blob.
     var img = new Image();
     var reader = new FileReader();
 
@@ -105,6 +105,7 @@ angular.module('shwop.services', [])
     reader.readAsDataURL(file);
   };
 
+  // Retrieves keys needed to post photos to parse.com
   var getPhotoAPIKeys = function(){
     return $http.get('/api/keys')
       .then(function(resp) {
@@ -116,6 +117,10 @@ angular.module('shwop.services', [])
     // takes a File after upload, resizes it and uploads it to Parse.
     // Sends Url of upload to callback function
     var resizedFileHeight = 300;
+
+    // Calls resizeImage, which converts a photo to blob, then posts that
+    // data to parse.com, receives the photo url in parse's response, and
+    // passes the url into uploadPhoto's callback function.
     resizeImage(file, resizedFileHeight, function(fileBlob) {
       var serverUrl = 'https://api.parse.com/1/files/' + file.name;
 
