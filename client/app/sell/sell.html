@@ -1,48 +1,60 @@
-<div id='container'>
+  <!-- TODO: (1) Research photo file path validation  -->
 
-  <!-- TODO: (1) Create 'addTag()' & 'addPhoto()'; (2) Create 'fileread' directive for uploading photo;
-        (3) Research photo file path validation  -->
-
-  <div class='navigation'>
-  <ul>
-    <li class='menu'><a href='#/products' class='index'>All Products</a></li>
-    <li class='menu'><a href='#/sell' class='sell'>Sell Item</a></li>
-    <li class='menu'><a href='#/logout' class='logout'>Logout</a></li>
-  </ul>
-  </div>
+  <nav class='navbar navbar-app navbar-relative-top'>
+    <div class='btn-group justified'>
+      <a href='#/products' class='btn btn-navbar'>All Products</a>
+      <a href='#/sell' class='btn btn-navbar'>Sell Item</a>
+      <a href='#/logout' class='btn btn-navbar'>Logout</a>
+    </div>
+  </nav>
 
   <form name='sellForm' class='sellForm' ng-submit='addProduct()' novalidate>
-    <div class='input-field'>
-      <input id='name' name='name' type='text' ng-model='product.name' required>
-      <label>Product Name</label>
-    </div>
-
-    <div class='input-field'>
-      <input id='price' name='price' type='number' ng-model='product.price' required>
-      <label>What is your asking price (in dollars)?</label>
+    <div class='row'>
+      <div class='col-md-4 col-centered'>
+        <input id='name' name='name' type='text' ng-model='product.name' required><br />
+        <label>Product Name</label>
+      </div>
     </div>
 
     <div class='row'>
-      <div class='input-field'>
-        <input id='tags' name='tags' type='text' ng-model='product.tag' ng-enter='addTag()' required>
-        <label for='tags'>Add Search Tags</label>
-      </div>
-      <div>
-        <a class='button' type='button' ng-click='addTag()'><em>add tag</em></a>
+      <div class='col-md-4 col-centered'>
+        <input id='price' name='price' type='number' ng-model='product.price' required><br />
+        <label>What is your asking price (in dollars)?</label>
       </div>
     </div>
 
-    <div class='input-field'>
-      <input id='photo' name='photo' type='file' fileread='productPhoto' required>
-      <label>Upload photo</label>
-      <div class='file-path-wrapper'>
-        <input class='file-path validate' type='text' ng-model='filePath'>
-      </div>
-      <div>
-        <a class='button' type='button' ng-click='addPhoto()'><em>add photo</em></a>
+    <div class='row'>
+      <div class='col-md-4 col-centered'>
+        <select name='repeatSelect' id='repeatSelect' ng-model='product.category'>
+          <option ng-repeat='category in categories' value='{{ category.id }}' required>{{ category.name }}</option><br />
+        </select>
+        <label for='repeatSelect'>Pick Product Category</label>
       </div>
     </div>
 
-      <button type='submit' value='Sell' ng-disabled='sellForm.$invalid'>Sell Item</button>
+    <div class='row'>
+      <div class='col-md-4 col-centered'>
+        <input id='tags' name='tags' type='text' ng-model='product.tag' ng-enter='addTag()' required><br />
+        <a class='button' type='button' ng-click='addTag()'><em>Add Search Tags</em></a>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-4 col-centered'>
+        <input id='photo' name='photo' type='file' fileread='productPhoto' required>
+        <label>Upload photo</label>
+        <div class='file-path-wrapper'>
+          <input class='file-path validate' type='text' ng-model='filePath'>
+        </div>
+        <div>
+          <a class='button' type='button' ng-click='addPhoto()'><em>add photo</em></a>
+        </div>
+      </div>
+    </div>
+
+    <div class='row'>
+      <div class='col-md-4 col-centered'>
+        <button type='submit' value='Sell' ng-disabled='sellForm.$invalid'>Sell Item</button>
+      </div>
+    </div>
   </form>
-</div>
