@@ -363,9 +363,9 @@ describe('Database', function () {
    */
   describe('Tags table', function () {
 
-     // after(function (done) {
-     //    clearDB(done);
-     //  });
+    after(function (done) {
+      clearDB(done);
+    });
 
     //This runs before each test
     beforeEach(function (done) {
@@ -442,11 +442,118 @@ describe('Database', function () {
         return tag.getProducts();
       })
       .then(function (products) {
+        expect(products.length).to.equal(2);
+        expect(products[0].dataValues.name).to.equal('ken griffey jr bobblehead');
+        expect(products[1].dataValues.name).to.equal('mike trout baseball bat');
         done()
       })
-
     });
   });
+
+  ////////////////////////////////////////////
+  /////// Full Entry Test
+  ////////////////////////////////////////////
+
+  describe('Full entry test', function () {
+
+    var newUser = { 
+      firstName: 'Michael',
+      lastName: 'Jordan',
+      phoneNumber: '(232)323-1995',
+      email: 'michael@jordan.com'
+    };
+
+    after(function (done) {
+      clearDB(done);
+    });
+
+    //This runs before each test
+    beforeEach(function (done) {
+      clearDB(done);
+    });
+
+    it('should add a user, with a product, and associated tags', function (done) {
+      var product;
+      var user;
+      var tagsArr = [];
+      var names = ['Bobblehead', 'Baseball', 'Ken Griffey Jr', 'Seattle']
+      for(var i = 0; i < names.length; i++) {
+        tagsArr.push(db.Tag.findOrCreate({where: { tagName: names[i] }}));
+      }
+      tagsArr.push(db.User.create(newUser));
+      tagsArr.push(db.Product.create({
+                    name: 'ken griffey jr bobblehead',
+                    photoURL: 'http://placehold.it/120x120&text=image1',
+                    price: 55.55
+                    })
+      );
+
+      var tagsArr2 = [];
+      var names2 = ['Bat', 'Baseball', 'Mike Trout', 'Los Angeles', 'Angels', 'Sports']
+      for(var i = 0; i < names2.length; i++) {
+        tagsArr2.push(db.Tag.findOrCreate({where: { tagName: names2[i] }}));
+      }
+      tagsArr2.push(db.Product.create({
+                    name: 'mike trout baseball bat',
+                    photoURL: 'http://placehold.it/120x120&text=image2',
+                    price: 20.99
+                    })
+      );
+
+
+      Promise.all(tagsArr)
+      .spread(function () {
+        var args = Array.prototype.slice.call(arguments);
+        product = args.pop();
+        user = args.pop();
+
+        var results = [];
+        for(var i = 0; i < args.length; i++) {
+          results.push(args[i][0]);
+        }
+        // Save
+        return product.setTags(results)
+      })
+      .then(function(results) {
+        // saved!
+        return product.setUser(user);
+        console.log('saved1! ');
+      })
+      .then(function () {
+        return Promise.all(tagsArr2);
+      })
+      .spread(function () {
+        var args = Array.prototype.slice.call(arguments);
+        var product = args.pop();
+
+        var results = [];
+        for(var i = 0; i < args.length; i++) {
+          results.push(args[i][0]);
+        }
+        // Save
+        return product.setTags(results)
+      })
+      .then(function(results) {
+        // saved!
+      })
+      .then(function () {
+        return db.Tag.findOne({
+          where: { tagName: 'Baseball' }
+        });
+      })
+      .then(function (tag) {
+        return tag.getProducts();
+      })
+      .then(function (products) {
+        console.log(products);
+        expect(products[0].dataValues.UserId).to.equal(1);
+        done()
+      })
+    });
+  });
+
+
+
 });
 
 // Check if one item was inputted 
