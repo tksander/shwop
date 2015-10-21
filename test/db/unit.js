@@ -442,13 +442,16 @@ describe('Database', function () {
         return tag.getProducts();
       })
       .then(function (products) {
+        expect(products.length).to.equal(2);
+        expect(products[0].dataValues.name).to.equal('ken griffey jr bobblehead');
+        expect(products[1].dataValues.name).to.equal('mike trout baseball bat');
         done()
       })
     });
   });
 
   ////////////////////////////////////////////
-  ////////////// Full Entry Test
+  /////// Full Entry Test
   ////////////////////////////////////////////
 
   describe('Full entry test', function () {
@@ -460,9 +463,9 @@ describe('Database', function () {
       email: 'michael@jordan.com'
     };
 
-    // after(function (done) {
-    //   clearDB(done);
-    // });
+    after(function (done) {
+      clearDB(done);
+    });
 
     //This runs before each test
     beforeEach(function (done) {
@@ -542,6 +545,8 @@ describe('Database', function () {
         return tag.getProducts();
       })
       .then(function (products) {
+        console.log(products);
+        expect(products[0].dataValues.UserId).to.equal(1);
         done()
       })
     });
