@@ -1,4 +1,4 @@
-var productController = require('./productController.js');
+var bidController = require('./bidController.js');
 
 module.exports = function (app) {
   // app === productRouter injected from middleware.js
@@ -8,13 +8,9 @@ module.exports = function (app) {
   // so the real URL will be pre fetched from mongo and attached to
   // req.navLink before it reaches line 16.
 
-  // app.param('tags', productController.productByTags);
+  // app.param('code', linksController.findUrl);
 
   app.route('/')
-    .get(productController.allProducts)
-    .post(productController.newProduct)
-    .put(productController.updateProduct)
-    .delete(productController.deleteProduct);
-
-  app.get('/:tags', productController.productsByTags);
+    .post(bidController.newBid);
+  // app.get('/:code', linksController.navToLink);
 };

@@ -1,4 +1,6 @@
 var db = require('../../server/db/db_config.js');
+var Promise = require('bluebird');
+var helpers = require('../../server/db/helpers.js');
 
 //dummy user data
 var users = [
@@ -64,6 +66,47 @@ var products = [
   },
 ];
 
+var tags = [
+  {tagName: 'nintendo'},
+  {tagName: 'xbox'},
+  {tagName: 'jordan'},
+  {tagName: 'nike'},
+  {tagName: 'retro'},
+  {tagName: 'tank'},
+  {tagName: 'videogames'},
+  {tagName: 'ray'},
+  {tagName: 'bans'},
+  {tagName: 'grey'},
+];
+
+
+//add the dummy user data to the database
+// db.User.bulkCreate(users)
+// .then(function () {
+//   return db.Product.bulkCreate(products);
+// }
+// .then(function () {
+//   return associate.userToProduct('michael@jordan.com', 'air jordan VII shoes');
+// }
+// .then(function () {
+//   return associate.userToProduct('donkey@nintendo.com', 'Nintendo 64 - grey');
+// }
+// .then(function () {
+//   return associate.userToProduct('donkey@nintendo.com', 'donkey kong (Special Edition) for Supernintendo');
+// }
+// .then(function () {
+//   return associate.userToProduct('donkey@nintendo.com', 'donkey kong retro womens tank top');
+// }
+// .then(function () { 
+//   return associate.userToProduct('bill@microsoft.com', 'xbox 360 with 1 working controller');
+// }
+// .then(function () {
+//   return associate.userToProduct('me@rayban.com', 'ray ban sunglasses');
+// })
+// .catch(function (err) {
+//   console.log('There was an error creating dummy products');
+//   throw err;
+// })))))));
 
 //add the dummy user data to the database
 db.User.bulkCreate(users)
@@ -84,6 +127,24 @@ db.Product.bulkCreate(products)
   console.log('There was an error creating dummy products');
   throw err;
 });
+
+db.Tag.bulkCreate(tags)
+.then(function () {
+  return db.Tag.findAll();
+})
+.catch(function (err) {
+  console.log('There was an error creating dummy tags');
+  throw err;
+});
+
+
+helpers.associateUserToProduct('michael@jordan.com', 'air jordan VII shoes');
+// associate.userToProduct('donkey@nintendo.com', 'Nintendo 64 - grey');
+// associate.userToProduct('donkey@nintendo.com', 'donkey kong (Special Edition) for Supernintendo');
+// associate.userToProduct('donkey@nintendo.com', 'donkey kong retro womens tank top');
+// associate.userToProduct('bill@microsoft.com', 'xbox 360 with 1 working controller');
+// associate.userToProduct('me@rayban.com', 'ray ban sunglasses');
+// associate.tagsToProduct('')
 
 //export the stringified dummy data
 exports.users = JSON.stringify(users);

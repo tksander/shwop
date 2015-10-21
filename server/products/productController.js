@@ -15,9 +15,26 @@ module.exports = {
     });
   },
 
+  productsByTags: function (req, res, next) {
+    //query to find products by tags
+    var tags = req.params.tags.split('+');
+    console.log(tags);
+    db.Tag.findAll({
+      where: {
+        tagName: tags[0]
+      }
+    })
+    .then(function (tags) {
+      res.send(tags);
+      // return tags.getProducts();
+    })
+    .catch(function (err) {
+      throw err;
+    });
+  },
+
   // adds a new product to the database
   newProduct: function (req, res, next) {
-    var tags = req.body.tags;
     db.Product.create({
       name: req.body.name,
       photoURL: req.body.photoURL,
