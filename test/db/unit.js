@@ -221,28 +221,17 @@ describe('Database', function () {
    */
   describe('Users table', function () {
 
-    //This runs before each test
-    beforeEach(function (done) {
-
-      // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
-      db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
-      .then(function (){
-          return db.Orm.sync({ force: true });
-      })
-      .then(function (){
-          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
-      })
-      .then(function (){
-          console.log('Database synchronised.');
-          done();
-      })
-      .catch(function (error) {
-        console.log('Found an error: ', error);
-        done();
-      })
+    after(function (done) {
+      clearDB(done);
     });
 
-    describe('Retrieves product associate with user', function () {
+    //This runs before each test
+    beforeEach(function (done) {
+      clearDB(done);
+    });
+
+
+    describe('Retrieves product associated with user', function () {
       //dummy user data
       var user = { 
         firstName: 'Poopy',
@@ -251,24 +240,18 @@ describe('Database', function () {
         email: 'michael@jordan.com'
        };
 
-       var product = {
+       var product1 = {
                       name: 'ken griffey jr bobblehead',
                       photoURL: 'http://placehold.it/120x120&text=image1',
                       price: 55.55
         };
 
-        var product2 = { 
-                      name: 'book',    
-                      photoURL: 'http://placehold.it/120x120&text=image1', 
-                      price: 50.00 
-        };
-
-      it('should return product associated with user', function (done) {
+      it('should return single product associated with user', function (done) {
 
 
         var promiseArray = [];
         promiseArray.push(db.User.create(user));
-        promiseArray.push(db.Product.create(product));
+        promiseArray.push(db.Product.create(product1));
 
         Promise.all(promiseArray) // Creates User and Product
         .spread(function(user, product) { // [User, Product] 
@@ -320,34 +303,56 @@ describe('Database', function () {
         //   expect(user.dataValues.firstName).to.equal('Poopy')
         //   done()
         // })
-
       });
 
-      it('should return products associated with user', function (done) { 
+    describe('Retrieves multiple products associated with user', function () {
 
-        var promiseArray = [];
-        promiseArray.push(db.Product.create(product));
-        promiseArray.push(db.Product.create(product2));
-        promiseArray.push(db.User.create(user));
+       //dummy user data
+      var user2 = { 
+        firstName: 'Dennis',
+        lastName: 'Jordan',
+        phoneNumber: '(232)323-1995',
+        email: 'michael@jordan.com'
+       };
 
-        Promise.all(promiseArray) // Creates User and 2 Products
-        .then(function(results) { 
-          var user = results.pop();
-          return user.setProducts(results);
-        })
-        .then(function () {
-          return db.User.findOne({where: {firstName: 'Poopy'}})
-        })
-        .then(function (user) {
-          return user.getProducts();
-        })
-        .then(function (products) {
-          expect(products.length).to.equal(2)
-          expect(products[0].dataValues.name).to.equal('ken griffey jr bobblehead');
-          done();
-        })
+       var product2 = {
+                      name: 'bob griffey jr bobblehead',
+                      photoURL: 'http://placehold.it/120x120&text=image1',
+                      price: 55.55
+        };
+
+        var product3 = { 
+                      name: 'knife',    
+                      photoURL: 'http://placehold.it/120x120&text=image1', 
+                      price: 50.00 
+        };
+
+        it('should return multiple products associated with user', function (done) { 
+
+      var promiseArray2 = [];
+          promiseArray2.push(db.Product.create(product2));
+          promiseArray2.push(db.Product.create(product3));
+          promiseArray2.push(db.User.create(user2));
+
+          Promise.all(promiseArray2) // Creates User and 2 Products
+          .then(function(results) { 
+            var user = results.pop();
+            return user.setProducts(results);
+          })
+          .then(function (results) {
+            return db.User.findOne({where: {firstName: 'Dennis'}})
+          })
+          .then(function (user) {
+            return user.getProducts();
+          })
+          .then(function (products) {
+            expect(products.length).to.equal(2)
+            expect(products[0].dataValues.name).to.equal('bob griffey jr bobblehead');
+            done();
+          })
+        });
       });
-    });
+    }); 
 
   });
 
@@ -358,6 +363,14 @@ describe('Database', function () {
    */
   describe('Tags table', function () {
 
+   // after(function (done) {
+   //    clearDB(done);
+   //  });
+
+    //This runs before each test
+    beforeEach(function (done) {
+      clearDB(done);
+    });
 
 
     // // Find all projects with a least one task where task.state === project.task
@@ -369,10 +382,11 @@ describe('Database', function () {
     // })
 
     it('should get all products matching tag', function (done) {
+
       var tagsArr = [];
       var names = ['Bobblehead', 'Baseball', 'Ken Griffey Jr', 'Seattle']
       for(var i = 0; i < names.length; i++) {
-        tagsArr.push(db.Tag.create({ tagName: names[i] }));
+        tagsArr.push(db.Tag.findOrCreate({where: { tagName: names[i] }}));
       }
       tagsArr.push(db.Product.create({
                     name: 'ken griffey jr bobblehead',
@@ -382,41 +396,64 @@ describe('Database', function () {
       );
 
       var tagsArr2 = [];
-      var names2 = ['Bat', 'Baseball', 'Mike Trout', 'Los Angeles', 'Angels']
-      for(var i = 0; i < names.length; i++) {
-        tagsArr2.push(db.Tag.create({ tagName: names2[i] }));
+      var names2 = ['Bat', 'Baseball', 'Mike Trout', 'Los Angeles', 'Angels', 'Sports']
+      for(var i = 0; i < names2.length; i++) {
+        tagsArr2.push(db.Tag.findOrCreate({where: { tagName: names2[i] }}));
       }
       tagsArr2.push(db.Product.create({
                     name: 'mike trout baseball bat',
-                    photoURL: 'http://placehold.it/120x120&text=image1',
-                    price: 55.55
+                    photoURL: 'http://placehold.it/120x120&text=image2',
+                    price: 20.99
                     })
       );
 
       // Promise.all takes the array of promises and fulfills them at once
       // https://www.promisejs.org/patterns/
       Promise.all(tagsArr)
-        .then(function (results) {
-          console.log("all files were created");
-          product = results.pop();
-          // Save
-          product.setTags(results).then(function() {
-            // saved!
-            console.log('saved!');
-          });
-        })
-        .then(function () {
-          return db.Tag.findOne({
-            where: { tagName: 'Baseball' }
-          });
-        })
-        .then(function (tag) {
-          return tag.getProducts();
-        })
-        .then(function (products) {
-          expect
-        })
-   
+      .spread(function () {
+        var args = Array.prototype.slice.call(arguments);
+        var product = args.pop();
+
+        var results = [];
+        for(var i = 0; i < args.length; i++) {
+          results.push(args[i][0]);
+        }
+        // Save
+        return product.setTags(results)
+      })
+      .then(function(results) {
+        // saved!
+        console.log('saved1! ');
+      })
+      .then(function () {
+        return Promise.all(tagsArr2);
+      })
+      .spread(function () {
+        var args = Array.prototype.slice.call(arguments);
+        var product = args.pop();
+
+        var results = [];
+        for(var i = 0; i < args.length; i++) {
+          results.push(args[i][0]);
+        }
+        // Save
+        return product.setTags(results)
+      })
+      .then(function(results) {
+        // saved!
+      })
+      .then(function () {
+        return db.Tag.findOne({
+          where: { tagName: 'Baseball' }
+        });
+      })
+      .then(function (tag) {
+        return tag.getProducts();
+      })
+      .then(function (products) {
+        console.log(products);
+        done()
+      })
 
     });
   });
