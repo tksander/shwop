@@ -24,6 +24,10 @@ angular.module('shwop.services', [])
     $location.path('/bid');
   };
 
+  var products = function () {
+    $location.path('/products');
+  }
+
   var setCurrentProduct = function(newProduct) {
     currentProduct = newProduct;
   };
@@ -50,7 +54,8 @@ angular.module('shwop.services', [])
     setCurrentProduct: setCurrentProduct,
     getCurrentProduct: getCurrentProduct,
     bid: bid,
-    sendBid: sendBid
+    sendBid: sendBid,
+    products: products
   };
 
 }])
