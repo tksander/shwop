@@ -33,6 +33,7 @@ describe('Database', function () {
       clearDB(done);
     });
 
+
     describe('Create one record', function () {
 
       it('should create one record and find within database', function (done) {
@@ -205,10 +206,9 @@ describe('Database', function () {
             expect(associatedTasks[0].dataValues.tagName).to.equal('Bobblehead');
             done();
           });
+
       });
     });
-
-
   });
 
 
@@ -221,13 +221,133 @@ describe('Database', function () {
    */
   describe('Users table', function () {
 
-    // describe('Retrieves product associate with user', function () {
+    //This runs before each test
+    beforeEach(function (done) {
 
-    //     it('should return product associated with user', function (done) {
-    //       // create User
-    //      db.User.create({})
-    //     });
-    //   });
+      // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
+      db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
+      .then(function (){
+          return db.Orm.sync({ force: true });
+      })
+      .then(function (){
+          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
+      })
+      .then(function (){
+          console.log('Database synchronised.');
+          done();
+      })
+      .catch(function (error) {
+        console.log('Found an error: ', error);
+        done();
+      })
+    });
+
+    describe('Retrieves product associate with user', function () {
+      //dummy user data
+      var user = { 
+        firstName: 'Poopy',
+        lastName: 'Jordan',
+        phoneNumber: '(232)323-1995',
+        email: 'michael@jordan.com'
+       };
+
+       var product = {
+                      name: 'ken griffey jr bobblehead',
+                      photoURL: 'http://placehold.it/120x120&text=image1',
+                      price: 55.55
+        };
+
+        var product2 = { 
+                      name: 'book',    
+                      photoURL: 'http://placehold.it/120x120&text=image1', 
+                      price: 50.00 
+        };
+
+      it('should return product associated with user', function (done) {
+
+
+        var promiseArray = [];
+        promiseArray.push(db.User.create(user));
+        promiseArray.push(db.Product.create(product));
+
+        Promise.all(promiseArray) // Creates User and Product
+        .spread(function(user, product) { // [User, Product] 
+          // console.log(product);
+          return product.setUser(user);
+        })
+        .then(function () {
+          return db.Product.findOne({where: {name: 'ken griffey jr bobblehead'}}) 
+        })
+        .then(function (product) {
+          // console.log(product);
+          return product.getUser(); // Get the User associate with this Product
+        })
+        .then(function (user) {
+          expect(user.dataValues.firstName).to.equal('Poopy')
+        })
+        .then(function () {
+          return db.User.findOne({where: {firstName: 'Poopy'}})
+        })
+        .then(function (user) {
+         return user.getProducts(); // Get the Product associated with this User, Returns an array
+        })
+        .then(function(product) {
+          expect(product[0].dataValues.name).to.equal('ken griffey jr bobblehead');
+          done();
+        });
+
+        // -------------------------------------------------------------
+        // Alternative way to create the Product and User. 
+        // This way does not allow to pass an object for Product attributes though. 
+        // -------------------------------------------------------------
+
+        // db.Product.create({
+        //    name: 'ken griffey jr bobblehead',
+        //     photoURL: 'http://placehold.it/120x120&text=image1',
+        //     price: 13.37,
+        //   User: user
+        // }, {
+        //   include: [ db.User ]
+        // })
+        // .then(function () {
+        //   return db.Product.findOne({where: {name: 'ken griffey jr bobblehead'}})
+        // })
+        // .then(function (product) {
+        //   // console.log(product);
+        //   return product.getUser();
+        // })
+        // .then(function (user) {
+        //   expect(user.dataValues.firstName).to.equal('Poopy')
+        //   done()
+        // })
+
+      });
+
+      it('should return products associated with user', function (done) { 
+
+        var promiseArray = [];
+        promiseArray.push(db.Product.create(product));
+        promiseArray.push(db.Product.create(product2));
+        promiseArray.push(db.User.create(user));
+
+        Promise.all(promiseArray) // Creates User and 2 Products
+        .then(function(results) { 
+          var user = results.pop();
+          return user.setProducts(results);
+        })
+        .then(function () {
+          return db.User.findOne({where: {firstName: 'Poopy'}})
+        })
+        .then(function (user) {
+          return user.getProducts();
+        })
+        .then(function (products) {
+          expect(products.length).to.equal(2)
+          expect(products[0].dataValues.name).to.equal('ken griffey jr bobblehead');
+          done();
+        })
+      });
+    });
 
   });
 

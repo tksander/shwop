@@ -28,6 +28,7 @@ var Product = orm.define('Product', {
 });
 
 Product.belongsTo(User); // This will add UserId attribute to Product to hold the primary key value for User
+User.hasMany(Product);
 
 var Tag = orm.define('Tag', {
   tagName: Sequelize.STRING(100)
