@@ -2,8 +2,10 @@ angular.module('shwop.products', [])
 
 .controller('ProductController', ['$scope', 'Products', function ($scope, Products) {
   
-
+  // Determines what happens when a user swipes a product photo left or right.
   $scope.swiped = function(direction) {
+    // If user swipes left, the topmost photo is removed from the array, revealing
+    // the next product to the user.
     if (direction === "LEFT") {
       $scope.data.products.shift();
       if ($scope.data.products.length === 0){
@@ -11,12 +13,14 @@ angular.module('shwop.products', [])
       }
       Products.setCurrentProduct($scope.data.products[0]);
     } else {
+      // If user swipes right, the bid() factory method is called.
       Products.bid();
     }
   };
 
   $scope.data = {};
 
+  // Calls factory method that returns all product info from DB and renders it.
   $scope.getAllProducts = function () {
     Products.getAllProducts()
     .then(function (promise) {
@@ -36,6 +40,7 @@ angular.module('shwop.products', [])
   $scope.getAllProducts();
 }])
 
+// Angular directive to control drag functionality.
 .directive('dragMe', ['$drag', function($drag){
   return {
     controller: function($scope, $element) {
