@@ -1,7 +1,8 @@
 var Sequelize = require('sequelize');
 // Arguments are: [Database name], [Username], [Password]
 var orm = new Sequelize('shwopDB', 'root', '', {
-  dialect: 'mysql'
+  dialect: 'mysql',
+  logging: false
 });
 
 

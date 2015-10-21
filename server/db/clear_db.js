@@ -13,7 +13,7 @@ var clearDB = function (done) {
     return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1');
   })
   .then(function (){
-    console.log('Database synchronised.');
+    // console.log('Database synchronised.');
     done();
   })
   .catch(function (error) {

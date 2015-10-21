@@ -188,7 +188,7 @@ describe('Database', function () {
             // Save
             product.setTags(results).then(function() {
               // saved!
-              console.log('saved!');
+              // console.log('saved!');
             });
           })
           .then(function() {
