@@ -361,6 +361,69 @@ describe('Database', function () {
   // });
 
 
+    // // Find all projects with a least one task where task.state === project.task
+    // Project.findAll({
+    //     include: [{
+    //         model: Task,
+    //         where: { state: Sequelize.col('project.state') }
+    //     }]
+    // })
+
+    it('should get all products matching tag', function (done) {
+      var tagsArr = [];
+      var names = ['Bobblehead', 'Baseball', 'Ken Griffey Jr', 'Seattle']
+      for(var i = 0; i < names.length; i++) {
+        tagsArr.push(db.Tag.create({ tagName: names[i] }));
+      }
+      tagsArr.push(db.Product.create({
+                    name: 'ken griffey jr bobblehead',
+                    photoURL: 'http://placehold.it/120x120&text=image1',
+                    price: 55.55
+                    })
+      );
+
+      var tagsArr2 = [];
+      var names2 = ['Bat', 'Baseball', 'Mike Trout', 'Los Angeles', 'Angels']
+      for(var i = 0; i < names.length; i++) {
+        tagsArr2.push(db.Tag.create({ tagName: names2[i] }));
+      }
+      tagsArr2.push(db.Product.create({
+                    name: 'mike trout baseball bat',
+                    photoURL: 'http://placehold.it/120x120&text=image1',
+                    price: 55.55
+                    })
+      );
+
+      // Promise.all takes the array of promises and fulfills them at once
+      // https://www.promisejs.org/patterns/
+      Promise.all(tagsArr)
+        .then(function (results) {
+          console.log("all files were created");
+          product = results.pop();
+          // Save
+          product.setTags(results).then(function() {
+            // saved!
+            console.log('saved!');
+          });
+        })
+        .then(function () {
+          return db.Tag.findOne({
+            where: { tagName: 'Baseball' }
+          });
+        })
+        .then(function (tag) {
+          return tag.getProducts();
+        })
+        .then(function (products) {
+          expect
+        })
+   
+
+    });
+  });
+
+
+
 });
 
 // Check if one item was inputted 
