@@ -36,18 +36,22 @@ module.exports = function(grunt) {
     },
 
     execute: {
-      target: {
+      dummy: {
         src: ['server/db/dummy_data.js']
+      },
+      // clear: {
+      //   src: ['server/db/clear_db.js']
+      // }
+    },
+
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/**/*.js']
       }
     },
-    // mochaTest: {
-    //   test: {
-    //     options: {
-    //       reporter: 'spec'
-    //     },
-    //     src: ['test/**/*.js']
-    //   }
-    // },
 
     nodemon: {
       dev: {
@@ -138,9 +142,7 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('test', [
-    'mochaTest'
-  ]);
+  grunt.registerTask('test', ['mochaTest']);
 
   grunt.registerTask('runSass', ['sass']);
 
@@ -169,8 +171,12 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('dummy', function(n) {
-    grunt.task.run(['execute']);
+    grunt.task.run(['execute:dummy']);
   });
+
+  // grunt.registerTask('clear', function(n) {
+  //   grunt.task.run(['execute:clear']);
+  // });
 
   grunt.registerTask('start', function(n) {
     grunt.task.run(['nodemon']);

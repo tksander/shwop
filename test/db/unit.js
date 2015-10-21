@@ -1,11 +1,12 @@
 var expect = require('chai').expect;
+var Promise = require('bluebird');
 var Sequelize = require('sequelize');
-var Promise = require("bluebird");
+var clearDB = require('../../server/db/clear_db.js');
 
 
 describe('Database', function () {
   var db = require('../../server/db/db_config.js');
-
+  console.log('clearDB is ', clearDB);
   /*
    * This section includes all unit tests related to the
    * Products table in the database.
@@ -15,7 +16,6 @@ describe('Database', function () {
 
     // This runs once
     before(function () {
-
       JSONresponse = { products: 
         [{ name: 'book',    photoURL: 'http://placehold.it/120x120&text=image1', price: 50.00 },
          { name: 'racecar', photoURL: 'http://placehold.it/120x120&text=image2', price: 15.25 },
@@ -24,27 +24,14 @@ describe('Database', function () {
 
     });
 
+    after(function (done) {
+      clearDB(done);
+    });
+
     //This runs before each test
     beforeEach(function (done) {
-
-      // Disable the check for foreign keys to enable TRUCATE. Otherwise, we cannot clear b/c of constraints
-      db.Orm.query('SET FOREIGN_KEY_CHECKS = 0')
-      .then(function(){
-          return db.Orm.sync({ force: true });
-      })
-      .then(function(){
-          return db.Orm.query('SET FOREIGN_KEY_CHECKS = 1')
-      })
-      .then(function(){
-          console.log('Database synchronised.');
-          done();
-      })
-      .catch(function(error) {
-        console.log('Found an error: ', error);
-        done();
-      })
-
-      });
+      clearDB(done);
+    });
 
     describe('Create one record', function () {
 
@@ -201,23 +188,23 @@ describe('Database', function () {
             product.setTags(results).then(function() {
               // saved!
               console.log('saved!');
-            })
+            });
           })
           .then(function() {
             return db.Product.findOne({
-                where: { name: 'ken griffey jr bobblehead' }
-            })
+              where: { name: 'ken griffey jr bobblehead' }
+            });
           })
           .then(function(product) {
             expect(product).to.exist;
             // ok now they are saved
-            return product.getTags()
+            return product.getTags();
           })
           .then(function(associatedTasks){
             expect(associatedTasks.length).to.equal(3);
             expect(associatedTasks[0].dataValues.tagName).to.equal('Bobblehead');
-            done()
-          })
+            done();
+          });
       });
     });
 
