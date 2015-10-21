@@ -4,8 +4,15 @@ angular.module('shwop.bid', [])
   $scope.product = Products.getCurrentProduct();
   $scope.bid = null;
   $scope.sendBid = function () {
+    console.log($window.localStorage.getItem('userId'), $scope.product.id, $scope.bid);
     Products.sendBid($window.localStorage.getItem('userId'), $scope.product.id, $scope.bid);
   };
 
+  $scope.cancel = function () {
+    Products.products();
+  };
+
   console.log($scope.product);
+
+
 }]);
