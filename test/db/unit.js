@@ -304,10 +304,11 @@ describe('Database', function () {
         //   done()
         // })
       });
+    });
 
     describe('Retrieves multiple products associated with user', function () {
 
-       //dummy user data
+      //dummy user data
       var user2 = { 
         firstName: 'Dennis',
         lastName: 'Jordan',
@@ -315,72 +316,61 @@ describe('Database', function () {
         email: 'michael@jordan.com'
        };
 
-       var product2 = {
+      var product2 = {
                       name: 'bob griffey jr bobblehead',
                       photoURL: 'http://placehold.it/120x120&text=image1',
                       price: 55.55
-        };
+      };
 
-        var product3 = { 
+      var product3 = { 
                       name: 'knife',    
                       photoURL: 'http://placehold.it/120x120&text=image1', 
                       price: 50.00 
-        };
+      };
 
-        it('should return multiple products associated with user', function (done) { 
+      it('should return multiple products associated with user', function (done) { 
 
-      var promiseArray2 = [];
-          promiseArray2.push(db.Product.create(product2));
-          promiseArray2.push(db.Product.create(product3));
-          promiseArray2.push(db.User.create(user2));
+        var promiseArray2 = [];
+        promiseArray2.push(db.Product.create(product2));
+        promiseArray2.push(db.Product.create(product3));
+        promiseArray2.push(db.User.create(user2));
 
-          Promise.all(promiseArray2) // Creates User and 2 Products
-          .then(function(results) { 
-            var user = results.pop();
-            return user.setProducts(results);
-          })
-          .then(function (results) {
-            return db.User.findOne({where: {firstName: 'Dennis'}})
-          })
-          .then(function (user) {
-            return user.getProducts();
-          })
-          .then(function (products) {
-            expect(products.length).to.equal(2)
-            expect(products[0].dataValues.name).to.equal('bob griffey jr bobblehead');
-            done();
-          })
-        });
+        Promise.all(promiseArray2) // Creates User and 2 Products
+        .then(function(results) { 
+          var user = results.pop();
+          return user.setProducts(results);
+        })
+        .then(function (results) {
+          return db.User.findOne({where: {firstName: 'Dennis'}})
+        })
+        .then(function (user) {
+          return user.getProducts();
+        })
+        .then(function (products) {
+          expect(products.length).to.equal(2)
+          expect(products[0].dataValues.name).to.equal('bob griffey jr bobblehead');
+          done();
+        })
+
       });
-    }); 
-
-  });
+    });
+  }); 
 
 
   /*
    * This section includes all unit tests related to the
    * Tags table in the database.
    */
-  // describe('Tags table', function () {
+  describe('Tags table', function () {
 
-  // });
-   // after(function (done) {
-   //    clearDB(done);
-   //  });
+     // after(function (done) {
+     //    clearDB(done);
+     //  });
 
     //This runs before each test
     beforeEach(function (done) {
       clearDB(done);
     });
-
-
-    // // Find all projects with a least one task where task.state === project.task
-    // Project.findAll({
-    //     include: [{
-    //         model: Task,
-    //         where: { state: Sequelize.col('project.state') }
-    //     }]
-    // })
 
     it('should get all products matching tag', function (done) {
 
@@ -452,15 +442,11 @@ describe('Database', function () {
         return tag.getProducts();
       })
       .then(function (products) {
-        console.log(products);
         done()
       })
 
     });
   });
-
-
-
 });
 
 // Check if one item was inputted 
