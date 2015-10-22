@@ -1,11 +1,10 @@
-var User = require('./userModel.js');
-var Q = require('q'); // a library for promises
-// var jwt = require('jwt-simple');
+var db = require('../db/db_config.js');
+var jwt  = require('jwt-simple');
 
 module.exports = {
   signin: function (req, res, next) {
-    // var username = req.body.username;
-    // var password = req.body.password;
+    var username = req.body.username;
+    var password = req.body.password;
 
     // var findUser = Q.nbind(User.findOne, User);
     // findUser({username: username})
@@ -30,12 +29,33 @@ module.exports = {
   },
 
   signup: function (req, res, next) {
-    // var username = req.body.username;
-    // var password = req.body.password;
     // var create;
     // var newUser;
 
     // var findOne = Q.nbind(User.findOne, User);
+    db.User.findOne({
+      where: {email: req.body.email}
+    })
+    .then(function (user) {
+      if (user) {
+        next(new Error('User already exists!'));
+      } else {
+        return db.User.create({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          phoneNumber: req.body.phoneNumber,
+          email: req.body.email,
+          password: req.body.password
+        });
+      }
+    })
+    .then(function (user) {
+      var token = jwt.encode(user, 'secret');
+      res.json({token: token});
+    })
+    .catch(function (error) {
+      next(error);
+    });
 
     // // check to see if user already exists
     // findOne({username: username})

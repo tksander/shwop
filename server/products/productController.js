@@ -45,9 +45,8 @@ module.exports = {
     var product = req.body.product;
     var tags = req.body.tags;
 
-    helpers.createProduct(user, product, tags);
+    res.send(helpers.createProduct(user, product, tags));
   },
-
   // update the product
   updateProduct: function (req, res, next) {
     var updates = {};

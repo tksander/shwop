@@ -15,9 +15,10 @@ var User = orm.define('User', {
   firstName: Sequelize.STRING(25),
   lastName: Sequelize.STRING(25),
   phoneNumber: { type: Sequelize.STRING(20), allowNull: false},
-  email: { type: Sequelize.STRING(50), allowNull: false},
+  email: { type: Sequelize.STRING(50), allowNull: false, unique: true},
   latitude: Sequelize.FLOAT(40),
   longitude: Sequelize.FLOAT(40),
+  password: Sequelize.STRING(100),
   hash: Sequelize.STRING(100),
   salt: Sequelize.STRING(100)
 });
