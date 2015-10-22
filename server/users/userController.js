@@ -3,9 +3,28 @@ var jwt  = require('jwt-simple');
 
 module.exports = {
   signin: function (req, res, next) {
-    var username = req.body.username;
-    var password = req.body.password;
 
+    db.User.findOne({
+      where: {email: req.body.email}
+    })
+    .then( function (user) {
+      if (!user) {
+        next(new Error('User does not exist!'));
+      } else {
+        return user.comparePasswords(req.body.password)
+        .then(function (foundUser) {
+          if (foundUser) {
+            var token = jwt.encode(user, 'secret');
+            res.json({token: token});
+          } else {
+            return next(new Error('No user'));
+          }
+        });
+      }
+    })
+    .catch(function (error) {
+      next(error);
+    });
     // var findUser = Q.nbind(User.findOne, User);
     // findUser({username: username})
     //   .then(function (user) {
