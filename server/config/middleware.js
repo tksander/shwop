@@ -20,6 +20,8 @@ module.exports = function (app, express) {
   // authentication middleware used to decode token and made available on the request
   //app.use('/api/links', helpers.decode);
 
+  app.use('/api/bids', bidRouter);
+
   app.use('/api/products', productRouter); // user link router for product request
   app.use(helpers.errorLogger);
   app.use(helpers.errorHandler);
