@@ -54,9 +54,13 @@ var createProduct = function (user, product, tags) {
   .then(function (results) {
     return productModel.setUser(userModel);
   })
+  .then(function () {
+    console.log('Success! Create a user with products and tags.')
+  })
+  .catch(function (error) {
+    console.log('Error in createProduct function: ', error);
+  })
 };
-
-
 
 // var createProductAndAssociateToUser = function(userEmail, productName) {
 //   var promiseArray = [];
