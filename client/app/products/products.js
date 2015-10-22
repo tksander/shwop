@@ -1,6 +1,7 @@
 angular.module('shwop.products', [])
 
 .controller('ProductController', ['$scope', 'Products', function ($scope, Products) {
+  $scope.categories = Products.categories
   
   // Determines what happens when a user swipes a product photo left or right.
   $scope.swiped = function(direction) {
@@ -37,6 +38,17 @@ angular.module('shwop.products', [])
       }
     });
   };
+
+  // Calls factory method to get all products matching tag
+  $scope.submitSearch = function () {
+    var tag = $scope.data.tag
+    Products.getProductsByTag(tag)
+      .then(function (promise) {
+        $scope.data.products = promise.data.products;
+        Products.setCurrentProduct($scope.data.products[0]);
+      })
+  }
+
   $scope.getAllProducts();
 }])
 

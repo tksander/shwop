@@ -9,7 +9,17 @@
 
 <div class='row'>
   <div class='col-md-4 col-centered'>
-    <input class='form-control' type='text' ng-model='search' placeholder='search for specific item' />
+    <input class='form-control' type='text' ng-model='data.search' placeholder='search for specific item' />
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-md-4 col-centered'>
+    <select name='repeatSelect' id='repeatSelect' ng-model='data.tag'>
+      <option ng-repeat='category in categories' value='{{ category.name }}' required>{{ category.name }}</option><br />
+    </select>
+    <label for='repeatSelect'>Pick Product Category</label>
+    <button ng-click="submitSearch()">Search</button><br>
   </div>
 </div>
 

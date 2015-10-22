@@ -90,7 +90,87 @@ Promise.all(promises)
   return console.log('Dummy data created!\nWe are not sure why this takes so long to complete...');
 });
 
-// add the dummy user data to the database
+
+///////////////////////////////////////////////
+//// Adds associated datat to the database
+///////////////////////////////////////////////
+
+var newUser = { 
+      firstName: 'Michael',
+      lastName: 'Jordan',
+      phoneNumber: '(232)323-1995',
+      email: 'michael@jordan.com'
+    };
+
+var product;
+var user;
+var tagsArr = [];
+var names = ['Bobblehead', 'Baseball', 'Ken Griffey Jr', 'Sports & Outdoors', 'Seattle']
+for(var i = 0; i < names.length; i++) {
+  tagsArr.push(db.Tag.findOrCreate({where: { tagName: names[i] }}));
+}
+tagsArr.push(db.User.create(newUser));
+tagsArr.push(db.Product.create({
+              name: 'ken griffey jr bobblehead',
+              photoURL: 'http://ecx.images-amazon.com/images/I/71Wu19At9QL._SY355_.jpg',
+              price: 55.55
+              })
+);
+
+var tagsArr2 = [];
+var names2 = ['Bat', 'Baseball', 'Mike Trout', 'Los Angeles', 'Angels', 'Sports & Outdoors']
+for(var i = 0; i < names2.length; i++) {
+  tagsArr2.push(db.Tag.findOrCreate({where: { tagName: names2[i] }}));
+}
+tagsArr2.push(db.Product.create({
+              name: 'mike trout baseball bat',
+              photoURL: 'http://battingleadoff.com/wp-content/uploads/2014/04/mag_miller_trout01jr_576.jpg',
+              price: 20.99
+              })
+);
+
+
+Promise.all(tagsArr)
+.spread(function () {
+  var args = Array.prototype.slice.call(arguments);
+  product = args.pop();
+  user = args.pop();
+
+  var results = [];
+  for(var i = 0; i < args.length; i++) {
+    results.push(args[i][0]);
+  }
+  // Save
+  return product.setTags(results)
+})
+.then(function(results) {
+  // saved!
+  return product.setUser(user);
+  console.log('saved1! ');
+})
+.then(function () {
+  return Promise.all(tagsArr2);
+})
+.spread(function () {
+  var args = Array.prototype.slice.call(arguments);
+  var product = args.pop();
+
+  var results = [];
+  for(var i = 0; i < args.length; i++) {
+    results.push(args[i][0]);
+  }
+  // Save
+  return product.setTags(results)
+})
+.then(function(results) {
+  // saved!
+  console.log('Associated tag entries are saved!')
+})
+
+
+
+
+//add the dummy user data to the database
 // db.User.bulkCreate(users)
 // .then(function () {
 //   return db.User.findAll();
