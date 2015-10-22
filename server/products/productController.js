@@ -1,5 +1,6 @@
 var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
+var helpers = require('../db/helpers.js');
 
 
 module.exports = {
@@ -35,29 +36,11 @@ module.exports = {
 
   // adds a new product to the database
   newProduct: function (req, res, next) {
-    db.Product.create({
-      name: req.body.name,
-      photoURL: req.body.photoURL,
-      price: req.body.price
-    })
-    .then(function (product) {
-      console.log('Successfully added product to database');
-      res.send('Creation successful');
-      // for each tag
-      for (var i = 0; i < tags.length; i++) {
-        db.Tag.findOrCreate({ where: { tagName: tags[i] } })
-        .spread(function (tag, created) {
-          console.log('created');
-        });
-      }
-      // if not already in tags table
-      //   add to tags table
-      // add tag-product to tag-product table
-    })
-    .catch(function (error) {
-      next(error);
-    });
+    var user = req.body.user;
+    var product = req.body.product;
+    var tags = req.body.tags;
 
+    helpers.createProduct(user, product, tags);
   },
 
   // update the product

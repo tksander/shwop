@@ -2,6 +2,7 @@ var expect = require('chai').expect;
 var Promise = require('bluebird');
 var Sequelize = require('sequelize');
 var clearDB = require('../../server/db/clear_db.js');
+var helpers = require('../../server/db/helpers.js');
 
 
 describe('Database', function () {
@@ -545,12 +546,18 @@ describe('Database', function () {
         return tag.getProducts();
       })
       .then(function (products) {
-        console.log(products);
         expect(products[0].dataValues.UserId).to.equal(1);
         done()
       })
     });
   });
+  
+
+  // describe('Test ', function () { 
+  //   it('should add a user, with a product, and associated tags', function (done) {
+  //     helpers.createProduct()
+  //   }
+  // });
 
 
 
