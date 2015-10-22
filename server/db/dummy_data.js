@@ -26,7 +26,7 @@ var users = [
  }
 ];
 
-//dummy product data
+// //dummy product data
 var products = [
   { name: 'Nintendo 64 - grey',
     photoURL: 'http://i.imgur.com/ITxLVsn.jpg',
@@ -79,73 +79,50 @@ var tags = [
   {tagName: 'grey'},
 ];
 
+var promises = [];
+promises.push(db.User.bulkCreate(users));
+promises.push(db.Product.bulkCreate(products));
+promises.push(db.Tag.bulkCreate(tags));
 
-//add the dummy user data to the database
+Promise.all(promises)
+.then(function (results) {
+  // console.log('results is', results.length);
+  return console.log('Dummy data created!\nWe are not sure why this takes so long to complete...');
+});
+
+// add the dummy user data to the database
 // db.User.bulkCreate(users)
 // .then(function () {
-//   return db.Product.bulkCreate(products);
-// }
+//   return db.User.findAll();
+// })
+// .catch(function (err) {
+//   console.log('There was an error creating dummy users');
+//   throw err;
+// });
+
+// //add the dummy product data to the database
+// db.Product.bulkCreate(products)
 // .then(function () {
-//   return associate.userToProduct('michael@jordan.com', 'air jordan VII shoes');
-// }
-// .then(function () {
-//   return associate.userToProduct('donkey@nintendo.com', 'Nintendo 64 - grey');
-// }
-// .then(function () {
-//   return associate.userToProduct('donkey@nintendo.com', 'donkey kong (Special Edition) for Supernintendo');
-// }
-// .then(function () {
-//   return associate.userToProduct('donkey@nintendo.com', 'donkey kong retro womens tank top');
-// }
-// .then(function () { 
-//   return associate.userToProduct('bill@microsoft.com', 'xbox 360 with 1 working controller');
-// }
-// .then(function () {
-//   return associate.userToProduct('me@rayban.com', 'ray ban sunglasses');
+//   return db.Product.findAll();
 // })
 // .catch(function (err) {
 //   console.log('There was an error creating dummy products');
 //   throw err;
-// })))))));
+// });
 
-//add the dummy user data to the database
-db.User.bulkCreate(users)
-.then(function () {
-  return db.User.findAll();
-})
-.catch(function (err) {
-  console.log('There was an error creating dummy users');
-  throw err;
-});
-
-//add the dummy product data to the database
-db.Product.bulkCreate(products)
-.then(function () {
-  return db.Product.findAll();
-})
-.catch(function (err) {
-  console.log('There was an error creating dummy products');
-  throw err;
-});
-
-db.Tag.bulkCreate(tags)
-.then(function () {
-  return db.Tag.findAll();
-})
-.catch(function (err) {
-  console.log('There was an error creating dummy tags');
-  throw err;
-});
+// db.Tag.bulkCreate(tags)
+// .then(function () {
+//   return db.Tag.findAll();
+// })
+// .catch(function (err) {
+//   console.log('There was an error creating dummy tags');
+//   throw err;
+// });
 
 
-helpers.associateUserToProduct('michael@jordan.com', 'air jordan VII shoes');
-// associate.userToProduct('donkey@nintendo.com', 'Nintendo 64 - grey');
-// associate.userToProduct('donkey@nintendo.com', 'donkey kong (Special Edition) for Supernintendo');
-// associate.userToProduct('donkey@nintendo.com', 'donkey kong retro womens tank top');
-// associate.userToProduct('bill@microsoft.com', 'xbox 360 with 1 working controller');
-// associate.userToProduct('me@rayban.com', 'ray ban sunglasses');
-// associate.tagsToProduct('')
+// helpers.associateUserToProduct('michael@jordan.com', 'air jordan VII shoes');
+
 
 //export the stringified dummy data
-exports.users = JSON.stringify(users);
-exports.products = JSON.stringify(products);
+// exports.users = JSON.stringify(users);
+// exports.products = JSON.stringify(products);

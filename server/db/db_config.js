@@ -67,6 +67,10 @@ User.sync()
   .catch(function (error) {
     console.log('Error in database sync:' + error);
   });
+// orm.sync()
+// .then(function () {
+//   console.log('Database synced.');
+// });
 
 ////////////////////////////////////
 ////// Export each model
