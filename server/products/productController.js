@@ -19,7 +19,6 @@ module.exports = {
   productsByTags: function (req, res, next) {
     //query to find products by tags
     var tags = req.params.tags.split('+');
-    console.log("tagarray", tags);
     // Category tag will always be inserted at end of tags array
     var categoryTag = tags.pop();
     var categoryProducts;
