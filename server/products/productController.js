@@ -2,11 +2,11 @@ var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
 var helpers = require('../db/helpers.js');
 
-
 module.exports = {
 
   // retrieve all the products from the database
   allProducts: function (req, res, next) {
+    console.log('all products')
     db.Product.findAll()
     .then(function (products) {
       res.send({products: products});
@@ -19,18 +19,24 @@ module.exports = {
   productsByTags: function (req, res, next) {
     //query to find products by tags
     var tags = req.params.tags.split('+');
-    console.log(tags);
-    db.Tag.findAll({
-      where: {
-        tagName: tags[0]
-      }
+    console.log("tagarray", tags);
+    // Category tag will always be inserted at end of tags array
+    var categoryTag = tags.pop();
+    var categoryProducts;
+    console.log(categoryTag);
+
+    // Get all associated products by Category tag
+    db.Tag.findOne({where: {tagName: categoryTag}})
+    .then(function (tag) {
+      return tag.getProducts();
     })
-    .then(function (tags) {
-      res.send(tags);
-      // return tags.getProducts();
+    .then(function (associatedProducts) {
+      console.log(associatedProducts)
+      categoryProducts = associatedProducts;
+      res.send({products: associatedProducts});
     })
     .catch(function (err) {
-      throw err;
+      next(error);
     });
   },
 
