@@ -18,7 +18,13 @@ var associateUserToProduct = function (userEmail, productName) {
 };
 
 var createUser = function (user) {
-
+  db.User.create(user)
+  .then(function (result) {
+    return result;
+  })
+  .catch(function (error) {
+    console.log('Error creating new user:', error);
+  });
 };
 
 // User format is Object, Product format is Object, Tags format is Array
@@ -32,8 +38,8 @@ var createProduct = function (user, product, tags) {
   var userModel;
 
   var promiseModels = [];
-  for(var i = 0; i < names.length; i++) {
-    promiseModels.push(db.Tag.findOrCreate({where: { tagName: promiseModels[i] }}));
+  for(var i = 0; i < tags.length; i++) {
+    promiseModels.push(db.Tag.findOrCreate({where: { tagName: tags[i] }}));
   }
   promiseModels.push(db.User.findOne({where: {email: user.email}}));
   promiseModels.push(db.Product.create(product));
@@ -49,17 +55,17 @@ var createProduct = function (user, product, tags) {
       results.push(args[i][0]);
     }
     // Save
-    return productModel.setTags(results)
+    return productModel.setTags(results);
   })
   .then(function (results) {
     return productModel.setUser(userModel);
   })
   .then(function () {
-    console.log('Success! Create a user with products and tags.')
+    return console.log('Success! Create a user with products and tags.');
   })
   .catch(function (error) {
-    console.log('Error in createProduct function: ', error);
-  })
+    return console.log('Error in createProduct function: ', error);
+  });
 };
 
 // var createProductAndAssociateToUser = function(userEmail, productName) {
