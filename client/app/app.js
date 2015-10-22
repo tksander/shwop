@@ -44,7 +44,7 @@ angular.module('shwop', [
 
     // We add our $httpInterceptor into the array
     // of interceptors. Think of it like middleware for your ajax calls
-    // $httpProvider.interceptors.push('AttachTokens');
+    $httpProvider.interceptors.push('AttachTokens');
 }])
 .factory('AttachTokens', ['$window', function ($window) {
   // this is an $httpInterceptor
