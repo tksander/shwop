@@ -46,26 +46,27 @@ angular.module('shwop', [
     // of interceptors. Think of it like middleware for your ajax calls
     // $httpProvider.interceptors.push('AttachTokens');
 }])
-// .factory('AttachTokens', ['$window', function ($window) {
-//   // This is an $httpInterceptor.
-//   // Its job is to stop all outgoing requests,
-//   // then look in local storage and find the user's token,
-//   // and then add it to the header so the server can validate the request
+.factory('AttachTokens', ['$window', function ($window) {
+  // this is an $httpInterceptor
+  // its job is to stop all out going request
+  // then look in local storage and find the user's token
+  // then add it to the header so the server can validate the request
+  var attach = {
+    request: function (object) {
+      var jwt = $window.localStorage.getItem('com.vacaypay');
+      
+      if (!/(http(s?))\:\/\//gi.test(object.url)){
 
-//   var attach = {
-//     request: function (object) {
-//       var jwt = $window.localStorage.getItem('com.shwop');
-//       if (!/(http(s?))\:\/\//gi.test(object.url)) {
-//         if (jwt) {
-//           object.headers['x-access-token'] = jwt;
-//         }
-//         object.headers['Allow-Control-Allow-Origin'] = '*';
-//         return object;
-//       }
-//     }
-//   };
-//   return attach;
-// }])
+        if (jwt) {
+          object.headers['x-access-token'] = jwt;
+        }
+        object.headers['Allow-Control-Allow-Origin'] = '*';
+      }
+      return object;
+    }
+  };
+  return attach;
+}])
 .run(['$rootScope', '$location', 'Auth', function ($rootScope, $location, Auth) {
   // Here inside the run phase of angular, our services and controllers
   // have just been registered and our app is ready.
