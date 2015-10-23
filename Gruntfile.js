@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-
+  grunt.loadNpmTasks('grunt-karma');
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
@@ -53,6 +53,8 @@ module.exports = function(grunt) {
       }
     },
 
+    
+
     nodemon: {
       dev: {
         script: 'server/server.js'
@@ -66,6 +68,26 @@ module.exports = function(grunt) {
           stderr: true
         },
 
+      }
+    },
+
+    karma: {  
+      unit: {
+        options: {
+          frameworks: ['mocha', 'chai'],
+          singleRun: false,
+          browsers: ['Chrome'],
+          files: [
+
+            'client/lib/angular/angular.js',
+            'client/lib/angular-route/angular-route.min.js',
+            'client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js',
+            'client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
+            'client/lib/angular-mocks/angular-mocks.js',
+            'client/app/**/*.js',
+            'test/client/*.js'
+          ]
+        }
       }
     },
 
@@ -142,7 +164,10 @@ module.exports = function(grunt) {
   // Main grunt tasks
   ////////////////////////////////////////////////////
 
-  grunt.registerTask('test', ['mochaTest']);
+  grunt.registerTask('test', [
+    'mochaTest',
+    'karma'
+    ]);
 
   grunt.registerTask('runSass', ['sass']);
 
