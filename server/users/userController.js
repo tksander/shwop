@@ -2,6 +2,12 @@ var db = require('../db/db_config.js');
 var jwt  = require('jwt-simple');
 
 module.exports = {
+
+  // signing in a user by doing the following:
+  // first, checking to see if the user exists in the db
+  // then, comparing the password provided against the 
+  // password in the db
+  // then, encoding the user and sending back the token
   signin: function (req, res, next) {
 
     db.User.findOne({
@@ -27,6 +33,10 @@ module.exports = {
     });
   },
 
+  // signing up a user by doing the following:
+  // first, see if the user already exists in the db
+  // then, create the user in the db
+  // then, encode the user and return the token
   signup: function (req, res, next) {
 
     db.User.findOne({
@@ -54,11 +64,11 @@ module.exports = {
     });
   },
 
+  // checking to see if the user is authenticated
+  // grab the token in the header is any
+  // then decode the token, which we end up being the user object
+  // check to see if that user exists in the database
   checkAuth: function (req, res, next) {
-    // checking to see if the user is authenticated
-    // grab the token in the header is any
-    // then decode the token, which we end up being the user object
-    // check to see if that user exists in the database
     var token = req.headers['x-access-token'];
     if (!token) {
       next(new Error('No token'));
