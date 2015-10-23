@@ -1,6 +1,6 @@
 angular.module('shwop.sell', [])
 
-.controller('SellController', ['$http', '$scope', '$location', 'Products', 'Photos', 'Auth', function ($http, $scope, $location, Products, Photos, Auth) {
+.controller('SellController', ['$http', '$scope', '$location', '$window', 'Products', 'Photos', 'Auth', function ($http, $scope, $location, $window, Products, Photos, Auth) {
   $scope.product = {};
   $scope.product.tags = [];
   $scope.product.photoURL = '';
@@ -46,9 +46,9 @@ angular.module('shwop.sell', [])
     // Temporary fix: Pushing the categories tag onto tags array
     // This may be utilized later, once we figure out search
     $scope.product.tags.push($scope.product.category);
-
+    console.log('token is ',$window.localStorage.getItem('com.shwop'));
     var request = {
-      "user": {"email": "michael@jordan.com"},
+      "token": $window.localStorage.getItem('com.shwop'),
       "product": {
                   "name": $scope.product.name,
                   "photoURL": $scope.product.photoURL,
