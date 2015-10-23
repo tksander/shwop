@@ -60,12 +60,10 @@ module.exports = {
     // then decode the token, which we end up being the user object
     // check to see if that user exists in the database
     var token = req.headers['x-access-token'];
-    console.log('token is ', token);
     if (!token) {
       next(new Error('No token'));
     } else {
       var user = jwt.decode(token, 'secret');
-      console.log('user is ', user);
       db.User.findOne({where: {email: user.email}})
       .then(function (foundUser) {
         console.log('foundUser is ', foundUser);
