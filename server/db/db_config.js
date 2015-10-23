@@ -1,4 +1,7 @@
 var Sequelize = require('sequelize');
+var bcrypt   = require('bcrypt-nodejs');
+var Q        = require('q');
+var SALT_WORK_FACTOR = 10;
 // Arguments are: [Database name], [Username], [Password]
 var orm = new Sequelize('shwopDB', 'root', '', {
   dialect: 'mysql',
@@ -19,8 +22,37 @@ var User = orm.define('User', {
   latitude: Sequelize.FLOAT(40),
   longitude: Sequelize.FLOAT(40),
   password: Sequelize.STRING(100),
-  hash: Sequelize.STRING(100),
   salt: Sequelize.STRING(100)
+},{
+  instanceMethods: {
+    comparePasswords: function (candidatePassword) {
+      var defer = Q.defer();
+      bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+        if (err) {
+          defer.reject(err);
+        } else {
+          defer.resolve(isMatch);
+        }
+      });
+      return defer.promise;
+    }
+  }
+});
+
+User.beforeCreate(function (user, options, next) {
+  return bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    if (err) {
+      return options();
+    }
+    return bcrypt.hash(user.password, salt, null, function (err, hash) {
+      if (err) {
+        return options(err);
+      }
+      user.password = hash;
+      user.salt = salt;
+      next();
+    });
+  });
 });
 
 var Product = orm.define('Product', {
