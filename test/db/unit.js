@@ -183,14 +183,15 @@ describe('Database unit tests', function () {
         firstName: 'Poopy',
         lastName: 'Jordan',
         phoneNumber: '(232)323-1995',
-        email: 'michael@jordan.com'
+        email: 'michael@jordan.com',
+        password: 'bulls4ever'
        };
 
-       var product1 = {
-                      name: 'ken griffey jr bobblehead',
-                      photoURL: 'http://placehold.it/120x120&text=image1',
-                      price: 55.55
-        };
+      var product1 = {
+        name: 'ken griffey jr bobblehead',
+        photoURL: 'http://placehold.it/120x120&text=image1',
+        price: 55.55
+      };
 
       it('should return single product associated with user', function (done) {
 

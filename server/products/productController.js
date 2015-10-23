@@ -6,7 +6,7 @@ module.exports = {
 
   // retrieve all the products from the database
   allProducts: function (req, res, next) {
-    console.log('all products')
+    console.log('all products');
     db.Product.findAll()
     .then(function (products) {
       res.send({products: products});
@@ -30,7 +30,7 @@ module.exports = {
       return tag.getProducts();
     })
     .then(function (associatedProducts) {
-      console.log(associatedProducts)
+      console.log(associatedProducts);
       categoryProducts = associatedProducts;
       res.send({products: associatedProducts});
     })
@@ -41,17 +41,18 @@ module.exports = {
 
   // adds a new product to the database
   newProduct: function (req, res, next) {
-
     var user = req.body.user;
     var product = req.body.product;
     var tags = req.body.tags;
 
-
-    helpers.createProduct(user, product, tags, function(result) {
-        res.send(result);
+    helpers.createProduct(user, product, tags, function (error, result) {
+      if (error) {
+        next(error);
+      }
+      res.send(200);
     });
-
   },
+
   // update the product
   updateProduct: function (req, res, next) {
     var updates = {};
@@ -79,7 +80,7 @@ module.exports = {
     })
     .then(function () {
       console.log('Successfully deleted the product');
-      res.send('Delete successful');
+      res.send(200);
     });
   }
 

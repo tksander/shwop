@@ -2,21 +2,7 @@
 var db = require('../../server/db/db_config.js');
 var Promise = require('bluebird');
 
-
-var associateUserToProduct = function (userEmail, productName) {
-  var promiseArray = [];
-  promiseArray.push(db.User.findOne({ where: {email: 'michael@jordan.com'}}));
-  promiseArray.push(db.Product.findOne({ where: { name: 'air jordan VII shoes'}}));
-  Promise.all(promiseArray)
-  .then(function (results) {
-    var user = results[0];
-    var product = results[1];
-    // console.log('user is ', user);
-    // console.log('product is ', product);
-    return product.setUser(user);
-  });
-};
-
+// create a  user
 var createUser = function (user) {
   db.User.create(user)
   .then(function (result) {
@@ -29,11 +15,6 @@ var createUser = function (user) {
 
 // User format is Object, Product format is Object, Tags format is Array
 var createProduct = function (user, product, tags, callback) {
-  // FindOne with user.email
-  // findOrCreate tags
-  // Create product
-
-  // Allows for 
   var productModel;
   var userModel;
 
@@ -61,26 +42,13 @@ var createProduct = function (user, product, tags, callback) {
     return productModel.setUser(userModel);
   })
   .then(function (result) {
-    console.log('Success! Create a user with products and tags.')
-    callback(result);
+    console.log('Success! Create a product with user and tags.');
+    callback(null, result);
   })
   .catch(function (error) {
     console.log('Error in createProduct function: ', error);
-    callback(error);
-  })
+    callback(error, null);
+  });
 };
 
-// var createProductAndAssociateToUser = function(userEmail, productName) {
-//   var promiseArray = [];
-//   promiseArray.push(db.User.findOne({ where: {email: 'michael@jordan.com'}}));
-//   promiseArray.push(db.Product.findOne({ where: { name: 'air jordan VII shoes'}}));
-//   Promise.all(promiseArray)
-//   .then(function (results) {
-//     var user = results[0];
-//     var product = results[1];
-//     return product.setUser(user);
-//   });
-// };
-
-exports.associateUserToProduct = associateUserToProduct;
 exports.createProduct = createProduct;

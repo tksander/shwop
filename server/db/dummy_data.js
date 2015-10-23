@@ -109,7 +109,7 @@ var newUser = {
 var product;
 var user;
 var tagsArr = [];
-var names = ['Bobblehead', 'Baseball', 'Ken Griffey Jr', 'Sports & Outdoors', 'Seattle']
+var names = ['Bobblehead', 'Baseball', 'Ken Griffey Jr', 'Sports & Outdoors', 'Seattle'];
 for(var i = 0; i < names.length; i++) {
   tagsArr.push(db.Tag.findOrCreate({where: { tagName: names[i] }}));
 }
@@ -122,7 +122,7 @@ tagsArr.push(db.Product.create({
 );
 
 var tagsArr2 = [];
-var names2 = ['Bat', 'Baseball', 'Mike Trout', 'Los Angeles', 'Angels', 'Sports & Outdoors']
+var names2 = ['Bat', 'Baseball', 'Mike Trout', 'Los Angeles', 'Angels', 'Sports & Outdoors'];
 for(var i = 0; i < names2.length; i++) {
   tagsArr2.push(db.Tag.findOrCreate({where: { tagName: names2[i] }}));
 }
@@ -145,7 +145,7 @@ Promise.all(tagsArr)
     results.push(args[i][0]);
   }
   // Save
-  return product.setTags(results)
+  return product.setTags(results);
 })
 .then(function(results) {
   // saved!
@@ -164,49 +164,9 @@ Promise.all(tagsArr)
     results.push(args[i][0]);
   }
   // Save
-  return product.setTags(results)
+  return product.setTags(results);
 })
 .then(function(results) {
   // saved!
-  console.log('Associated tag entries are saved!')
-})
-
-
-
-
-//add the dummy user data to the database
-// db.User.bulkCreate(users)
-// .then(function () {
-//   return db.User.findAll();
-// })
-// .catch(function (err) {
-//   console.log('There was an error creating dummy users');
-//   throw err;
-// });
-
-// //add the dummy product data to the database
-// db.Product.bulkCreate(products)
-// .then(function () {
-//   return db.Product.findAll();
-// })
-// .catch(function (err) {
-//   console.log('There was an error creating dummy products');
-//   throw err;
-// });
-
-// db.Tag.bulkCreate(tags)
-// .then(function () {
-//   return db.Tag.findAll();
-// })
-// .catch(function (err) {
-//   console.log('There was an error creating dummy tags');
-//   throw err;
-// });
-
-
-// helpers.associateUserToProduct('michael@jordan.com', 'air jordan VII shoes');
-
-
-//export the stringified dummy data
-// exports.users = JSON.stringify(users);
-// exports.products = JSON.stringify(products);
+  console.log('Associated tag entries are saved!');
+});

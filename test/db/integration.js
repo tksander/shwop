@@ -72,7 +72,8 @@ describe('Database integration tests', function () {
       firstName: 'Dennis',
       lastName: 'Jordan',
       phoneNumber: '(232)323-1995',
-      email: 'michael@jordan.com'
+      email: 'michael@jordan.com',
+      password: 'bulls4ever'
      };
 
     var product2 = {
@@ -201,7 +202,8 @@ describe('Database integration tests', function () {
       firstName: 'Michael',
       lastName: 'Jordan',
       phoneNumber: '(232)323-1995',
-      email: 'michael@jordan.com'
+      email: 'michael@jordan.com',
+      password: 'bulls4ever'
     };
 
     it('should add a user, with a product, and associated tags', function (done) {
