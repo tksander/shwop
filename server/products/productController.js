@@ -45,9 +45,9 @@ module.exports = {
     var product = req.body.product;
     var tags = req.body.tags;
 
-    helpers.createProduct(user, product, tags, function (err, result) {
-      if (err) {
-        next(err);
+    helpers.createProduct(user, product, tags, function (error, result) {
+      if (error) {
+        next(error);
       }
       res.send(200);
     });
@@ -80,7 +80,7 @@ module.exports = {
     })
     .then(function () {
       console.log('Successfully deleted the product');
-      res.send('Delete successful');
+      res.send(200);
     });
   }
 
