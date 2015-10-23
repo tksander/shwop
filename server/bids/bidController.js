@@ -1,6 +1,6 @@
 var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
-var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
+var client = require('twilio')(process.env.TwilioSid, process.env.TwilioAuthToken);
 
 
 module.exports = {
