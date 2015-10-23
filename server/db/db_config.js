@@ -24,23 +24,22 @@ var User = orm.define('User', {
   password: Sequelize.STRING(100),
   hash: Sequelize.STRING(100),
   salt: Sequelize.STRING(100)
+},{
+  instanceMethods: {
+    comparePasswords: function (candidatePassword) {
+      var defer = Q.defer();
+      var savedPassword = this.hash;
+      bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
+        if (err) {
+          defer.reject(err);
+        } else {
+          defer.resolve(isMatch);
+        }
+      });
+      return defer.promise;
+    }
+  }
 });
-// {
-//   instanceMethods: {
-//     comparePasswords: function (candidatePassword) {
-//       var defer = Q.defer();
-//       var savedPassword = this.password;
-//       bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
-//         if (err) {
-//           defer.reject(err);
-//         } else {
-//           defer.resolve(isMatch);
-//         }
-//       });
-//       return defer.promise;
-//     }
-//   }
-// });
 
 User.beforeCreate(function (user, options, next) {
   return bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
