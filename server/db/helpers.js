@@ -2,6 +2,7 @@
 var db = require('../../server/db/db_config.js');
 var Promise = require('bluebird');
 
+// create a  user
 var createUser = function (user) {
   db.User.create(user)
   .then(function (result) {

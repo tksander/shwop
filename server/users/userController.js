@@ -9,7 +9,6 @@ module.exports = {
   // password in the db
   // then, encoding the user and sending back the token
   signin: function (req, res, next) {
-
     db.User.findOne({
       where: {email: req.body.email}
     })
@@ -38,7 +37,6 @@ module.exports = {
   // then, create the user in the db
   // then, encode the user and return the token
   signup: function (req, res, next) {
-
     db.User.findOne({
       where: {email: req.body.email}
     })
