@@ -44,7 +44,6 @@ module.exports = {
   newProduct: function (req, res, next) {
 
     var token = req.body.token;
-    console.log('the token I see is ', token);
     if (!token) {
       next(new Error('No token'));
     } else {
@@ -52,11 +51,8 @@ module.exports = {
       db.User.findOne({where: {email: user.email}})
       .then(function (foundUser) {
         if (foundUser) {
-          var userId = foundUser.id;
-          console.log('seller is', user);
           var product = req.body.product;
           var tags = req.body.tags;
-
 
           helpers.createProduct(foundUser, product, tags, function (error, result) {
             if (error) {

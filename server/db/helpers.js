@@ -14,23 +14,26 @@ var createUser = function (user) {
 };
 
 // User format is Object, Product format is Object, Tags format is Array
-var createProduct = function (user, product, tags, callback) {
+var createProduct = function (userModel, product, tags, callback) {
+  // FindOne with user.email
+  // findOrCreate tags
+  // Create product
 
+  // Allows for 
   var productModel;
-  var userModel;
 
-  // var promiseModels = [];
-  // for(var i = 0; i < tags.length; i++) {
-  //   promiseModels.push(db.Tag.findOrCreate({where: { tagName: tags[i] }}));
-  // }
+  var promiseModels = [];
+  for(var i = 0; i < tags.length; i++) {
+    promiseModels.push(db.Tag.findOrCreate({where: { tagName: tags[i] }}));
+  }
   // promiseModels.push(db.User.findOne({where: {email: user.email}}));
-  // promiseModels.push(db.Product.create(product));
+  promiseModels.push(db.Product.create(product));
 
-  // Promise.all(promiseModels)
-  // .spread(function () {
-  //   var args = Array.prototype.slice.call(arguments);
-  //   productModel = args.pop();
-  //   userModel = args.pop();
+  Promise.all(promiseModels)
+  .spread(function () {
+    var args = Array.prototype.slice.call(arguments);
+    productModel = args.pop();
+    // userModel = args.pop();
 
     var results = [];
     for(var i = 0; i < args.length; i++) {
