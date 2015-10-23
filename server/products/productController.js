@@ -45,11 +45,11 @@ module.exports = {
     var product = req.body.product;
     var tags = req.body.tags;
 
-    helpers.createProduct(user, product, tags, function(err, result) {
+    helpers.createProduct(user, product, tags, function (err, result) {
       if (err) {
         next(err);
       }
-      res.send(result);
+      res.send(200);
     });
   },
 
