@@ -22,7 +22,7 @@ var createUser = function (user) {
 };
 
 // User format is Object, Product format is Object, Tags format is Array
-var createProduct = function (user, product, tags) {
+var createProduct = function (user, product, tags, callback) {
   // FindOne with user.email
   // findOrCreate tags
   // Create product
@@ -32,8 +32,8 @@ var createProduct = function (user, product, tags) {
   var userModel;
 
   var promiseModels = [];
-  for(var i = 0; i < names.length; i++) {
-    promiseModels.push(db.Tag.findOrCreate({where: { tagName: promiseModels[i] }}));
+  for(var i = 0; i < tags.length; i++) {
+    promiseModels.push(db.Tag.findOrCreate({where: { tagName: tags[i] }}));
   }
   promiseModels.push(db.User.findOne({where: {email: user.email}}));
   promiseModels.push(db.Product.create(product));
@@ -54,11 +54,13 @@ var createProduct = function (user, product, tags) {
   .then(function (results) {
     return productModel.setUser(userModel);
   })
-  .then(function () {
+  .then(function (result) {
     console.log('Success! Create a user with products and tags.')
+    callback(result);
   })
   .catch(function (error) {
     console.log('Error in createProduct function: ', error);
+    callback(error);
   })
 };
 
