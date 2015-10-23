@@ -15,7 +15,7 @@ module.exports = {
         .then(function (foundUser) {
           if (foundUser) {
             var token = jwt.encode(user, 'secret');
-            res.json({token: token});
+            res.json({token: token, email: user.email});
           } else {
             return next(new Error('No user'));
           }
@@ -47,7 +47,7 @@ module.exports = {
     })
     .then(function (user) {
       var token = jwt.encode(user, 'secret');
-      res.json({token: token});
+      res.json({token: token, email: user.email});
     })
     .catch(function (error) {
       next(error);
@@ -64,8 +64,9 @@ module.exports = {
       next(new Error('No token'));
     } else {
       var user = jwt.decode(token, 'secret');
-      db.User.findOne({where: {username: user.username}})
+      db.User.findOne({where: {email: user.email}})
       .then(function (foundUser) {
+        console.log('foundUser is ', foundUser);
         if (foundUser) {
           res.send(200);
         } else {
