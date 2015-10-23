@@ -22,14 +22,12 @@ var User = orm.define('User', {
   latitude: Sequelize.FLOAT(40),
   longitude: Sequelize.FLOAT(40),
   password: Sequelize.STRING(100),
-  hash: Sequelize.STRING(100),
   salt: Sequelize.STRING(100)
 },{
   instanceMethods: {
     comparePasswords: function (candidatePassword) {
       var defer = Q.defer();
-      var savedPassword = this.hash;
-      bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
+      bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
         if (err) {
           defer.reject(err);
         } else {
@@ -50,7 +48,7 @@ User.beforeCreate(function (user, options, next) {
       if (err) {
         return options(err);
       }
-      user.hash = hash;
+      user.password = hash;
       user.salt = salt;
       next();
     });
