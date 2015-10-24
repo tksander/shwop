@@ -3,7 +3,9 @@ bower_components/
 *.log
 .env
 
+.env
 sneakyLocal.js
+
 client/lib/
 !client/lib/mobile-angular-ui.gestures.js
 !client/lib/mobile-angular-ui.gestures.min.js
