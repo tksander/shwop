@@ -1,6 +1,5 @@
 var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
-var db = require('../db/db_config.js');
 var jwt  = require('jwt-simple');
 if(!process.env.TwilioSid) {
   var locally = require('../../sneakyLocal.js');
@@ -14,7 +13,6 @@ module.exports = {
     var product;
     var seller;
     var bidder = jwt.decode(req.body.token, 'secret');
-    console.log(req.body);
 
     db.Product.findOne({ where: { id: req.body.productId } })
     .then(function (foundProduct) {
@@ -46,9 +44,12 @@ module.exports = {
 
           console.log(responseData.from); // outputs "+18327695630"
           console.log(responseData.body); // outputs the actual message text
-          res.send(responseData);
+          res.send("Error creating twilio request: ", responseData);
         }
-      });
+      })
+      .catch(function(error) {
+        res.status(400).send('Error creating new bid in database: ', error);
+      })
     });
   }
 };
