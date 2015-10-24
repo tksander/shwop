@@ -1,7 +1,10 @@
 var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
-var client = require('twilio')(process.env.TwilioSid, process.env.TwilioAuthToken);
-
+var db = require('../db/db_config.js');
+if(!process.env.TwilioSid) {
+  var locally = require('../../sneakyLocal.js');
+}
+var client = require('twilio')(process.env.TwilioSid || locally.TwilioSid, process.env.TwilioAuthToken || locally.TwilioAuthToken);
 
 module.exports = {
 
