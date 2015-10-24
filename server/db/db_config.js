@@ -3,20 +3,11 @@ var bcrypt   = require('bcrypt-nodejs');
 var Q        = require('q');
 var SALT_WORK_FACTOR = 10;
 
-if (process.env.DATABASE_URL) {
-  // Arguments are: [Database name], [Username], [Password]
-  console.log("DATABASE_URL: " + process.env.DATABASE_URL);
-  var orm = new Sequelize(process.env.DATABASE_URL, dbUserName, dbPassword, {
-    dialect: 'mysql',
-    logging: false
-  });
-} else {
-  // Arguments are: [Database name], [Username], [Password]
-  var orm = new Sequelize('shwopDB', 'root', '', {
-    dialect: 'mysql',
-    logging: false
-  });
-}
+// Arguments are: [Database name], [Username], [Password]
+var orm = new Sequelize('shwopDB', 'root', '', {
+  dialect: 'mysql',
+  logging: false
+});
 
 ////////////////////////////////////
 ////// Create table/model schemas
@@ -55,10 +46,14 @@ User.beforeCreate(function (user, options, next) {
     if (err) {
       return options();
     }
+    console.log('before: salt is ', salt);
+    console.log('before: password is ', user.password);
     return bcrypt.hash(user.password, salt, null, function (err, hash) {
       if (err) {
         return options(err);
       }
+      console.log('after: salt is ', salt);
+      console.log('after: hash is ', hash);
       user.password = hash;
       user.salt = salt;
       next();
