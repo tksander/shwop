@@ -7,7 +7,8 @@ var SALT_WORK_FACTOR = 10;
 if (process.env.DATABASE_URL) {
   // Arguments are: [Database name], [Username], [Password]
   console.log("DATABASE_URL: " + process.env.DATABASE_URL);
-  var orm = new Sequelize(process.env.DATABASE_URL, dbUserName, dbPassword, {
+  var orm = new Sequelize(process.env.DATABASE_URL, process.env.dbUserName, process.env.dbPassword, {
+    host: 'localhost',
     dialect: 'mysql',
     logging: false
   });
