@@ -3,7 +3,7 @@ angular.module('shwop.sell', [])
 .controller('SellController', ['$http', '$scope', '$location', '$window', 'Products', 'Photos', 'Auth', function ($http, $scope, $location, $window, Products, Photos, Auth) {
   $scope.product = {};
   $scope.product.tags = [];
-  $scope.product.photoURL = null;
+  $scope.product.photoURL = '';
   $scope.product.category = null;
 
   $scope.categories = Products.categories;
