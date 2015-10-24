@@ -1,6 +1,7 @@
 var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
 var helpers = require('../db/helpers.js');
+var jwt  = require('jwt-simple');
 
 module.exports = {
 
@@ -41,16 +42,32 @@ module.exports = {
 
   // adds a new product to the database
   newProduct: function (req, res, next) {
-    var user = req.body.user;
-    var product = req.body.product;
-    var tags = req.body.tags;
 
-    helpers.createProduct(user, product, tags, function (error, result) {
-      if (error) {
+    var token = req.body.token;
+    if (!token) {
+      next(new Error('No token'));
+    } else {
+      var user = jwt.decode(token, 'secret');
+      db.User.findOne({where: {email: user.email}})
+      .then(function (foundUser) {
+        if (foundUser) {
+          var product = req.body.product;
+          var tags = req.body.tags;
+
+          helpers.createProduct(foundUser, product, tags, function (error, result) {
+            if (error) {
+              next(error);
+            }
+            res.send(200);
+          });
+        } else {
+          res.send(401,'corrupted token');
+        }
+      })
+      .catch(function (error) {
         next(error);
-      }
-      res.send(200);
-    });
+      });
+    }
   },
 
   // update the product
