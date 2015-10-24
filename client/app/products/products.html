@@ -30,6 +30,7 @@
     <div  ng-repeat='product in data.products.slice().reverse() | filter:search | orderBy: created_at' class='text-center product-container'>
       <img ui-swipe-left='swiped("LEFT")' ui-swipe-right='swiped("RIGHT")' ng-src='{{ product.photoURL }}' class='product-image'>
       <div class='product-price'><strong>${{ product.price }}</strong></div>
+      <div class='product-name'><strong>{{ product.name }}</strong></div>
     </div>
   </div>
 </div>
