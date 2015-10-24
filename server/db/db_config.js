@@ -4,10 +4,20 @@ var Q        = require('q');
 var SALT_WORK_FACTOR = 10;
 
 // Arguments are: [Database name], [Username], [Password]
-var orm = new Sequelize('shwopDB', 'root', '', {
-  dialect: 'mysql',
-  logging: false
-});
+if (process.env.DATABASE_URL) {
+  // Arguments are: [Database name], [Username], [Password]
+  console.log("DATABASE_URL: " + process.env.DATABASE_URL);
+  var orm = new Sequelize(process.env.DATABASE_URL, dbUserName, dbPassword, {
+    dialect: 'mysql',
+    logging: false
+  });
+} else {
+  // Arguments are: [Database name], [Username], [Password]
+  var orm = new Sequelize('shwopDB', 'root', '', {
+    dialect: 'mysql',
+    logging: false
+  });
+}
 
 ////////////////////////////////////
 ////// Create table/model schemas
