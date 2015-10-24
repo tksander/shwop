@@ -6,7 +6,7 @@ angular.module('shwop.sell', [])
   $scope.product.photoURL = '';
   $scope.product.category = null;
 
-  $scope.categories = Products.categories
+  $scope.categories = Products.categories;
 
   $scope.signout = function() {
     Auth.signout();
@@ -47,7 +47,7 @@ angular.module('shwop.sell', [])
     // This may be utilized later, once we figure out search
     $scope.product.tags.push($scope.product.category);
     console.log('token is ',$window.localStorage.getItem('com.shwop'));
-    var request = {
+     var request = {
       "token": $window.localStorage.getItem('com.shwop'),
       "product": {
                   "name": $scope.product.name,
@@ -59,7 +59,7 @@ angular.module('shwop.sell', [])
 
 
     Products.addProduct(request)
-    .then(function (res) {
+    .then(function () {
       $location.path('/products');
     })
     .catch(function (err) {

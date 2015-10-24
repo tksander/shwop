@@ -1,5 +1,6 @@
 angular.module('shwop.products', [])
 
+
 .controller('ProductController', ['$scope', 'Products', 'Auth', function ($scope, Products, Auth) {
   $scope.categories = Products.categories
 
@@ -11,7 +12,7 @@ angular.module('shwop.products', [])
   $scope.swiped = function(direction) {
     // If user swipes left, the topmost photo is removed from the array, revealing
     // the next product to the user.
-    if (direction === "LEFT") {
+    if (direction === 'LEFT') {
       $scope.data.products.shift();
       if ($scope.data.products.length === 0){
         $scope.getAllProducts();
@@ -34,7 +35,7 @@ angular.module('shwop.products', [])
     })
     .catch(function (err) {
       if (err){
-        console.log("/api/products GET failed. Populating products with dummy data.");
+        console.log('/api/products GET failed. Populating products with dummy data: ', err);
         $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
         {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
         {url: '../../photos/plane.jpg', price: 35000}];
@@ -45,13 +46,13 @@ angular.module('shwop.products', [])
 
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
-    var tag = $scope.data.tag
+    var tag = $scope.data.tag;
     Products.getProductsByTag(tag)
       .then(function (promise) {
         $scope.data.products = promise.data.products;
         Products.setCurrentProduct($scope.data.products[0]);
-      })
-  }
+      });
+  };
 
   $scope.getAllProducts();
 }])

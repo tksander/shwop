@@ -18,7 +18,7 @@ module.exports = {
     db.Product.findOne({ where: { id: req.body.productId } })
     .then(function (foundProduct) {
       product = foundProduct;
-      return db.User.findOne({ where: { id: foundProduct.get('UserId') } })
+      return db.User.findOne({ where: { id: foundProduct.get('UserId') } });
     })
     .then(function(foundSeller){
       seller = foundSeller;
@@ -31,9 +31,9 @@ module.exports = {
 
           to: seller.get('phoneNumber'), // Any number Twilio can deliver to
           from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
-          body: "" + bidder.get('firstName') + " has bid " + req.body.bidAmount + " for your " 
-          + product.get('name') + ". Respond to them at " 
-          + bidder.get('phoneNumber') + "."
+          body: '' + bidder.get('firstName') + ' has bid ' + req.body.bidAmount + ' for your ' 
+                + product.get('name') + ". Respond to them at " 
+                + bidder.get('phoneNumber') + "."
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
@@ -48,6 +48,6 @@ module.exports = {
           res.send(responseData);
         }
       });
-    })
+    });
   }
 };
