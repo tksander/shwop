@@ -31,8 +31,7 @@ var User = orm.define('User', {
   email:       { type: Sequelize.STRING(50), allowNull: false, unique: true },
   latitude:    { type: Sequelize.FLOAT(40) },
   longitude:   { type: Sequelize.FLOAT(40) },
-  password:    { type: Sequelize.STRING(100), allowNull: false },
-  salt:        { type: Sequelize.STRING(100) }
+  password:    { type: Sequelize.STRING(100), allowNull: false }
 },{
   instanceMethods: {
     //compare passwords when a user is signing in
@@ -56,16 +55,11 @@ User.beforeCreate(function (user, options, next) {
     if (err) {
       return options();
     }
-    console.log('before: salt is ', salt);
-    console.log('before: password is ', user.password);
     return bcrypt.hash(user.password, salt, null, function (err, hash) {
       if (err) {
         return options(err);
       }
-      console.log('after: salt is ', salt);
-      console.log('after: hash is ', hash);
       user.password = hash;
-      user.salt = salt;
       next();
     });
   });
