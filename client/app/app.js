@@ -56,7 +56,7 @@ angular.module('shwop', [
   // then add it to the header so the server can validate the request
   var attach = {
     request: function (object) {
-      var jwt = $window.localStorage.getItem('com.vacaypay');
+      var jwt = $window.localStorage.getItem('com.shwop');
       
       if (!/(http(s?))\:\/\//gi.test(object.url)){
 
