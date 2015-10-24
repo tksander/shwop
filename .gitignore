@@ -7,8 +7,8 @@ bower_components/
 sneakyLocal.js
 
 client/lib/*
-!client/lib/mobile-angular-ui.gestures.js
-!client/lib/mobile-angular-ui.gestures.min.js
+!client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.js
+!client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js
 
 build/
 dist/
