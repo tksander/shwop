@@ -100,7 +100,8 @@ module.exports = function(grunt) {
         ignores: [
           'client/lib/**/*',
           'client/photos/**/*',
-          'client/sell/canvas-to-blob.js'
+          'client/sell/canvas-to-blob.js',
+          'client/build/*'
         ]
       }
     },
