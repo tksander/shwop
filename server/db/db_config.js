@@ -3,12 +3,8 @@ var bcrypt   = require('bcrypt-nodejs');
 var Q        = require('q');
 var SALT_WORK_FACTOR = 10;
 
-// Arguments are: [Database name], [Username], [Password]
 if (process.env.DATABASE_URL) {
-  // Arguments are: [Database name], [Username], [Password]
-  console.log("DATABASE_URL: " + process.env.DATABASE_URL);
-  var orm = new Sequelize(process.env.DATABASE_URL, process.env.dbUserName, process.env.dbPassword, {
-    host: 'localhost',
+  var orm = new Sequelize(process.env.DATABASE_URL, {  // Username & password are part of URL so separate variables are not needed here.
     dialect: 'mysql',
     logging: false
   });
