@@ -1,6 +1,6 @@
 angular.module('shwop.bid', [])
 
-.controller('BidController', ['$http', '$scope', '$location', '$window', 'Products', function ($http, $scope, $location, $window, Products) {
+.controller('BidController', ['$http', '$scope', '$location', '$window', 'Products', 'Auth', function ($http, $scope, $location, $window, Products, Auth) {
   $scope.product = Products.getCurrentProduct();
   $scope.bid = null;
   $scope.sendBid = function () {
@@ -17,5 +17,8 @@ angular.module('shwop.bid', [])
 
   console.log($scope.product);
 
+  $scope.signout = function () {
+    Auth.signout();
+  };
 
 }]);
