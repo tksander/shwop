@@ -5,8 +5,6 @@ angular.module('shwop.bid', [])
   $scope.bid = null;
   $scope.sendBid = function () {
 
-    console.log('the token is ', $window.localStorage.getItem('com.shwop'));
-    console.log($window.localStorage.getItem('com.shwop'), $scope.product.id, $scope.bid);
     Products.sendBid($window.localStorage.getItem('com.shwop'), $scope.product.id, $scope.bid);
     $location.path('/products');
   };

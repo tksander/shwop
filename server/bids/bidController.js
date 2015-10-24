@@ -42,8 +42,8 @@ module.exports = {
           // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
           // http://www.twilio.com/docs/api/rest/sending-sms#example-1
 
-          console.log(responseData.from); // outputs "+18327695630"
-          console.log(responseData.body); // outputs the actual message text
+          console.log('Response data:  ', responseData.from); // outputs "+18327695630"
+          console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
           res.send("Error creating twilio request: ", responseData);
         }
       })
