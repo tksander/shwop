@@ -1,13 +1,18 @@
   <!-- TODO: (1) Research photo file path validation  -->
 
+<div class='scrollable-header'>
   <nav class='navbar navbar-app navbar-relative-top'>
-    <div class='btn-group justified'>
-      <a href='#/products' class='btn btn-navbar'>All Products</a>
-      <a href='#/sell' class='btn btn-navbar'>Sell Item</a>
-      <a ng-click='signout()' class='btn btn-navbar'>Logout</a>
+    <div class="navbar-header">
+      <strong class="navbar-brand title">Shwop</strong>
+      <div class='btn-group pull-right collapsible'>
+        <a href='#/products' class='btn btn-navbar'>All Products</a>
+        <a href='#/sell' class='btn btn-navbar'>Sell Item</a>
+        <a href='#/logout' class='btn btn-navbar'>Logout</a>
+      </div>
     </div>
   </nav>
-
+</div>
+<div class='scrollable-body'>
   <form name='sellForm' class='sellForm' ng-submit='addProduct()' novalidate>
     <div class='row'>
       <div class='col-md-4 col-centered'>
@@ -61,3 +66,5 @@
       </div>
     </div>
   </form>
+</div>
+

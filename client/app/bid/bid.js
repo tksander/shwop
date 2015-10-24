@@ -4,8 +4,11 @@ angular.module('shwop.bid', [])
   $scope.product = Products.getCurrentProduct();
   $scope.bid = null;
   $scope.sendBid = function () {
-    console.log($window.localStorage.getItem('userId'), $scope.product.id, $scope.bid);
-    Products.sendBid($window.localStorage.getItem('userId'), $scope.product.id, $scope.bid);
+
+    console.log('the token is ', $window.localStorage.getItem('com.shwop'));
+    console.log($window.localStorage.getItem('com.shwop'), $scope.product.id, $scope.bid);
+    Products.sendBid($window.localStorage.getItem('com.shwop'), $scope.product.id, $scope.bid);
+    $location.path('/products');
   };
 
   $scope.cancel = function () {

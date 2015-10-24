@@ -21,7 +21,7 @@ angular.module('shwop.auth', [])
     Auth.signup($scope.user)
       .then(function (token) {
         $window.localStorage.setItem('com.shwop', token);
-        $location.path('/products');
+        $location.path('/signin');
       })
       .catch(function (error) {
         console.error(error);

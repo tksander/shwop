@@ -1,6 +1,7 @@
 var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
 var db = require('../db/db_config.js');
+var jwt  = require('jwt-simple');
 if(!process.env.TwilioSid) {
   var locally = require('../../sneakyLocal.js');
 }
@@ -12,7 +13,7 @@ module.exports = {
   newBid: function (req, res, next) {
     var product;
     var seller;
-    var bidder;
+    var bidder = jwt.decode(req.body.token, 'secret');
     console.log(req.body);
 
     db.Product.findOne({ where: { id: req.body.productId } })
@@ -22,7 +23,7 @@ module.exports = {
     })
     .then(function(foundSeller){
       seller = foundSeller;
-      return db.User.findOne({ where: { id: req.body.bidderId } });
+      return db.User.findOne({ where: { id: bidder.id } });
     })
     .then(function(foundBidder){
       bidder = foundBidder;

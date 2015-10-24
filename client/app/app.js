@@ -34,6 +34,11 @@ angular.module('shwop', [
       css: '../styles/style.css',
       authenticate: true
     })
+    .when('/welcome', {
+      templateUrl: 'app/auth/welcome.html',
+      controller: 'AuthController',
+      css: '../styles/style.css'
+    })
     .when('/bid', {
       templateUrl: 'app/bid/bid.html',
       controller: 'BidController',

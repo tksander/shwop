@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  font-family: arial, sans-serif; }
+  font-family: arial, sans-serif;
+  background-color: lightgray; }
 
 li .menu {
   list-style: none;
@@ -38,6 +39,14 @@ li .menu {
   text-align: center;
   margin-top: -115px;
   color: green;
-  font-size: 50px; }
+  font-size: 50px;
+  -webkit-text-stroke: 2px yellow; }
+
+.product-name {
+  text-align: center;
+  margin-top: -350px;
+  color: black;
+  font-size: 50px;
+  -webkit-text-stroke: 2px white; }
 
 /*# sourceMappingURL=style.css.map */
