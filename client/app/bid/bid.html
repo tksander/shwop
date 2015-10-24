@@ -1,13 +1,16 @@
-
-
-<nav class='navbar navbar-app navbar-relative-top'>
-  <div class='btn-group justified'>
-    <a href='#/products' class='btn btn-navbar'>All Products</a>
-    <a href='#/sell' class='btn btn-navbar'>Sell Item</a>
-    <a href='#/logout' class='btn btn-navbar'>Logout</a>
-  </div>
-</nav>
-
+<div class='scrollable-header'>
+  <nav class='navbar navbar-app navbar-relative-top'>
+    <div class="navbar-header">
+      <strong class="navbar-brand title">Shwop</strong>
+      <div class='btn-group pull-right'>
+        <a href='#/products' class='btn btn-navbar'>All Products</a>
+        <a href='#/sell' class='btn btn-navbar'>Sell Item</a>
+        <a href='#/logout' class='btn btn-navbar'>Logout</a>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class='scrollable-content'>
   <form class="form-horizontal col-md-6 col-centered" ng-submit="sendBid()">
     <div class="form-group">
       <label class="col-sm-2 control-label">Your Bid:</label>
@@ -24,8 +27,9 @@
     </div>
   </form>
 
+
   <div class='col-md-4 col-centered'>
     <img ng-src='{{ product.photoURL }}' class='product-image'>
     <div class='product-price'><strong>${{ product.price }}</strong></div>
   </div>
-
+</div>

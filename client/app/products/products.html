@@ -1,36 +1,42 @@
-
-<nav class='navbar navbar-app navbar-relative-top'>
-  <div class='btn-group justified'>
-    <a href='#/products' class='btn btn-navbar'>All Products</a>
-    <a href='#/sell' class='btn btn-navbar'>Sell Item</a>
-    <a ng-click='signout()' class='btn btn-navbar'>Logout</a>
-  </div>
-</nav>
-
-<div class='row'>
-  <div class='col-md-4 col-centered'>
-    <input class='form-control' type='text' ng-model='data.search' placeholder='search for specific item' />
-  </div>
+<div class='scrollable-header'>
+  <nav class='navbar navbar-app navbar-relative-top'>
+    <div class="navbar-header">
+      <strong class="navbar-brand title">Shwop</strong>
+      <div class='btn-group pull-right collapsible'>
+        <a href='#/products' class='btn btn-navbar'>All Products</a>
+        <a href='#/sell' class='btn btn-navbar'>Sell Item</a>
+        <a href='#/logout' class='btn btn-navbar'>Logout</a>
+      </div>
+    </div>
+  </nav>
 </div>
 
-<div class='row'>
-  <div class='col-md-4 col-centered'>
-    <select name='repeatSelect' id='repeatSelect' ng-model='data.tag'>
-      <option ng-repeat='category in categories' value='{{ category.name }}' required>{{ category.name }}</option><br />
-    </select>
-    <label for='repeatSelect'>Pick Product Category</label>
-    <button ng-click="submitSearch()">Search</button><br>
+<div class='scrollable-content'>
+  <div class='row'>
+    <div class='col-md-4 col-centered'>
+      <input class='form-control' type='text' ng-model='data.search' placeholder='search for specific item' />
+    </div>
   </div>
-</div>
 
- <!--  <div drag-me='' class='drag-me' ng-repeat='product in data.products | filter:search | orderBy: created_at' class='product'> -->
-<div class='row'>
-  <!-- <div class='col-sm-4'></div> -->
-  <div class='col-md-6 col-xs-12 '>
-    <div  ng-repeat='product in data.products.slice().reverse() | filter:search | orderBy: created_at' class='text-center product-container'>
-      <img ui-swipe-left='swiped("LEFT")' ui-swipe-right='swiped("RIGHT")' ng-src='{{ product.photoURL }}' class='product-image'>
-      <div class='product-price'><strong>${{ product.price }}</strong></div>
-      <div class='product-name'><strong>{{ product.name }}</strong></div>
+  <div class='row'>
+    <div class='col-md-4 col-centered'>
+      <select name='repeatSelect' id='repeatSelect' ng-model='data.tag'>
+        <option ng-repeat='category in categories' value='{{ category.name }}' required>{{ category.name }}</option><br />
+      </select>
+      <label for='repeatSelect'>Pick Product Category</label>
+      <button ng-click="submitSearch()">Search</button><br>
+    </div>
+  </div>
+
+   <!--  <div drag-me='' class='drag-me' ng-repeat='product in data.products | filter:search | orderBy: created_at' class='product'> -->
+  <div class='row'>
+    <!-- <div class='col-sm-4'></div> -->
+    <div class='col-md-6 col-xs-12 '>
+      <div  ng-repeat='product in data.products.slice().reverse() | filter:search | orderBy: created_at' class='text-center product-container'>
+        <img ui-swipe-left='swiped("LEFT")' ui-swipe-right='swiped("RIGHT")' ng-src='{{ product.photoURL }}' class='product-image'>
+        <div class='product-price'><strong>${{ product.price }}</strong></div>
+        <div class='product-name'><strong>{{ product.name }}</strong></div>
+      </div>
     </div>
   </div>
 </div>

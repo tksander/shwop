@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  font-family: arial, sans-serif; }
+  font-family: arial, sans-serif;
+  background-color: lightgray; }
 
 li .menu {
   list-style: none;
