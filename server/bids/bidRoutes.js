@@ -1,4 +1,5 @@
 var bidController = require('./bidController.js');
+var userController = require('../users/userController.js');
 
 module.exports = function (app) {
   // app === productRouter injected from middleware.js
@@ -11,6 +12,6 @@ module.exports = function (app) {
   // app.param('code', linksController.findUrl);
 
   app.route('/')
-    .post(bidController.newBid);
+    .post(userController.checkAuth, bidController.newBid);
   // app.get('/:code', linksController.navToLink);
 };

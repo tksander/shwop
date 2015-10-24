@@ -69,20 +69,19 @@ module.exports = {
   checkAuth: function (req, res, next) {
     var token = req.headers['x-access-token'];
     if (!token) {
-      next(new Error('No token'));
+      res.status(401).send('get outta here ya bum you have no token');
     } else {
       var user = jwt.decode(token, 'secret');
       db.User.findOne({where: {email: user.email}})
       .then(function (foundUser) {
-        console.log('foundUser is ', foundUser);
         if (foundUser) {
-          res.send(200);
+          next();
         } else {
-          res.send(401);
+          res.status(401).send('no matching user found');
         }
       })
       .catch(function (error) {
-        next(error);
+        res.status(500).send('get outta here');
       });
     }
   }

@@ -1,4 +1,5 @@
 var productController = require('./productController.js');
+var userController = require('../users/userController.js');
 
 module.exports = function (app) {
   // app === productRouter injected from middleware.js
@@ -11,10 +12,10 @@ module.exports = function (app) {
   // app.param('tags', productController.productByTags);
 
   app.route('/')
-    .get(productController.allProducts)
-    .post(productController.newProduct)
-    .put(productController.updateProduct)
-    .delete(productController.deleteProduct);
+    .get(userController.checkAuth, productController.allProducts)
+    .post(userController.checkAuth, productController.newProduct)
+    .put(userController.checkAuth, productController.updateProduct)
+    .delete(userController.checkAuth, productController.deleteProduct);
 
-  app.get('/:tags', productController.productsByTags);
+  app.get('/:tags', userController.checkAuth, productController.productsByTags);
 };
