@@ -17,5 +17,12 @@ module.exports = function (app) {
     .put(userController.checkAuth, productController.updateProduct)
     .delete(userController.checkAuth, productController.deleteProduct);
 
+  app.get('/keys', userController.checkAuth, function(req, res) {
+      res.json({
+        'X-Parse-Application-Id': process.env['X-Parse-Application-Id'],
+        'X-Parse-REST-API-Key': process.env['X-Parse-REST-API-Key']
+      });
+  });
+
   app.get('/:tags', userController.checkAuth, productController.productsByTags);
 };
