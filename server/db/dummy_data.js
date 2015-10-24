@@ -96,14 +96,14 @@ Promise.all(promises)
 
 
 ///////////////////////////////////////////////
-//// Adds associated datat to the database
+//// Adds associated data to the database
 ///////////////////////////////////////////////
 
 var newUser = { 
       firstName: 'Michael',
       lastName: 'Jordan',
       phoneNumber: '(232)323-1995',
-      email: 'michael@jordan.com',
+      email: 'michael@jordan1.com',
       password: 'bulls4ever'
     };
 
@@ -151,7 +151,6 @@ Promise.all(tagsArr)
 .then(function(results) {
   // saved!
   return product.setUser(user);
-  console.log('saved1! ');
 })
 .then(function () {
   return Promise.all(tagsArr2);

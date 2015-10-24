@@ -35,7 +35,7 @@ module.exports = {
       categoryProducts = associatedProducts;
       res.send({products: associatedProducts});
     })
-    .catch(function (err) {
+    .catch(function (error) {
       next(error);
     });
   },

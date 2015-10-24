@@ -26,7 +26,7 @@ angular.module('shwop.services', [])
 
   var products = function () {
     $location.path('/products');
-  }
+  };
 
   var setCurrentProduct = function(newProduct) {
     currentProduct = newProduct;
@@ -138,8 +138,8 @@ angular.module('shwop.services', [])
     var reader = new FileReader();
 
     img.onload = function() {
-      var canvas = document.createElement("canvas");
-      var ctx = canvas.getContext("2d");
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
       
       canvas.height = height;
       canvas.width = canvas.height * (img.width / img.height);

@@ -1,5 +1,5 @@
 var db = require('../../server/db/db_config.js');
-var Sequelize = require('sequelize');
+// var Sequelize = require('sequelize');
 
 
 //This function clears everything from the database.

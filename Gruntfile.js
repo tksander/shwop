@@ -14,19 +14,8 @@ module.exports = function(grunt) {
         "mysql -u root -e 'create database shwopDB;'",
         "echo Lets go shwoping!"
         ].join('&&')
-      },
-      truncateDB: {
-        command: [
-        "echo Shwoping cart cleared!"
-        ].join('&&')
-      },
-      dropDB: {
-        command: [
-        "echo You dropped all your shwopping bags!"
-        ].join('&&')
       }
     },
-
     sass: {                                                        // Task
       dist: {                                                      // Target
         files: {                                                   // Dictionary of files
@@ -52,8 +41,6 @@ module.exports = function(grunt) {
         src: ['test/**/*.js']
       }
     },
-
-    
 
     nodemon: {
       dev: {
@@ -91,22 +78,32 @@ module.exports = function(grunt) {
       }
     },
 
-    // uglify: {
-    // },
+    uglify: {
+      options: {
+        mangle: false,
+        sourceMap: true
+      },
+      build: {
+        src: ['client/**/*.js', '!client/lib/**/*.js'],
+        dest: 'client/build/ugly.min.js'
+      }
+    },
 
-    // jshint: {
-    //   files: [
-    //     // Add filespec list here
-    //   ],
-    //   options: {
-    //     force: 'true',
-    //     jshintrc: '.jshintrc',
-    //     ignores: [
-    //       'public/lib/**/*.js',
-    //       'public/dist/**/*.js'
-    //     ]
-    //   }
-    // },
+    jshint: {
+      all: [
+        'client/**/*/*.js',
+        'server/**/*/*.js',
+      ],
+      options: {
+        force: 'true',
+        jshintrc: '_.jshintrc',
+        ignores: [
+          'client/lib/**/*',
+          'client/photos/**/*',
+          'client/sell/canvas-to-blob.js'
+        ]
+      }
+    },
 
     // cssmin: {
     //     // Add filespec list here
@@ -136,10 +133,10 @@ module.exports = function(grunt) {
 
   });
 
-  // grunt.loadNpmTasks('grunt-contrib-uglify');
-  // grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   // grunt.loadNpmTasks('grunt-contrib-watch');
-  // grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   // grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-mocha-test');
@@ -165,23 +162,20 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'mochaTest',
-    'karma'
+    'mochaTest'
+    // 'karma'
     ]);
 
   grunt.registerTask('runSass', ['sass']);
+
+  grunt.registerTask('check', ['jshint']);
+
+  grunt.registerTask('ugly', ['uglify']);
 
   grunt.registerTask('create', function(n) {
     grunt.task.run(['shell:createdb']);
   });
 
-  grunt.registerTask('truncate', function(n) {
-    grunt.task.run(['shell:truncateDB']);
-  });
-
-  grunt.registerTask('drop', function(n) {
-    grunt.task.run(['shell:dropDB']);
-  });
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
