@@ -41,6 +41,11 @@ angular.module('shwop.sell', [])
 
   // Calls factory method that adds a product to the database.
   $scope.addProduct = function () {
+    if ($scope.product.photoURL === '') {
+      alert("You must add a photo!");
+      return;
+    }
+    
     console.log($scope.product);
 
     // Temporary fix: Pushing the categories tag onto tags array
