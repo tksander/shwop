@@ -36,12 +36,12 @@ angular.module('shwop.services', [])
     return currentProduct;
   };
 
-  var sendBid = function(bidderId, productId, bidAmount) {
+  var sendBid = function(token, productId, bidAmount) {
     return $http({
       method: 'POST',
       url: '/api/bids',
       data: {
-        bidderId: bidderId,
+        token: token,
         productId: productId,
         bidAmount: bidAmount
       }
@@ -177,8 +177,8 @@ angular.module('shwop.services', [])
 
       $http.post(serverUrl, fileBlob, {
         headers: {
-          'X-Parse-Application-Id': process.env.ParseAppId,
-          'X-Parse-REST-API-Key': process.env.ParseRestKey,
+          'X-Parse-Application-Id':  '',
+          'X-Parse-REST-API-Key':  '',
           'Content-Type': file.type
         }
       }).then(function(resp) {
