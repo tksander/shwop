@@ -19,8 +19,8 @@ module.exports = function (app) {
 
   app.get('/keys', userController.checkAuth, function(req, res) {
       res.json({
-        'X-Parse-Application-Id': process.env['X-Parse-Application-Id'],
-        'X-Parse-REST-API-Key': process.env['X-Parse-REST-API-Key']
+        'X-Parse-Application-Id': process.env['ParseAppId'],
+        'X-Parse-REST-API-Key': process.env['ParseRestKey']
       });
   });
 
