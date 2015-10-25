@@ -20,6 +20,9 @@ module.exports = {
       return db.User.findOne({ where: { id: foundProduct.get('UserId') } });
     })
     .then(function(foundSeller){
+      if(foundSeller === null) {
+        res.status(400).send('Error creating new bid in database: We could not locate a seller for the product');
+      }
       seller = foundSeller;
       return db.User.findOne({ where: { id: bidder.id } });
     })
@@ -44,12 +47,13 @@ module.exports = {
 
           console.log('Response data:  ', responseData.from); // outputs "+18327695630"
           console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
-          res.send("Error creating twilio request: ", responseData);
+          res.status(400).send("Error creating twilio request: ", err);
         }
-      })
+        res.status(200).send("Successfully sent message. Response data:", responseData);
+      });
+    })
       .catch(function(error) {
         res.status(400).send('Error creating new bid in database: ', error);
       })
-    });
   }
 };
