@@ -60,7 +60,7 @@ module.exports = {
             res.send(200);
           });
         } else {
-          res.send(401,'corrupted token');
+          res.status(401).send('Error creating new product in database: We could not locate the product in the database.');
         }
       })
       .catch(function (error) {
