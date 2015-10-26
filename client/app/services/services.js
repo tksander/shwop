@@ -18,9 +18,6 @@ angular.module('shwop.services', [])
       url: '/api/products',
       data: product
     })
-    .then(function(thing) {
-      console.log('this thing', thing);
-    })
   };
 
   var bid = function() {
@@ -163,7 +160,6 @@ angular.module('shwop.services', [])
   var getPhotoAPIKeys = function(){
     return $http.get('/api/products/keys')
       .then(function(resp) {
-        console.log("Get keys response", resp);
         return resp.data;
       });
   };

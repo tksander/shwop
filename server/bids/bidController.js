@@ -16,17 +16,23 @@ module.exports = {
 
     db.Product.findOne({ where: { id: req.body.productId } })
     .then(function (foundProduct) {
+      if(foundProduct === null) {
+        res.status(400).send('Error creating new bid in database: We could not locate the product in the database.');
+      }
       product = foundProduct;
       return db.User.findOne({ where: { id: foundProduct.get('UserId') } });
     })
-    .then(function(foundSeller){
+    .then(function(foundSeller) {
       if(foundSeller === null) {
-        res.status(400).send('Error creating new bid in database: We could not locate a seller for the product');
+        res.status(400).send('Error creating new bid in database: We could not locate a seller for the product.');
       }
       seller = foundSeller;
       return db.User.findOne({ where: { id: bidder.id } });
     })
     .then(function(foundBidder){
+      if(foundBidder === null) {
+        res.status(400).send('Error creating new bid in database: We could not locate you (the bidder) in the database.');
+      }
       bidder = foundBidder;
 
       client.sendMessage({
