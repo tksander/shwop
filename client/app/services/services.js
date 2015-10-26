@@ -175,7 +175,6 @@ angular.module('shwop.services', [])
     resizeImage(file, resizedFileHeight, function(fileBlob) {
       var serverUrl = 'https://api.parse.com/1/files/' + file.name;
 
-
       getPhotoAPIKeys().then(function(keys) {
         $http.post(serverUrl, fileBlob, {
           headers: {

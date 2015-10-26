@@ -7,7 +7,6 @@ module.exports = {
 
   // retrieve all the products from the database
   allProducts: function (req, res, next) {
-    console.log('all products');
     db.Product.findAll()
     .then(function (products) {
       res.send({products: products});
