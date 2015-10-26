@@ -53,9 +53,10 @@ module.exports = {
 
           console.log('Response data:  ', responseData.from); // outputs "+18327695630"
           console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
+          res.status(200).send("Successfully sent message. Response data:", responseData);
+        } else {
           res.status(400).send("Error creating twilio request: ", err);
         }
-        res.status(200).send("Successfully sent message. Response data:", responseData);
       });
     })
       .catch(function(error) {
