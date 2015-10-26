@@ -17,7 +17,7 @@ angular.module('shwop.services', [])
       method: 'POST',
       url: '/api/products',
       data: product
-    })
+    });
   };
 
   var bid = function() {
