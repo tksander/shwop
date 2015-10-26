@@ -1,4 +1,4 @@
-<div class='scrollable-header'>
+<!-- <div class='scrollable-header'> -->
   <nav class='navbar navbar-app navbar-relative-top'>
     <div class="navbar-header">
       <strong class="navbar-brand title">Shwop</strong>
@@ -9,9 +9,22 @@
       </div>
     </div>
   </nav>
+<!-- </div> -->
+
+
+<div class="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item" ng-repeat= 'product in data.products | filter:search'>
+      <div>
+        <img ng-src='{{ product.photoURL }}' class='product-image'></img>
+        <div class='product-price'><strong>${{ product.price }}</strong></div>
+        <div class='product-name'><strong>{{ product.name }}</strong></div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class='scrollable-content'>
+<!-- <div class='scrollable-content'>
   <div class='row'>
     <div class='col-md-4 col-xs-12 col-centered'>
       <input class='form-control' type='text' ng-model='data.search' placeholder='search for specific item' />
@@ -28,9 +41,7 @@
     </div>
   </div>
 
-   <!--  <div drag-me='' class='drag-me' ng-repeat='product in data.products | filter:search | orderBy: created_at' class='product'> -->
   <div class='row'>
-    <!-- <div class='col-sm-4'></div> -->
     <div class='col-md-6 col-xs-12 '>
       <div  ng-repeat='product in data.products.slice().reverse() | filter:search | orderBy: created_at' class='text-center product-container'>
         <img ng-swipe-left='swiped("LEFT")' ng-swipe-right='swiped("RIGHT")' ng-src='{{ product.photoURL }}' class='product-image'>
@@ -39,4 +50,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

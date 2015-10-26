@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='shwop'>
+<html>
   <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -9,16 +9,6 @@
     <link rel='stylesheet' href='lib/mobile-angular-ui/dist/css/mobile-angular-ui-base.min.css' />
     <link rel='stylesheet' href='lib/mobile-angular-ui/dist/css/mobile-angular-ui-desktop.min.css' />
     <link rel='stylesheet' type='text/css' href='styles/style.css' />
-  </head>
-  <body>
-    <div class='row'>
-        <div class='col-xs-12 col-centered text-center'>
-            <h1>Shwop</h1>
-        </div>
-    </div>
-
-    <div ng-view class='scrollable'></div>
-
     <script src='lib/angular/angular.min.js'></script>
     <script src='lib/angular-route/angular-route.min.js'></script>
     <script src='lib/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js'></script>
@@ -31,5 +21,17 @@
     <script src='app/bid/bid.js'></script>
     <script src='app/services/services.js'></script>
     <script src='app/app.js'></script>
+  </head>
+
+
+  <body ng-app='shwop'>
+    <div class='app'>
+        <div class="app-body">
+            <div class="app-content">
+              <ng-view></ng-view>
+            </div>
+        </div>
+    </div>
+    <div ui-yield-to="modals"></div>
   </body>
 </html>

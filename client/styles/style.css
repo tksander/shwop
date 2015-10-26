@@ -25,28 +25,55 @@ li .menu {
   float: none !important;
   margin: 0 auto !important; }
 
-.product-container {
-  position: absolute;
-  width: 100vw;
-  height: auto; }
-
 .product-image {
   text-align: center;
-  height: 400px;
-  width: 400px; }
+  border: 5px solid black; }
 
 .product-price {
   text-align: center;
-  margin-top: -115px;
   color: green;
   font-size: 50px;
   -webkit-text-stroke: 2px yellow; }
 
-.product-name {
-  text-align: center;
-  margin-top: -350px;
-  color: black;
-  font-size: 50px;
-  -webkit-text-stroke: 2px white; }
+.carousel {
+  padding: 20px;
+  overflow: visible; }
+  .carousel .item, .carousel .carousel-item {
+    top: 0;
+    left: 0;
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 80%;
+    background-size: contain;
+    padding: 20px; }
+
+.carousel-inner {
+  position: relative;
+  overflow: visible; }
+
+.carousel-item {
+  display: block;
+  color: #444;
+  background: #f4f4f4;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  opacity: 1;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: -webkit-transform 500ms;
+  -moz-transition: -moz-transform 500ms;
+  transition: transform 500ms; }
+  .carousel-item .product-name {
+    text-align: center;
+    color: black;
+    font-size: 50px;
+    -webkit-text-stroke: 2px white; }
 
 /*# sourceMappingURL=style.css.map */
