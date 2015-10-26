@@ -161,8 +161,9 @@ angular.module('shwop.services', [])
 
   // Retrieves keys needed to post photos to parse.com
   var getPhotoAPIKeys = function(){
-    return $http.get('/api/keys')
+    return $http.get('/api/products/keys')
       .then(function(resp) {
+        console.log("Get keys response", resp);
         return resp.data;
       });
   };
@@ -178,27 +179,17 @@ angular.module('shwop.services', [])
     resizeImage(file, resizedFileHeight, function(fileBlob) {
       var serverUrl = 'https://api.parse.com/1/files/' + file.name;
 
-      $http.post(serverUrl, fileBlob, {
-        headers: {
-          'X-Parse-Application-Id':  '',
-          'X-Parse-REST-API-Key':  '',
-          'Content-Type': file.type
-        }
-      }).then(function(resp) {
-        callback(resp.data.url);
+      getPhotoAPIKeys().then(function(keys) {
+        $http.post(serverUrl, fileBlob, {
+          headers: {
+            'X-Parse-Application-Id': keys['X-Parse-Application-Id'],
+            'X-Parse-REST-API-Key': keys['X-Parse-REST-API-Key'],
+            'Content-Type': file.type
+          }
+        }).then(function(resp) {
+          callback(resp.data.url);
+        });
       });
-
-      // getPhotoAPIKeys().then(function(keys) {
-      //   $http.post(serverUrl, fileBlob, {
-      //     headers: {
-      //       'X-Parse-Application-Id': keys['X-Parse-Application-Id'],
-      //       'X-Parse-REST-API-Key': keys['X-Parse-REST-API-Key'],
-      //       'Content-Type': file.type
-      //     }
-      //   }).then(function(resp) {
-      //     callback(resp.data.url);
-      //   });
-      // });
     });
   };
 
