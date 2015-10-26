@@ -111,9 +111,9 @@ module.exports = {
     .then(function () {
       res.status(200).send('Successfully deleted the product');
     })
-    .catch(error) {
-        res.status(400).send('Error deleting the product in the database: ', error);
-    }
+    .catch(function (error) {
+      res.status(400).send('Error deleting the product in the database: ', error);
+    }) 
   }
 
 };
