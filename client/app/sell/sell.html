@@ -52,9 +52,8 @@
         <input id='photo' name='photo' type='file' fileread='productPhoto' required>
         <label>Upload photo</label>
         <div>
-          <button ng-click='addPhoto()'><em>add photo</em></button>
+          <a type="button" ng-click='addPhoto()'><em>add photo</em></a>
         </div>
-        <br />
         <img ng-src="{{ product.photoURL }}">
       </div>
     </div>
