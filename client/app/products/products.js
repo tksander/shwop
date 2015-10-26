@@ -28,10 +28,12 @@ angular.module('shwop.products', [])
 
   // Calls factory method that returns all product info from DB and renders it.
   $scope.getAllProducts = function () {
+    console.log('getting all products');
     Products.getAllProducts()
     .then(function (promise) {
       $scope.data.products = promise.data.products;
       Products.setCurrentProduct($scope.data.products[0]);
+      console.log(Products.getCurrentProduct());
     })
     .catch(function (err) {
       if (err){
@@ -58,16 +60,138 @@ angular.module('shwop.products', [])
 }])
 
 // Angular directive to control drag functionality.
-.directive('dragMe', ['$drag', function($drag){
+.directive('carousel', [function(){
+  return {
+    restrict: 'C',
+    controller: function($scope, Products) {
+      this.itemCount = 0;
+      this.activeItem = null;
+
+      this.addItem = function(){
+        var newId = this.itemCount++;
+        this.activeItem = this.itemCount === 1 ? newId : this.activeItem;
+        return newId;
+      };
+
+      this.reject = function(){
+        this.activeItem = this.activeItem || 0;
+        this.activeItem = this.activeItem === this.itemCount - 1 ? 0 : this.activeItem + 1;
+        
+        if ($scope.data.products.length > 1){
+          console.log('popping first product');
+          $scope.data.products.shift();
+          Products.setCurrentProduct($scope.data.products[0]);
+          console.log(Products.getCurrentProduct());
+        } else {
+          $scope.data.products.shift();
+          $scope.getAllProducts();
+        }
+      };
+
+      this.bid = function(){
+        Products.bid();
+      };
+
+      this.prev = function(){
+        this.activeItem = this.activeItem || 0;
+        this.activeItem = this.activeItem === 0 ? this.itemCount - 1 : this.activeItem - 1;
+      };
+    }
+  };
+}])
+
+.directive('carouselItem',['$drag', function ($drag) {
+  return {
+    restrict: 'C',
+    require: '^carousel',
+    transclude: true,
+    template: '<div class="item"><div ng-transclude></div></div>',
+    link: function(scope, elem, attrs, carousel) {
+      scope.carousel = carousel;
+      var id = carousel.addItem();
+      
+      var zIndex = function(){
+        var res = 0;
+        if (id === carousel.activeItem){
+          res = 2000;
+        } else if (carousel.activeItem < id) {
+          res = 2000 - (id - carousel.activeItem);
+        } else {
+          res = 2000 - (carousel.itemCount - 1 - carousel.activeItem + id);
+        }
+        return res;
+      };
+
+      scope.$watch(function(){
+        return carousel.activeItem;
+      }, function(){
+        elem[0].style.zIndex = zIndex();
+      });
+      
+      $drag.bind(elem, {
+        //
+        // This is an example of custom transform function
+        //
+        transform: function(element, transform, touch) {
+          // 
+          // use translate both as basis for the new transform:
+          // 
+          var t = $drag.TRANSLATE_BOTH(element, transform, touch);
+          
+          //
+          // Add rotation:
+          //
+          var Dx    = touch.distanceX, 
+              t0    = touch.startTransform, 
+              sign  = Dx < 0 ? -1 : 1,
+              angle = sign * Math.min( ( Math.abs(Dx) / 700 ) * 30 , 30 );
+          
+          t.rotateZ = angle + (Math.round(t0.rotateZ));
+          
+          return t;
+        },
+        move: function(drag){
+          if(Math.abs(drag.distanceX) >= drag.rect.width / 4) {
+            elem.addClass('dismiss');  
+          } else {
+            elem.removeClass('dismiss');  
+          }
+        },
+        cancel: function(){
+          elem.removeClass('dismiss');
+        },
+        end: function(drag) {
+          elem.removeClass('dismiss');
+          if(Math.abs(drag.distanceX) >= drag.rect.width / 4) {
+            scope.$apply(function() {
+              if(drag.distanceX < 0){
+                console.log('dragged left');
+                carousel.reject();
+              } else {
+                console.log('dragged right');
+                carousel.bid();
+              }
+            });
+          }
+          drag.reset();
+        }
+      });
+    }
+  };
+}])
+
+.directive('dragMe', ['$drag', function ($drag){
   return {
     controller: function($scope, $element) {
       $drag.bind($element, 
         {
-          // limit movement of element to its parent
+          //
+          // Here you can see how to limit movement 
+          // to an element
+          //
           transform: $drag.TRANSLATE_INSIDE($element.parent()),
-
-          // go back to initial position
           end: function(drag) {
+            // go back to initial position
             drag.reset();
           }
         },
