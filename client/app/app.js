@@ -4,7 +4,8 @@ angular.module('shwop', [
   'shwop.sell',
   'shwop.bid',
   'shwop.auth',
-  'shwop.user',
+  'shwop.mystore',
+  'shwop.profile',
   'mobile-angular-ui',
   'mobile-angular-ui.gestures',
   'pascalprecht.translate',
@@ -48,14 +49,14 @@ angular.module('shwop', [
       authenticate: true
     })
     .when('/mystore', {
-      templateUrl: 'app/user/mystore.html',
-      controller: 'UserController',
+      templateUrl: 'app/mystore/mystore.html',
+      controller: 'MyStoreController',
       css: '../styles/style.css',
       authenticate: true
     })
     .when('/profile', {
-      templateUrl: 'app/user/profile.html',
-      controller: 'UserController',
+      templateUrl: 'app/profile/profile.html',
+      controller: 'ProfileController',
       css: '../styles/style.css',
       authenticate: true
     });
