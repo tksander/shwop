@@ -3,11 +3,12 @@ node_js:
   - '0.8'
   - '0.10'
 before_install: 
+  - npm update -g npm
   - "sudo apt-get install ruby-compass"
   - "npm install -g grunt grunt-cli bower"
 before_script:
-  - npm update -g npm
+  - mysql -e 'create database shwopDB;'
 script:
   - "npm test"
   - "grunt runSass"
-  - "grunt ugly"
+  # - "grunt ugly"
