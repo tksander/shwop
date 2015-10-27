@@ -5,6 +5,8 @@ node_js:
 before_install: 
   - "sudo apt-get install ruby-compass"
   - "npm install -g grunt grunt-cli bower"
+before_script:
+  - npm update -g npm
 script:
   - "npm test"
   - "grunt runSass"
