@@ -98,4 +98,19 @@ li {
   };
 }
 
+.tag {
+  color: blue;
+}
 
+.invalid {
+  color: red;
+  font-style: italic;
+}
+
+.valid {
+  display: none;
+}
+
+.valid-cat {
+  color: black;
+}
