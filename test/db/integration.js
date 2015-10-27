@@ -23,7 +23,7 @@ describe('Database integration tests', function () {
     clearDB(done);
   });
 
-  describe('Adding to join table', function () {
+  xdescribe('Adding to join table', function () {
 
     it('should create a product and tag record and associate in database', function (done) {
 
