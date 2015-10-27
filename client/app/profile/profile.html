@@ -1,4 +1,3 @@
-  <!-- TODO: (1) Research photo file path validation  -->
 
 <nav class='navbar navbar-app navbar-relative-top'>
   <strong class='navbar-brand-center navbar-brand'>Shwop</strong>
@@ -12,11 +11,10 @@
   </div>
 </nav>
 
-<div class="scrollable">
  <div class="scrollable-content section">
-  <h1>User Profile</h1>
+  <h1 class="page-header">User Profile</h1>
   <div>
-    <form novalidate class='simple-form'>
+    <form role='form' class='simple-form'>
     <div class="form-group">
       <label>First Name</label>
       <input type='text' 
@@ -31,13 +29,13 @@
     </div>
     <div class="form-group">
       <label>Email</label>
-      <input type='text' 
+      <input type='email' 
              class='form-control'
              ng-model='data.user.email'>
     </div>
     <div class="form-group">
       <label>Phone</label>
-      <input type='text' 
+      <input type='tel' 
              class='form-control'
              ng-model='data.user.phoneNumber'>
     </div>
@@ -56,5 +54,4 @@
       <input type='submit'  class='btn btn-primary btn-block' ng-click='' value='Save' />
     </form>
   </div>
- </div>
 </div>
