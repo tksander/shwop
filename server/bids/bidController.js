@@ -59,8 +59,8 @@ module.exports = {
         }
       });
     })
-      .catch(function(error) {
-        res.status(400).send('Error creating new bid in database: ', error);
-      })
+    .catch(function(error) {
+      res.status(400).send('Error creating new bid in database: ', error);
+    })
   }
 };
