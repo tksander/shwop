@@ -114,3 +114,9 @@ li {
 .valid-cat {
   color: black;
 }
+
+/* style based on invalid */
+select:invalid { color: grey }
+
+/* so drop-down items don't inherit color */
+select:invalid option { color: black; }

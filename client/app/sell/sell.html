@@ -13,8 +13,56 @@
   </div>
 </nav>
 
-<div class='scrollable-body'>
-  <form name='sellForm' class='sellForm' ng-submit='addProduct()' novalidate>
+
+<div class='scrollable' style='position:relative'>
+<div class='scrollable-content section'>
+
+<form role="form" ng-submit='addProduct()'>
+  <fieldset>
+    <legend>Sell An Item</legend>
+
+    <div class="form-group has-success has-feedback">
+      <label>Item Name</label>
+      <input type="text"
+             ng-model='product.name'
+             class="form-control"
+             placeholder="Enter product name"
+             required>
+    </div>
+
+    <div class="form-group has-success has-feedback">
+      <label>Price</label>
+      <input type="number"
+             ng-model='product.price' 
+             class="form-control"
+             placeholder="Enter asking price (USD)"
+             required>
+    </div>
+
+    <div class="form-group has-success ">
+      <label>Product Category</label>
+      <select ng-model="product.category"
+             class="form-control"
+             ng-options='category.name for category in categories'
+             required
+             >
+        <option value="" disabled selected hidden>Select product category</option>
+      </select>
+    </div>
+
+
+  </fieldset>
+
+  <hr>
+
+  <button class="btn btn-primary btn-block">
+    Sell Item
+  </button>
+</form>
+
+
+
+  <!-- <form name='sellForm' class='sellForm' ng-submit='addProduct()' novalidate>
     <div class='row'>
       <div class='col-md-4 col-centered'>
         <input id='name' name='name' type='text' ng-model='product.name' required> <span ng-class='sellForm.name.$valid ? "valid" : "invalid"'> Please enter a product name</span><br />
@@ -52,7 +100,7 @@
     <div class='row'>
       <div class='col-md-4 col-centered'>
         <input id='photo' name='photo' type='file' fileread='productPhoto' required>
-        <!-- <label>Upload photo</label> -->
+        
         <div>
           <a type="button" ng-click='addPhoto()'><em>add photo</em></a>
         </div>
@@ -67,6 +115,7 @@
         <button type='submit' value='Sell' ng-disabled='sellForm.$invalid'>Sell Item</button>
       </div>
     </div>
-  </form>
+  </form> -->
+</div>
 </div>
 

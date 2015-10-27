@@ -89,14 +89,12 @@ li .menu {
 .valid-cat {
   color: black; }
 
-.store-product {
-  float: left;
-  padding: 5px;
-}
+/* style based on invalid */
+select:invalid {
+  color: grey; }
 
-.store-product-image {
-  height: 200px;
-  width: 200px;
-}
+/* so drop-down items don't inherit color */
+select:invalid option {
+  color: black; }
 
 /*# sourceMappingURL=style.css.map */
