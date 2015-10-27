@@ -39,6 +39,7 @@ li {
 .product-image {
   text-align: center;
   border: 5px solid black;
+  max-height:50vh;
 }
 
 .product-price {
@@ -95,6 +96,9 @@ li {
     color: black;
     font-size: 50px;
     -webkit-text-stroke: 2px white;
+    position:absolute;
+    top: 50vh;
+    left:30vw;
   };
 }
 
