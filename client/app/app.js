@@ -4,6 +4,7 @@ angular.module('shwop', [
   'shwop.sell',
   'shwop.bid',
   'shwop.auth',
+  'shwop.user',
   'mobile-angular-ui',
   'mobile-angular-ui.gestures',
   'ngRoute'
@@ -42,6 +43,18 @@ angular.module('shwop', [
     .when('/bid', {
       templateUrl: 'app/bid/bid.html',
       controller: 'BidController',
+      css: '../styles/style.css',
+      authenticate: true
+    })
+    .when('/mystore', {
+      templateUrl: 'app/user/mystore.html',
+      controller: 'UserController',
+      css: '../styles/style.css',
+      authenticate: true
+    })
+    .when('/profile', {
+      templateUrl: 'app/user/profile.html',
+      controller: 'UserController',
       css: '../styles/style.css',
       authenticate: true
     });
