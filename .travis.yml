@@ -6,6 +6,8 @@ before_install:
   - npm update -g npm
   - "sudo apt-get install ruby-compass"
   - "npm install -g grunt grunt-cli bower"
+before_script:
+  - mysql -e 'create database shwopDB;'
 script:
   - "npm test"
   - "grunt runSass"
