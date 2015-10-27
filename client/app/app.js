@@ -88,4 +88,11 @@ angular.module('shwop', [
       $location.path('/signin');
     }
   });
+  $rootScope.$on('$routeChangeSuccess', function(event, current) {
+    if (current.$$route.authenticate || Auth.isAuth()) {
+      $rootScope.showSideBar = true;
+    } else {
+      $rootScope.showSideBar = false;
+    }
+  });
 }]);
