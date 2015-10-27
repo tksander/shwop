@@ -145,10 +145,19 @@ angular.module('shwop.services', [])
     });
   };
 
+  var updateUser = function(token, updatedUser) {
+    return $http({
+      method: 'POST',
+      url: '/api/users/update',
+      data: {token: token, updatedUser: updatedUser}
+    });
+  };
+
   return {
     getUsers: getUsers,
     getUserInfo: getUserInfo,
-    addUser: addUser
+    addUser: addUser,
+    updateUser: updateUser
   };
 }])
 .factory('Photos', function($http) {
