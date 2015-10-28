@@ -3,14 +3,14 @@
 <div class='scrollable'>
 <div class='scrollable-header'>
 <nav class='navbar navbar-app navbar-relative-top'>
-  <strong class="navbar-brand-center navbar-brand">Shwop</strong>
-  <div class="btn-group pull-left">
-    <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
-      <i class="fa fa-bars"></i> Menu
+  <strong class='navbar-brand-center navbar-brand'>Shwop</strong>
+  <div class='btn-group pull-left'>
+    <div ui-toggle='uiSidebarLeft' class='btn sidebar-toggle'>
+      <i class='fa fa-bars'></i> {{ 'menuTitle' | translate }}
     </div>
   </div>
   <div class='btn-group pull-right collapsible'>
-    <a ng-click='signout()' class='btn btn-navbar'>Logout</a>
+    <a ng-click='signout()' class='btn btn-navbar'>{{ 'logoutNav' | translate }}</a>
   </div>
 </nav>
 </div>
@@ -18,73 +18,73 @@
 
 <div class='scrollable-content section'>
 
-<form role="form" ng-submit='addProduct()'>
+<form role='form' ng-submit='addProduct()'>
   <fieldset>
-    <legend>Sell An Item</legend>
+    <legend>{{ 'sellItemLegend' | translate }}</legend>
 
-    <div class="form-group has-success has-feedback">
-      <label>Item Name</label>
-      <input type="text"
+    <div class='form-group has-success has-feedback'>
+      <label>{{ 'itemNameLabel' | translate }}</label>
+      <input type='text'
              ng-model='product.name'
              class="form-control"
-             placeholder="Enter product name"
+             placeholder='{{ "itemNamePlaceholder" | translate }}'
              required>
     </div>
 
-    <div class="form-group has-success has-feedback">
-      <label>Price</label>
-      <input type="number"
+    <div class='form-group has-success has-feedback'>
+      <label>{{ 'priceLabel' | translate }}</label>
+      <input type='number'
              ng-model='product.price' 
-             class="form-control"
-             placeholder="Enter asking price (USD)"
+             class='form-control'
+             placeholder='{{ "pricePlaceholder" | translate }}'
              required>
     </div>
 
-    <div class="form-group has-success">
-      <label>Product Category</label>
-      <select ng-model="product.category"
-             class="form-control"
+    <div class='form-group has-success'>
+      <label>{{ 'categoryLabel' | translate }}</label>
+      <select ng-model='product.category'
+             class='form-control'
              ng-options='category.name as category.name for category in categories'
              required
              >
-        <option value="" disabled selected hidden>Select product category</option>
+        <option value='' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
       </select>
     </div>
 
-    <div class="form-group has-success has-feedback">
-      <label>Search Tags</label>
+    <div class='form-group has-success has-feedback'>
+      <label>{{ 'tagsLabel' | translate }}</label>
       <div class='input-group'>
-          <input type="text"
+          <input type='text'
                 ng-model='data.tag' 
-                class="form-control"
-                placeholder="Enter search tags"
+                class='form-control'
+                placeholder='{{ "tagsPlaceholder" | translate }}'
                 ng-enter='addTag()'
                 >
                 <span class ='input-group-btn'>
-                  <button class='btn btn-default tag-button' type='button' ng-click='addTag()'>Add Tag</button>
+                  <button class='btn btn-default tag-button' type='button' ng-click='addTag()'>{{ 'addTagButton' | translate }}</button>
                 </span>
       </div>
       
-      <div  class='tag' ng-repeat="tag in product.tags">
+      <div  class='tag' ng-repeat='tag in product.tags'>
         {{  tag.name || tag  }}
       </div>
     </div>
 
-    <div class="form-group has-success">
-      <label>Product Photo</label>
+    <div class='form-group has-success'>
+      <label>{{ 'photoLabel' | translate }}</label>
       <div class='input-group'>
-        <input type="file"
+        <input type='file'
                fileread='productPhoto' 
-               class="form-control"
-               placeholder="Enter asking price (USD)"
+               class='form-control'
+               placeholder='{{ "pricePlaceholder" | translate }}'
                required>
         <span class ='input-group-btn'>
-          <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()'>Upload Photo</button>
+          <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()'>{{ 'uploadPhotoButton' | translate }}</button>
         </span>
       </div>
-      <div ng-hide="product.photoURL === ''"class='tag'>
-        <div>Photo Preview:</div>
-        <img ng-src="{{ product.photoURL }}">
+      <div ng-hide='product.photoURL === ""' class='tag'>
+        <div>{{ 'photoPreview' | translate }}</div>
+        <img ng-src='{{ product.photoURL }}'>
       </div>
     </div>
 
@@ -93,8 +93,8 @@
 
   <hr>
 
-  <button class="btn btn-primary btn-block">
-    Sell Item
+  <button class='btn btn-primary btn-block'>
+    {{ 'sellItemButton' | translate }}
   </button>
 </form>
 
