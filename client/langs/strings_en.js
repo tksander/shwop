@@ -30,11 +30,9 @@ var enUS = {
   "welcomeHeader": "Welcome to Shwop!",
   "welcomeMessage": "Welcome to Shwop! Use the nav buttons above to start Shwopping!",
 
-  // client>app>bid>bid.html
-  "productsNav": "All Products",
-  "sellItemNav": "Sell Item",
-  "bidPrompt": "Your Bid:",
-  "bidPlaceholder": "Enter your bid here",
+  // client>bidModal.html
+  "bidPlaceholder": "How much will you bid?",
+  "bidTitle": "Place a Bid!",
 
   // client>app>mystore>mystore.html
   "myStoreHeader": "My Store",
