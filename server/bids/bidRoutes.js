@@ -14,4 +14,11 @@ module.exports = function (app) {
   app.route('/')
     .post(userController.checkAuth, bidController.newBid);
   // app.get('/:code', linksController.navToLink);
+
+  app.get('/messages', function(req, res) {
+      console.log(req);
+      res.json({
+              'message': 'heeyyyyyyy brother'
+            });
+  });
 };
