@@ -6,7 +6,6 @@ bower_components/
 sneakyLocal.js
 
 .sass-cache
-client/styles/style.css
 client/styles/style.css.map
 
 client/lib/jquery
