@@ -116,7 +116,7 @@ describe('Database integration tests', function () {
   });
 
 
-  describe('Retrieves products for tag', function () {
+  xdescribe('Retrieves products for tag', function () {
 
     it('should get all products matching tag', function (done) {
 
