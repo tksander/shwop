@@ -1,6 +1,7 @@
   <!-- TODO: (1) Research photo file path validation  -->
 
-
+<div class='scrollable' style='position:relative'>
+<div class='scrollable-header'>
 <nav class='navbar navbar-app navbar-relative-top'>
   <strong class="navbar-brand-center navbar-brand">Shwop</strong>
   <div class="btn-group pull-left">
@@ -12,9 +13,9 @@
     <a ng-click='signout()' class='btn btn-navbar'>Logout</a>
   </div>
 </nav>
+</div>
 
 
-<div class='scrollable' style='position:relative'>
 <div class='scrollable-content section'>
 
 <form role="form" ng-submit='addProduct()'>
@@ -39,15 +40,52 @@
              required>
     </div>
 
-    <div class="form-group has-success ">
+    <div class="form-group has-success">
       <label>Product Category</label>
       <select ng-model="product.category"
              class="form-control"
-             ng-options='category.name for category in categories'
+             ng-options='category.name as category.name for category in categories'
              required
              >
         <option value="" disabled selected hidden>Select product category</option>
       </select>
+    </div>
+
+    <div class="form-group has-success has-feedback">
+      <label>Search Tags</label>
+      <div class='input-group'>
+          <input type="text"
+                ng-model='data.tag' 
+                class="form-control"
+                placeholder="Enter search tags"
+                ng-enter='addTag()'
+                >
+                <span class ='input-group-btn'>
+                  <button class='btn btn-default tag-button' type='button' ng-click='addTag()'>Add Tag</button>
+                </span>
+      </div>
+      
+      <div  class='tag' ng-repeat="tag in product.tags">
+        {{  tag.name || tag  }}
+      </div>
+    </div>
+
+    <div class="form-group has-success">
+      <label>Product Photo</label>
+      <div class='input-group'>
+        <input type="file"
+               fileread='productPhoto' 
+               class="form-control"
+               placeholder="Enter asking price (USD)"
+               required>
+        <span class ='input-group-btn'>
+          <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()'>Upload Photo</button>
+        </span>
+      </div>
+      <div ng-hide="product.photoURL === ''"class='tag'>
+        <div>Photo Preview:</div>
+        <img ng-src="{{ product.photoURL }}">
+      </div>
     </div>
 
 

@@ -115,6 +115,26 @@ li {
   color: black;
 }
 
+.tag{
+  display: inline-block;
+  background-color: lightgray;
+  border-radius: 5px;
+  padding:5px;
+  margin-right:10px;
+  margin-top:5px;
+  color:blue;
+}
+
+
+.tag-button{
+  border:1px solid black;
+  height:33.9931px;
+}
+.inline-element{
+  display:inline-block;
+}
+
+
 /* style based on invalid */
 select:invalid { color: grey }
 

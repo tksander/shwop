@@ -67,9 +67,8 @@ module.exports = {
           helpers.createProduct(foundUser, product, tags, function (error, result) {
             if (error) {
               next(error);
-            } else {
-              res.send(200);
             }
+            res.send(200);
           });
         } else {
           res.status(401).send('Error creating new product in database: We could not locate the product in the database.');

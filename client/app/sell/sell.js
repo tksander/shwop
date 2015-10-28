@@ -41,6 +41,10 @@ angular.module('shwop.sell', [])
 
   // Calls factory method that adds a product to the database.
   $scope.addProduct = function () {
+    if($scope.product.photoURL === ''){
+      alert('You must click the button to upload your photo first.');
+      return;
+    }
     
     console.log($scope.product);
 
