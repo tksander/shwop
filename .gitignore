@@ -3,7 +3,7 @@ bower_components/
 *.log
 .env
 
-.env
+.sass-cache
 sneakyLocal.js
 
 client/lib/angular
