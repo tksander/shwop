@@ -9,6 +9,7 @@ sneakyLocal.js
 client/styles/style.css
 client/styles/style.css.map
 
+client/lib/jquery
 client/lib/angular
 client/lib/angular-mocks
 client/lib/angular-route

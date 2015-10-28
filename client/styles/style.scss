@@ -12,6 +12,19 @@ li {
   }
 }
 
+div {
+  .half-width {
+    width: 50%;
+    float: left;
+  }
+  .padded-vertical {
+    padding: 5px 0px 5px 0px;
+  }
+  .padded-all {
+    padding: 5px;
+  }
+}
+
 .sign-up-field {
   .control-label{
     text-align: right !important;
