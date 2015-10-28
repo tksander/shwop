@@ -62,5 +62,30 @@ module.exports = {
     .catch(function(error) {
       res.status(400).send('Error creating new bid in database: ', error);
     })
+  },
+
+  messageHandler: function(req, res, next){
+
+    client.sendMessage({
+
+        to: '7133034742', // Any number Twilio can deliver to
+        from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
+        body: "Hey John, someone sent a message back to twilio."
+
+    }, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+      if (!err) { // "err" is an error received during the request, if any
+
+        // "responseData" is a JavaScript object containing data received from Twilio.
+        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+
+        console.log('Response data:  ', responseData.from); // outputs "+18327695630"
+        console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
+        res.status(200).send("Successfully sent message. Response data:", responseData);
+      } else {
+        res.status(400).send("Error creating twilio request: ", err);
+      }
+    });
   }
 };
