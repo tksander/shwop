@@ -3,10 +3,11 @@ bower_components/
 *.log
 .env
 
-.sass-cache
 sneakyLocal.js
 
-styles.css
+.sass-cache
+client/styles/style.css
+client/styles/style.css.map
 
 client/lib/angular
 client/lib/angular-mocks
