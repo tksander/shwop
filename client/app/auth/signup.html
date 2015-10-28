@@ -16,7 +16,6 @@
           <div class='form-group sign-up-field'>
             <label class='col-sm-4 control-label'>Email</label>
             <div class='col-sm-7'>
-              <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required>
               <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required autofocus>
             </div>
           </div>
@@ -53,7 +52,6 @@
           <div class='form-group sign-up-field'>
             <label class='col-sm-4 control-label'>Address Line 1</label>
             <div class='col-sm-7'>
-              <input ng-model='user.password' type='password' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
               <input ng-model='user.address1' type='text' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
             </div>
           </div>
@@ -91,8 +89,6 @@
         <div class='modal-footer'>
           <div class='form-group'>
             <div class='col-sm-offset-5 col-sm-6'>
-              <button type='button' ng-click='cancel()' class='btn btn-warning'>Cancel</button>
-              <button type='submit' class='btn btn-default'>{{ 'submitButton' | translate }}</button>
               <button type='button' ng-click='goToSignIn()' class='btn btn-danger'>Cancel</button>
               <button type='submit' class='btn btn-success'>{{ 'submitButton' | translate }}</button>
             </div>
