@@ -31,8 +31,9 @@ var enUS = {
   "welcomeMessage": "Welcome to Shwop! Use the nav buttons above to start Shwopping!",
 
   // client>bidModal.html
-  "bidPlaceholder": "How much will you bid?",
   "bidTitle": "Place a Bid!",
+  "bidPlaceholder": "How much will you bid?",
+  "sendBidButton": "Send Bid",
 
   // client>app>mystore>mystore.html
   "myStoreHeader": "My Store",

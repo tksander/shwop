@@ -1,27 +1,27 @@
-<div class="modal" ui-if='bidModal' ui-state='bidModal 'ng-controller='BidController'>
-  <div class="modal-backdrop in"></div>
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button class="close" 
-                ui-turn-off="bidModal">&times;</button>
-        <h4 class="modal-title">{{ 'bidTitle' | translate }}</h4>
+<div class='modal' ui-if='bidModal' ui-state='bidModal 'ng-controller='BidController'>
+  <div class='modal-backdrop in'></div>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button class='close' 
+                ui-turn-off='bidModal'>&times;</button>
+        <h4 class='modal-title'>{{ 'bidTitle' | translate }}</h4>
       </div>
-      <div class="modal-body">
+      <div class='modal-body'>
 
-      <form role="form" ng-submit='sendBid()'>
+      <form role='form' ng-submit='sendBid()'>
         <fieldset>
-          <div class="form-group has-success has-feedback">
-            <input type="number"
+          <div class='form-group has-success has-feedback'>
+            <input type='number'
                    ng-model='bid'
-                   class="form-control"
+                   class='form-control'
                    placeholder='{{ "bidPlaceholder" | translate }}'
                    required>
           </div>
         </fieldset>
         <hr>
-        <button class="btn btn-primary btn-block" ng-disabled="buttonText !== 'Send Bid'">
-          {{buttonText}}
+        <button class='btn btn-primary btn-block' ng-disabled='currentButtonText !== sendBidButton'>
+          {{currentButtonText}}
         </button>
         <button ui-turn-off="bidModal" class="btn btn-default btn-block">{{ 'cancelButton' | translate }}</button>
       </form>

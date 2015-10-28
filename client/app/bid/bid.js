@@ -1,12 +1,18 @@
 angular.module('shwop.bid', [])
 
-.controller('BidController', ['$http', '$scope', '$rootScope', '$location', '$window', 'Products', 'Auth', function ($http, $scope, $rootScope, $location, $window, Products, Auth) {
+.controller('BidController', ['$http', '$scope', '$rootScope', '$location', '$window', '$translate', 'Products', 'Auth', function ($http, $scope, $rootScope, $location, $window, $translate, Products, Auth) {
   $scope.product = Products.getCurrentProduct();
   $scope.bid = null;
-  $scope.buttonText = 'Send Bid';
+
+  $translate('sendBidButton')
+  .then(function (translatedValue) {
+    $scope.currentButtonText = translatedValue;
+    $scope.sendBidButton = translatedValue;
+  });
+
 
   $scope.sendBid = function () {
-    $scope.buttonText = 'Sending bid, please wait!'
+    $scope.currentButtonText = 'Sending bid, please wait!'
 
     Products.sendBid($window.localStorage.getItem('com.shwop'), $scope.product.id, $scope.bid)
       .then(function (results) {
