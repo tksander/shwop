@@ -18,8 +18,9 @@ module.exports = function (app) {
   app.route('/')
     .get(userController.checkAuth, productController.allProducts)
     .post(userController.checkAuth, productController.newProduct)
-    .put(userController.checkAuth, productController.updateProduct)
-    .delete(userController.checkAuth, productController.deleteProduct);
+    .put(userController.checkAuth, productController.updateProduct);
+
+  app.delete('/:productId', userController.checkAuth, productController.deleteProduct);
 
   app.get('/keys', userController.checkAuth, function(req, res) {
       res.json({

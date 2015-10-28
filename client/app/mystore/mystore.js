@@ -20,5 +20,17 @@ angular.module('shwop.mystore', [])
     });
   };
 
+  $scope.deleteProduct = function (productId) {
+    if (window.confirm('Are you sure you want to delete this product?')) {
+      Products.deleteProduct(productId)
+      .then(function () {
+        $scope.getUserProducts();
+      })
+      .catch(function (err) {
+        console.log('/api/products/:productId DELETE failed', err);
+      });
+    }
+  };
+
   $scope.getUserProducts();
 }]);

@@ -14,9 +14,35 @@
 
 <h1>My Store</h1>
 <div class='scrollable-content'>
-  <div ng-repeat='product in data.products' class='store-product'>
-    <div><h3>{{ product.name}}</h3></div>
-    <div><img ng-src='{{ product.photoURL }}' class='store-product-image'></div>
+
+  <div ng-repeat='product in data.products' class="panel panel-default store-product">
+    <div class="panel-heading">
+      <div class="btn-group pull-right">
+        <a ui-turn-on='myDropdown{{product.id}}' class='btn'>
+          <i class="fa fa-ellipsis-v"></i>
+        </a>
+        <ul 
+          ui-state="myDropdown{{product.id}}"
+
+          class="dropdown-menu"
+          ui-outer-click="Ui.turnOff('myDropdown' + product.id)"
+          ui-outer-click-if="Ui.active('myDropdown' + product.id)"
+          role="menu"
+          ui-show="myDropdown{{product.id}}"
+          ui-turn-off="myDropdown{{product.id}}">
+
+          <li><a>View</a></li>
+          <li><a>Update</a></li>
+          <li class="divider"></li>
+          <li><a ng-click='deleteProduct(product.id)'>Delete</a></li>
+        </ul>
+      </div>
+      <h3 class="panel-title">{{ product.name }}</h3>
+    </div>
+    <div class="panel-body">
+       <img ng-src='{{ product.photoURL }}' class='store-product-image'>
+    </div>
+>>>>>>> (feat) delete Product
   </div>
 </div>
 

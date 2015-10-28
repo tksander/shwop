@@ -65,6 +65,13 @@ angular.module('shwop.services', [])
     });
   };
 
+  var deleteProduct = function (productId) {
+    return $http({
+      method: 'DELETE',
+      url: '/api/products/' + productId
+    });
+  };
+
   var categories = [
     {id: '1', name: 'Antiques'},
     {id: '2', name: 'Appliances'},
@@ -117,6 +124,7 @@ angular.module('shwop.services', [])
     products: products,
     getProductsByTag: getProductsByTag,
     getUserProducts: getUserProducts,
+    deleteProduct: deleteProduct,
     categories: categories
   };
 
