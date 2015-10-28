@@ -65,7 +65,7 @@ describe('Database integration tests', function () {
     });
   });
 
-  describe('Retrieves multiple products associated with user', function () {
+  xdescribe('Retrieves multiple products associated with user', function () {
 
     //dummy user data
     var user2 = { 
