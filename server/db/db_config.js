@@ -92,11 +92,23 @@ var Product_Tag = orm.define('Product_Tag', {
   // }
 });
 
+//define the bid model
+var Bid = orm.define('Bid', {
+  bidAmount: { type: Sequelize.DECIMAL(10, 2), allowNull: false}
+});
+
+Bid.belongsTo(User); // This will add UserId attribute to Bid to hold the primary key value for User 
+Bid.belongsTo(Product); // This will add ProductId attribute to Bid to hold the primary key value for Product 
+
+
 // Join Table:
 // Creates a new model called product_tag with the equivalent
 // foreign keys ProductID and UserId. 
 Tag.belongsToMany(Product, {through: 'Product_Tag'});
 Product.belongsToMany(Tag, {through: 'Product_Tag'});
+
+
+
 
 ////////////////////////////////////
 ////// Sync models to the database
