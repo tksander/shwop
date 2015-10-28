@@ -39,7 +39,7 @@ li {
 .product-image {
   text-align: center;
   border: 5px solid black;
-  max-height:50vh;
+  max-height:40vh;
 }
 
 .product-price {
@@ -49,6 +49,11 @@ li {
   -webkit-text-stroke: 2px yellow;
 }
 
+.product-name {
+  text-align: center;
+  color: #007AFF;
+  font-size: 50px;
+};
 
 
 .carousel {
@@ -62,8 +67,9 @@ li {
     display: block;
     width: 100%;
     height: 80%;
-    background-size: contain;
+    background-size: cover;
     padding: 20px;
+    min-height:400px;
   };
 }
 
@@ -90,20 +96,10 @@ li {
   -webkit-transition: -webkit-transform 500ms;
   -moz-transition: -moz-transform 500ms;
   transition: transform 500ms;
-
-  .product-name {
-    text-align: center;
-    color: black;
-    font-size: 50px;
-    -webkit-text-stroke: 2px white;
-    position:absolute;
-    top: 50vh;
-    left:30vw;
-  };
 }
 
 .tag {
-  color: blue;
+  color: #007AFF;
 }
 
 .invalid {
