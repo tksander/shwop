@@ -26,9 +26,15 @@ var User = orm.define('User', {
   lastName:    { type: Sequelize.STRING(25) },
   phoneNumber: { type: Sequelize.STRING(20), allowNull: false },
   email:       { type: Sequelize.STRING(50), allowNull: false, unique: true },
+  password:    { type: Sequelize.STRING(100), allowNull: false },
+  address1:    { type: Sequelize.STRING(50) },
+  address2:    { type: Sequelize.STRING(50) },
+  city:        { type: Sequelize.STRING(25) },
+  state:       { type: Sequelize.STRING(12) },
+  zip:         { type: Sequelize.STRING(10) },
+  country:     { type: Sequelize.STRING(20) },
   latitude:    { type: Sequelize.FLOAT(40) },
-  longitude:   { type: Sequelize.FLOAT(40) },
-  password:    { type: Sequelize.STRING(100), allowNull: false }
+  longitude:   { type: Sequelize.FLOAT(40) }
 },{
   instanceMethods: {
     //compare passwords when a user is signing in
