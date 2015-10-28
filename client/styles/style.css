@@ -113,6 +113,12 @@ select:invalid {
 select:invalid option {
   color: black; }
 
+.store-product {
+  height: 280px;
+  width: 250px;
+  float: left;
+  padding: 5px;
+  margin: 5px; }
 
 .store-product-image {
   height: 200px;
