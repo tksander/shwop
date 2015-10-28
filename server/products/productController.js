@@ -101,19 +101,19 @@ module.exports = {
 
   // delete the product
   deleteProduct: function (req, res, next) {
-    db.Product.findOne({ where: { id: req.body.id } })
-    .then(function (product) {
-      if(product === null) {
-        res.status(400).send('We could not find the product in the database.');
+    var productId = req.params.productId;
+    db.Product.destroy({
+      where: {
+        id: productId
       }
-      product.destroy();
     })
+    //need to delete tags in the tags 
     .then(function () {
-      res.status(200).send('Successfully deleted the product');
+        res.status(200).send('Product successfully deleted.');
     })
     .catch(function (error) {
       res.status(400).send('Error deleting the product in the database: ', error);
-    })
+    });
   },
 
   // get all products the user is selling
@@ -126,17 +126,12 @@ module.exports = {
       db.User.findOne({where: {email: user.email}})
       .then(function (foundUser) {
         if (foundUser) {
-          console.log('Found user is: ', foundUser.email);
           db.Product.findAll({where: { UserId: foundUser.id }})
           .then(function (foundProducts) {
             var productsArray = [];
             for (var i = 0; i < foundProducts.length; i++) {
-              // console.log('foundProducts is', foundProducts);
-              // console.log('foundProducts.dataValues is', foundProducts.dataValues);
-              console.log('foundProduct is', foundProducts[i].dataValues);
               productsArray.push(foundProducts[i].dataValues);
             }
-            console.log('productsArray is', productsArray);
             res.send({products: productsArray});
           })
           .catch(function (err) {

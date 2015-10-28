@@ -108,5 +108,36 @@ module.exports = {
     .catch(function (error) {
       next(error);
     });
+  },
+
+  updateUser: function (req, res, next) {
+    var user = jwt.decode(req.body.token, 'secret');
+    db.User.update({ 
+      firstName: req.body.updatedUser.firstName,
+      lastName: req.body.updatedUser.lastName,
+      email: req.body.updatedUser.email,
+      phoneNumber: req.body.updatedUser.phoneNumber,
+      longitude: req.body.updatedUser.longitude,
+      latitude: req.body.updatedUser.latitude
+    }, {
+      where: {
+        id: user.id
+      }
+    })
+    .then(function (foundUser) {
+      console.log('foundUser is ', foundUser);
+      var userInfo = {};
+      userInfo.firstName = foundUser.firstName;
+      userInfo.lastName = foundUser.lastName;
+      userInfo.phoneNumber = foundUser.phoneNumber;
+      userInfo.email = foundUser.email;
+      userInfo.latitude = foundUser.latitude;
+      userInfo.longitude = foundUser.longitude;
+      res.send({ userInfo: userInfo });
+    })
+    .catch(function (error) {
+      next(error);
+    });
   }
+
 };

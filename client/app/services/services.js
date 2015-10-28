@@ -65,6 +65,13 @@ angular.module('shwop.services', [])
     });
   };
 
+  var deleteProduct = function (productId) {
+    return $http({
+      method: 'DELETE',
+      url: '/api/products/' + productId
+    });
+  };
+
   var categories = [
     {id: '1', name: 'Antiques'},
     {id: '2', name: 'Appliances'},
@@ -117,6 +124,7 @@ angular.module('shwop.services', [])
     products: products,
     getProductsByTag: getProductsByTag,
     getUserProducts: getUserProducts,
+    deleteProduct: deleteProduct,
     categories: categories
   };
 
@@ -145,10 +153,19 @@ angular.module('shwop.services', [])
     });
   };
 
+  var updateUser = function(token, updatedUser) {
+    return $http({
+      method: 'POST',
+      url: '/api/users/update',
+      data: {token: token, updatedUser: updatedUser}
+    });
+  };
+
   return {
     getUsers: getUsers,
     getUserInfo: getUserInfo,
-    addUser: addUser
+    addUser: addUser,
+    updateUser: updateUser
   };
 }])
 .factory('Photos', function($http) {

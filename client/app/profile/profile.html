@@ -1,0 +1,57 @@
+
+<nav class='navbar navbar-app navbar-relative-top'>
+  <strong class='navbar-brand-center navbar-brand'>Shwop</strong>
+  <div class='btn-group pull-left'>
+    <div ui-toggle='uiSidebarLeft' class='btn sidebar-toggle'>
+      <i class='fa fa-bars'></i> Menu
+    </div>
+  </div>
+  <div class='btn-group pull-right collapsible'>
+    <a ng-click='signout()' class='btn btn-navbar'>Logout</a>
+  </div>
+</nav>
+
+ <div class='scrollable-content section'>
+  <h1 class='page-header'>User Profile</h1>
+  <div>
+    <form role='form' class='simple-form'>
+    <div class='form-group'>
+      <label>First Name</label>
+      <input type='text' 
+             class='form-control'
+             ng-model='data.user.firstName'>
+    </div>
+    <div class='form-group'>
+      <label>Last Name</label>
+      <input type='text' 
+             class='form-control'
+             ng-model='data.user.lastName'>
+    </div>
+    <div class='form-group'>
+      <label>Email</label>
+      <input type='email' 
+             class='form-control'
+             ng-model='data.user.email'>
+    </div>
+    <div class='form-group'>
+      <label>Phone</label>
+      <input type='tel' 
+             class='form-control'
+             ng-model='data.user.phoneNumber'>
+    </div>
+    <div class='form-group'>
+      <label>Longitude</label>
+      <input type='text' 
+             class='form-control'
+             ng-model='data.user.longitude'>
+    </div>
+    <div class='form-group'>
+      <label>Latitude</label>
+      <input type='text' 
+             class='form-control'
+             ng-model='data.user.latitude'>
+    </div>
+      <input type='submit'  class='btn btn-primary btn-block' ng-click='updateUser()' value='Save' />
+    </form>
+  </div>
+</div>
