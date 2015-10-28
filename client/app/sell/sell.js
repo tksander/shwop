@@ -1,6 +1,6 @@
 angular.module('shwop.sell', [])
 
-.controller('SellController', ['$http', '$scope', '$location', '$window', 'Products', 'Photos', 'Auth', function ($http, $scope, $location, $window, Products, Photos, Auth) {
+.controller('SellController', ['$http', '$scope', '$location', '$translate', '$window', 'Products', 'Photos', 'Auth', function ($http, $scope, $location, $translate, $window, Products, Photos, Auth) {
   $scope.product = {};
   $scope.product.tags = [];
   $scope.product.photoURL = '';
@@ -42,7 +42,10 @@ angular.module('shwop.sell', [])
   // Calls factory method that adds a product to the database.
   $scope.addProduct = function () {
     if($scope.product.photoURL === ''){
-      alert('You must click the button to upload your photo first.');
+      $translate('photoUploadAlert')
+        .then(function(translatedValue) {
+          alert(translatedValue);
+        });
       return;
     }
     
