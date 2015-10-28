@@ -92,6 +92,13 @@ var Product_Tag = orm.define('Product_Tag', {
   // }
 });
 
+// Join Table:
+// Creates a new model called product_tag with the equivalent
+// foreign keys ProductID and UserId. 
+Tag.belongsToMany(Product, {through: 'Product_Tag'});
+Product.belongsToMany(Tag, {through: 'Product_Tag'});
+
+
 //define the bid model
 var Bid = orm.define('Bid', {
   bidAmount: { type: Sequelize.DECIMAL(10, 2), allowNull: false}
@@ -101,11 +108,6 @@ Bid.belongsTo(User); // This will add UserId attribute to Bid to hold the primar
 Bid.belongsTo(Product); // This will add ProductId attribute to Bid to hold the primary key value for Product 
 
 
-// Join Table:
-// Creates a new model called product_tag with the equivalent
-// foreign keys ProductID and UserId. 
-Tag.belongsToMany(Product, {through: 'Product_Tag'});
-Product.belongsToMany(Tag, {through: 'Product_Tag'});
 
 
 
@@ -122,6 +124,9 @@ User.sync()
   })
   .then(function () {
     Tag.sync();
+  })
+  .then(function() {
+    Bid.sync();
   })
   .then(function () {
     Product_Tag.sync();
@@ -141,6 +146,7 @@ User.sync()
 exports.User = User;
 exports.Product = Product;
 exports.Tag = Tag;
+exports.Bid = Bid;
 // Not sure we'll need this, exporting for convenience in testing. 
 exports.Product_Tag = Product_Tag;
 exports.Orm = orm;

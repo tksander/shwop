@@ -1,5 +1,6 @@
 var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
+var helpers = require('../db/helpers.js');
 var jwt  = require('jwt-simple');
 if(!process.env.TwilioSid) {
   var locally = require('../../sneakyLocal.js');
@@ -10,6 +11,7 @@ module.exports = {
 
   // sends bid alert to seller
   newBid: function (req, res, next) {
+
     var product;
     var seller;
     var bidder = jwt.decode(req.body.token, 'secret');
@@ -45,11 +47,11 @@ module.exports = {
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
-        if (!err) { // "err" is an error received during the request, if any
+        if (!err) { // if NO error is received sending the message ("err" is an error received during the request, if any)
 
-          // "responseData" is a JavaScript object containing data received from Twilio.
-          // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-          // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+        // "responseData" is a JavaScript object containing data received from Twilio.
+        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
 
           console.log('Response data:  ', responseData.from); // outputs "+18327695630"
           console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
