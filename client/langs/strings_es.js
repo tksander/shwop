@@ -13,5 +13,5 @@ var esES = {
   "lastNameInput": "Last Name",
   "lastNamePlaceholder": "Enter your last name here",
   "phoneNumberInput": "Phone Number",
-  "phoneNumberPlaceholder": "Enter your number here",
+  "phoneNumberPlaceholder": "Enter your number here"
 };

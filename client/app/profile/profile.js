@@ -1,7 +1,7 @@
 angular.module('shwop.profile', [])
 
 
-.controller('ProfileController', ['$scope', '$window', 'Users', 'Auth', function ($scope, $window, Users, Auth) {
+.controller('ProfileController', ['$scope', '$window', '$translate', 'Users', 'Auth', function ($scope, $window, $translate, Users, Auth) {
   $scope.data = {};
 
   $scope.signout = function() {
@@ -23,9 +23,12 @@ angular.module('shwop.profile', [])
   $scope.updateUser = function () {
     var token = $window.localStorage.getItem('com.shwop');
     Users.updateUser(token, $scope.data.user)
-    .then(function () {
+    .then(function() {
+      return $translate('profileUpdateAlert');
+    })
+    .then(function (translatedValue) {
       $scope.data.user = {};
-      alert('Profile information updated!');
+      alert(translatedValue);
       $scope.getUserInfo();
     })
     .catch(function (err) {
