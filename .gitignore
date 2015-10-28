@@ -6,6 +6,8 @@ bower_components/
 .sass-cache
 sneakyLocal.js
 
+styles.css
+
 client/lib/angular
 client/lib/angular-mocks
 client/lib/angular-route
