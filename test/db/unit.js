@@ -28,7 +28,7 @@ describe('Database unit tests', function () {
       clearDB(done);
     });
 
-    describe('Create one record', function () {
+    xdescribe('Create one record', function () {
 
       it('should create one record and find within database', function (done) {
         

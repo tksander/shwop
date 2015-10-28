@@ -60,6 +60,12 @@ angular.module('shwop', [
       css: '../styles/style.css',
       authenticate: true
     });
+
+
+    $translateProvider.translations('en', enUS);
+    $translateProvider.translations('es', esES);
+    $translateProvider.preferredLanguage('en');
+
     // .when('/products:items', {        // TODO: Syntax for filtered items
     //   templateUrl: 'app/products/products.html',
     //   controller: 'ProductController'
