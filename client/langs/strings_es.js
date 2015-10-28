@@ -6,6 +6,8 @@ var esES = {
   "passwordPlaceholder": "Entra tu contraseña aquí",
   "cancelButton": "Cancela",
   "submitButton": "Solicita",
+  "signupButton": "Contratar",
+  "loginButton": "Iniciar sesión",
 
   "signinReturn": "Back To Sign In",
   "firstNameInput": "First Name",

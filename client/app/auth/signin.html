@@ -1,37 +1,41 @@
-<nav class='navbar navbar-app navbar-relative-top'>
-  <div class='btn-group justified'>
-    <a href='#/signup' class='btn btn-navbar active'>{{ 'signupPrompt' | translate }}</a>
+<div class='scrollable'>
+  <div class='scrollable-header'>
+    <nav class='navbar navbar-app navbar-relative-top'>
+      <div class='btn-group justified'>
+        <a href='#/signup' class='btn btn-navbar active'>{{ 'signupPrompt' | translate }}</a>
+      </div>
+    </nav>
   </div>
-</nav>
 
-<div class='container'>
-  <div class='row'>
-    <form class='form-horizontal col-md-5 col-centered' ng-submit='signin()'>
-      <div class='modal-body'>
-        <div class='form-group sign-up-field'>
-          <label class='col-sm-4 control-label'>{{ 'emailPrompt' | translate }}</label>
-          <div class='col-sm-7'>
-            <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required>
+  <div class='container scrollable-content section'>
+    <div class='row'>
+      <form class='form-horizontal col-md-5 col-centered' ng-submit='signin()'>
+        <div class='modal-body'>
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>{{ 'emailPrompt' | translate }}</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required autofocus>
+            </div>
           </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label signin-label'>{{ 'passwordPrompt' | translate }}</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.password' type='password' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
+            </div>
+          </div>
+
         </div>
 
-        <div class='form-group sign-up-field'>
-          <label class='col-sm-4 control-label signin-label'>{{ 'passwordPrompt' | translate }}</label>
-          <div class='col-sm-7'>
-            <input ng-model='user.password' type='password' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
+        <div class='modal-footer'>
+          <div class='form-group'>
+            <div class='col-sm-offset-5 col-sm-6'>
+              <button type='button' ng-click='goToSignUp()' class='btn btn-info'>{{ 'signupButton' | translate }}</button>
+              <button type='submit' class='btn btn-primary'>{{ 'loginButton' | translate }}</button>
+            </div>
           </div>
         </div>
-
-      </div>
-
-      <div class='modal-footer'>
-        <div class='form-group'>
-          <div class='col-sm-offset-5 col-sm-6'>
-            <button type='button' ng-click='cancel()' class='btn btn-warning'>{{ 'cancelButton' | translate }}</button>
-            <button type='submit' class='btn btn-default'>{{ 'submitButton' | translate }}</button>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>
