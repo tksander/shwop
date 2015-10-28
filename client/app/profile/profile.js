@@ -2,6 +2,7 @@ angular.module('shwop.profile', [])
 
 
 .controller('ProfileController', ['$scope', '$window', '$translate', 'Users', 'Auth', function ($scope, $window, $translate, Users, Auth) {
+
   $scope.data = {
     user: {}
   };
