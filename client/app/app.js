@@ -64,7 +64,7 @@ angular.module('shwop', [
 
     $translateProvider.translations('en', enUS);
     $translateProvider.translations('es', esES);
-    $translateProvider.preferredLanguage('es');
+    $translateProvider.preferredLanguage('en');
 
     // .when('/products:items', {        // TODO: Syntax for filtered items
     //   templateUrl: 'app/products/products.html',
