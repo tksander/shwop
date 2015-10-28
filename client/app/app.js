@@ -7,9 +7,10 @@ angular.module('shwop', [
   'shwop.user',
   'mobile-angular-ui',
   'mobile-angular-ui.gestures',
+  'pascalprecht.translate',
   'ngRoute'
 ])
-.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
+.config(['$routeProvider', '$httpProvider', '$translateProvider', function ($routeProvider, $httpProvider, $translateProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'app/auth/signin.html',
