@@ -70,7 +70,7 @@ module.exports = {
 
         to: '7133034742', // Any number Twilio can deliver to
         from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
-        body: "Hey John, someone sent a message back to twilio."
+        body: "Hey John, someone sent a message back to twilio. They said: " + req.body
 
     }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
