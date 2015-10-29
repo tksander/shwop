@@ -4,7 +4,7 @@
   <div class='scrollable-header'>
     <nav class='navbar navbar-app navbar-relative-top'>
       <div class='btn-group justified'>
-        <a href='#/signin' class='btn btn-navbar active'>Back To Sign In</a>
+        <a href='#/signin' class='btn btn-navbar active'>{{ 'signinReturn' | translate }}</a>
       </div>
     </nav>
   </div>
@@ -13,36 +13,37 @@
     <div class='row'>
       <form class='form-horizontal col-md-5 col-centered' ng-submit='signup()'>
         <div class='modal-body'>
+
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>Email</label>
+            <label class='col-sm-4 control-label'>{{ 'emailPrompt' | translate }}</label>
             <div class='col-sm-7'>
               <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required autofocus>
             </div>
           </div>
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label signin-label'>Password</label>
+            <label class='col-sm-4 control-label signin-label'>{{ 'passwordPrompt' | translate }}</label>
             <div class='col-sm-7'>
-              <input ng-model='user.password' type='password' class='form-control' placeholder='Enter your password here' required>
+              <input ng-model='user.password' type='password' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
             </div>
           </div>
           
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label signin-label'>First Name</label>
+            <label class='col-sm-4 control-label signin-label'>{{ 'firstNameInput' | translate }}</label>
             <div class='col-sm-7'>
               <input ng-model='user.firstName' type='text' class='form-control' placeholder='{{ "firstNamePlaceholder" | translate }}' required>
             </div>
           </div>
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>Last Name</label>
+            <label class='col-sm-4 control-label'>{{ 'lastNameInput' | translate }}</label>
             <div class='col-sm-7'>
               <input ng-model='user.lastName' type='text' class='form-control' placeholder='{{ "lastNamePlaceholder" | translate }}' required>
             </div>
           </div>
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>Phone Number</label>
+            <label class='col-sm-4 control-label'>{{ 'phoneNumberInput' | translate }}</label>
             <div class='col-sm-7'>
               <input ng-model='user.phoneNumber' type='phone' class='form-control' placeholder='{{ "phoneNumberPlaceholder" | translate }}' required>
             </div>
@@ -50,57 +51,51 @@
 
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>Address Line 1</label>
+            <label class='col-sm-4 control-label'>{{ 'addressLine1Input' | translate }}</label>
             <div class='col-sm-7'>
-              <input ng-model='user.address1' type='text' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
+              <input ng-model='user.address1' type='text' class='form-control' placeholder='{{ "addressLine1Placeholder" | translate }}' required>
             </div>
           </div>
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>Address Line 2</label>
+            <label class='col-sm-4 control-label'>{{ 'addressLine2Input' | translate }}</label>
             <div class='col-sm-7'>
-              <input ng-model='user.address2' type='text' class='form-control' placeholder='Enter your secondary address information here (if applicable)' required>
+              <input ng-model='user.address2' type='text' class='form-control' placeholder='{{ "addressLine2Placeholder" | translate }}'>
             </div>
           </div>
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>City</label>
+            <label class='col-sm-4 control-label'>{{ 'cityInput' | translate }}</label>
             <div class='col-sm-7'>
-              <input ng-model='user.city' type='text' class='form-control' placeholder='Enter your city here' required>
+              <input ng-model='user.city' type='text' class='form-control' placeholder='{{ "cityPlaceholder" | translate }}' required>
             </div>
           </div>
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>State</label>
+            <label class='col-sm-4 control-label'>{{ 'stateInput' | translate }}</label>
             <div class='col-sm-7'>
-              <input ng-model='user.state' type='text' class='form-control' placeholder='Enter your state here' required>
+              <input ng-model='user.state' type='text' class='form-control' placeholder='{{ "statePlaceholder" | translate }}' required>
             </div>
           </div>
 
           <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>Zip</label>
+            <label class='col-sm-4 control-label'>{{ 'zipInput' | translate }}</label>
             <div class='col-sm-7'>
-              <input ng-model='user.zip' type='text' class='form-control' placeholder='Enter your zip here' required>
+              <input ng-model='user.zip' type='text' class='form-control' placeholder='{{ "zipPlaceholder" | translate }}' required>
             </div>
           </div>
-
-          <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>Country</label>
-            <div class='col-sm-7'>
-              <input ng-model='user.country' type='text' class='form-control' placeholder='Enter your country here' required>
-            </div>
-          </div>
-
+          
         </div>
 
         <div class='modal-footer'>
           <div class='form-group'>
             <div class='col-sm-offset-5 col-sm-6'>
-              <button type='button' ng-click='goToSignIn()' class='btn btn-danger'>Cancel</button>
+              <button type='button' ng-click='goToSignIn()' class='btn btn-danger'>{{ 'cancelButton' | translate }}</button>
               <button type='submit' class='btn btn-success'>{{ 'submitButton' | translate }}</button>
             </div>
           </div>
         </div>
+
       </form>
     </div>
   </div>

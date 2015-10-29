@@ -34,7 +34,7 @@ angular.module('shwop.profile', [])
     .then(function (translatedValue) {
       $scope.data.user = {};
       alert(translatedValue);
-      $("input[type!='submit']").prop('disabled', true);
+      $("input.form-control").prop('disabled', true);
       $scope.updateMode = false;
       $scope.getUserInfo();
     })
@@ -44,13 +44,13 @@ angular.module('shwop.profile', [])
   };
 
   $scope.cancelChanges = function () {
-    $("input[type!='submit']").prop('disabled', true);
+    $("input.form-control").prop('disabled', true);
     $scope.updateMode = false;
     $scope.getUserInfo();
   };
 
   $scope.enableUpdateMode = function () {
-    $('input').prop('disabled', false);
+    $("input.form-control").prop('disabled', false);
     $scope.updateMode = true;
   };
 

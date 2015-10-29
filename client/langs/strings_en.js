@@ -25,6 +25,11 @@ var enUS = {
   "lastNamePlaceholder": "Enter your last name here",
   "phoneNumberInput": "Phone Number",
   "phoneNumberPlaceholder": "Enter your number here",  // LOOK INTO PW & PW PLACEHOLDER & CANCEL & SUBMIT
+  "addressLine1Placeholder" : "Enter your address here",
+  "addressLine2Placeholder" : "Enter your secondary address information here (if applicable)",
+  "cityPlaceholder" : "Enter your city here",
+  "statePlaceholder" : "Enter your state here",
+  "zipPlaceholder" : "Enter your zip code here",
 
   // client>app>auth>welcome.html
   "menuTitle": "Menu",
@@ -50,9 +55,15 @@ var enUS = {
   "userProfileHeader": "User Profile",
   "emailInput": "Email",
   "phoneDisplay": "Phone",     // LOOK INTO EMAIL PROMPT VERSUS DISPLAY & OTHER DUPLICATES
-  "longitudeDisplay": "Longitude",
-  "latitudeDisplay": "Latitude",
+  "addressLine1Input": "Address Line 1",
+  "addressLine2Input": "Address Line 2",
+  "cityInput": "City",
+  "stateInput": "State",
+  "zipInput": "Zip",
   "saveButton": "Save",
+  "updateUserProfileButton" : "Update user profile",
+  "backToShwoppingButton": "Back to Shwopping!",
+
 
   //client>app>profile>profile.js
   "profileUpdateAlert": "Profile information updated!",

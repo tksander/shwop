@@ -16,7 +16,7 @@
   <div class='scrollable-content section'>
     <h1 class='page-header'>{{ 'userProfileHeader' | translate }}</h1>
     <div>
-      <form role='form' class='simple-form'>
+      <form role='form' class='simple-form' ng-submit='updateUser()'>
       <div class='form-group'>
         <label>{{ 'firstNameInput' | translate }}</label>
         <input type='text' 
@@ -46,14 +46,14 @@
                disabled>
       </div>
       <div class='form-group'>
-        <label>Address Line 1</label>
+        <label>{{ 'addressLine1Input' | translate }}</label>
         <input type='text' 
                class='form-control'
                ng-model='data.user.address1'
                disabled>
       </div>
       <div class='form-group'>
-        <label>Address Line 2</label>
+        <label>{{ 'addressLine2Input' | translate }}</label>
         <input type='text' 
                class='form-control'
                ng-model='data.user.address2'
@@ -61,7 +61,7 @@
       </div>
 
       <div class='form-group'>
-        <label>City</label>
+        <label>{{ 'cityInput' | translate }}</label>
         <input type='text' 
                class='form-control'
                ng-model='data.user.city'
@@ -69,7 +69,7 @@
       </div>
 
       <div class='form-group'>
-        <label>State</label>
+        <label>{{ 'stateInput' | translate }}</label>
         <input type='text' 
                class='form-control'
                ng-model='data.user.state'
@@ -77,36 +77,28 @@
       </div>
 
       <div class='form-group'>
-        <label>Zip</label>
+        <label>{{ 'zipInput' | translate }}</label>
         <input type='text' 
                class='form-control'
                ng-model='data.user.zip'
                disabled>
       </div>
 
-      <div class='form-group'>
-        <label>Country</label>
-        <input type='text' 
-               class='form-control'
-               ng-model='data.user.country'
-               disabled>
+      <div ng-hide='updateMode' class='padded-vertical'>
+        <input type='button'  class='btn btn-primary btn-block' ng-click='enableUpdateMode()' value='{{ "updateUserProfileButton" | translate}}' />
       </div>
 
-      <div ng-hide="updateMode" class='padded-vertical'>
-        <input type='submit'  class='btn btn-primary btn-block' ng-click='enableUpdateMode()' value='Update User Profile' />
+      <div ng-hide='updateMode' class='padded-vertical'>
+        <input type='button'  class='btn btn-info btn-block' ng-click='backToShwopping()' value='{{ "backToShwoppingButton" | translate}}' />
       </div>
 
-      <div ng-hide="updateMode" class="padded-vertical">
-        <input type='submit'  class='btn btn-info btn-block' ng-click='backToShwopping()' value='Back to Shwopping!' />
+      <div class='cancel half-width padded-all' ng-show='updateMode'>
+        <input type='button'  class='btn btn-danger btn-primary btn-block' ng-click='cancelChanges()' value='{{ "cancelButton" | translate}}' />
       </div>
 
-      <div class='cancel half-width padded-all' ng-show="updateMode">
-        <input type='submit'  class='btn btn-danger btn-primary btn-block' ng-click='cancelChanges()' value='Cancel' />
-      </div>
+      <div class='save half-width padded-all' ng-show='updateMode'>
 
-      <div class='save half-width padded-all' ng-show="updateMode">
-
-        <input type='submit'  class='btn btn-success btn-primary btn-block' ng-click='updateUser()' value='{{ "saveButton" | translate }}' />
+        <input type='submit'  class='btn btn-success btn-primary btn-block' value='{{ "saveButton" | translate }}' />
       </div>
 
       </form>

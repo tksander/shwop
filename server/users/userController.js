@@ -111,7 +111,6 @@ module.exports = {
         userInfo.city = foundUser.city;
         userInfo.state = foundUser.state;
         userInfo.zip = foundUser.zip;
-        userInfo.country = foundUser.country;
         res.send({ userInfo: userInfo });
       }
     })
@@ -127,23 +126,18 @@ module.exports = {
       lastName: req.body.updatedUser.lastName,
       email: req.body.updatedUser.email,
       phoneNumber: req.body.updatedUser.phoneNumber,
-      longitude: req.body.updatedUser.longitude,
-      latitude: req.body.updatedUser.latitude
+      address1: req.body.updatedUser.address1,
+      address2: req.body.updatedUser.address2,
+      city: req.body.updatedUser.city,
+      state: req.body.updatedUser.state,
+      zip: req.body.updatedUser.zip
     }, {
       where: {
         id: user.id
       }
     })
-    .then(function (foundUser) {
-      console.log('foundUser is ', foundUser);
-      var userInfo = {};
-      userInfo.firstName = foundUser.firstName;
-      userInfo.lastName = foundUser.lastName;
-      userInfo.phoneNumber = foundUser.phoneNumber;
-      userInfo.email = foundUser.email;
-      userInfo.latitude = foundUser.latitude;
-      userInfo.longitude = foundUser.longitude;
-      res.send({ userInfo: userInfo });
+    .then(function () {
+      res.send(200);
     })
     .catch(function (error) {
       next(error);
