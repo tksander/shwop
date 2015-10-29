@@ -167,7 +167,16 @@ select:invalid option { color: black; }
   width: 200px;
 }
 
+
 .bid-success {
   background-color: #007AFF;
   color: #FFF;
+
+.bid-product {
+  height: 340px;
+  width: 250px;
+  float: left;
+  padding: 5px;
+  margin: 5px;
+
 }

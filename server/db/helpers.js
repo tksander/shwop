@@ -90,11 +90,11 @@ exports.addLongAndLat = addLongAndLat;
 
 var storeBid = function (bidAmount, product, bidder) {
 
-      db.Bid.create({
+      db.Bid.findOrCreate({ where: {
         bidAmount: bidAmount,
         UserId: bidder.id,
         ProductId: product.id
-      })
+      }})
       .then(function () {
         console.log('we just set a user!')
         return successObject;

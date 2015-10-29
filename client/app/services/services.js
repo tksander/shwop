@@ -48,7 +48,7 @@ angular.module('shwop.services', [])
     });
   };
 
-  var getAllBids: function() {
+  var getAllBids = function(token) {
     return $http({
       method: 'POST',
       url: 'api/bids/allBids',
@@ -56,7 +56,7 @@ angular.module('shwop.services', [])
         token: token
       }
     });
-  },
+  };
 
   var getProductsByTag = function (tags) {
     return $http({
