@@ -50,9 +50,16 @@ var enUS = {
   "userProfileHeader": "User Profile",
   "emailInput": "Email",
   "phoneDisplay": "Phone",     // LOOK INTO EMAIL PROMPT VERSUS DISPLAY & OTHER DUPLICATES
-  "longitudeDisplay": "Longitude",
-  "latitudeDisplay": "Latitude",
+  "addressLine1Input": "Address Line 1",
+  "addressLine2Input": "Address Line 2",
+  "cityInput": "City",
+  "stateInput": "State",
+  "zipInput": "Zip",
+  "countryInput": "Country",
   "saveButton": "Save",
+  "updateUserProfileButton" : "Update user profile",
+  "backToShwoppingButton": "Back to Shwopping!",
+
 
   //client>app>profile>profile.js
   "profileUpdateAlert": "Profile information updated!",
