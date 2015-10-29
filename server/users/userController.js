@@ -49,7 +49,13 @@ module.exports = {
           lastName: req.body.lastName,
           phoneNumber: req.body.phoneNumber,
           email: req.body.email,
-          password: req.body.password
+          password: req.body.password,
+          address1: req.body.address1,
+          address2: req.body.address2,
+          city: req.body.city,
+          state: req.body.state,
+          zip: req.body.zip,
+          country: req.body.country         
         });
       }
     })
@@ -100,8 +106,12 @@ module.exports = {
         userInfo.lastName = foundUser.lastName;
         userInfo.phoneNumber = foundUser.phoneNumber;
         userInfo.email = foundUser.email;
-        userInfo.latitude = foundUser.latitude;
-        userInfo.longitude = foundUser.longitude;
+        userInfo.address1 = foundUser.address1;
+        userInfo.address2 = foundUser.address2;
+        userInfo.city = foundUser.city;
+        userInfo.state = foundUser.state;
+        userInfo.zip = foundUser.zip;
+        userInfo.country = foundUser.country;
         res.send({ userInfo: userInfo });
       }
     })

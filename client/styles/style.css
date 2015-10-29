@@ -8,6 +8,14 @@ li .menu {
   float: left;
   padding: 0 10px; }
 
+div .half-width {
+  width: 50%;
+  float: left; }
+div .padded-vertical {
+  padding: 5px 0px 5px 0px; }
+div .padded-all {
+  padding: 5px; }
+
 .sign-up-field .control-label {
   text-align: right !important; }
 .sign-up-field .col-sm-7 {

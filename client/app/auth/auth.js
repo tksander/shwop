@@ -31,5 +31,13 @@ angular.module('shwop.auth', [])
   $scope.signout = function () {
     Auth.signout();
   };
+
+  $scope.goToSignIn = function () {
+    $location.path('/signin');
+  };
+
+  $scope.goToSignUp = function () {
+    $location.path('/signup');
+  };
   
 }]);

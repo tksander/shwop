@@ -1,8 +1,13 @@
 angular.module('shwop.profile', [])
 
 
-.controller('ProfileController', ['$scope', '$window', '$translate', 'Users', 'Auth', function ($scope, $window, $translate, Users, Auth) {
-  $scope.data = {};
+.controller('ProfileController', ['$scope', '$window', '$translate', '$location', 'Users', 'Auth', function ($scope, $window, $translate, $location, Users, Auth) {
+
+  $scope.data = {
+    user: {}
+  };
+
+  $scope.updateMode = false;
 
   $scope.signout = function() {
     Auth.signout();
@@ -29,11 +34,28 @@ angular.module('shwop.profile', [])
     .then(function (translatedValue) {
       $scope.data.user = {};
       alert(translatedValue);
+      $("input[type!='submit']").prop('disabled', true);
+      $scope.updateMode = false;
       $scope.getUserInfo();
     })
     .catch(function (err) {
       console.log('/api/users/update POST failed', err);
     });
+  };
+
+  $scope.cancelChanges = function () {
+    $("input[type!='submit']").prop('disabled', true);
+    $scope.updateMode = false;
+    $scope.getUserInfo();
+  };
+
+  $scope.enableUpdateMode = function () {
+    $('input').prop('disabled', false);
+    $scope.updateMode = true;
+  };
+
+  $scope.backToShwopping = function () {
+    $location.path( "/products" );
   };
 
   $scope.getUserInfo();

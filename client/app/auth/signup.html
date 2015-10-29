@@ -1,60 +1,107 @@
 
 
-<nav class='navbar navbar-app navbar-relative-top'>
-  <div class='btn-group justified'>
-    <a href='#/signin' class='btn btn-navbar active'>{{ 'signinReturn' | translate }}</a>
+<div class='scrollable'>
+  <div class='scrollable-header'>
+    <nav class='navbar navbar-app navbar-relative-top'>
+      <div class='btn-group justified'>
+        <a href='#/signin' class='btn btn-navbar active'>Back To Sign In</a>
+      </div>
+    </nav>
   </div>
-</nav>
 
-<div class='container'>
-  <div class='row'>
-    <form class='form-horizontal col-md-5 col-centered' ng-submit='signup()'>
-      <div class='modal-body'>
-        <div class='form-group sign-up-field'>
-          <label class='col-sm-4 control-label'>{{ 'emailPrompt' | translate }}</label>
-          <div class='col-sm-7'>
-            <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required>
+  <div class='scrollable-content section'>
+    <div class='row'>
+      <form class='form-horizontal col-md-5 col-centered' ng-submit='signup()'>
+        <div class='modal-body'>
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>Email</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required autofocus>
+            </div>
           </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label signin-label'>Password</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.password' type='password' class='form-control' placeholder='Enter your password here' required>
+            </div>
+          </div>
+          
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label signin-label'>First Name</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.firstName' type='text' class='form-control' placeholder='{{ "firstNamePlaceholder" | translate }}' required>
+            </div>
+          </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>Last Name</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.lastName' type='text' class='form-control' placeholder='{{ "lastNamePlaceholder" | translate }}' required>
+            </div>
+          </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>Phone Number</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.phoneNumber' type='phone' class='form-control' placeholder='{{ "phoneNumberPlaceholder" | translate }}' required>
+            </div>
+          </div>
+
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>Address Line 1</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.address1' type='text' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
+            </div>
+          </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>Address Line 2</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.address2' type='text' class='form-control' placeholder='Enter your secondary address information here (if applicable)' required>
+            </div>
+          </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>City</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.city' type='text' class='form-control' placeholder='Enter your city here' required>
+            </div>
+          </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>State</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.state' type='text' class='form-control' placeholder='Enter your state here' required>
+            </div>
+          </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>Zip</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.zip' type='text' class='form-control' placeholder='Enter your zip here' required>
+            </div>
+          </div>
+
+          <div class='form-group sign-up-field'>
+            <label class='col-sm-4 control-label'>Country</label>
+            <div class='col-sm-7'>
+              <input ng-model='user.country' type='text' class='form-control' placeholder='Enter your country here' required>
+            </div>
+          </div>
+
         </div>
 
-        <div class='form-group sign-up-field'>
-          <label class='col-sm-4 control-label signin-label'>{{ 'firstNameInput' | translate }}</label>
-          <div class='col-sm-7'>
-            <input ng-model='user.firstName' type='text' class='form-control' placeholder='{{ "firstNamePlaceholder" | translate }}' required>
+        <div class='modal-footer'>
+          <div class='form-group'>
+            <div class='col-sm-offset-5 col-sm-6'>
+              <button type='button' ng-click='goToSignIn()' class='btn btn-danger'>Cancel</button>
+              <button type='submit' class='btn btn-success'>{{ 'submitButton' | translate }}</button>
+            </div>
           </div>
         </div>
-
-        <div class='form-group sign-up-field'>
-          <label class='col-sm-4 control-label'>{{ 'lastNameInput' | translate }}</label>
-          <div class='col-sm-7'>
-            <input ng-model='user.lastName' type='text' class='form-control' placeholder='{{ "lastNamePlaceholder" | translate }}' required>
-          </div>
-        </div>
-
-        <div class='form-group sign-up-field'>
-          <label class='col-sm-4 control-label'>{{ 'phoneNumberInput' | translate }}</label>
-          <div class='col-sm-7'>
-            <input ng-model='user.phoneNumber' type='phone' class='form-control' placeholder='{{ "phoneNumberPlaceholder" | translate }}' required>
-          </div>
-        </div>
-
-        <div class='form-group sign-up-field'>
-          <label class='col-sm-4 control-label signin-label'>{{ 'passwordPrompt' | translate }}</label>
-          <div class='col-sm-7'>
-            <input ng-model='user.password' type='password' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
-          </div>
-        </div>
-
-      </div>
-
-      <div class='modal-footer'>
-        <div class='form-group'>
-          <div class='col-sm-offset-5 col-sm-6'>
-            <button type='button' ng-click='cancel()' class='btn btn-warning'>{{ 'cancelButton' | translate }}</button>
-            <button type='submit' class='btn btn-default'>{{ 'submitButton' | translate }}</button>
-          </div>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
 </div>

@@ -14,6 +14,8 @@ var enUS = {
   "passwordPlaceholder": "Enter your password here",
   "cancelButton": "Cancel",
   "submitButton": "Submit",
+  "signupButton": "Sign up",
+  "loginButton": "Log in",
 
   // client>app>auth>signup.html
   "signinReturn": "Back To Sign In",  // LOOK INTO EMAIL PROMPT & PLACEHOLDER
@@ -114,4 +116,5 @@ var enUS = {
   "tickets": "Tickets",
   "tools": "Tools & Home Improvement",
   "videoGames": "Video Games"
+
 };
