@@ -99,22 +99,53 @@ module.exports = {
 
   // gets all the open bids for a user
   allBids: function(req, res, next) {
+    // object to be sent to client side
+    var responseArray = [];
 
     // Token is sent on client side
     var bidder = jwt.decode(req.body.token, 'secret');
 
-    db.Bid.findAll({where: {UserId: bidder}})
+    db.Bid.findAll({where: {UserId: bidder.id}})
     .then(function(bids) {
+
       if(bids === null) {
         res.status(400).send("Sorry, you have no current bids");
       }
 
-      // send an array of objects
-      
-      // create bid object to send to client-side
-      var bidResults = {}
+      // productIds array is used to grab the associated products for each bid
+      var productIds = [];
+      // // iterate over the bid objects and grab the ProductIds and Created_at
+      for(var z = 0; z < bids.length; z++) {
+        productIds.push(bids[z].get('ProductId'));
 
-      res.status(200).send(bids);
+        var productsObj = {
+          productInfo: null,
+          bidInfo: bids[z].dataValues
+        }
+        responseArray.push(productsObj);
+      }
+
+
+      var productPromises = [];
+      // Retrieve all products and push into array
+      for(var j = 0; j < productIds.length; j++) {
+        productPromises.push(db.Product.find({where : { id: productIds[j]} }));
+      }
+
+      var productsArray;
+      Promise.all(productPromises)
+      .then(function (foundProducts) {
+        productsArray = [];
+        for (var i = 0; i < foundProducts.length; i++) {
+          // OLD
+          productsArray.push(foundProducts[i].dataValues);
+          // NEW
+          responseArray[i]['productInfo'] = foundProducts[i].dataValues;
+        }
+      })
+      .then(function() {
+        res.status(200).send(responseArray);
+      })
     })
     .catch(function (error) {
       res.status(400).send('Error getting all bids from database:  ', error);
