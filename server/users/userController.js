@@ -136,19 +136,7 @@ module.exports = {
         id: user.id
       }
     })
-    .then(function (foundUser) {
-      // var userInfo = {};
-      // userInfo.firstName = foundUser.firstName;
-      // userInfo.lastName = foundUser.lastName;
-      // userInfo.phoneNumber = foundUser.phoneNumber;
-      // userInfo.email = foundUser.email;
-      // userInfo.address1 = foundUser.address1;
-      // userInfo.address2 = foundUser.address2;
-      // userInfo.city = foundUser.city;
-      // userInfo.state = foundUser.state;
-      // userInfo.zip = foundUser.zip;
-      // userInfo.country = foundUser.country;
-      // res.send({ userInfo: userInfo });
+    .then(function () {
       res.send(200);
     })
     .catch(function (error) {

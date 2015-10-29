@@ -25,6 +25,11 @@ var enUS = {
   "lastNamePlaceholder": "Enter your last name here",
   "phoneNumberInput": "Phone Number",
   "phoneNumberPlaceholder": "Enter your number here",  // LOOK INTO PW & PW PLACEHOLDER & CANCEL & SUBMIT
+  "addressLine1Placeholder" : "Enter your address here",
+  "addressLine2Placeholder" : "Enter your secondary address information here (if applicable)",
+  "cityPlaceholder" : "Enter your city here",
+  "statePlaceholder" : "Enter your state here",
+  "zipPlaceholder" : "Enter your zip code here",
 
   // client>app>auth>welcome.html
   "menuTitle": "Menu",

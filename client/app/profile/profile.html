@@ -16,7 +16,7 @@
   <div class='scrollable-content section'>
     <h1 class='page-header'>{{ 'userProfileHeader' | translate }}</h1>
     <div>
-      <form role='form' class='simple-form'>
+      <form role='form' class='simple-form' ng-submit='updateUser()'>
       <div class='form-group'>
         <label>{{ 'firstNameInput' | translate }}</label>
         <input type='text' 
@@ -84,21 +84,21 @@
                disabled>
       </div>
 
-      <div ng-hide="updateMode" class='padded-vertical'>
-        <input type='submit'  class='btn btn-primary btn-block' ng-click='enableUpdateMode()' value='{{ "updateUserProfileButton" | translate}}' />
+      <div ng-hide='updateMode' class='padded-vertical'>
+        <input type='button'  class='btn btn-primary btn-block' ng-click='enableUpdateMode()' value='{{ "updateUserProfileButton" | translate}}' />
       </div>
 
-      <div ng-hide="updateMode" class="padded-vertical">
-        <input type='submit'  class='btn btn-info btn-block' ng-click='backToShwopping()' value='{{ "backToShwoppingButton" | translate}}' />
+      <div ng-hide='updateMode' class='padded-vertical'>
+        <input type='button'  class='btn btn-info btn-block' ng-click='backToShwopping()' value='{{ "backToShwoppingButton" | translate}}' />
       </div>
 
-      <div class='cancel half-width padded-all' ng-show="updateMode">
-        <input type='submit'  class='btn btn-danger btn-primary btn-block' ng-click='cancelChanges()' value='{{ "cancelButton" | translate}}' />
+      <div class='cancel half-width padded-all' ng-show='updateMode'>
+        <input type='button'  class='btn btn-danger btn-primary btn-block' ng-click='cancelChanges()' value='{{ "cancelButton" | translate}}' />
       </div>
 
-      <div class='save half-width padded-all' ng-show="updateMode">
+      <div class='save half-width padded-all' ng-show='updateMode'>
 
-        <input type='submit'  class='btn btn-success btn-primary btn-block' ng-click='updateUser()' value='{{ "saveButton" | translate }}' />
+        <input type='submit'  class='btn btn-success btn-primary btn-block' value='{{ "saveButton" | translate }}' />
       </div>
 
       </form>
