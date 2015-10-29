@@ -87,3 +87,23 @@ exports.createProduct = createProduct;
 exports.addLongAndLat = addLongAndLat;
 
 
+
+var storeBid = function (bidAmount, product, bidder) {
+
+      db.Bid.create({
+        bidAmount: bidAmount,
+        UserId: bidder.id,
+        ProductId: product.id
+      })
+      .then(function () {
+        console.log('we just set a user!')
+        return successObject;
+      })
+      .catch(function (error) {
+        return error;
+      });
+  }
+
+exports.createProduct = createProduct;
+exports.storeBid = storeBid;
+

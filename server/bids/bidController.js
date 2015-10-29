@@ -11,7 +11,7 @@ module.exports = {
 
   // sends bid alert to seller
   newBid: function (req, res, next) {
-
+    console.log("sending a new bid");
     var product;
     var seller;
     var bidder = jwt.decode(req.body.token, 'secret');
@@ -38,7 +38,6 @@ module.exports = {
       bidder = foundBidder;
 
       client.sendMessage({
-
           to: seller.get('phoneNumber'), // Any number Twilio can deliver to
           from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
           body: '' + bidder.get('firstName') + ' has bid ' + req.body.bidAmount + ' for your ' 
@@ -46,9 +45,7 @@ module.exports = {
                 + bidder.get('phoneNumber') + "."
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
-
         if (!err) { // if NO error is received sending the message ("err" is an error received during the request, if any)
-
         // "responseData" is a JavaScript object containing data received from Twilio.
         // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
         // http://www.twilio.com/docs/api/rest/sending-sms#example-1
@@ -56,6 +53,15 @@ module.exports = {
           console.log('Response data:  ', responseData.from); // outputs "+18327695630"
           console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
           res.status(200).send("Successfully sent message. Response data:"+ responseData);
+        // Store the bid information
+        helpers.storeBid(req.body.bidAmount, product, bidder)
+        // .then(function (result) {
+        //   console.log("result", result);
+        // })
+        // .catch(function (error) {
+        //   console.log("here's the error: ", error);
+        // });
+
         } else {
           res.status(400).send("Error creating twilio request: "+ err);
         }
@@ -90,5 +96,30 @@ module.exports = {
         res.status(400).send("Error creating twilio request: "+ err);
       }
     });
+
+  // gets all the open bids for a user
+  allBids: function(req, res, next) {
+
+    // Token is sent on client side
+    var bidder = jwt.decode(req.body.token, 'secret');
+
+    db.Bid.findAll({where: {UserId: bidder}})
+    .then(function(bids) {
+      if(bids === null) {
+        res.status(400).send("Sorry, you have no current bids");
+      }
+
+      // send an array of objects
+      
+      // create bid object to send to client-side
+      var bidResults = {}
+
+      res.status(200).send(bids);
+    })
+    .catch(function (error) {
+      res.status(400).send('Error getting all bids from database:  ', error);
+    });
+
   }
+
 };

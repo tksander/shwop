@@ -12,8 +12,11 @@ module.exports = function (app) {
   // app.param('code', linksController.findUrl);
 
   app.route('/')
-    .post(userController.checkAuth, bidController.newBid);
+    .post(userController.checkAuth, bidController.newBid)
+    // .get(userController.checkAuth, bidController.allBids)
   // app.get('/:code', linksController.navToLink);
 
   app.post('/messages', bidController.messageHandler);
+  app.post('/allBids', userController.checkAuth, bidController.allBids);
+
 };
