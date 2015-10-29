@@ -102,10 +102,17 @@ module.exports = {
   // delete the product
   deleteProduct: function (req, res, next) {
     var productId = req.params.productId;
-    db.Product.destroy({
+    db.Product_Tag.destroy({
       where: {
-        id: productId
+        ProductId: productId
       }
+    })
+    .then(function () {
+      db.Product.destroy({
+        where: {
+          id: productId
+        }
+      });
     })
     //need to delete tags in the tags 
     .then(function () {
