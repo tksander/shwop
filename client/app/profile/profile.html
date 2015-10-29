@@ -84,14 +84,6 @@
                disabled>
       </div>
 
-      <div class='form-group'>
-        <label>{{ 'countryInput' | translate }}</label>
-        <input type='text' 
-               class='form-control'
-               ng-model='data.user.country'
-               disabled>
-      </div>
-
       <div ng-hide="updateMode" class='padded-vertical'>
         <input type='submit'  class='btn btn-primary btn-block' ng-click='enableUpdateMode()' value='{{ "updateUserProfileButton" | translate}}' />
       </div>

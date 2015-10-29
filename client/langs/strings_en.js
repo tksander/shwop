@@ -55,7 +55,6 @@ var enUS = {
   "cityInput": "City",
   "stateInput": "State",
   "zipInput": "Zip",
-  "countryInput": "Country",
   "saveButton": "Save",
   "updateUserProfileButton" : "Update user profile",
   "backToShwoppingButton": "Back to Shwopping!",

@@ -30,9 +30,8 @@ var User = orm.define('User', {
   address1:    { type: Sequelize.STRING(50) },
   address2:    { type: Sequelize.STRING(50) },
   city:        { type: Sequelize.STRING(25) },
-  state:       { type: Sequelize.STRING(12) },
+  state:       { type: Sequelize.STRING(20) },
   zip:         { type: Sequelize.STRING(10) },
-  country:     { type: Sequelize.STRING(20) },
   latitude:    { type: Sequelize.FLOAT(40) },
   longitude:   { type: Sequelize.FLOAT(40) }
 },{

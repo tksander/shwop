@@ -111,7 +111,6 @@ module.exports = {
         userInfo.city = foundUser.city;
         userInfo.state = foundUser.state;
         userInfo.zip = foundUser.zip;
-        userInfo.country = foundUser.country;
         res.send({ userInfo: userInfo });
       }
     })
@@ -131,8 +130,7 @@ module.exports = {
       address2: req.body.updatedUser.address2,
       city: req.body.updatedUser.city,
       state: req.body.updatedUser.state,
-      zip: req.body.updatedUser.zip,
-      country: req.body.updatedUser.country
+      zip: req.body.updatedUser.zip
     }, {
       where: {
         id: user.id
