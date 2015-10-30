@@ -41,7 +41,7 @@ module.exports = {
           from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
           body: '' + bidder.get('firstName') + ' has bid ' + req.body.bidAmount + ' for your ' 
                 + product.get('name') + ". Respond to them at " 
-                + bidder.get('phoneNumber') + "."
+                + bidder.get('phoneNumber') + ". The product ID is " + product.get('id')
 
       }, function(err, responseData) { //this function is executed when a response is received from Twilio
         if (!err) { // if NO error is received sending the message ("err" is an error received during the request, if any)
@@ -72,7 +72,7 @@ module.exports = {
   },
 
   messageHandler: function(req, res, next){
-    console.log('*****request sent from twilio is: ', req);
+    var message = req.body.Body
 
     client.sendMessage({
 
