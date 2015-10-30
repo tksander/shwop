@@ -11,7 +11,6 @@ module.exports = {
 
   // sends bid alert to seller
   newBid: function (req, res, next) {
-    console.log("sending a new bid");
     var product;
     var seller;
     var bidder = jwt.decode(req.body.token, 'secret');
@@ -115,7 +114,7 @@ module.exports = {
 
       // productIds array is used to grab the associated products for each bid
       var productIds = [];
-      // // iterate over the bid objects and grab the ProductIds and Created_at
+      // Iterate over the bid objects and grab the ProductIds and Created_at
       for(var z = 0; z < bids.length; z++) {
         productIds.push(bids[z].get('ProductId'));
 
@@ -133,14 +132,9 @@ module.exports = {
         productPromises.push(db.Product.find({where : { id: productIds[j]} }));
       }
 
-      var productsArray;
       Promise.all(productPromises)
       .then(function (foundProducts) {
-        productsArray = [];
         for (var i = 0; i < foundProducts.length; i++) {
-          // OLD
-          productsArray.push(foundProducts[i].dataValues);
-          // NEW
           responseArray[i]['productInfo'] = foundProducts[i].dataValues;
         }
       })
@@ -156,7 +150,6 @@ module.exports = {
   // deletes bid from bid table (Bidder cancels bid)
   deleteBid: function (req, res, next) {
     var bidId = req.params.bidId;
-    console.log(bidId);
     db.Bid.destroy({
       where: {
         ProductId: bidId

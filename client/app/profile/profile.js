@@ -64,7 +64,7 @@ angular.module('shwop.profile', [])
   //     console.log(position.coords.latitude, position.coords.longitude);
   // });
 
-  }
+  // }
 
   $scope.getUserInfo();
 }]);
