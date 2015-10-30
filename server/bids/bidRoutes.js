@@ -18,5 +18,6 @@ module.exports = function (app) {
 
   app.post('/messages', bidController.messageHandler);
   app.post('/allBids', userController.checkAuth, bidController.allBids);
+  app.delete('/:bidId', userController.checkAuth, bidController.deleteBid);
 
 };

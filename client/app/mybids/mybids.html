@@ -34,7 +34,7 @@
           <li><a>{{ 'viewProduct' | translate }}</a></li>
           <li><a>{{ 'updateBid' | translate }}</a></li>
           <li class="divider"></li>
-          <li><a ng-click='deleteProduct(product.productInfo.id)'>{{ 'cancelBid' | translate }}</a></li>
+          <li><a ng-click='deleteBid(product.productInfo.id); remove($index)'>{{ 'cancelBid' | translate }}</a></li>
         </ul>
       </div>
       <h3 class="panel-title">{{ product.productInfo.name }}</h3>

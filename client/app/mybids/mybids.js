@@ -25,17 +25,23 @@ angular.module('shwop.mybids', [])
     })
   };
 
-  // $scope.deleteProduct = function (productId) {
-  //   if (window.confirm('Are you sure you want to delete this product?')) {
-  //     Products.deleteProduct(productId)
-  //     .then(function () {
-  //       $scope.getUserProducts();
-  //     })
-  //     .catch(function (err) {
-  //       console.log('/api/products/:productId DELETE failed', err);
-  //     });
-  //   }
-  // };
+  $scope.deleteBid = function (bidId) {
+    if (window.confirm('Are you sure you want to cancel this bid? The seller will be informed you have canceled the bid.')) {
+      Products.deleteMyBid(bidId)
+      .then(function (result) {
+
+        console.log('Deleted bid' + result);
+        console.dir(result);
+      })
+      .catch(function (err) {
+        console.log('/api/bids/:BidId DELETE failed' + err);
+      });
+    }
+  };
+
+  $scope.remove = function(index) {
+    $scope.data.splice(index, 1);
+  }
 
   $scope.getBids();
 }]);
