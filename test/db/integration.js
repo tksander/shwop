@@ -196,7 +196,7 @@ describe('Database integration tests', function () {
     });
   });
 
-  describe('Full entry test', function () {
+  xdescribe('Full entry test', function () {
 
     var newUser = { 
       firstName: 'Michael',
