@@ -28,22 +28,6 @@ angular.module('shwop.products', [])
     $rootScope.Ui.turnOn('bidModal');
   }
 
-  // var arrowSwiper = function(e){
-  //     if(e.keyCode === 37) {
-  //       carousel.reject();
-  //     } else if (e.keyCode === 39) {
-  //       console.log("got here!");
-  //       Products.bid();
-  //     }      
-  // };
-
-  // var $doc = angular.element(document);
-
-  // $doc.on('keydown', arrowSwiper);
-  // $scope.$on('$destroy',function(){
-  //   $doc.off('keydown', arrowSwiper);
-  // });
-
   $scope.data = {};
 
 
@@ -83,12 +67,31 @@ angular.module('shwop.products', [])
 }])
 
 // Angular directive to control drag functionality.
-.directive('carousel', [function(){
+.directive('carousel', ['$document', function ($document){
   return {
     restrict: 'C',
     controller: function($scope, Products) {
       this.itemCount = 0;
       this.activeItem = null;
+
+      function arrowHandler (event) {
+        if (event.keyCode === 37) {
+          if ($scope.data.products.length > 1){
+            console.log('popping first product');
+            $scope.data.products.shift();
+            Products.setCurrentProduct($scope.data.products[0]);
+            console.log(Products.getCurrentProduct());
+          } else {
+            $scope.data.products.shift();
+            $scope.getAllProducts();
+          }
+        } else if (event.keyCode === 39) {
+            $scope.showModal();
+        }
+        $scope.$apply();
+      }
+
+      $document.on('keydown', arrowHandler);
 
       this.addItem = function(){
         var newId = this.itemCount++;
@@ -132,7 +135,7 @@ angular.module('shwop.products', [])
     link: function(scope, elem, attrs, carousel) {
       scope.carousel = carousel;
       var id = carousel.addItem();
-      
+
       var zIndex = function(){
         var res = 0;
         if (id === carousel.activeItem){
@@ -202,25 +205,6 @@ angular.module('shwop.products', [])
     }
   };
 }])
-
-// .directive('ngArrows', function () {
-  // var arrowSwiper = function(e){
-  //     if(e.keyCode === 37) {
-  //       carousel.reject();
-  //     } else if (e.keyCode === 39) {
-  //       console.log("got here!");
-  //       Products.bid();
-  //     }      
-  // };
-
-  // var $doc = angular.element(document);
-
-  // $doc.on('keydown', arrowSwiper);
-  // $scope.$on('$destroy',function(){
-  //   $doc.off('keydown', arrowSwiper);
-  // });
-// })
-
 .directive('dragMe', ['$drag', function ($drag){
   return {
     controller: function($scope, $element) {
