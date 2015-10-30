@@ -2,9 +2,6 @@
 var db = require('../../server/db/db_config.js');
 var Promise = require('bluebird');
 var request = require('request');
-if (!process.env.GoogleKey) {
-  var locally = require('../../sneakyLocal.js');
-}
 
 // create a  user
 var createUser = function (user) {
@@ -60,6 +57,9 @@ var createProduct = function (userModel, product, tags, callback) {
 };
 
 var addLongAndLat = function (user) {
+  if (!process.env.GoogleKey) {
+    var locally = require('../../sneakyLocal.js');
+  }
   var address1 = user.address1.split(' ').join('+');
   var city = user.city.split(' ').join('+');
   var state = user.state.split(' ').join('+');
