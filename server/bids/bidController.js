@@ -51,13 +51,13 @@ module.exports = {
 
           console.log('Response data:  ', responseData.from); // outputs "+18327695630"
           console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
-          res.status(200).send("Successfully sent message. Response data:"+ responseData);
+          res.status(200).send("Successfully sent message. Response data:" + responseData);
         // Store the bid information
         helpers.storeBid(req.body.bidAmount, product, bidder, function(error, result) {
           if(error) {
-            res.status(400).send("Error creating twilio request: ", err);
+            res.status(400).send("Error creating twilio request: " + err);
           }
-          res.status(200).send("Successfully sent message and stored the data in the database. Response data:", result);
+          res.status(200).send("Successfully sent message and stored the data in the database. Response data:" + result);
         });
         
 
@@ -144,7 +144,7 @@ module.exports = {
       })
     })
     .catch(function (error) {
-      res.status(400).send('Error getting all bids from database:  ', error);
+      res.status(400).send('Error getting all bids from database:  ' + error);
     });
   },
 

@@ -92,7 +92,10 @@ exports.addLongAndLat = addLongAndLat;
 var storeBid = function (bidAmount, product, bidder, callback) {
 
     // find
-    db.Bid.find({where: {ProductId: product.id}})
+    db.Bid.find({where: {
+      ProductId: product.id,
+      UserId: bidder.id
+    }})
     .then(function (bid) {
       // if found - update
       if(bid) {
@@ -100,11 +103,11 @@ var storeBid = function (bidAmount, product, bidder, callback) {
           bidAmount: bidAmount
         })
         .then(function (success) {
-          console.log('We just updated a user!')
+          console.log('We just updated a bid!')
           callback(null, success);
         })
         .catch(function (error) {
-          console.log('We had an error in storeBid > helper.js');
+          console.log('We had an error in storeBid > helper.js - updating a bid.');
           callback(error, null);
         })
 
@@ -115,11 +118,11 @@ var storeBid = function (bidAmount, product, bidder, callback) {
           ProductId: product.id
         })
         .then(function(success) {
-          console.log('We just created a new user!')
+          console.log('We just created a new bid!')
           callback(null, success);
         })
         .catch(function(error) {
-          console.log('We just created a new user!')
+          console.log('We had an error in storeBid > helper.js - creating a new bid.')
           callback(null, success);
         })
       }
