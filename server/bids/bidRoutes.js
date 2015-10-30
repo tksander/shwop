@@ -15,5 +15,5 @@ module.exports = function (app) {
     .post(userController.checkAuth, bidController.newBid);
   // app.get('/:code', linksController.navToLink);
 
-  app.get('/messages', bidController.messageHandler);
+  app.post('/messages', bidController.messageHandler);
 };

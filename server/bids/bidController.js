@@ -65,12 +65,13 @@ module.exports = {
   },
 
   messageHandler: function(req, res, next){
+    console.log('*****request sent from twilio is: ', req);
 
     client.sendMessage({
 
         to: '7133034742', // Any number Twilio can deliver to
         from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
-        body: "Hey John, someone sent a message back to twilio. They said: " + req.body.Body
+        body: "Hey John, someone sent a message back to twilio. They said: " + req.body.Body + " and their number is " + req.body.From
 
     }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
