@@ -79,6 +79,7 @@ angular.module('shwop.products', [])
   };
 
   $scope.getAllProducts();
+  // Products.getLocation();
 }])
 
 // Angular directive to control drag functionality.
