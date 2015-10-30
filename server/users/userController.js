@@ -1,5 +1,6 @@
 var db = require('../db/db_config.js');
 var jwt  = require('jwt-simple');
+var helpers = require('../db/helpers.js');
 
 module.exports = {
 
@@ -62,6 +63,12 @@ module.exports = {
     .then(function (user) {
       var token = jwt.encode(user, 'secret');
       res.json({token: token});
+    })
+    .then(function () {
+      helpers.addLongAndLat(req.body);
+    })
+    .then(function (result) {
+      console.log('Successfully added longitude and latitude');
     })
     .catch(function (error) {
       res.status(400).send('Error on sign in within the database: ', error);
@@ -138,6 +145,12 @@ module.exports = {
     })
     .then(function () {
       res.send(200);
+    })
+    .then(function () {
+      helpers.addLongAndLat(req.body.updatedUser);
+    })
+    .then(function (result) {
+      console.log('Successfully added longitude and latitude');
     })
     .catch(function (error) {
       next(error);
