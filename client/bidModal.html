@@ -1,7 +1,7 @@
 <div class='modal' ui-if='bidModal' ui-state='bidModal 'ng-controller='BidController'>
   <div class='modal-backdrop in'></div>
   <div class='modal-dialog'>
-    <div class='modal-content'>
+    <div class='modal-content' ng-hide='bidSent'>
       <div class='modal-header'>
         <button class='close' 
                 ui-turn-off='bidModal'>&times;</button>
@@ -26,5 +26,12 @@
         <button ui-turn-off="bidModal" class="btn btn-default btn-block">{{ 'cancelButton' | translate }}</button>
       </form>
     </div>
+  </div>
+  <div class='modal-content' ng-show='bidSent'>
+   <div class='modal-body bid-success'>
+     <button class='close'
+             ui-turn-off='bidModal'>&times;</button>
+     <h4 class='modal-title bid-success'>{{ 'bidSuccessAlert' | translate }}<button ui-turn-off="bidModal" class="btn btn-default btn-block">{{ 'backToShwoppingButton' | translate }}</h4>
+   </div>
   </div>
 </div>

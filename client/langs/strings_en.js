@@ -87,6 +87,10 @@ var enUS = {
   //client>app>sell>sell.js
   "photoUploadAlert": "You must click the button to upload your photo first.",
 
+  //client>app>bid>bid.js
+  "bidSuccessAlert": "Your bid was successfully submitted. The seller will contact you if interested in your offer.",
+  "sendingBidMessage": "Sending bid, please wait!",
+
   //client>app>services>services.js
   "antiques": "Antiques",
   "appliances": "Appliances",

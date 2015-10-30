@@ -134,4 +134,8 @@ select:invalid option {
   height: 200px;
   width: 200px; }
 
+.bid-success {
+  background-color: #007AFF;
+  color: #FFF; }
+
 /*# sourceMappingURL=style.css.map */
