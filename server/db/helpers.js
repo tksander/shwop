@@ -1,6 +1,10 @@
 
 var db = require('../../server/db/db_config.js');
 var Promise = require('bluebird');
+var request = require('request');
+if (!process.env.GoogleKey) {
+  var locally = require('../../sneakyLocal.js');
+}
 
 // create a  user
 var createUser = function (user) {
@@ -55,4 +59,31 @@ var createProduct = function (userModel, product, tags, callback) {
   });
 };
 
+var addLongAndLat = function (user) {
+  var address1 = user.address1.split(' ').join('+');
+  var city = user.city.split(' ').join('+');
+  var state = user.state.split(' ').join('+');
+  var zip = user.zip.split(' ').join('+');
+  var address = address1 + ',+' + city + ',+' + state + ',+' + zip;
+  var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + (process.env.GoogleKey || locally.GoogleKey);
+  return request(url, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var JSONbody = JSON.parse(body);
+      var longitude = JSONbody.results[0].geometry.location.lng;
+      var latitude = JSONbody.results[0].geometry.location.lat;
+      return db.User.update({ 
+        longitude: longitude,
+        latitude: latitude,
+      }, {
+        where: {
+          email: user.email
+        }
+      });
+    }
+  });
+};
+
 exports.createProduct = createProduct;
+exports.addLongAndLat = addLongAndLat;
+
+

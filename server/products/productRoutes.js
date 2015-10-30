@@ -1,8 +1,10 @@
 var productController = require('./productController.js');
 var userController = require('../users/userController.js');
-// if(!process) {
-//   var process = require('../../sneakyLocal.js')
-// };
+if(!process.env.ParseAppId || !process.env.ParseRestKey) {
+  var locally = require('../../sneakyLocal.js');
+}
+console.log('process.env is', process.env);
+console.log('locally is', locally);
 
 
 module.exports = function (app) {
@@ -24,8 +26,8 @@ module.exports = function (app) {
 
   app.get('/keys', userController.checkAuth, function(req, res) {
       res.json({
-        'X-Parse-Application-Id': process.env['ParseAppId'],
-        'X-Parse-REST-API-Key': process.env['ParseRestKey']
+        'X-Parse-Application-Id': (process.env.ParseAppId || locally.ParseAppId),
+        'X-Parse-REST-API-Key': (process.env.ParseRestKey || locally.ParseRestKey)
       });
   });
 
