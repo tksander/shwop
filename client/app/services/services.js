@@ -58,6 +58,13 @@ angular.module('shwop.services', [])
     });
   };
 
+  var deleteMyBid = function(bidId) {
+    return $http({
+      method: 'DELETE',
+      url: '/api/bids/' + bidId
+    });
+  };
+
   var getProductsByTag = function (tags) {
     return $http({
           method: 'GET',
@@ -132,6 +139,7 @@ angular.module('shwop.services', [])
     bid: bid,
     getAllBids: getAllBids,
     sendBid: sendBid,
+    deleteMyBid: deleteMyBid,
     products: products,
     getProductsByTag: getProductsByTag,
     getUserProducts: getUserProducts,

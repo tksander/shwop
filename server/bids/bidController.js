@@ -54,13 +54,13 @@ module.exports = {
           console.log('Response responseData.body: ', responseData.body); // outputs the actual message text
           res.status(200).send("Successfully sent message. Response data:"+ responseData);
         // Store the bid information
-        helpers.storeBid(req.body.bidAmount, product, bidder)
-        // .then(function (result) {
-        //   console.log("result", result);
-        // })
-        // .catch(function (error) {
-        //   console.log("here's the error: ", error);
-        // });
+        helpers.storeBid(req.body.bidAmount, product, bidder, function(error, result) {
+          if(error) {
+            res.status(400).send("Error creating twilio request: ", err);
+          }
+          res.status(200).send("Successfully sent message and stored the data in the database. Response data:", result);
+        });
+        
 
         } else {
           res.status(400).send("Error creating twilio request: "+ err);
@@ -95,7 +95,8 @@ module.exports = {
       } else {
         res.status(400).send("Error creating twilio request: "+ err);
       }
-    });
+    })
+  },
 
   // gets all the open bids for a user
   allBids: function(req, res, next) {
@@ -150,7 +151,23 @@ module.exports = {
     .catch(function (error) {
       res.status(400).send('Error getting all bids from database:  ', error);
     });
+  },
 
+  // deletes bid from bid table (Bidder cancels bid)
+  deleteBid: function (req, res, next) {
+    var bidId = req.params.bidId;
+    console.log(bidId);
+    db.Bid.destroy({
+      where: {
+        ProductId: bidId
+      }
+    })
+    .then(function (result) {
+      res.status(200).send('Product successfully deleted. Here is result message: ' + result);
+    })
+    .catch(function (error) {
+      res.status(400).send('Error deleting the bid in the database: ' + error);
+    })
   }
 
 };
