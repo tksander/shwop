@@ -1,0 +1,87 @@
+<div class='modal' ui-if='viewProductModal' ui-state='viewProductModal' ng-controller='MyStoreController'>
+  <div class='modal-backdrop in'></div>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <button class='close' ui-turn-off='viewProductModal'>&times;</button>
+        <h4 class='modal-title'>{{ 'productTitle' | translate }}</h4>
+      </div>
+      <div class='modal-body'>
+
+      <form role='form' ng-submit='sendBid()'>
+        <fieldset>
+          <div class='form-group has-success has-feedback'>
+            <label>{{ 'itemNameLabel' | translate }}</label>
+            <input type='text'
+                   ng-model='currentProduct.name'
+                   class='form-control'
+                   value='{{ currentProduct.name }}'
+                   required>
+          </div>
+
+          <div class='form-group has-success has-feedback'>
+            <label>{{ 'priceLabel' | translate }}</label>
+            <input type='number'
+                   ng-model='currentProduct.price' 
+                   class='form-control'
+                   placeholder='{{ "pricePlaceholder" | translate }}'
+                   required>
+          </div>
+
+          <div class='form-group has-success'>
+            <label>{{ 'categoryLabel' | translate }}</label>
+            <select ng-model='product.category'
+                   class='form-control'
+                   ng-options='category.name as category.translation for category in categories'
+                   required
+                   >
+              <option value='' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
+            </select>
+          </div>
+
+          <div class='form-group has-success has-feedback'>
+            <label>{{ 'tagsLabel' | translate }}</label>
+            <div class='input-group'>
+                <input type='text'
+                      ng-model='data.tag' 
+                      class='form-control'
+                      placeholder='{{ "tagsPlaceholder" | translate }}'
+                      ng-enter='addTag()'
+                      >
+                      <span class ='input-group-btn'>
+                        <button class='btn btn-default tag-button' type='button' ng-click='addTag()'>{{ 'addTagButton' | translate }}</button>
+                      </span>
+            </div>
+            
+            <div  class='tag' ng-repeat='tag in product.tags'>
+<!--               {{  tag.name || tag  }} -->
+            </div>
+          </div>
+
+          <div class='form-group has-success'>
+            <label>{{ 'photoLabel' | translate }}</label>
+            <div class='input-group'>
+              <input type='file'
+                     fileread='productPhoto' 
+                     class='form-control'
+                     placeholder='{{ "pricePlaceholder" | translate }}'
+                     required>
+              <span class ='input-group-btn'>
+                <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()'>{{ 'uploadPhotoButton' | translate }}</button>
+              </span>
+            </div>
+            <div ng-hide='product.photoURL === ""' class='tag'>
+              <div>{{ 'photoPreview' | translate }}</div>
+              <img ng-src=''>
+            </div>
+          </div>
+
+        </fieldset>
+        <button class='btn btn-primary btn-block' ng-disabled='currentButtonText !== sendBidButton'>
+          {{ 'currentButtonText' | translate }}
+        </button>
+        <button ui-turn-off="viewProductModal" class="btn btn-danger btn-block">{{ 'cancelButton' | translate }}</button>
+      </form>
+    </div>
+  </div>
+</div>

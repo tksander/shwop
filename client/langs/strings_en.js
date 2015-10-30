@@ -100,6 +100,9 @@ var enUS = {
   "bidSuccessAlert": "Your bid was successfully submitted. The seller will contact you if interested in your offer.",
   "sendingBidMessage": "Sending bid, please wait!",
 
+  //client>viewProductModel.html
+  "productTitle": "View Product",
+
   //client>app>services>services.js
   "antiques": "Antiques",
   "appliances": "Appliances",

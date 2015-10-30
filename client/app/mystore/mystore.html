@@ -31,8 +31,8 @@
           ui-show="myDropdown{{product.id}}"
           ui-turn-off="myDropdown{{product.id}}">
 
-          <li><a>{{ 'viewProduct' | translate }}</a></li>
-          <li><a>{{ 'updateProduct' | translate }}</a></li>
+          <li><a ng-click='viewProduct(product.id)'>{{ 'viewProduct' | translate }}</a></li>
+          <li><a ng-click='updateProduct(product.id)'>{{ 'updateProduct' | translate }}</a></li>
           <li class="divider"></li>
           <li><a ng-click='deleteProduct(product.id)'>{{ 'deleteProduct' | translate }}</a></li>
         </ul>
@@ -43,5 +43,9 @@
        <img ng-src='{{ product.photoURL }}' class='store-product-image'>
     </div>
   </div>
+</div>
+
+<div ui-content-for="modals">
+  <div ng-include="'viewProductModal.html'"></div>
 </div>
 
