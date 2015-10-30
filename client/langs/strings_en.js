@@ -102,6 +102,7 @@ var enUS = {
 
   //client>viewProductModel.html
   "productTitle": "View Product",
+  "updateButton": "Update Product",
 
   //client>app>services>services.js
   "antiques": "Antiques",

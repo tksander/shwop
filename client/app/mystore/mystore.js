@@ -2,7 +2,7 @@ angular.module('shwop.mystore', [])
 
 .controller('MyStoreController', ['$scope', '$rootScope','$window', '$translate', 'Products', 'Auth', function ($scope, $rootScope, $window, $translate, Products, Auth) {
   $scope.data = {};
-  $scope.currentProduct = {};
+  $scope.data.currentProduct = {name: 'burger', price: '5'};
 
   $scope.signout = function() {
     Auth.signout();
@@ -39,18 +39,19 @@ angular.module('shwop.mystore', [])
     });
   };
 
-  $scope.viewProduct = function (productId) {
-    for (var i = 0; i < $scope.data.products.length; i++) {
-      if ($scope.data.products[i].id === productId) {
-        $scope.currentProduct = $scope.data.products[i];
-      }
-    }
-    console.log($scope.currentProduct);
+  $scope.viewProduct = function (product) {
+    $scope.data.currentProduct = product;
+    console.log($scope.data.currentProduct);
     $rootScope.Ui.turnOn('viewProductModal');
   };
 
   $scope.updateProduct = function () {
 
+  };
+
+  $scope.setCurrent = function (product) {
+    $scope.data.currentProduct = product;
+    console.log('the currentProduct is ', $scope.data.currentProduct);
   };
 
   $scope.getUserProducts();

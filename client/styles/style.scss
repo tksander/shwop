@@ -167,7 +167,6 @@ select:invalid option { color: black; }
   width: 200px;
 }
 
-
 .bid-success {
   background-color: #007AFF;
   color: #FFF;
@@ -181,3 +180,8 @@ select:invalid option { color: black; }
   margin: 5px;
 
 }
+
+.modal {
+    overflow-y:auto;
+}
+

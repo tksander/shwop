@@ -18,7 +18,7 @@
   <div ng-repeat='product in data.products' class="panel panel-default store-product">
     <div class="panel-heading">
       <div class="btn-group pull-right">
-        <a ui-turn-on='myDropdown{{product.id}}' class='btn'>
+        <a ui-turn-on='myDropdown{{product.id}}' ng-click='setCurrent(product)' class='btn'>
           <i class="fa fa-ellipsis-v"></i>
         </a>
         <ul 
@@ -31,7 +31,7 @@
           ui-show="myDropdown{{product.id}}"
           ui-turn-off="myDropdown{{product.id}}">
 
-          <li><a ng-click='viewProduct(product.id)'>{{ 'viewProduct' | translate }}</a></li>
+          <li><a ng-click='viewProduct(product)'>{{ 'viewProduct' | translate }}</a></li>
           <li><a ng-click='updateProduct(product.id)'>{{ 'updateProduct' | translate }}</a></li>
           <li class="divider"></li>
           <li><a ng-click='deleteProduct(product.id)'>{{ 'deleteProduct' | translate }}</a></li>
