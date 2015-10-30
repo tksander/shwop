@@ -13,7 +13,8 @@ angular.module('shwop.mybids', [])
     var token = $window.localStorage.getItem('com.shwop');
 
     Products.getAllBids(token)
-    .then(function (bids) {     
+    .then(function (bids) {   
+      console.log(bids);  
       $scope.data = bids.data;
     })
     .catch(function (err) {

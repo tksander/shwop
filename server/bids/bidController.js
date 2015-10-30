@@ -139,6 +139,7 @@ module.exports = {
         }
       })
       .then(function() {
+        console.log(responseArray);
         res.status(200).send(responseArray);
       })
     })
