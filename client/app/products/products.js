@@ -62,8 +62,26 @@ angular.module('shwop.products', [])
       });
   };
 
+  $scope.getLocation = function () {
+
+      var successCallback = function (position) {
+           console.log('position', position.coords);
+           $scope.lat = position.coords.latitude;
+           $scope.long = position.coords.longitude;
+      }
+
+      var errorCallback = function (error) {
+        console.log(error);
+      }
+
+      var watchId = navigator.geolocation.watchPosition(successCallback, 
+                                                        errorCallback,
+                                                        {enableHighAccuracy:true,timeout:60000,maximumAge:0});
+      console.log('watchId', watchId);
+  };
+
   $scope.getAllProducts();
-  // Products.getLocation();
+  $scope.getLocation();
 }])
 
 // Angular directive to control drag functionality.

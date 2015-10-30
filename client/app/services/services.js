@@ -89,21 +89,28 @@ angular.module('shwop.services', [])
     });
   };
 
-  // var getLocation = function () {
-  //     var watchId = navigator.geolocation.watchPosition(successCallback, 
-  //                                                       errorCallback,
-  //                                                       {enableHighAccuracy:true,timeout:60000,maximumAge:0});
-  //     console.log('watchId', watchId);
+  var getLocation = function () {
 
-  //     function successCallback(position) {
-  //          console.log('position', position)
-  //     }
-  // };
+      var successCallback = function (position) {
+           console.log('position', position.coords);
+           // return position.
+      }
 
-  // var stopLocation = function () {
-  //   console.log(watchId);
-  //   clearWatch(watchId);
-  // };
+      var errorCallback = function (error) {
+        console.log(error);
+      }
+
+      var watchId = navigator.geolocation.watchPosition(successCallback, 
+                                                        errorCallback,
+                                                        {enableHighAccuracy:true,timeout:60000,maximumAge:0});
+      console.log('watchId', watchId);
+      return successCallback;
+  };
+
+  var stopLocation = function () {
+    console.log(watchId);
+    clearWatch(watchId);
+  };
 
   var categories = [
     {id: '1', name: 'Antiques', translation: $translate.instant('antiques')},
@@ -159,8 +166,8 @@ angular.module('shwop.services', [])
     products: products,
     getProductsByTag: getProductsByTag,
     getUserProducts: getUserProducts,
-    // getLocation: getLocation,
-    // stopLocation: stopLocation,
+    getLocation: getLocation,
+    stopLocation: stopLocation,
     deleteProduct: deleteProduct,
     categories: categories
   };
