@@ -1,7 +1,7 @@
 angular.module('shwop.products', [])
 
 
-.controller('ProductController', ['$scope', '$rootScope', 'Products', 'Auth', function ($scope, $rootScope, Products, Auth) {
+.controller('ProductController', ['$scope', '$rootScope', 'Products', 'Auth', '$window', 'Users', function ($scope, $rootScope, Products, Auth, $window, Users) {
   $scope.categories = Products.categories;
 
   $scope.signout = function() {
@@ -13,7 +13,9 @@ angular.module('shwop.products', [])
     // If user swipes left, the topmost photo is removed from the array, revealing
     // the next product to the user.
     if (direction === 'LEFT') {
+      console.log("swiped left")
       $scope.data.products.shift();
+      
       if ($scope.data.products.length === 0){
         $scope.getAllProducts();
       }
@@ -29,17 +31,24 @@ angular.module('shwop.products', [])
   }
 
   $scope.data = {};
-
-
+  $scope.data.location = "We're finding you!"
 
   // Calls factory method that returns all product info from DB and renders it.
-  $scope.getAllProducts = function () {
-    console.log('getting all products');
+  $scope.getAllProducts = function (callback) {
+    // This hacky callback is to allow the location function to be called after we get all the products
+    callback = callback || function(){};
+
     Products.getAllProducts()
     .then(function (promise) {
       $scope.data.products = promise.data.products;
       Products.setCurrentProduct($scope.data.products[0]);
-      console.log(Products.getCurrentProduct());
+
+      // Only run this if we do not already have the bidder location information
+      if(!$scope.bidderLat) {
+        console.log("intializing bidder location")
+        getProductLocation();
+      }
+      callback();
     })
     .catch(function (err) {
       if (err){
@@ -62,12 +71,54 @@ angular.module('shwop.products', [])
       });
   };
 
+  var getBidderLocation = function (callback) {
+
+      var successCallback = function (position) {
+           $scope.bidderLat = position.coords.latitude;
+           $scope.bidderLong = position.coords.longitude;
+           callback();
+      }
+
+      var errorCallback = function (error) {
+        console.log(error);
+      }
+      var watchId = navigator.geolocation.getCurrentPosition(successCallback, 
+                                                        errorCallback,
+                                                        {enableHighAccuracy:true,timeout:60000,maximumAge:0});
+  };
+
+  // Gets the location from the bidder to the product
+  var getProductLocation = function () {
+
+    var currentProduct = $scope.data.products[0];
+    console.log("Current user", currentProduct.UserId);
+    var userId = currentProduct.UserId;
+
+    // get the location of the user associated to the product
+    Users.getUserLocation(userId)
+    .then(function (user) {
+      var productLat = user.data.userInfo.latitude;
+      var productLong = user.data.userInfo.longitude;
+
+      getBidderLocation(function () {
+        // return $scope.getDistanceFrom();
+        var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
+        $scope.$apply($scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away');
+      })
+
+    })
+    .catch(function (error) {
+      console.log('/api/users/profile POST failed', error);
+    })
+  };
+
+
+
   $scope.getAllProducts();
-  // Products.getLocation();
 }])
 
 // Angular directive to control drag functionality.
-.directive('carousel', ['$document', function ($document){
+.directive('carousel', ['$document', 'Users', function($document, Users){
   return {
     restrict: 'C',
     controller: function($scope, Products) {
@@ -77,13 +128,41 @@ angular.module('shwop.products', [])
       function arrowHandler (event) {
         if (event.keyCode === 37) {
           if ($scope.data.products.length > 1){
-            console.log('popping first product');
             $scope.data.products.shift();
             Products.setCurrentProduct($scope.data.products[0]);
-            console.log(Products.getCurrentProduct());
+
+            // This section gets the location for the next product in the stack
+            var currentProduct = $scope.data.products[0];
+            var userId = currentProduct.UserId;
+
+            // get the location of the user associated to the product
+            Users.getUserLocation(userId)
+            .then(function (user) {
+              var productLat = user.data.userInfo.latitude;
+              var productLong = user.data.userInfo.longitude;
+
+              var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
+              $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+            })
           } else {
             $scope.data.products.shift();
-            $scope.getAllProducts();
+            
+            // Gets all products if at the bottom of the stack, 
+            // then gets the location for the product at the top of the refreshed stack
+            $scope.getAllProducts(function () {
+                var currentProduct = $scope.data.products[0];
+                var userId = currentProduct.UserId;
+
+              // get the location of the user associated to the product
+              Users.getUserLocation(userId)
+              .then(function (user) {
+                var productLat = user.data.userInfo.latitude;
+                var productLong = user.data.userInfo.longitude;
+
+                var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
+                $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+              })
+            });
           }
         } else if (event.keyCode === 39) {
             $scope.showModal();
@@ -108,9 +187,42 @@ angular.module('shwop.products', [])
           $scope.data.products.shift();
           Products.setCurrentProduct($scope.data.products[0]);
           console.log(Products.getCurrentProduct());
+
+
+          // This section gets the location for the next product in the stack
+          var currentProduct = $scope.data.products[0];
+          var userId = currentProduct.UserId;
+
+          // get the location of the user associated to the product
+          Users.getUserLocation(userId)
+          .then(function (user) {
+            var productLat = user.data.userInfo.latitude;
+            var productLong = user.data.userInfo.longitude;
+
+            var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
+            $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+          })
+
+
         } else {
           $scope.data.products.shift();
-          $scope.getAllProducts();
+
+          // Gets all products if at the bottom of the stack, 
+          // then gets the location for the product at the top of the refreshed stack
+          $scope.getAllProducts(function () {
+              var currentProduct = $scope.data.products[0];
+              var userId = currentProduct.UserId;
+
+            // get the location of the user associated to the product
+            Users.getUserLocation(userId)
+            .then(function (user) {
+              var productLat = user.data.userInfo.latitude;
+              var productLong = user.data.userInfo.longitude;
+
+              var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
+              $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+            })
+          });
         }
       };
 
