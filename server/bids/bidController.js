@@ -45,9 +45,8 @@ module.exports = {
             to: seller.get('phoneNumber'), // Any number Twilio can deliver to
             from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
             body: '' + bidder.get('firstName') + ' has bid ' + req.body.bidAmount + ' for your ' 
-                  + product.get('name') + ". Respond to them at " 
-                  + bidder.get('phoneNumber') + ". The bid ID is " + result.get('id') + "."
-                  + "Respond to them by sending a message to this number that starts with \"2:\"."
+                  + product.get('name')+ ". The bid ID is " + result.get('id') + "."
+                  + "Respond to them by sending a message to this number that starts with \"" + result.get('id') + ":\"."
 
         }, function(err, responseData) { //this function is executed when a response is received from Twilio
           if (!err) { // if NO error is received sending the message ("err" is an error received during the request, if any)
@@ -174,7 +173,8 @@ module.exports = {
     var foundBidId;
     var fromName;
 
-    var fromNumber = req.body.From;
+    var fromNumber = req.body.From.replace(/('+1')/gi,"");
+    console.log("FROM NUMBER REGEXED IS :",fromNumber);
     var incoming = req.body.Body.split(':');
     var bidId = Number(incoming.shift());
     console.log(bidId);
@@ -199,13 +199,13 @@ module.exports = {
       }
       product = foundProduct;
       var sellerId = foundProduct.get('UserId')
-      console.log("found product is", product);
+      //console.log("found product is", product);
       return db.User.findOne({ where: { id: sellerId } });
     })
     .then(function(foundSeller){
       sellerNumber = foundSeller.get('phoneNumber');
       sellerName = foundSeller.get('firstName');
-      console.log("found seller number is", sellerNumber);
+      //console.log("found seller number is", sellerNumber);
       return db.User.findOne({ where: { id: bidderId } });
     })
     .then(function(foundBidder){
