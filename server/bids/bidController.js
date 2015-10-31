@@ -172,9 +172,10 @@ module.exports = {
     var bidderId;
     var foundBidId;
     var fromName;
-
-    var fromNumber = req.body.From.replace(/('+1')/gi,"");
-    console.log("FROM NUMBER REGEXED IS :",fromNumber);
+    var fromNumber = req.body.From;
+    console.log("FROM NUMBER RAW IS: ",fromNumber);
+    fromNumber = req.body.From.replace(/(\+1)/,"");
+    console.log("FROM NUMBER REGEXED IS: ",fromNumber);
     var incoming = req.body.Body.split(':');
     var bidId = Number(incoming.shift());
     console.log(bidId);
