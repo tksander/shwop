@@ -9,4 +9,5 @@ module.exports = function (app) {
   app.get('/signedin', userController.checkAuth);
   app.post('/profile', userController.userInfo);
   app.post('/update', userController.updateUser);
+  app.get('/:userId', userController.getUserLocation)
 };
