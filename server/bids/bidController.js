@@ -40,7 +40,7 @@ module.exports = {
           res.status(400).send("Error creating bid in database : " + err);
         }
         
-        res.status(200).send("Successfully stored the bid in the database. Response data:" + result);
+        // res.status(200).send("Successfully stored the bid in the database. Response data:" + result);
         client.sendMessage({
             to: seller.get('phoneNumber'), // Any number Twilio can deliver to
             from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
