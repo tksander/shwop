@@ -41,7 +41,12 @@ angular.module('shwop.mystore', [])
   };
 
   $scope.viewProduct = function () {
-    $rootScope.Ui.turnOn('viewProductModal');
+    Products.getTags($scope.data.currentProduct.id)
+    .then(function (tags) {
+      $scope.data.currentProduct.tags = tags.data.tags;
+      console.log('tags is ', $scope.data.currentProduct.tags);
+      $rootScope.Ui.turnOn('viewProductModal');
+    });
   };
 
   $scope.updateProductMode = function () {

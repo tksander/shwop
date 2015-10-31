@@ -152,6 +152,33 @@ module.exports = {
         next(error);
       });
     }
+  },
+
+  //get all tags for a certain product
+  productTags: function (req, res, next) {
+    var id = req.params.productId;
+    console.log('id is ', id);
+    db.Product_Tag.findAll({
+      where: { ProductId: id}
+    })
+    .then(function (product_tags) {
+      var tagsPromises = [];
+      for (var i = 0; i < product_tags.length; i++) {
+        var tagId = product_tags[i].get('TagId');
+        tagsPromises.push(db.Tag.findOne({
+          where: { id: tagId}
+        }));
+      }
+      return Promise.all(tagsPromises);
+    })
+    .then(function (tags) {
+      var tagNames = [];
+      for (var i = 0; i < tags.length; i++) {
+        tagNames.push(tags[i].get('tagName'));
+      }
+      console.log('tagNames is ', tagNames);
+      res.send({tags: tagNames});
+    });
   }
 
 };

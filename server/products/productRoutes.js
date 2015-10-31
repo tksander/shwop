@@ -31,8 +31,11 @@ module.exports = function (app) {
         'X-Parse-REST-API-Key': (process.env.ParseRestKey || locally.ParseRestKey)
       });
   });
+  
+  app.get('/tags/:productId', userController.checkAuth, productController.productTags);
 
   app.get('/:tags', userController.checkAuth, productController.productsByTags);
 
   app.post('/mystore', userController.checkAuth, productController.userProducts);
+
 };
