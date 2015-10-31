@@ -18,15 +18,15 @@ var esES = {
   "sidebarProfile": "Profile",
 
   // client>app>auth>signin.html
-  "signupPrompt": "No Account? Sign Up!",
-  "emailPrompt": "Email",
-  "emailPlaceholder": "Enter your email here",
-  "passwordPrompt": "Password",
-  "passwordPlaceholder": "Enter your password here",
-  "cancelButton": "Cancel",
-  "submitButton": "Submit",
-  "signupButton": "Sign up",
-  "loginButton": "Log in",
+  // "signupPrompt": "No Account? Sign Up!",
+  // "emailPrompt": "Email",
+  // "emailPlaceholder": "Enter your email here",
+  // "passwordPrompt": "Password",
+  // "passwordPlaceholder": "Enter your password here",
+  // "cancelButton": "Cancel",
+  // "submitButton": "Submit",
+  // "signupButton": "Sign up",
+  // "loginButton": "Log in",
 
   // client>app>auth>signup.html
   "signinReturn": "Back To Sign In",  // LOOK INTO EMAIL PROMPT & PLACEHOLDER
