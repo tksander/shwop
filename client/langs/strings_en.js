@@ -31,6 +31,8 @@ var enUS = {
   "cityPlaceholder" : "Enter your city here",
   "statePlaceholder" : "Enter your state here",
   "zipPlaceholder" : "Enter your zip code here",
+  "preciseLocationPlaceholder":"Use Precise Location",
+  "preciseLocationInfoPlaceholder": "Enter more information to set a more accurate default location for items you sell on shwop!",
 
   // client>app>auth>welcome.html
   "menuTitle": "Menu",
