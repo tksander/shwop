@@ -118,7 +118,6 @@ angular.module('shwop.products', [])
 }])
 
 // Angular directive to control drag functionality.
-
 .directive('carousel', ['$document', 'Users', function($document, Users){
   return {
     restrict: 'C',
@@ -129,13 +128,41 @@ angular.module('shwop.products', [])
       function arrowHandler (event) {
         if (event.keyCode === 37) {
           if ($scope.data.products.length > 1){
-            console.log('popping first product');
             $scope.data.products.shift();
             Products.setCurrentProduct($scope.data.products[0]);
-            console.log(Products.getCurrentProduct());
+
+            // This section gets the location for the next product in the stack
+            var currentProduct = $scope.data.products[0];
+            var userId = currentProduct.UserId;
+
+            // get the location of the user associated to the product
+            Users.getUserLocation(userId)
+            .then(function (user) {
+              var productLat = user.data.userInfo.latitude;
+              var productLong = user.data.userInfo.longitude;
+
+              var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
+              $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+            })
           } else {
             $scope.data.products.shift();
-            $scope.getAllProducts();
+            
+            // Gets all products if at the bottom of the stack, 
+            // then gets the location for the product at the top of the refreshed stack
+            $scope.getAllProducts(function () {
+                var currentProduct = $scope.data.products[0];
+                var userId = currentProduct.UserId;
+
+              // get the location of the user associated to the product
+              Users.getUserLocation(userId)
+              .then(function (user) {
+                var productLat = user.data.userInfo.latitude;
+                var productLong = user.data.userInfo.longitude;
+
+                var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
+                $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+              })
+            });
           }
         } else if (event.keyCode === 39) {
             $scope.showModal();
@@ -179,10 +206,10 @@ angular.module('shwop.products', [])
 
         } else {
           $scope.data.products.shift();
+
           // Gets all products if at the bottom of the stack, 
           // then gets the location for the product at the top of the refreshed stack
           $scope.getAllProducts(function () {
-              $scope.data.location = "We're finding you!"
               var currentProduct = $scope.data.products[0];
               var userId = currentProduct.UserId;
 
