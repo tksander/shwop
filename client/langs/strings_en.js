@@ -4,6 +4,7 @@ var enUS = {
   "sidebarWelcome": "Welcome",
   "sidebarSell": "Sell an Item",
   "sidebarMyStore": "My Store",
+  "sidebarMyBids": "My Bids",
   "sidebarProfile": "Profile",
 
   // client>app>auth>signin.html
