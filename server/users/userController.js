@@ -118,6 +118,8 @@ module.exports = {
         userInfo.city = foundUser.city;
         userInfo.state = foundUser.state;
         userInfo.zip = foundUser.zip;
+        userInfo.latitude = foundUser.latitude;
+        userInfo.longitude = foundUser.longitude;
         res.send({ userInfo: userInfo });
       }
     })
@@ -155,6 +157,30 @@ module.exports = {
     .catch(function (error) {
       next(error);
     });
+  },
+
+  getUserLocation: function (req, res, next) {
+
+    var UserId = req.params.userId;
+
+    db.User.findOne({
+      where: { id: UserId}
+    })
+    .then( function (foundUser) {
+      if (!foundUser) {
+        next(new Error('User does not exist!'));
+      } else {
+        var userInfo = {};
+        userInfo.latitude = foundUser.latitude;
+        userInfo.longitude = foundUser.longitude;
+        res.send({ userInfo: userInfo });
+      }
+    })
+    .catch(function (error) {
+      next(error);
+    });
+
+
   }
 
 };

@@ -89,27 +89,27 @@ angular.module('shwop.services', [])
     });
   };
 
-  var getLocation = function () {
-
-      var successCallback = function (position) {
-           console.log('position', position.coords);
-           // return position.
-      }
-
-      var errorCallback = function (error) {
-        console.log(error);
-      }
-
-      var watchId = navigator.geolocation.watchPosition(successCallback, 
-                                                        errorCallback,
-                                                        {enableHighAccuracy:true,timeout:60000,maximumAge:0});
-      console.log('watchId', watchId);
-      return successCallback;
+  var getDistance = function (lat1,lon1,lat2,lon2) {
+    console.log('distance:  ', lat1,lon1,lat2,lon2);
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return getMiles(d);
   };
 
-  var stopLocation = function () {
-    console.log(watchId);
-    clearWatch(watchId);
+  var deg2rad = function (deg) {
+    return deg * (Math.PI/180)
+  };
+
+  var getMiles = function (i) {
+     return i*0.62137;
   };
 
   var categories = [
@@ -166,9 +166,8 @@ angular.module('shwop.services', [])
     products: products,
     getProductsByTag: getProductsByTag,
     getUserProducts: getUserProducts,
-    getLocation: getLocation,
-    stopLocation: stopLocation,
     deleteProduct: deleteProduct,
+    getDistance: getDistance,
     categories: categories
   };
 
@@ -205,11 +204,19 @@ angular.module('shwop.services', [])
     });
   };
 
+  var getUserLocation = function(UserId) {
+    return $http({
+          method: 'GET',
+          url: '/api/users/' + UserId
+    });
+  }
+
   return {
     getUsers: getUsers,
     getUserInfo: getUserInfo,
     addUser: addUser,
-    updateUser: updateUser
+    updateUser: updateUser,
+    getUserLocation: getUserLocation
   };
 }])
 .factory('Photos', function($http) {
