@@ -45,6 +45,7 @@ angular.module('shwop.mystore', [])
     .then(function (tags) {
       $scope.data.currentProduct.tags = tags.data.tags;
       $rootScope.Ui.turnOn('viewProductModal');
+      console.log('tags is ', $scope.data.currentProduct.tags);
     });
   };
 
@@ -58,6 +59,17 @@ angular.module('shwop.mystore', [])
 
   $scope.setCurrent = function (product) {
     $scope.data.currentProduct = product;
+  };
+
+  $scope.removeTag = function (tagName) {
+    console.log('going to remove ', tagName);
+    console.log('tags is', $scope.data.currentProduct.tags);
+    for (var i = 0; i < $scope.data.currentProduct.tags; i++) {
+      if ($scope.data.currentProduct.tags[i] === tagName) {
+        $scope.data.currentProduct.splice(i, 1);
+      }
+    }
+    console.log('tags is ', $scope.data.currentProduct.tags);
   };
 
   $scope.getUserProducts();

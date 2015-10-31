@@ -55,7 +55,7 @@
             </div>
             
             <div  class='tag' ng-repeat='tag in $parent.data.currentProduct.tags'>
-              {{  tag.name || tag  }}
+              <a ng-click='$parent.removeTag(tag)'>{{  tag.name || tag  }}</a>
             </div>
           </div>
 
