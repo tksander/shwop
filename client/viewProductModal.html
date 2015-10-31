@@ -15,7 +15,7 @@
             <input type='text'
                    class='form-control'
                    ng-model='$parent.data.currentProduct.name'
-                   disabled>
+                   ng-disabled='!$parent.updateMode'>
           </div>
 
           <div class='form-group'>
@@ -24,7 +24,7 @@
                    class='form-control'
                    ng-model='$parent.data.currentProduct.price'
                    value='4' 
-                   disabled>
+                   ng-disabled='!$parent.updateMode'>
           </div>
 
           <div class='form-group has-success'>
@@ -32,7 +32,7 @@
             <select ng-model='product.category'
                    class='form-control'
                    ng-options='category.name as category.translation for category in categories'
-                   required
+                   ng-disabled='!$parent.updateMode'
                    >
               <option value='' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
             </select>
@@ -46,6 +46,7 @@
                       class='form-control'
                       placeholder='{{ "tagsPlaceholder" | translate }}'
                       ng-enter='addTag()'
+                      ng-disabled='!$parent.updateMode'
                       >
                       <span class ='input-group-btn'>
                         <button class='btn btn-default tag-button' type='button' ng-click='addTag()'>{{ 'addTagButton' | translate }}</button>
@@ -64,7 +65,7 @@
                      fileread='productPhoto' 
                      class='form-control'
                      placeholder='{{ "pricePlaceholder" | translate }}'
-                     required>
+                     ng-disabled='!$parent.updateMode'>
               <span class ='input-group-btn'>
                 <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()'>{{ 'uploadPhotoButton' | translate }}</button>
               </span>
@@ -76,10 +77,20 @@
           </div>
 
         </fieldset>
-        <button class='btn btn-primary btn-block' ng-disabled='currentButtonText !== sendBidButton'>
+        <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>
           {{ 'updateButton' | translate }}
         </button>
-        <button ui-turn-off="viewProductModal" class="btn btn-danger btn-block" ng-click="doSomething()">{{ 'cancelButton' | translate }}</button>
+        <button ui-turn-off="viewProductModal" class="btn btn-danger btn-block" ng-show='!$parent.updateMode'>{{ 'cancelButton' | translate }}</button>
+
+        <div class='cancel half-width padded-all' ng-show='$parent.updateMode'>
+          <input type='button'  class='btn btn-danger btn-primary btn-block' ng-click='$parent.viewProductMode()' value='{{ "cancelButton" | translate}}' />
+        </div>
+
+        <div class='save half-width padded-all' ng-show='$parent.updateMode'>
+
+          <input type='submit'  class='btn btn-success btn-primary btn-block' value='{{ "saveButton" | translate }}' />
+        </div>
+
       </form>
     </div>
   </div>
