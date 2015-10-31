@@ -89,6 +89,7 @@ angular.module('shwop.services', [])
     });
   };
 
+
   var getDistance = function (lat1,lon1,lat2,lon2) {
     console.log('distance:  ', lat1,lon1,lat2,lon2);
     var R = 6371; // Radius of the earth in km
@@ -111,6 +112,30 @@ angular.module('shwop.services', [])
   var getMiles = function (i) {
      return i*0.62137;
   };
+
+  var getTags = function (productId) {
+    return $http({
+      method: 'GET',
+      url: '/api/products/tags/' + productId
+    });
+  };
+
+  // var getLocation = function () {
+  //     var watchId = navigator.geolocation.watchPosition(successCallback, 
+  //                                                       errorCallback,
+  //                                                       {enableHighAccuracy:true,timeout:60000,maximumAge:0});
+  //     console.log('watchId', watchId);
+
+  //     function successCallback(position) {
+  //          console.log('position', position)
+  //     }
+  // };
+
+  // var stopLocation = function () {
+  //   console.log(watchId);
+  //   clearWatch(watchId);
+  // };
+
 
   var categories = [
     {id: '1', name: 'Antiques', translation: $translate.instant('antiques')},
@@ -168,6 +193,7 @@ angular.module('shwop.services', [])
     getUserProducts: getUserProducts,
     deleteProduct: deleteProduct,
     getDistance: getDistance,
+    getTags: getTags,
     categories: categories
   };
 

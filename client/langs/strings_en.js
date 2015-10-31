@@ -45,15 +45,15 @@ var enUS = {
 
   // client>app>mystore>mystore.html
   "myStoreHeader": "My Store",
-  "viewProduct": "View",
-  "updateProduct": "Update",
+  "viewOrUpdateProduct": "View/Update",
   "deleteProduct": "Delete",
 
    // client>app>mybids>mybids.html
    "myBidsHeader": "My Bids",
-   "viewProduct": "View Product",
-    "updateBid": "Update Bid",
-    "cancelBid": "Cancel Bid",
+   "viewProductHeader": "View Product",
+   "updateProductHeader": "Update Product",
+   "updateBid": "Update Bid",
+   "cancelBid": "Cancel Bid",
 
 
 
@@ -99,6 +99,10 @@ var enUS = {
   //client>app>bid>bid.js
   "bidSuccessAlert": "Your bid was successfully submitted. The seller will contact you if interested in your offer.",
   "sendingBidMessage": "Sending bid, please wait!",
+
+  //client>viewProductModel.html
+  "productTitle": "View Product",
+  "updateButton": "Update Product",
 
   //client>app>services>services.js
   "antiques": "Antiques",

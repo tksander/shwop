@@ -18,7 +18,7 @@
   <div ng-repeat='product in data.products' class="panel panel-default store-product">
     <div class="panel-heading">
       <div class="btn-group pull-right">
-        <a ui-turn-on='myDropdown{{product.id}}' class='btn'>
+        <a ui-turn-on='myDropdown{{product.id}}' ng-click='setCurrent(product)' class='btn'>
           <i class="fa fa-ellipsis-v"></i>
         </a>
         <ul 
@@ -31,8 +31,7 @@
           ui-show="myDropdown{{product.id}}"
           ui-turn-off="myDropdown{{product.id}}">
 
-          <li><a>{{ 'viewProduct' | translate }}</a></li>
-          <li><a>{{ 'updateProduct' | translate }}</a></li>
+          <li><a ng-click='viewProduct()'>{{ 'viewOrUpdateProduct' | translate }}</a></li>
           <li class="divider"></li>
           <li><a ng-click='deleteProduct(product.id)'>{{ 'deleteProduct' | translate }}</a></li>
         </ul>
@@ -43,5 +42,9 @@
        <img ng-src='{{ product.photoURL }}' class='store-product-image'>
     </div>
   </div>
+</div>
+
+<div ui-content-for="modals">
+  <div ng-include="'viewProductModal.html'"></div>
 </div>
 
