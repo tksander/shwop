@@ -157,13 +157,10 @@ angular.module('shwop.products', [])
           Products.setCurrentProduct($scope.data.products[0]);
           console.log(Products.getCurrentProduct());
 
-          //////////////////////////////////////////
-            // $scope.data.location = "We're finding you!"
 
-            var currentProduct = $scope.data.products[0];
-            console.log("Current user", currentProduct.UserId);
-            var userId = currentProduct.UserId;
-
+          // This section gets the location for the next product in the stack
+          var currentProduct = $scope.data.products[0];
+          var userId = currentProduct.UserId;
 
           // get the location of the user associated to the product
           Users.getUserLocation(userId)
@@ -174,7 +171,7 @@ angular.module('shwop.products', [])
             var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
             $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
           })
-          /////////////////////////////////////////////
+
 
         } else {
           $scope.data.products.shift();
