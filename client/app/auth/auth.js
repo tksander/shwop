@@ -4,6 +4,7 @@ angular.module('shwop.auth', [])
 
 .controller('AuthController', ['$scope', '$window', '$location', 'Auth', function ($scope, $window, $location, Auth) {
   $scope.user = {};
+  $scope.preciseLocation = false;
 
   $scope.signin = function () {
     Auth.signin($scope.user)
