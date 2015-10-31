@@ -4,7 +4,8 @@
     <div class='modal-content'>
       <div class='modal-header'>
         <button class='close' ui-turn-off='viewProductModal'>&times;</button>
-        <h4 class='modal-title'>{{ 'productTitle' | translate }}</h4>
+        <h4 class='modal-title' ng-show='!$parent.updateMode'>{{ 'viewProductHeader' | translate }}</h4>
+        <h4 class='modal-title' ng-show='$parent.updateMode'>{{ 'updateProductHeader' | translate }}</h4>
       </div>
       <div class='modal-body'>
 
@@ -53,8 +54,8 @@
                       </span>
             </div>
             
-            <div  class='tag' ng-repeat='tag in product.tags'>
-<!--               {{  tag.name || tag  }} -->
+            <div  class='tag' ng-repeat='tag in $parent.data.currentProduct.tags'>
+              {{  tag.name || tag  }}
             </div>
           </div>
 
