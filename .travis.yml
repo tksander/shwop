@@ -9,6 +9,6 @@ before_install:
 before_script:
   - mysql -e 'create database shwopDB;'
 script:
-  - "npm test"
+  - "grunt test"
   - "grunt runSass"
   # - "grunt ugly"
