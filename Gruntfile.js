@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         options: {
           reporter: 'spec'
         },
-        src: ['test/**/*.js']
+        src: ['test/server/**/*.js']
       }
     },
 
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
       unit: {
         options: {
           frameworks: ['mocha', 'chai'],
-          singleRun: false,
+          singleRun: true,
           browsers: ['Chrome'],
           files: [
 
@@ -81,8 +81,10 @@ module.exports = function(grunt) {
             'client/lib/angular-route/angular-route.min.js',
             'client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js',
             'client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
+            'client/lib/angular-translate/angular-translate.min.js',
             'client/lib/angular-mocks/angular-mocks.js',
             'client/app/**/*.js',
+            'client/langs/*.js',
             'test/client/*.js'
           ]
         }
@@ -165,8 +167,8 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'mochaTest'
-    // 'karma'
+    'mochaTest',
+    'karma'
     ]);
 
   grunt.registerTask('runSass', ['sass']);
