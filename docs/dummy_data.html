@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>dummy_data.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="app.html">
+                app.js
+              </a>
+            
+              
+              <a class="source" href="auth.html">
+                auth.js
+              </a>
+            
+              
+              <a class="source" href="bid.html">
+                bid.js
+              </a>
+            
+              
+              <a class="source" href="mybids.html">
+                mybids.js
+              </a>
+            
+              
+              <a class="source" href="mystore.html">
+                mystore.js
+              </a>
+            
+              
+              <a class="source" href="products.html">
+                products.js
+              </a>
+            
+              
+              <a class="source" href="profile.html">
+                profile.js
+              </a>
+            
+              
+              <a class="source" href="canvas-to-blob.html">
+                canvas-to-blob.js
+              </a>
+            
+              
+              <a class="source" href="sell.html">
+                sell.js
+              </a>
+            
+              
+              <a class="source" href="services.html">
+                services.js
+              </a>
+            
+              
+              <a class="source" href="bidController.html">
+                bidController.js
+              </a>
+            
+              
+              <a class="source" href="bidRoutes.html">
+                bidRoutes.js
+              </a>
+            
+              
+              <a class="source" href="helpers.html">
+                helpers.js
+              </a>
+            
+              
+              <a class="source" href="middleware.html">
+                middleware.js
+              </a>
+            
+              
+              <a class="source" href="utils.html">
+                utils.js
+              </a>
+            
+              
+              <a class="source" href="clear_db.html">
+                clear_db.js
+              </a>
+            
+              
+              <a class="source" href="db_config.html">
+                db_config.js
+              </a>
+            
+              
+              <a class="source" href="dummy_data.html">
+                dummy_data.js
+              </a>
+            
+              
+              <a class="source" href="helpers.html">
+                helpers.js
+              </a>
+            
+              
+              <a class="source" href="productController.html">
+                productController.js
+              </a>
+            
+              
+              <a class="source" href="productRoutes.html">
+                productRoutes.js
+              </a>
+            
+              
+              <a class="source" href="server.html">
+                server.js
+              </a>
+            
+              
+              <a class="source" href="userController.html">
+                userController.js
+              </a>
+            
+              
+              <a class="source" href="userRoutes.html">
+                userRoutes.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>dummy_data.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> db = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../server/db/db_config.js'</span>);
+<span class="hljs-keyword">var</span> <span class="hljs-built_in">Promise</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
+<span class="hljs-keyword">var</span> helpers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../server/db/helpers.js'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>dummy user data</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> users = [
+ { firstName: <span class="hljs-string">'Michael'</span>,
+   lastName: <span class="hljs-string">'Jordan'</span>,
+   phoneNumber: <span class="hljs-string">'(232)323-1995'</span>,
+   email: <span class="hljs-string">'michael@jordan.com'</span>,
+   password: <span class="hljs-string">'michael'</span>
+ },
+ { firstName: <span class="hljs-string">'Bill'</span>,
+   lastName: <span class="hljs-string">'Gates'</span>,
+   phoneNumber: <span class="hljs-string">'(101)111-1001'</span>,
+   email: <span class="hljs-string">'bill@microsoft.com'</span>,
+   password: <span class="hljs-string">'bill'</span>
+ },
+ { firstName: <span class="hljs-string">'Donkey'</span>,
+   lastName: <span class="hljs-string">'Kong'</span>,
+   phoneNumber: <span class="hljs-string">'(808)888-8181'</span>,
+   email: <span class="hljs-string">'donkey@nintendo.com'</span>,
+   password: <span class="hljs-string">'donkey'</span>
+ },
+ { firstName: <span class="hljs-string">'Ray'</span>,
+   lastName: <span class="hljs-string">'Ban'</span>,
+   phoneNumber: <span class="hljs-string">'(777)777-7777'</span>,
+   email: <span class="hljs-string">'me@rayban.com'</span>,
+   password: <span class="hljs-string">'ray'</span>
+ }
+];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>//dummy product data</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> products = [
+  { name: <span class="hljs-string">'Nintendo 64 - grey'</span>,
+    photoURL: <span class="hljs-string">'http://i.imgur.com/ITxLVsn.jpg'</span>,
+    price: <span class="hljs-number">64.00</span>,
+    tags: [<span class="hljs-string">'nintendo'</span>, <span class="hljs-string">'64'</span>, <span class="hljs-string">'grey'</span>, <span class="hljs-string">'videogames'</span>, <span class="hljs-string">'electronics'</span>],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>UserId: ‘3’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  },
+  { name: <span class="hljs-string">'ray ban sunglasses'</span>,
+    photoURL: <span class="hljs-string">'http://i.imgur.com/5ESVFt2.jpg'</span>,
+    price: <span class="hljs-number">100.00</span>,
+    tags: [<span class="hljs-string">'sunglasses'</span>, <span class="hljs-string">'rayban'</span>, <span class="hljs-string">'ray'</span>, <span class="hljs-string">'bans'</span>, <span class="hljs-string">'black'</span>, <span class="hljs-string">'accessories'</span>],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>UserId: ‘4’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  },
+  { name: <span class="hljs-string">'xbox 360 with 1 working controller'</span>,
+    photoURL: <span class="hljs-string">'http://i.imgur.com/1AyzZOH.jpg'</span>,
+    price: <span class="hljs-number">360.00</span>,
+    tags: [<span class="hljs-string">'xbox'</span>, <span class="hljs-string">'xbox 360'</span>, <span class="hljs-string">'videogames'</span>, <span class="hljs-string">'microsoft'</span>, <span class="hljs-string">'controller'</span>, <span class="hljs-string">'black'</span>],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>UserId: ‘2’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  },
+  { name: <span class="hljs-string">'donkey kong (Special Edition) for Supernintendo'</span>,
+    photoURL: <span class="hljs-string">'http://i.imgur.com/4nJFSwP.jpg'</span>,
+    price: <span class="hljs-number">1000.45</span>,
+    tags: [<span class="hljs-string">'donkey kong'</span>, <span class="hljs-string">'donkey'</span>, <span class="hljs-string">'kong'</span>, <span class="hljs-string">'nintendo'</span>, <span class="hljs-string">'videogames'</span>, <span class="hljs-string">'electronics'</span>, <span class="hljs-string">'games'</span>, <span class="hljs-string">'supernintendo'</span>],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>UserId: ‘3’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  },
+  { name: <span class="hljs-string">'air jordan VII shoes'</span>,
+    photoURL: <span class="hljs-string">'http://i.imgur.com/Xz4kxFI.jpg'</span>,
+    price: <span class="hljs-number">7000.00</span>,
+    tags: [<span class="hljs-string">'jordan'</span>, <span class="hljs-string">'nike'</span>, <span class="hljs-string">'basketball'</span>, <span class="hljs-string">'shoes'</span>, <span class="hljs-string">'mens'</span>, <span class="hljs-string">'apparel'</span>, <span class="hljs-string">'black'</span>],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>UserId: ‘1’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  },
+  { name: <span class="hljs-string">'donkey kong retro womens tank top'</span>,
+    photoURL: <span class="hljs-string">'http://i.imgur.com/Rj13NmR.jpg'</span>,
+    price: <span class="hljs-number">12.99</span>,
+    tags: [<span class="hljs-string">'donkey kong'</span>, <span class="hljs-string">'donkey'</span>, <span class="hljs-string">'kong'</span>, <span class="hljs-string">'retro'</span>, <span class="hljs-string">'tank'</span>, <span class="hljs-string">'top'</span>, <span class="hljs-string">'shirt'</span>, <span class="hljs-string">'apparel'</span>, <span class="hljs-string">'womens'</span>],</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>UserId: ‘3’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  },
+];
+
+<span class="hljs-keyword">var</span> tags = [
+  {tagName: <span class="hljs-string">'nintendo'</span>},
+  {tagName: <span class="hljs-string">'xbox'</span>},
+  {tagName: <span class="hljs-string">'jordan'</span>},
+  {tagName: <span class="hljs-string">'nike'</span>},
+  {tagName: <span class="hljs-string">'retro'</span>},
+  {tagName: <span class="hljs-string">'tank'</span>},
+  {tagName: <span class="hljs-string">'videogames'</span>},
+  {tagName: <span class="hljs-string">'ray'</span>},
+  {tagName: <span class="hljs-string">'bans'</span>},
+  {tagName: <span class="hljs-string">'grey'</span>},
+];
+
+<span class="hljs-keyword">var</span> promises = [];
+promises.push(db.User.bulkCreate(users));
+promises.push(db.Product.bulkCreate(products));
+promises.push(db.Tag.bulkCreate(tags));
+
+<span class="hljs-built_in">Promise</span>.all(promises)
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">results</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>console.log(‘results is’, results.length);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Dummy data created!\nWe are not sure why this takes so long to complete...'</span>);
+});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>/////////////////////////////////////////////
+// Adds associated data to the database
+/////////////////////////////////////////////</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-keyword">var</span> newUser = { 
+      firstName: <span class="hljs-string">'Michael'</span>,
+      lastName: <span class="hljs-string">'Jordan'</span>,
+      phoneNumber: <span class="hljs-string">'(232)323-1995'</span>,
+      email: <span class="hljs-string">'michael@jordan1.com'</span>,
+      password: <span class="hljs-string">'bulls4ever'</span>
+    };
+
+<span class="hljs-keyword">var</span> product;
+<span class="hljs-keyword">var</span> user;
+<span class="hljs-keyword">var</span> tagsArr = [];
+<span class="hljs-keyword">var</span> names = [<span class="hljs-string">'Bobblehead'</span>, <span class="hljs-string">'Baseball'</span>, <span class="hljs-string">'Ken Griffey Jr'</span>, <span class="hljs-string">'Sports &amp; Outdoors'</span>, <span class="hljs-string">'Seattle'</span>];
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; names.length; i++) {
+  tagsArr.push(db.Tag.findOrCreate({where: { tagName: names[i] }}));
+}
+tagsArr.push(db.User.create(newUser));
+tagsArr.push(db.Product.create({
+              name: <span class="hljs-string">'ken griffey jr bobblehead'</span>,
+              photoURL: <span class="hljs-string">'http://ecx.images-amazon.com/images/I/71Wu19At9QL._SY355_.jpg'</span>,
+              price: <span class="hljs-number">55.55</span>
+              })
+);
+
+<span class="hljs-keyword">var</span> tagsArr2 = [];
+<span class="hljs-keyword">var</span> names2 = [<span class="hljs-string">'Bat'</span>, <span class="hljs-string">'Baseball'</span>, <span class="hljs-string">'Mike Trout'</span>, <span class="hljs-string">'Los Angeles'</span>, <span class="hljs-string">'Angels'</span>, <span class="hljs-string">'Sports &amp; Outdoors'</span>];
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; names2.length; i++) {
+  tagsArr2.push(db.Tag.findOrCreate({where: { tagName: names2[i] }}));
+}
+tagsArr2.push(db.Product.create({
+              name: <span class="hljs-string">'mike trout baseball bat'</span>,
+              photoURL: <span class="hljs-string">'http://battingleadoff.com/wp-content/uploads/2014/04/mag_miller_trout01jr_576.jpg'</span>,
+              price: <span class="hljs-number">20.99</span>
+              })
+);
+
+
+<span class="hljs-built_in">Promise</span>.all(tagsArr)
+.spread(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);
+  product = args.pop();
+  user = args.pop();
+
+  <span class="hljs-keyword">var</span> results = [];
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; args.length; i++) {
+    results.push(args[i][<span class="hljs-number">0</span>]);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Save</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> product.setTags(results);
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">results</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>saved!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> product.setUser(user);
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(tagsArr2);
+})
+.spread(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);
+  <span class="hljs-keyword">var</span> product = args.pop();
+
+  <span class="hljs-keyword">var</span> results = [];
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; args.length; i++) {
+    results.push(args[i][<span class="hljs-number">0</span>]);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Save</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> product.setTags(results);
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">results</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>saved!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Associated tag entries are saved!'</span>);
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

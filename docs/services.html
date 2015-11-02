@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>services.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="app.html">
+                app.js
+              </a>
+            
+              
+              <a class="source" href="auth.html">
+                auth.js
+              </a>
+            
+              
+              <a class="source" href="bid.html">
+                bid.js
+              </a>
+            
+              
+              <a class="source" href="mybids.html">
+                mybids.js
+              </a>
+            
+              
+              <a class="source" href="mystore.html">
+                mystore.js
+              </a>
+            
+              
+              <a class="source" href="products.html">
+                products.js
+              </a>
+            
+              
+              <a class="source" href="profile.html">
+                profile.js
+              </a>
+            
+              
+              <a class="source" href="canvas-to-blob.html">
+                canvas-to-blob.js
+              </a>
+            
+              
+              <a class="source" href="sell.html">
+                sell.js
+              </a>
+            
+              
+              <a class="source" href="services.html">
+                services.js
+              </a>
+            
+              
+              <a class="source" href="bidController.html">
+                bidController.js
+              </a>
+            
+              
+              <a class="source" href="bidRoutes.html">
+                bidRoutes.js
+              </a>
+            
+              
+              <a class="source" href="helpers.html">
+                helpers.js
+              </a>
+            
+              
+              <a class="source" href="middleware.html">
+                middleware.js
+              </a>
+            
+              
+              <a class="source" href="utils.html">
+                utils.js
+              </a>
+            
+              
+              <a class="source" href="clear_db.html">
+                clear_db.js
+              </a>
+            
+              
+              <a class="source" href="db_config.html">
+                db_config.js
+              </a>
+            
+              
+              <a class="source" href="dummy_data.html">
+                dummy_data.js
+              </a>
+            
+              
+              <a class="source" href="helpers.html">
+                helpers.js
+              </a>
+            
+              
+              <a class="source" href="productController.html">
+                productController.js
+              </a>
+            
+              
+              <a class="source" href="productRoutes.html">
+                productRoutes.js
+              </a>
+            
+              
+              <a class="source" href="server.html">
+                server.js
+              </a>
+            
+              
+              <a class="source" href="userController.html">
+                userController.js
+              </a>
+            
+              
+              <a class="source" href="userRoutes.html">
+                userRoutes.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>services.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'shwop.services'</span>, [])
+
+
+.factory(<span class="hljs-string">'Products'</span>, [<span class="hljs-string">'$http'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$http, $location, $translate</span>) </span>{
+
+  <span class="hljs-keyword">var</span> currentProduct = <span class="hljs-literal">null</span>;
+
+  <span class="hljs-keyword">var</span> getAllProducts = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'GET'</span>,
+      url: <span class="hljs-string">'/api/products'</span>
+    });
+  };
+
+  <span class="hljs-keyword">var</span> addProduct = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">product</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'/api/products'</span>,
+      data: product
+    });
+  };
+
+  <span class="hljs-keyword">var</span> bid = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $location.path(<span class="hljs-string">'/bid'</span>);
+  };
+
+  <span class="hljs-keyword">var</span> products = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $location.path(<span class="hljs-string">'/products'</span>);
+  };
+
+  <span class="hljs-keyword">var</span> setCurrentProduct = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">newProduct</span>) </span>{
+    currentProduct = newProduct;
+  };
+
+  <span class="hljs-keyword">var</span> getCurrentProduct = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> currentProduct;
+  };
+
+  <span class="hljs-keyword">var</span> sendBid = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">token, productId, bidAmount</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'/api/bids'</span>,
+      data: {
+        token: token,
+        productId: productId,
+        bidAmount: bidAmount
+      }
+    });
+  };
+
+  <span class="hljs-keyword">var</span> getAllBids = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">token</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'api/bids/allBids'</span>,
+      data: {
+        token: token
+      }
+    });
+  };
+
+  <span class="hljs-keyword">var</span> deleteMyBid = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">bidId</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'DELETE'</span>,
+      url: <span class="hljs-string">'/api/bids/'</span> + bidId
+    });
+  };
+
+  <span class="hljs-keyword">var</span> getProductsByTag = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tags</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+          method: <span class="hljs-string">'GET'</span>,
+          url: <span class="hljs-string">'/api/products/'</span> + tags
+    });
+  };
+
+  <span class="hljs-keyword">var</span> getUserProducts = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">token</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+          method: <span class="hljs-string">'POST'</span>,
+          url: <span class="hljs-string">'/api/products/mystore'</span>,
+          data: {
+            token: token
+          }
+    });
+  };
+
+  <span class="hljs-keyword">var</span> deleteProduct = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">productId</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'DELETE'</span>,
+      url: <span class="hljs-string">'/api/products/'</span> + productId
+    });
+  };
+
+
+  <span class="hljs-keyword">var</span> getDistance = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">lat1,lon1,lat2,lon2</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'distance:  '</span>, lat1,lon1,lat2,lon2);
+    <span class="hljs-keyword">var</span> R = <span class="hljs-number">6371</span>; <span class="hljs-comment">// Radius of the earth in km</span>
+    <span class="hljs-keyword">var</span> dLat = deg2rad(lat2-lat1);  <span class="hljs-comment">// deg2rad below</span>
+    <span class="hljs-keyword">var</span> dLon = deg2rad(lon2-lon1); 
+    <span class="hljs-keyword">var</span> a = 
+      <span class="hljs-built_in">Math</span>.sin(dLat/<span class="hljs-number">2</span>) * <span class="hljs-built_in">Math</span>.sin(dLat/<span class="hljs-number">2</span>) +
+      <span class="hljs-built_in">Math</span>.cos(deg2rad(lat1)) * <span class="hljs-built_in">Math</span>.cos(deg2rad(lat2)) * 
+      <span class="hljs-built_in">Math</span>.sin(dLon/<span class="hljs-number">2</span>) * <span class="hljs-built_in">Math</span>.sin(dLon/<span class="hljs-number">2</span>)
+      ; 
+    <span class="hljs-keyword">var</span> c = <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.atan2(<span class="hljs-built_in">Math</span>.sqrt(a), <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">1</span>-a)); 
+    <span class="hljs-keyword">var</span> d = R * c; <span class="hljs-comment">// Distance in km</span>
+    <span class="hljs-keyword">return</span> getMiles(d);
+  };
+
+  <span class="hljs-keyword">var</span> deg2rad = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">deg</span>) </span>{
+    <span class="hljs-keyword">return</span> deg * (<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>)
+  };
+
+  <span class="hljs-keyword">var</span> getMiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+     <span class="hljs-keyword">return</span> i*<span class="hljs-number">0.62137</span>;
+  };
+
+  <span class="hljs-keyword">var</span> getTags = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">productId</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'GET'</span>,
+      url: <span class="hljs-string">'/api/products/tags/'</span> + productId
+    });
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>var getLocation = function () {
+    var watchId = navigator.geolocation.watchPosition(successCallback, 
+                                                      errorCallback,
+                                                      {enableHighAccuracy:true,timeout:60000,maximumAge:0});
+    console.log(‘watchId’, watchId);</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">successCallback</span>(<span class="hljs-params">position</span>) </span>{
+     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'position'</span>, position)
+}
+</code></pre><p>};</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>var stopLocation = function () {
+  console.log(watchId);
+  clearWatch(watchId);
+};</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+
+  <span class="hljs-keyword">var</span> categories = [
+    {id: <span class="hljs-string">'1'</span>, name: <span class="hljs-string">'Antiques'</span>, translation: $translate.instant(<span class="hljs-string">'antiques'</span>)},
+    {id: <span class="hljs-string">'2'</span>, name: <span class="hljs-string">'Appliances'</span>, translation: $translate.instant(<span class="hljs-string">'appliances'</span>)},
+    {id: <span class="hljs-string">'3'</span>, name: <span class="hljs-string">'Arts, Crafts &amp; Sewing'</span>, translation: $translate.instant(<span class="hljs-string">'artsCrafts'</span>)},
+    {id: <span class="hljs-string">'4'</span>, name: <span class="hljs-string">'Automotive'</span>, translation: $translate.instant(<span class="hljs-string">'automotive'</span>)},
+    {id: <span class="hljs-string">'5'</span>, name: <span class="hljs-string">'Baby &amp; Kids'</span>, translation: $translate.instant(<span class="hljs-string">'babyKids'</span>)},
+    {id: <span class="hljs-string">'6'</span>, name: <span class="hljs-string">'Barter'</span>, translation: $translate.instant(<span class="hljs-string">'barter'</span>)},
+    {id: <span class="hljs-string">'7'</span>, name: <span class="hljs-string">'Beauty'</span>, translation: $translate.instant(<span class="hljs-string">'beauty'</span>)},
+    {id: <span class="hljs-string">'8'</span>, name: <span class="hljs-string">'Bikes'</span>, translation: $translate.instant(<span class="hljs-string">'bikes'</span>)},
+    {id: <span class="hljs-string">'9'</span>, name: <span class="hljs-string">'Boats'</span>, translation: $translate.instant(<span class="hljs-string">'boats'</span>)},
+    {id: <span class="hljs-string">'10'</span>, name: <span class="hljs-string">'Books'</span>, translation: $translate.instant(<span class="hljs-string">'books'</span>)},
+    {id: <span class="hljs-string">'11'</span>, name: <span class="hljs-string">'Cell Phones &amp; Accessories'</span>, translation: $translate.instant(<span class="hljs-string">'cellPhones'</span>)},
+    {id: <span class="hljs-string">'12'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Women'</span>, translation: $translate.instant(<span class="hljs-string">'clothingWomen'</span>)},
+    {id: <span class="hljs-string">'13'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Men'</span>, translation: $translate.instant(<span class="hljs-string">'clothingMen'</span>)},
+    {id: <span class="hljs-string">'14'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Girls'</span>, translation: $translate.instant(<span class="hljs-string">'clothingGirls'</span>)},
+    {id: <span class="hljs-string">'15'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Boys'</span>, translation: $translate.instant(<span class="hljs-string">'clothingBoys'</span>)},
+    {id: <span class="hljs-string">'16'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Baby'</span>, translation: $translate.instant(<span class="hljs-string">'clothingBaby'</span>)},
+    {id: <span class="hljs-string">'17'</span>, name: <span class="hljs-string">'Collectibles &amp; Fine Art'</span>, translation: $translate.instant(<span class="hljs-string">'collectibles'</span>)},
+    {id: <span class="hljs-string">'18'</span>, name: <span class="hljs-string">'Computers &amp; Software'</span>, translation: $translate.instant(<span class="hljs-string">'computers'</span>)},
+    {id: <span class="hljs-string">'19'</span>, name: <span class="hljs-string">'Electronics'</span>, translation: $translate.instant(<span class="hljs-string">'electronics'</span>)},
+    {id: <span class="hljs-string">'20'</span>, name: <span class="hljs-string">'Free'</span>, translation: $translate.instant(<span class="hljs-string">'free'</span>)},
+    {id: <span class="hljs-string">'21'</span>, name: <span class="hljs-string">'Furniture'</span>, translation: $translate.instant(<span class="hljs-string">'furniture'</span>)},
+    {id: <span class="hljs-string">'22'</span>, name: <span class="hljs-string">'Games &amp; Toys'</span>, translation: $translate.instant(<span class="hljs-string">'gamesToys'</span>)},
+    {id: <span class="hljs-string">'23'</span>, name: <span class="hljs-string">'Garage Sale'</span>, translation: $translate.instant(<span class="hljs-string">'garageSale'</span>)},
+    {id: <span class="hljs-string">'24'</span>, name: <span class="hljs-string">'General / Miscellaneous'</span>, translation: $translate.instant(<span class="hljs-string">'generalMisc'</span>)},
+    {id: <span class="hljs-string">'25'</span>, name: <span class="hljs-string">'Grocery &amp; Food'</span>, translation: $translate.instant(<span class="hljs-string">'groceryFood'</span>)},
+    {id: <span class="hljs-string">'26'</span>, name: <span class="hljs-string">'Handmade'</span>, translation: $translate.instant(<span class="hljs-string">'handmade'</span>)},
+    {id: <span class="hljs-string">'27'</span>, name: <span class="hljs-string">'Health &amp; Personal Care'</span>, translation: $translate.instant(<span class="hljs-string">'health'</span>)},
+    {id: <span class="hljs-string">'28'</span>, name: <span class="hljs-string">'Home &amp; Kitchen'</span>, translation: $translate.instant(<span class="hljs-string">'homeKitchen'</span>)},
+    {id: <span class="hljs-string">'29'</span>, name: <span class="hljs-string">'Industrial &amp; Scientific'</span>, translation: $translate.instant(<span class="hljs-string">'industrialScientific'</span>)},
+    {id: <span class="hljs-string">'30'</span>, name: <span class="hljs-string">'Luggage &amp; Travel Gear'</span>, translation: $translate.instant(<span class="hljs-string">'travel'</span>)},
+    {id: <span class="hljs-string">'31'</span>, name: <span class="hljs-string">'Movies &amp; TV'</span>, translation: $translate.instant(<span class="hljs-string">'moviesTV'</span>)},
+    {id: <span class="hljs-string">'32'</span>, name: <span class="hljs-string">'Music &amp; Musical Instruments'</span>, translation: $translate.instant(<span class="hljs-string">'music'</span>)},
+    {id: <span class="hljs-string">'33'</span>, name: <span class="hljs-string">'Office &amp; Business'</span>, translation: $translate.instant(<span class="hljs-string">'officeBusiness'</span>)},
+    {id: <span class="hljs-string">'34'</span>, name: <span class="hljs-string">'Patio, Lawn &amp; Garden'</span>, translation: $translate.instant(<span class="hljs-string">'patio'</span>)},
+    {id: <span class="hljs-string">'35'</span>, name: <span class="hljs-string">'Pet Supplies'</span>, translation: $translate.instant(<span class="hljs-string">'pet'</span>)},
+    {id: <span class="hljs-string">'36'</span>, name: <span class="hljs-string">'Sports &amp; Outdoors'</span>, translation: $translate.instant(<span class="hljs-string">'sportsOutdoors'</span>)},
+    {id: <span class="hljs-string">'37'</span>, name: <span class="hljs-string">'Tickets'</span>, translation: $translate.instant(<span class="hljs-string">'tickets'</span>)},
+    {id: <span class="hljs-string">'38'</span>, name: <span class="hljs-string">'Tools &amp; Home Improvement'</span>, translation: $translate.instant(<span class="hljs-string">'tools'</span>)},
+    {id: <span class="hljs-string">'39'</span>, name: <span class="hljs-string">'Video Games'</span>, translation: $translate.instant(<span class="hljs-string">'videoGames'</span>)}
+  ];
+
+  <span class="hljs-keyword">return</span> {
+    getAllProducts: getAllProducts,
+    addProduct: addProduct,
+    setCurrentProduct: setCurrentProduct,
+    getCurrentProduct: getCurrentProduct,
+    bid: bid,
+    getAllBids: getAllBids,
+    sendBid: sendBid,
+    deleteMyBid: deleteMyBid,
+    products: products,
+    getProductsByTag: getProductsByTag,
+    getUserProducts: getUserProducts,
+    deleteProduct: deleteProduct,
+    getDistance: getDistance,
+    getTags: getTags,
+    categories: categories
+  };
+
+}])
+.factory(<span class="hljs-string">'Users'</span>, [<span class="hljs-string">'$http'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$http</span>) </span>{
+  <span class="hljs-keyword">var</span> getUsers = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'GET'</span>,
+      url: <span class="hljs-string">'/api/users'</span>
+    });
+  };
+
+  <span class="hljs-keyword">var</span> getUserInfo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">token</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'/api/users/profile'</span>,
+      data: {token: token}
+    });
+  };
+
+  <span class="hljs-keyword">var</span> addUser = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">user</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'/api/users'</span>,
+      data: user
+    });
+  };
+
+  <span class="hljs-keyword">var</span> updateUser = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">token, updatedUser</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'/api/users/update'</span>,
+      data: {token: token, updatedUser: updatedUser}
+    });
+  };
+
+  <span class="hljs-keyword">var</span> getUserLocation = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">UserId</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+          method: <span class="hljs-string">'GET'</span>,
+          url: <span class="hljs-string">'/api/users/'</span> + UserId
+    });
+  }
+
+  <span class="hljs-keyword">return</span> {
+    getUsers: getUsers,
+    getUserInfo: getUserInfo,
+    addUser: addUser,
+    updateUser: updateUser,
+    getUserLocation: getUserLocation
+  };
+}])
+.factory(<span class="hljs-string">'Photos'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$http</span>) </span>{
+  <span class="hljs-keyword">var</span> resizeImage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">file, height, callback</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Takes an uploaded file, resizes it based on height, and calls the callback, sending it a Blob.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> img = <span class="hljs-keyword">new</span> Image();
+    <span class="hljs-keyword">var</span> reader = <span class="hljs-keyword">new</span> FileReader();
+
+    img.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">var</span> canvas = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">'canvas'</span>);
+      <span class="hljs-keyword">var</span> ctx = canvas.getContext(<span class="hljs-string">'2d'</span>);
+      
+      canvas.height = height;
+      canvas.width = canvas.height * (img.width / img.height);
+
+      ctx.drawImage(img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, canvas.width, canvas.height);
+      <span class="hljs-built_in">console</span>.log(ctx.canvas);
+      ctx.canvas.toBlob(callback);
+    };
+
+    reader.onload = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>{
+      img.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Retrieves keys needed to post photos to parse.com</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> getPhotoAPIKeys = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-keyword">return</span> $http.get(<span class="hljs-string">'/api/products/keys'</span>)
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resp</span>) </span>{
+        <span class="hljs-keyword">return</span> resp.data;
+      });
+  };
+
+  <span class="hljs-keyword">var</span> uploadPhoto = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file, callback</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>takes a File after upload, resizes it and uploads it to Parse.
+Sends Url of upload to callback function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> resizedFileHeight = <span class="hljs-number">300</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Calls resizeImage, which converts a photo to blob, then posts that
+data to parse.com, receives the photo url in parse’s response, and
+passes the url into uploadPhoto’s callback function.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    resizeImage(file, resizedFileHeight, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">fileBlob</span>) </span>{
+      <span class="hljs-keyword">var</span> serverUrl = <span class="hljs-string">'https://api.parse.com/1/files/'</span> + file.name;
+
+      getPhotoAPIKeys().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">keys</span>) </span>{
+        $http.post(serverUrl, fileBlob, {
+          headers: {
+            <span class="hljs-string">'X-Parse-Application-Id'</span>: keys[<span class="hljs-string">'X-Parse-Application-Id'</span>],
+            <span class="hljs-string">'X-Parse-REST-API-Key'</span>: keys[<span class="hljs-string">'X-Parse-REST-API-Key'</span>],
+            <span class="hljs-string">'Content-Type'</span>: file.type
+          }
+        }).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resp</span>) </span>{
+          callback(resp.data.url);
+        });
+      });
+    });
+  };
+
+  <span class="hljs-keyword">return</span> {
+    uploadPhoto: uploadPhoto
+  };
+
+})
+.factory(<span class="hljs-string">'Auth'</span>, [<span class="hljs-string">'$http'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$http, $location, $window</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>This auth service is responsible for authenticating the user
+by exchanging the user’s username and password
+for a JWT from the server.
+That JWT is then stored in localStorage as ‘com.shwop’.
+After you signin/signup, open devtools, click resources and
+then localStorage, and you’ll see your token from the server.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">var</span> signin = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'/api/users/signin'</span>,
+      data: user
+    })
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resp</span>) </span>{
+      <span class="hljs-keyword">return</span> resp.data.token;
+    });
+  };
+
+  <span class="hljs-keyword">var</span> signup = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'POST'</span>,
+      url: <span class="hljs-string">'/api/users/signup'</span>,
+      data: user
+    })
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">resp</span>) </span>{
+      <span class="hljs-keyword">return</span> resp.data.token;
+    });
+  };
+
+  <span class="hljs-keyword">var</span> isAuth = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> !!$<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'com.shwop'</span>);
+  };
+
+  <span class="hljs-keyword">var</span> signout = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $<span class="hljs-built_in">window</span>.localStorage.removeItem(<span class="hljs-string">'com.shwop'</span>);
+    $location.path(<span class="hljs-string">'/signin'</span>);
+  };
+
+
+  <span class="hljs-keyword">return</span> {
+    signin: signin,
+    signup: signup,
+    isAuth: isAuth,
+    signout: signout
+  };
+}]);</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
