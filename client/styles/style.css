@@ -145,4 +145,7 @@ select:invalid option {
   padding: 5px;
   margin: 5px; }
 
+.modal {
+  overflow-y: auto; }
+
 /*# sourceMappingURL=style.css.map */

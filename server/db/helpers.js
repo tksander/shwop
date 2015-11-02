@@ -57,15 +57,31 @@ var createProduct = function (userModel, product, tags, callback) {
 };
 
 
+//accepts location input from the user and makes a call to the google maps api
+//to get the longitude and latitude
 var addLongAndLat = function (user) {
   if (!process.env.GoogleKey) {
     var locally = require('../../sneakyLocal.js');
   }
-  var address1 = user.address1.split(' ').join('+');
-  var city = user.city.split(' ').join('+');
-  var state = user.state.split(' ').join('+');
-  var zip = user.zip.split(' ').join('+');
-  var address = address1 + ',+' + city + ',+' + state + ',+' + zip;
+
+  var inputs = [];
+  var address = [];
+
+  if (user.address1) { inputs.push(user.address1)      ;}
+  if (user.address2) { inputs.push(user.address2)      ;}
+  if (user.city)     { inputs.push(user.city)          ;}
+  if (user.state)    { inputs.push(user.state)         ;}
+  if (user.zip)      { inputs.push(user.zip.toString());}
+  if (user.country)  { inputs.push(user.country)       ;}
+
+  for (var i = 0; i < inputs.length; i++) {
+    console.log('inputs[i].split(\' \') is', inputs[i].split);
+    address.push(inputs[i].split(' ').join('+'));
+    console.log('address in the loop is ', address);
+  }
+
+  address = address.join(',+');
+
   var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + address + '&key=' + (process.env.GoogleKey || locally.GoogleKey);
   return request(url, function (error, response, body) {
     if (!error && response.statusCode === 200) {
