@@ -55,8 +55,7 @@ var esES = {
 
   // client>app>mystore>mystore.html
   "myStoreHeader": "My Store",
-  "viewProduct": "View",
-  "updateProduct": "Update",
+  "viewOrUpdateProduct": "View/Update",
   "deleteProduct": "Delete",
 
    // client>app>mybids>mybids.html
