@@ -41,6 +41,8 @@ var esES = {
   "cityPlaceholder" : "Enter your city here",
   "statePlaceholder" : "Enter your state here",
   "zipPlaceholder" : "Enter your zip code here",
+  "preciseLocationPlaceholder":"Use Precise Location",
+  "preciseLocationInfoPlaceholder": "Enter more information to set a more accurate default location for items you sell on shwop!",
 
   // client>app>auth>welcome.html
   "menuTitle": "Menu",
@@ -55,15 +57,15 @@ var esES = {
 
   // client>app>mystore>mystore.html
   "myStoreHeader": "My Store",
-  "viewProduct": "View",
-  "updateProduct": "Update",
+  "viewOrUpdateProduct": "View/Update",
   "deleteProduct": "Delete",
 
    // client>app>mybids>mybids.html
-   "myBidsHeader": "My Bids",
-   "viewProduct": "View Product",
-    "updateBid": "Update Bid",
-    "cancelBid": "Cancel Bid",
+  "myBidsHeader": "My Bids",
+  "viewProduct": "View Product",
+  "updateProductHeader": "Update Product",
+  "updateBid": "Update Bid",
+  "cancelBid": "Cancel Bid",
 
 
 
@@ -109,6 +111,10 @@ var esES = {
   //client>app>bid>bid.js
   "bidSuccessAlert": "Your bid was successfully submitted. The seller will contact you if interested in your offer.",
   "sendingBidMessage": "Sending bid, please wait!",
+
+  //client>viewProductModel.html
+  "productTitle": "View Product",
+  "updateButton": "Update Product",
 
   //client>app>services>services.js
   "antiques": "Antiques",
