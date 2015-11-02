@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '0.8'
+  - '0.12.7'
   - '0.10'
 before_install: 
   - npm update -g npm
@@ -8,7 +8,9 @@ before_install:
   - "npm install -g grunt grunt-cli bower"
 before_script:
   - mysql -e 'create database shwopDB;'
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
 script:
-  - "npm test"
+  - "grunt test"
   - "grunt runSass"
   # - "grunt ugly"
