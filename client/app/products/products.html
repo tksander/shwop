@@ -15,7 +15,7 @@
 
 <div class="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item" ng-repeat= 'product in data.products | filter:search'>
+    <div class="carousel-item" ng-repeat= 'product in data.products.slice(0,3) | filter:search'>
       <div>
         <div class='product-name'><span>{{ product.name }}</span></div>
         <img ng-src='{{ product.photoURL }}' class='product-image'></img>
