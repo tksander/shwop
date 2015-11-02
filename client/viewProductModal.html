@@ -77,20 +77,20 @@
             </div>
           </div>
 
+          <div class='cancel half-width padded-all' ng-show='$parent.updateMode'>
+            <input type='button'  class='btn btn-danger btn-primary btn-block' ng-click='$parent.viewProductMode()' value='{{ "cancelButton" | translate}}' />
+          </div>
+
+          <div class='save half-width padded-all' ng-show='$parent.updateMode'>
+
+            <input type='submit'  class='btn btn-success btn-primary btn-block' value='{{ "saveButton" | translate }}' />
+          </div>
+
+          <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>
+            {{ 'updateButton' | translate }}
+          </button>
+          <button ui-turn-off="viewProductModal" ng-click='$parent.viewProductMode()' class="btn btn-danger btn-block" ng-show='!$parent.updateMode'>{{ 'cancelButton' | translate }}</button>
         </fieldset>
-        <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>
-          {{ 'updateButton' | translate }}
-        </button>
-        <button ui-turn-off="viewProductModal" ng-click='$parent.viewProductMode()' class="btn btn-danger btn-block" ng-show='!$parent.updateMode'>{{ 'cancelButton' | translate }}</button>
-
-        <div class='cancel half-width padded-all' ng-show='$parent.updateMode'>
-          <input type='button'  class='btn btn-danger btn-primary btn-block' ng-click='$parent.viewProductMode()' value='{{ "cancelButton" | translate}}' />
-        </div>
-
-        <div class='save half-width padded-all' ng-show='$parent.updateMode'>
-
-          <input type='submit'  class='btn btn-success btn-primary btn-block' value='{{ "saveButton" | translate }}' />
-        </div>
 
       </form>
     </div>
