@@ -36,6 +36,7 @@ angular.module('shwop.sell', [])
     $scope.filePath = '';
     Photos.uploadPhoto($scope.productPhoto, function(url){
       $scope.product.photoURL = url;
+      $('#uploadPhotoButton').attr("disabled", true);
     }.bind($scope));
   };
 
