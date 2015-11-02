@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         options: {
           frameworks: ['mocha', 'chai'],
           singleRun: true,
-          browsers: ['Chrome'],
+          browsers: ['Firefox'],
           files: [
 
             'client/lib/angular/angular.js',
