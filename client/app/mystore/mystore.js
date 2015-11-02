@@ -57,6 +57,11 @@ angular.module('shwop.mystore', [])
     $scope.updateMode = false;
   };
 
+  $scope.closeProductModal = function () {
+    $rootScope.Ui.turnOff('viewProductModal');
+    $scope.updateMode = false;
+  };
+
   $scope.setCurrent = function (product) {
     $scope.data.currentProduct = product;
   };
