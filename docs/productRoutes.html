@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>productRoutes.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="app.html">
+                app.js
+              </a>
+            
+              
+              <a class="source" href="auth.html">
+                auth.js
+              </a>
+            
+              
+              <a class="source" href="bid.html">
+                bid.js
+              </a>
+            
+              
+              <a class="source" href="mybids.html">
+                mybids.js
+              </a>
+            
+              
+              <a class="source" href="mystore.html">
+                mystore.js
+              </a>
+            
+              
+              <a class="source" href="products.html">
+                products.js
+              </a>
+            
+              
+              <a class="source" href="profile.html">
+                profile.js
+              </a>
+            
+              
+              <a class="source" href="canvas-to-blob.html">
+                canvas-to-blob.js
+              </a>
+            
+              
+              <a class="source" href="sell.html">
+                sell.js
+              </a>
+            
+              
+              <a class="source" href="services.html">
+                services.js
+              </a>
+            
+              
+              <a class="source" href="bidController.html">
+                bidController.js
+              </a>
+            
+              
+              <a class="source" href="bidRoutes.html">
+                bidRoutes.js
+              </a>
+            
+              
+              <a class="source" href="helpers.html">
+                helpers.js
+              </a>
+            
+              
+              <a class="source" href="middleware.html">
+                middleware.js
+              </a>
+            
+              
+              <a class="source" href="utils.html">
+                utils.js
+              </a>
+            
+              
+              <a class="source" href="clear_db.html">
+                clear_db.js
+              </a>
+            
+              
+              <a class="source" href="db_config.html">
+                db_config.js
+              </a>
+            
+              
+              <a class="source" href="dummy_data.html">
+                dummy_data.js
+              </a>
+            
+              
+              <a class="source" href="helpers.html">
+                helpers.js
+              </a>
+            
+              
+              <a class="source" href="productController.html">
+                productController.js
+              </a>
+            
+              
+              <a class="source" href="productRoutes.html">
+                productRoutes.js
+              </a>
+            
+              
+              <a class="source" href="server.html">
+                server.js
+              </a>
+            
+              
+              <a class="source" href="userController.html">
+                userController.js
+              </a>
+            
+              
+              <a class="source" href="userRoutes.html">
+                userRoutes.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>productRoutes.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> productController = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./productController.js'</span>);
+<span class="hljs-keyword">var</span> userController = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../users/userController.js'</span>);
+<span class="hljs-keyword">if</span>(!process.env.ParseAppId || !process.env.ParseRestKey) {
+  <span class="hljs-keyword">var</span> locally = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../sneakyLocal.js'</span>);
+}
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'process.env is'</span>, process.env);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'locally is'</span>, locally);
+
+
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>app === productRouter injected from middleware.js</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>app.param will hijack any request with a ‘code’ parameter on in
+like line 16 below. That code will actually be the shortned url
+so the real URL will be pre fetched from mongo and attached to
+req.navLink before it reaches line 16.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>app.param(‘tags’, productController.productByTags);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  app.route(<span class="hljs-string">'/'</span>)
+    .get(userController.checkAuth, productController.allProducts)
+    .post(userController.checkAuth, productController.newProduct)
+    .put(userController.checkAuth, productController.updateProduct);
+
+  app.delete(<span class="hljs-string">'/:productId'</span>, userController.checkAuth, productController.deleteProduct);
+
+  app.get(<span class="hljs-string">'/keys'</span>, userController.checkAuth, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) </span>{
+      res.json({
+        <span class="hljs-string">'X-Parse-Application-Id'</span>: (process.env.ParseAppId || locally.ParseAppId),
+        <span class="hljs-string">'X-Parse-REST-API-Key'</span>: (process.env.ParseRestKey || locally.ParseRestKey)
+      });
+  });
+  
+  app.get(<span class="hljs-string">'/tags/:productId'</span>, userController.checkAuth, productController.productTags);
+
+  app.get(<span class="hljs-string">'/:tags'</span>, userController.checkAuth, productController.productsByTags);
+
+  app.post(<span class="hljs-string">'/mystore'</span>, userController.checkAuth, productController.userProducts);
+
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

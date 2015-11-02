@@ -10,7 +10,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-execute');
-  grunt.loadNpmTasks('grunt-docco');
+  grunt.loadNpmTasks('grunt-docco-multi');
   
   grunt.initConfig({
 
@@ -121,12 +121,14 @@ module.exports = function(grunt) {
     },
 
     docco: {
-      debug: {
-        src: ['client/app/**/*.js',
-        'server/**/*.js'],
-        options: {
-          output: 'docs/'
+      all: {
+        files: {
+          src: ['client/app/**/*.js',
+          'server/**/*.js']
         }
+      }, 
+      options: {
+        output: 'docs/'
       }
     }
 
