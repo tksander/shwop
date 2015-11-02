@@ -10,6 +10,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-execute');
+  grunt.loadNpmTasks('grunt-docco');
   
   grunt.initConfig({
 
@@ -118,6 +119,16 @@ module.exports = function(grunt) {
         ]
       }
     },
+
+    docco: {
+      debug: {
+        src: ['client/app/**/*.js',
+        'server/**/*.js'],
+        options: {
+          output: 'docs/'
+        }
+      }
+    }
 
     // cssmin: {
     //     // Add filespec list here
