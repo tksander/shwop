@@ -57,8 +57,6 @@ var enUS = {
    "updateBid": "Update Bid",
    "cancelBid": "Cancel Bid",
 
-
-
   //client>app>mystore>mystore.js
   "deleteProductConfirm": "Are you sure you want to delete this product?",
 
