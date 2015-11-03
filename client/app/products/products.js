@@ -1,7 +1,7 @@
 angular.module('shwop.products', [])
 
 
-.controller('ProductController', ['$scope', '$rootScope', 'Products', 'Auth', '$window', 'Users', function ($scope, $rootScope, Products, Auth, $window, Users) {
+.controller('ProductController', ['$scope', '$rootScope', '$translate', 'Products', 'Auth', '$window', 'Users', function ($scope, $rootScope, $translate, Products, Auth, $window, Users) {
   $scope.categories = Products.categories;
 
   $scope.signout = function() {
@@ -31,7 +31,8 @@ angular.module('shwop.products', [])
   }
 
   $scope.data = {};
-  $scope.data.location = "We're finding you!"
+  var findingMessage = $translate.instant('findingMessage');
+  $scope.data.location = findingMessage;
 
   // Calls factory method that returns all product info from DB and renders it.
   $scope.getAllProducts = function (callback) {
@@ -103,7 +104,9 @@ angular.module('shwop.products', [])
       getBidderLocation(function () {
         // return $scope.getDistanceFrom();
         var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-        $scope.$apply($scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away');
+        var distanceDisplay = $translate.instant('distanceDisplay');
+        var distanceUnits = $translate.instant('distanceUnits');
+        $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
       })
 
     })
@@ -118,7 +121,7 @@ angular.module('shwop.products', [])
 }])
 
 // Angular directive to control drag functionality.
-.directive('carousel', ['$document', 'Users', function($document, Users){
+.directive('carousel', ['$document', '$translate', 'Users', function($document, $translate, Users){
   return {
     restrict: 'C',
     controller: function($scope, Products) {
@@ -142,7 +145,10 @@ angular.module('shwop.products', [])
               var productLong = user.data.userInfo.longitude;
 
               var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-              $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+
+             var distanceDisplay = $translate.instant('distanceDisplay');
+             var distanceUnits = $translate.instant('distanceUnits');
+             $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
             })
           } else {
             $scope.data.products.shift();
@@ -160,7 +166,9 @@ angular.module('shwop.products', [])
                 var productLong = user.data.userInfo.longitude;
 
                 var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-                $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+                var distanceDisplay = $translate.instant('distanceDisplay');
+                var distanceUnits = $translate.instant('distanceUnits');
+                $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
               })
             });
           }
@@ -200,7 +208,10 @@ angular.module('shwop.products', [])
             var productLong = user.data.userInfo.longitude;
 
             var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-            $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+
+            var distanceDisplay = $translate.instant('distanceDisplay');
+            var distanceUnits = $translate.instant('distanceUnits');
+            $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
           })
 
 
@@ -220,7 +231,9 @@ angular.module('shwop.products', [])
               var productLong = user.data.userInfo.longitude;
 
               var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-              $scope.data.location =  'Location: ~' + Math.round(distance) + 'miles away';
+              var distanceDisplay = $translate.instant('distanceDisplay');
+              var distanceUnits = $translate.instant('distanceUnits');
+              $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
             })
           });
         }

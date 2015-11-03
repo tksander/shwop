@@ -188,6 +188,10 @@ angular.module('shwop.services', [])
     {id: '39', name: 'Video Games', translation: $translate.instant('videoGames')}
   ];
 
+  var categories = categories.sort(function (a, b) {
+    return a.translation.localeCompare(b.translation);
+  });
+
   return {
     getAllProducts: getAllProducts,
     addProduct: addProduct,

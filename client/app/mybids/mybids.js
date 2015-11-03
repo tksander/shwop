@@ -1,6 +1,6 @@
 angular.module('shwop.mybids', [])
 
-.controller('MyBidsController', ['$scope', '$window', 'Products', 'Auth', function ($scope, $window, Products, Auth) {
+.controller('MyBidsController', ['$scope', '$window', '$translate', 'Products', 'Auth', function ($scope, $window, $translate, Products, Auth) {
   $scope.data = {};
 
   $scope.signout = function() {
@@ -23,7 +23,8 @@ angular.module('shwop.mybids', [])
   };
 
   $scope.deleteBid = function (bidId) {
-    if (window.confirm('Are you sure you want to cancel this bid?')) {
+    var cancelBidVerification = $translate.instant('cancelBidVerification');
+    if (window.confirm(cancelBidVerification)) {
       Products.deleteMyBid(bidId)
       .then(function (result) {
         console.log('Deleted bid' + result);
