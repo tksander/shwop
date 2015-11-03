@@ -111,14 +111,14 @@ angular.module('shwop.services', [])
       ; 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     var d = R * c; // Distance in km
-    return getMiles(d);
+    return kmToMiles(d);
   };
 
   var deg2rad = function (deg) {
     return deg * (Math.PI/180)
   };
 
-  var getMiles = function (i) {
+  var kmToMiles = function (i) {
      return i*0.62137;
   };
 
