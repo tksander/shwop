@@ -47,12 +47,12 @@ angular.module('shwop.mystore', [])
     .then(function (tags) {
       $scope.data.currentProduct.tags = tags.data.tags;
       $rootScope.Ui.turnOn('viewProductModal');
-      console.log('tags is ', $scope.data.currentProduct.tags);
     });
   };
 
   $scope.updateProductMode = function () {
     $scope.updateMode = true;
+    $('.tag').removeClass('disabled-tag');
   };
 
   $scope.viewProductMode = function () {
@@ -61,6 +61,7 @@ angular.module('shwop.mystore', [])
 
   $scope.cancelChanges = function () {
     $scope.updateMode = false;
+    $('.tag').addClass('disabled-tag');
     $scope.data.updatedProduct = $.extend(true, {}, $scope.data.currentProduct);
   };
 
@@ -85,6 +86,7 @@ angular.module('shwop.mystore', [])
 
   $scope.updateProduct = function () {
     $scope.updateMode = false;
+    $('.tag').addClass('disabled-tag');
     $scope.data.currentProduct = $.extend(true, {}, $scope.data.updatedProduct);
     Products.updateProduct($scope.data.updatedProduct)
     .then(function () {
