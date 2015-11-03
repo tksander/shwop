@@ -54,7 +54,7 @@
                       </span>
             </div>
             
-            <div class='tag disabled-tag' ng-repeat='tag in $parent.data.currentProduct.tags'>
+            <div class='tag disabled-tag' ng-repeat='tag in $parent.data.updatedProduct.tags'>
               <a ng-click='$parent.removeTag(tag)'>{{  tag.name || tag  }}</a>
             </div>
           </div>

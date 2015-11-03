@@ -5,6 +5,8 @@ angular.module('shwop.mystore', [])
   $scope.data.currentProductId;
   $scope.data.currentProduct = {};
   $scope.data.updatedProduct = {};
+  $scope.data.removedTags = [];
+  $scope.data.addedTags = [];
   $scope.updateMode = false;
 
   $scope.signout = function() {
@@ -45,7 +47,8 @@ angular.module('shwop.mystore', [])
   $scope.viewProduct = function () {
     Products.getTags($scope.data.currentProduct.id)
     .then(function (tags) {
-      $scope.data.currentProduct.tags = tags.data.tags;
+      $scope.data.currentProduct.tags = tags.data.tags.slice();
+      $scope.data.updatedProduct.tags = tags.data.tags.slice();
       $rootScope.Ui.turnOn('viewProductModal');
     });
   };
@@ -77,14 +80,20 @@ angular.module('shwop.mystore', [])
   };
 
   $scope.removeTag = function (tagName) {
-    for (var i = 0; i < $scope.data.currentProduct.tags; i++) {
-      if ($scope.data.currentProduct.tags[i] === tagName) {
-        $scope.data.currentProduct.splice(i, 1);
+    $rootScope.$$childHead.data.removedTags.push(tagName);
+    for (var i = 0; i < $rootScope.$$childHead.data.updatedProduct.tags.length; i++) {
+      if ($rootScope.$$childHead.data.updatedProduct.tags[i] === tagName) {
+        $rootScope.$$childHead.data.updatedProduct.tags.splice(i, 1);
       }
     }
   };
 
+  $scope.addTag = function (tag) {
+    $scope.data.addedTags.push(tag);
+  };
+
   $scope.updateProduct = function () {
+    console.log('$scope.data.removedTags are ', $scope.data.removedTags);
     $scope.updateMode = false;
     $('.tag').addClass('disabled-tag');
     $scope.data.currentProduct = $.extend(true, {}, $scope.data.updatedProduct);
