@@ -4,9 +4,12 @@ angular.module('shwop.mystore', [])
   $scope.data = {};
   $scope.data.currentProductId;
   $scope.data.currentProduct = {};
+  $scope.data.currentProductCategory;
   $scope.data.updatedProduct = {};
+  $scope.data.updatedProductCategory;
   $scope.data.removedTags = [];
   $scope.data.addedTags = [];
+  $scope.categories = Products.categories;
   $scope.updateMode = false;
 
   $scope.signout = function() {
@@ -47,9 +50,12 @@ angular.module('shwop.mystore', [])
   $scope.viewProduct = function () {
     Products.getTags($scope.data.currentProduct.id)
     .then(function (tags) {
+      $scope.data.currentProductCategory = Products.splitCategoryFromTags(tags.data.tags);
+      $scope.data.updatedProductCategory = $scope.data.currentProductCategory;
       $scope.data.currentProduct.tags = tags.data.tags.slice();
       $scope.data.updatedProduct.tags = tags.data.tags.slice();
       $rootScope.Ui.turnOn('viewProductModal');
+      console.log('$scope.data.updatedProductCategory is ', $scope.data.updatedProductCategory);
     });
   };
 

@@ -30,12 +30,12 @@
 
           <div class='form-group has-success'>
             <label>{{ 'categoryLabel' | translate }}</label>
-            <select ng-model='$parent.data.updatedProduct.category'
+            <select ng-model='$parent.data.updatedProductCategory'
                    class='form-control'
                    ng-options='category.name as category.translation for category in categories'
                    ng-disabled='!$parent.updateMode'
                    >
-              <option value='' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
+              <option value='$parent.data.updatedProductCategory' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
             </select>
           </div>
 
