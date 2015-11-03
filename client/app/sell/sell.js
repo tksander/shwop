@@ -74,6 +74,23 @@ angular.module('shwop.sell', [])
       console.log("Error in creating a bid:   ", error);
     });
   };
+
+  $(document).ready(function() {
+  var msg="";
+  var elements = document.getElementsByTagName("input");
+
+  for (var i = 0; i < elements.length; i++) {
+     elements[i].oninvalid =function(e) {
+        if (!e.target.validity.valid) {
+          var emptyFieldError = $translate.instant("emptyFieldError");
+          e.target.setCustomValidity(emptyFieldError);
+       }
+      };
+     elements[i].oninput = function(e) {
+          e.target.setCustomValidity(msg);
+      };
+  } 
+  });
 }])
 
 // The 'fileread' directive ensures that the photo uploaded in the browser

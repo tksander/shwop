@@ -33,6 +33,11 @@ var esES = {
   "preciseLocationPlaceholder":"Usa ubicación específica",
   "preciseLocationInfoPlaceholder": "Ingresa más información para establecer una ubicación predeterminada más exacta para los artículos que vendes en ¡A Comprar!",
 
+  // client>app>products>products.js
+  "findingMessage": "¡Estamos en el proceso de localizarte!",
+  "distanceDisplay": "Distancia: ~",
+  "distanceUnits": "millas",
+
   // client>app>auth>welcome.html
   "menuTitle": "Menú",
   "logoutNav": "Cerrar la sesión",
@@ -56,8 +61,12 @@ var esES = {
   "updateBid": "Actualizar oferta",
   "cancelBid": "Cancelar oferta",
 
+  // client>app>mybids>mybids.js
+  "cancelBidVerification": "¿Estás seguro que quieres cancelar esta oferta?",
+
   //client>app>mystore>mystore.js
   "deleteProductConfirm": "¿Estás seguro que quieres cancelar este artículo?",
+  "productUpdateAlert": "¡Información de artículo actualizada!",
 
   //client>app>profile>profile.html
   "userProfileHeader": "Perfil del usuario",
@@ -94,14 +103,16 @@ var esES = {
 
   //client>app>sell>sell.js
   "photoUploadAlert": "Tendrás que hacer clic en el botón primero para cargar tu foto.",
+  "emptyFieldError": "Favor de llenar este campo.",
 
   //client>app>bid>bid.js
   "bidSuccessAlert": "Tu oferta ha sido entregada. El vendedor te contactará si le interesa tu oferta.",
   "sendingBidMessage": "¡Procesando tu oferta; espera por favor!",
 
   //client>viewProductModel.html
-  "productTitle": "Ver artículo",   // ARTICULO VS PRODUCTO
-  "updateButton": "Actualizar artículo",   // ARTICULO VS PRODUCTO
+  "productTitle": "Ver artículo",
+  "updateButton": "Actualizar artículo",
+  "closeButton": "Cerrar",
 
   //client>app>services>services.js
   "antiques": "Antigüedades",

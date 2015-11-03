@@ -34,6 +34,11 @@ var enUS = {
   "preciseLocationPlaceholder":"Use Precise Location",
   "preciseLocationInfoPlaceholder": "Enter more information to set a more accurate default location for items you sell on shwop!",
 
+  // client>app>products>products.js
+  "findingMessage": "We're finding you!",
+  "distanceDisplay": "Distance: ~",
+  "distanceUnits": "miles",
+
   // client>app>auth>welcome.html
   "menuTitle": "Menu",
   "logoutNav": "Logout",
@@ -52,13 +57,17 @@ var enUS = {
 
    // client>app>mybids>mybids.html
    "myBidsHeader": "My Bids",
-   "viewProductHeader": "View Product",
-   "updateProductHeader": "Update Product",
+   "viewProductHeader": "View Item",
+   "updateProductHeader": "Update Item",
    "updateBid": "Update Bid",
    "cancelBid": "Cancel Bid",
 
+   // client>app>mybids>mybids.js
+   "cancelBidVerification": "Are you sure you want to cancel this bid?",
+
   //client>app>mystore>mystore.js
-  "deleteProductConfirm": "Are you sure you want to delete this product?",
+
+  "deleteProductConfirm": "Are you sure you want to delete this item?",
   "productUpdateAlert": "Product information updated!",
 
   //client>app>profile>profile.html
@@ -84,24 +93,26 @@ var enUS = {
   "itemNamePlaceholder": "Enter product name",
   "priceLabel": "Price",
   "pricePlaceholder": "Enter asking price (USD)",
-  "categoryLabel": "Product Category",
-  "categoryPrompt": "Select product category",
+  "categoryLabel": "Item Category",
+  "categoryPrompt": "Select item category",
   "tagsLabel": "Search Tags",
   "tagsPlaceholder": "Enter search tags",
   "addTagButton": "Add Tag",
-  "photoLabel": "Product Photo",
+  "photoLabel": "Item Photo",
   "uploadPhotoButton": "Upload Photo",
   "photoPreview": "Photo Preview:",
   "sellItemButton": "Sell Item",
 
   //client>app>sell>sell.js
   "photoUploadAlert": "You must click the button to upload your photo first.",
+  "emptyFieldError": "Please fill out this field.",
 
   //client>app>bid>bid.js
   "bidSuccessAlert": "Your bid was successfully submitted. The seller will contact you if interested in your offer.",
   "sendingBidMessage": "Sending bid, please wait!",
 
   //client>viewProductModel.html
+
   "productTitle": "View Product",
   "updateButton": "Update Product",
   "closeButton": "Close",
