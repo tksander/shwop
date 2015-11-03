@@ -2,7 +2,9 @@ angular.module('shwop.mystore', [])
 
 .controller('MyStoreController', ['$scope', '$rootScope','$window', '$translate', 'Products', 'Auth', function ($scope, $rootScope, $window, $translate, Products, Auth) {
   $scope.data = {};
+  $scope.data.currentProductId;
   $scope.data.currentProduct = {};
+  $scope.data.updatedProduct = {};
   $scope.updateMode = false;
 
   $scope.signout = function() {
@@ -57,13 +59,20 @@ angular.module('shwop.mystore', [])
     $scope.updateMode = false;
   };
 
+  $scope.cancelChanges = function () {
+    $scope.updateMode = false;
+    $scope.data.updatedProduct = $.extend(true, {}, $scope.data.currentProduct);
+  };
+
   $scope.closeProductModal = function () {
     $rootScope.Ui.turnOff('viewProductModal');
     $scope.updateMode = false;
   };
 
   $scope.setCurrent = function (product) {
-    $scope.data.currentProduct = product;
+    $scope.data.currentProductId = product.id;
+    $scope.data.currentProduct = $.extend(true, {}, product);
+    $scope.data.updatedProduct = $.extend(true, {}, product);
   };
 
   $scope.removeTag = function (tagName) {
@@ -76,13 +85,19 @@ angular.module('shwop.mystore', [])
 
   $scope.updateProduct = function () {
     $scope.updateMode = false;
-    Products.updateProduct($scope.data.currentProduct)
+    $scope.data.currentProduct = $.extend(true, {}, $scope.data.updatedProduct);
+    Products.updateProduct($scope.data.updatedProduct)
     .then(function () {
       return $translate('productUpdateAlert');
     })
     .then(function (translatedValue) {
       alert(translatedValue);
-      // $scope.getUserProducts();
+      for (var i = 0; i < $scope.data.products.length; i++) {
+        if ($scope.data.products[i].id === $scope.data.currentProductId) {
+          $scope.data.products[i] = $.extend(true, {}, $scope.data.updatedProduct);
+          break;
+        }
+      }
       console.log($scope.data.products);
     });
   };
