@@ -66,12 +66,9 @@ var enUS = {
    "cancelBidVerification": "Are you sure you want to cancel this bid?",
 
   //client>app>mystore>mystore.js
-<<<<<<< HEAD
-  "deleteProductConfirm": "Are you sure you want to delete this product?",
-  "productUpdateAlert": "Product information updated!",
-=======
+
   "deleteProductConfirm": "Are you sure you want to delete this item?",
->>>>>>> (feat) Add i18n and locale info
+  "productUpdateAlert": "Product information updated!",
 
   //client>app>profile>profile.html
   "userProfileHeader": "User Profile",

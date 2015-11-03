@@ -66,6 +66,7 @@ var esES = {
 
   //client>app>mystore>mystore.js
   "deleteProductConfirm": "¿Estás seguro que quieres cancelar este artículo?",
+  "productUpdateAlert": "¡Información de artículo actualizada!",
 
   //client>app>profile>profile.html
   "userProfileHeader": "Perfil del usuario",
