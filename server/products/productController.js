@@ -51,11 +51,9 @@ module.exports = {
   // },
 
    productsByTags: function (req, res, next) {
-    console.log("Start of Product by Tags /()()()()()()()()()()(")
     // Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag
     var tags = req.params.tags.split('+');
     var inputTags = [];
-    console.log("TAGS ", tags);
 
     // Splits the Input Tag into separate words. This allows for search by each word entered into the search query. 
     // E.g., "Search: Brown cow" -> ["Brown", "cow"],
@@ -67,72 +65,59 @@ module.exports = {
     if(tags[1] !== 'null') {
       inputTags.push(tags[1]);
     }
-    console.log('input tags', inputTags);
 
-    var tagPromises = [];
     // Search tags db by each Input Tag word in inputTags
-    // !!! I'm not sure what will happen if one of these returns Null!!!
-    for(var i = 0; i < inputTags.length; i++) {
-      tagPromises.push(db.Tag.findAll({where: {'tagName': inputTags[i]}}));
-    }
+    var tagPromises = _.map(inputTags, function(inputTag) {
+      return db.Tag.findAll({where: {'tagName': inputTag}});
+    });
 
     Promise.all(tagPromises)
     .then(function (tags) {
-      if(tags === null) {
-        res.status(400).send("No tags were found matching your query.");
-      }
+      console.log("Tags should equal null", tags.length);
+      if(tags[0].length === 0) {
+        res.status(200).send(null);
+      } 
 
-      // 'tags' is an array of arrays (each array containing one db result)
-      // so we break those arrays out here
-      var fullTags = [];
-      for(var k = 0; k < tags.length; k++) {
-        // console.log("Broken out tag", tags[k][0]);s
-        fullTags.push(tags[k][0]);
-      }
-      console.log("Full tags  id ", fullTags[0].dataValues.id);
+      // Flattens the returned array of arrays into one array of objects
+      tags = _.flatten(tags);
+      console.log("Tags after promise.all", tags);
 
       // Create an array of tagIds from the tags result
-      var tagIds = [];
-      for(var z = 0; z < fullTags.length; z++) {
-        tagIds.push(fullTags[z].dataValues.id);
-      }
-      console.log("tagIds", tagIds);
+      var tagIds = _.map(tags, function(tags) {
+        return tags.dataValues.id;
+      });
 
-      var tagIdPromises = [];
       // Get all productIds from Product_Tags table that match tagId
-      for(var j = 0; j < tagIds.length; j++) {
-        tagIdPromises.push(db.Product_Tag.findAll({where: {'TagId': tagIds[j]}}));
-      }
+      var tagIdPromises = _.map(tagIds, function(tagId) {
+        return db.Product_Tag.findAll({where: {'TagId': tagId}});
+      });
 
-      console.log('tag id promises', tagIdPromises);
       Promise.all(tagIdPromises)
       .then(function (productTags) {
-        var fullproductTags = [];
-        for(var w = 0; w < productTags.length; w++) {
-          console.log("Broken out product_tag", productTags[w][0]);
-          fullproductTags.push(productTags[w][0]);
-        }
-        console.log("Full tags  id ", fullproductTags);
-        // for(var u = 0; u < productTags.length; u++) {
-        //   console.log('productTags:  ', productTags[u]);
-        // }
 
-        // var res = _.countBy(productTags, function(object) {
-        //   return object.dataValues.ProductId;
-        // });
-        // console.log('res', res);
+        // Flattens the returned array of arrays into one array of objects
+        productTags = _.flatten(productTags);
+        console.log(productTags);
 
-        // Now we have all the product tags in one place as an array of objects. 
+        var productIdArray = helpers.maxProductId(productTags);   
+        console.log("productIdArray  ", productIdArray);
 
-        // Create a library object of productIds
+        var productPromises = _.map(productIdArray, function (productId) {
+          return db.Product.findAll({where: {id: productId}});
+        })
+        console.log("product promises", productPromises);
 
-          // while loop - if there is a number that equals total number of tags, return product
+        Promise.all(productPromises)
+        .then(function (products) {
+          products = _.flatten(products);
+          console.log("Final products!", products[0].dataValues);
+          res.status(200).send({products: products});
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-          // else, decrement the number until condition is fulfilled
-
-          // if no products are found, return null
-
-          res.status(200);
+        
       })
       .catch(function (error) {
         return next(error);

@@ -74,9 +74,14 @@ angular.module('shwop.products', [])
 
     Products.getProductsByTag(tagsString)
       .then(function (promise) {
-        console.log(promise);
-        $scope.data.products = promise.data.products;
-        Products.setCurrentProduct($scope.data.products[0]);
+        if(promise.data === '') {
+          console.log("No products!")
+          alert("Sorry, no results matched your search. Please try again or keep shwoping!")
+        } else {
+          console.log("Promise", promise);
+          $scope.data.products = promise.data.products;
+          Products.setCurrentProduct($scope.data.products[0]);
+        }
       })
       .catch(function (error) {
         console.log(error);
