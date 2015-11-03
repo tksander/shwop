@@ -3,7 +3,7 @@ var util = require('../config/utils.js');
 var helpers = require('../db/helpers.js');
 var jwt  = require('jwt-simple');
 var Promise = require('bluebird');
-
+var _ = require('underscore');
 
 module.exports = {
 
@@ -50,18 +50,24 @@ module.exports = {
   //   });
   // },
 
-   productsByTagsOrNothing: function (req, res, next) {
-
+   productsByTags: function (req, res, next) {
+    console.log("Start of Product by Tags /()()()()()()()()()()(")
     // Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag
     var tags = req.params.tags.split('+');
+    var inputTags = [];
+    console.log("TAGS ", tags);
 
     // Splits the Input Tag into separate words. This allows for search by each word entered into the search query. 
     // E.g., "Search: Brown cow" -> ["Brown", "cow"],
-    var inputTags = tags[0].split(" ");
+    if(tags[0] !== "null") {
+      var inputTags = tags[0].split(" ");
+    }
 
     // Add the Category Tag to the array of tags to be searched/compared
-    inputTags.push(tags[1]);
-    console.log(inputTags);
+    if(tags[1] !== 'null') {
+      inputTags.push(tags[1]);
+    }
+    console.log('input tags', inputTags);
 
     var tagPromises = [];
     // Search tags db by each Input Tag word in inputTags
@@ -72,21 +78,49 @@ module.exports = {
 
     Promise.all(tagPromises)
     .then(function (tags) {
+      if(tags === null) {
+        res.status(400).send("No tags were found matching your query.");
+      }
+
+      // 'tags' is an array of arrays (each array containing one db result)
+      // so we break those arrays out here
+      var fullTags = [];
+      for(var k = 0; k < tags.length; k++) {
+        // console.log("Broken out tag", tags[k][0]);s
+        fullTags.push(tags[k][0]);
+      }
+      console.log("Full tags  id ", fullTags[0].dataValues.id);
 
       // Create an array of tagIds from the tags result
       var tagIds = [];
-      for(var z = 0; z < tags.length; z++) {
-        tagIds.push(tags[z].id);
+      for(var z = 0; z < fullTags.length; z++) {
+        tagIds.push(fullTags[z].dataValues.id);
       }
+      console.log("tagIds", tagIds);
 
       var tagIdPromises = [];
       // Get all productIds from Product_Tags table that match tagId
       for(var j = 0; j < tagIds.length; j++) {
-        tagIdPromises.push(db.Product_Tags.find({where: {'tagId': tagIds[j]}}));
+        tagIdPromises.push(db.Product_Tag.findAll({where: {'TagId': tagIds[j]}}));
       }
 
+      console.log('tag id promises', tagIdPromises);
       Promise.all(tagIdPromises)
       .then(function (productTags) {
+        var fullproductTags = [];
+        for(var w = 0; w < productTags.length; w++) {
+          console.log("Broken out product_tag", productTags[w][0]);
+          fullproductTags.push(productTags[w][0]);
+        }
+        console.log("Full tags  id ", fullproductTags);
+        // for(var u = 0; u < productTags.length; u++) {
+        //   console.log('productTags:  ', productTags[u]);
+        // }
+
+        // var res = _.countBy(productTags, function(object) {
+        //   return object.dataValues.ProductId;
+        // });
+        // console.log('res', res);
 
         // Now we have all the product tags in one place as an array of objects. 
 
@@ -97,15 +131,16 @@ module.exports = {
           // else, decrement the number until condition is fulfilled
 
           // if no products are found, return null
-          
-      })
-      .catch(function () {
 
+          res.status(200);
+      })
+      .catch(function (error) {
+        return next(error);
       })
 
     })
-    .catch(function () {
-
+    .catch(function (error) {
+      return next(error);
     })
   },
 

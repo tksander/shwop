@@ -3,6 +3,9 @@ angular.module('shwop.products', [])
 
 .controller('ProductController', ['$scope', '$rootScope', '$translate', 'Products', 'Auth', '$window', 'Users', function ($scope, $rootScope, $translate, Products, Auth, $window, Users) {
   $scope.categories = Products.categories;
+  $scope.product = {};
+  $scope.product.category = null;
+  $scope.searchText = null;
 
   $scope.signout = function() {
     Auth.signout();
@@ -64,11 +67,19 @@ angular.module('shwop.products', [])
 
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
-    var tag = $scope.data.tag;
-    Products.getProductsByTag(tag)
+    console.log("Search text  ", $scope.searchText);
+    console.log("Category  ", $scope.product.category);
+    var tagsString = $scope.searchText + "+" + $scope.product.category;
+    console.log('tagsString  ', tagsString);
+
+    Products.getProductsByTag(tagsString)
       .then(function (promise) {
+        console.log(promise);
         $scope.data.products = promise.data.products;
         Products.setCurrentProduct($scope.data.products[0]);
+      })
+      .catch(function (error) {
+        console.log(error);
       });
   };
 
