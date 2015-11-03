@@ -15,10 +15,10 @@
 
 <div class="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item" ng-repeat= 'product in data.products.slice(0,3) | filter:search'>
-      <div>
+    <div class="carousel-item" ng-repeat= 'product in data.products.slice(0,3) | filter:search' style='background-image: url({{ product.photoURL }}); background-position: center; background-size: contain; background-repeat: no-repeat'>
+      
         <div class='product-name'><span>{{ product.name }}</span></div>
-        <img ng-src='{{ product.photoURL }}' class='product-image'></img>
+        <!-- <img ng-src='{{ product.photoURL }}' class='product-image'></img> -->
         <div class='product-price'><strong>${{ product.price }}</strong></div>
         <div >
           <i class="fa fa-map-marker fa-2x"></i>   {{ data.location }}
