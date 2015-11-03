@@ -72,6 +72,7 @@ div {
 .carousel {
   padding: 20px;
   overflow: visible;
+  background-color: #9BD7EB !important;
 
   .item, .carousel-item {
     top: 0;
@@ -202,6 +203,7 @@ select:invalid option { color: black; }
 }
 
 .backshade {
+  display: inline-block;
   padding: 10px;
   border-radius: 10px;
   /* Fallback for web browsers that don't support RGBa */
@@ -212,4 +214,17 @@ select:invalid option { color: black; }
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
   /* For IE 8*/
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+@media (min-width: 992px) {
+  .bigText {
+    font-size:4vw;
+  }
+  .medText {
+    font-size: 1vw;
+  }
+}
+
+.container {
+  text-align: center;
 }
