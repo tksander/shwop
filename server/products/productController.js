@@ -83,16 +83,15 @@ module.exports = {
   // update the product
   updateProduct: function (req, res, next) {
     var updates = {};
-    if (req.body.name) { updates.name = req.body.name; }
-    if (req.body.photoURL) { updates.photoURL = req.body.photoURL; }
-    if (req.body.price) { updates.price = req.body.price; }
+    if (req.body.product.name)     { updates.name     = req.body.product.name     ;}
+    if (req.body.product.photoURL) { updates.photoURL = req.body.product.photoURL ;}
+    if (req.body.product.price)    { updates.price    = req.body.product.price    ;}
 
     db.Product.update(updates, {
-      where: { id: req.body.id }
+      where: { id: req.body.product.id }
     })
     .then(function () {
-      console.log('Successfully updated the product');
-      res.send('Update successful');
+      res.status(200).send('Update successful');
     })
     .catch(function (error) {
       res.status(400).send('Error updating the product in database: ' + error);

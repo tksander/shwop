@@ -3,7 +3,7 @@
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <button class='close' ui-turn-off='viewProductModal'>&times;</button>
+        <button class='close'  ng-click='$parent.closeProductModal()'>&times;</button>
         <h4 class='modal-title' ng-show='!$parent.updateMode'>{{ 'viewProductHeader' | translate }}</h4>
         <h4 class='modal-title' ng-show='$parent.updateMode'>{{ 'updateProductHeader' | translate }}</h4>
       </div>
@@ -15,7 +15,7 @@
             <label>{{ 'itemNameLabel' | translate }}</label>
             <input type='text'
                    class='form-control'
-                   ng-model='$parent.data.currentProduct.name'
+                   ng-model='$parent.data.updatedProduct.name'
                    ng-disabled='!$parent.updateMode'>
           </div>
 
@@ -23,14 +23,14 @@
             <label>{{ 'priceLabel' | translate }}</label>
             <input type='number'
                    class='form-control'
-                   ng-model='$parent.data.currentProduct.price'
+                   ng-model='$parent.data.updatedProduct.price'
                    value='4' 
                    ng-disabled='!$parent.updateMode'>
           </div>
 
           <div class='form-group has-success'>
             <label>{{ 'categoryLabel' | translate }}</label>
-            <select ng-model='product.category'
+            <select ng-model='$parent.data.updatedProduct.category'
                    class='form-control'
                    ng-options='category.name as category.translation for category in categories'
                    ng-disabled='!$parent.updateMode'
@@ -43,7 +43,7 @@
             <label>{{ 'tagsLabel' | translate }}</label>
             <div class='input-group'>
                 <input type='text'
-                      ng-model='data.tag' 
+                      ng-model='$parent.data.updatedProduct.newTags' 
                       class='form-control'
                       placeholder='{{ "tagsPlaceholder" | translate }}'
                       ng-enter='addTag()'
@@ -54,7 +54,7 @@
                       </span>
             </div>
             
-            <div  class='tag' ng-repeat='tag in $parent.data.currentProduct.tags'>
+            <div  class='tag' ng-repeat='tag in $parent.data.updatedProduct.tags'>
               <a ng-click='$parent.removeTag(tag)'>{{  tag.name || tag  }}</a>
             </div>
           </div>
@@ -73,24 +73,24 @@
             </div>
             <div ng-hide='product.photoURL === ""' class='tag'>
               <div>{{ 'photoPreview' | translate }}</div>
-              <img ng-src='{{ $parent.data.currentProduct.photoURL }}'>
+              <img ng-src='{{ $parent.data.updatedProduct.photoURL }}'>
             </div>
           </div>
 
+          <div class='cancel half-width padded-all' ng-show='$parent.updateMode'>
+            <input type='button'  class='btn btn-danger btn-primary btn-block' ng-click='$parent.cancelChanges()' value='{{ "cancelButton" | translate}}' />
+          </div>
+
+          <div class='save half-width padded-all' ng-show='$parent.updateMode'>
+
+            <input type='submit'  class='btn btn-success btn-primary btn-block' ng-click='$parent.updateProduct()'value='{{ "saveButton" | translate }}' />
+          </div>
+
+          <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>
+            {{ 'updateButton' | translate }}
+          </button>
+          <button ui-turn-off='viewProductModal'  class="btn btn-danger btn-block" ng-show='!$parent.updateMode'>{{ 'closeButton' | translate }}</button>
         </fieldset>
-        <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>
-          {{ 'updateButton' | translate }}
-        </button>
-        <button ui-turn-off="viewProductModal" class="btn btn-danger btn-block" ng-show='!$parent.updateMode'>{{ 'cancelButton' | translate }}</button>
-
-        <div class='cancel half-width padded-all' ng-show='$parent.updateMode'>
-          <input type='button'  class='btn btn-danger btn-primary btn-block' ng-click='$parent.viewProductMode()' value='{{ "cancelButton" | translate}}' />
-        </div>
-
-        <div class='save half-width padded-all' ng-show='$parent.updateMode'>
-
-          <input type='submit'  class='btn btn-success btn-primary btn-block' value='{{ "saveButton" | translate }}' />
-        </div>
 
       </form>
     </div>

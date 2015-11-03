@@ -2,7 +2,9 @@ angular.module('shwop.mystore', [])
 
 .controller('MyStoreController', ['$scope', '$rootScope','$window', '$translate', 'Products', 'Auth', function ($scope, $rootScope, $window, $translate, Products, Auth) {
   $scope.data = {};
+  $scope.data.currentProductId;
   $scope.data.currentProduct = {};
+  $scope.data.updatedProduct = {};
   $scope.updateMode = false;
 
   $scope.signout = function() {
@@ -57,19 +59,47 @@ angular.module('shwop.mystore', [])
     $scope.updateMode = false;
   };
 
+  $scope.cancelChanges = function () {
+    $scope.updateMode = false;
+    $scope.data.updatedProduct = $.extend(true, {}, $scope.data.currentProduct);
+  };
+
+  $scope.closeProductModal = function () {
+    $rootScope.Ui.turnOff('viewProductModal');
+    $scope.updateMode = false;
+  };
+
   $scope.setCurrent = function (product) {
-    $scope.data.currentProduct = product;
+    $scope.data.currentProductId = product.id;
+    $scope.data.currentProduct = $.extend(true, {}, product);
+    $scope.data.updatedProduct = $.extend(true, {}, product);
   };
 
   $scope.removeTag = function (tagName) {
-    console.log('going to remove ', tagName);
-    console.log('tags is', $scope.data.currentProduct.tags);
     for (var i = 0; i < $scope.data.currentProduct.tags; i++) {
       if ($scope.data.currentProduct.tags[i] === tagName) {
         $scope.data.currentProduct.splice(i, 1);
       }
     }
-    console.log('tags is ', $scope.data.currentProduct.tags);
+  };
+
+  $scope.updateProduct = function () {
+    $scope.updateMode = false;
+    $scope.data.currentProduct = $.extend(true, {}, $scope.data.updatedProduct);
+    Products.updateProduct($scope.data.updatedProduct)
+    .then(function () {
+      return $translate('productUpdateAlert');
+    })
+    .then(function (translatedValue) {
+      alert(translatedValue);
+      for (var i = 0; i < $scope.data.products.length; i++) {
+        if ($scope.data.products[i].id === $scope.data.currentProductId) {
+          $scope.data.products[i] = $.extend(true, {}, $scope.data.updatedProduct);
+          break;
+        }
+      }
+      console.log($scope.data.products);
+    });
   };
 
   $scope.getUserProducts();
