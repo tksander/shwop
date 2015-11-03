@@ -59,6 +59,7 @@ var enUS = {
 
   //client>app>mystore>mystore.js
   "deleteProductConfirm": "Are you sure you want to delete this product?",
+  "productUpdateAlert": "Product information updated!",
 
   //client>app>profile>profile.html
   "userProfileHeader": "User Profile",

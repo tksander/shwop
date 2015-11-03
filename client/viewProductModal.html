@@ -83,7 +83,7 @@
 
           <div class='save half-width padded-all' ng-show='$parent.updateMode'>
 
-            <input type='submit'  class='btn btn-success btn-primary btn-block' value='{{ "saveButton" | translate }}' />
+            <input type='submit'  class='btn btn-success btn-primary btn-block' ng-click='$parent.updateProduct()'value='{{ "saveButton" | translate }}' />
           </div>
 
           <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>

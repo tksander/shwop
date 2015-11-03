@@ -89,6 +89,15 @@ angular.module('shwop.services', [])
     });
   };
 
+  var updateProduct = function (product) {
+    return $http({
+      method: 'PUT',
+      url: '/api/products/',
+      data: {
+        product: product
+      }
+    });
+  };
 
   var getDistance = function (lat1,lon1,lat2,lon2) {
     console.log('distance:  ', lat1,lon1,lat2,lon2);
@@ -192,6 +201,7 @@ angular.module('shwop.services', [])
     getProductsByTag: getProductsByTag,
     getUserProducts: getUserProducts,
     deleteProduct: deleteProduct,
+    updateProduct: updateProduct,
     getDistance: getDistance,
     getTags: getTags,
     categories: categories

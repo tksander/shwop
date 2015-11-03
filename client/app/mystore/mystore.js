@@ -67,14 +67,24 @@ angular.module('shwop.mystore', [])
   };
 
   $scope.removeTag = function (tagName) {
-    console.log('going to remove ', tagName);
-    console.log('tags is', $scope.data.currentProduct.tags);
     for (var i = 0; i < $scope.data.currentProduct.tags; i++) {
       if ($scope.data.currentProduct.tags[i] === tagName) {
         $scope.data.currentProduct.splice(i, 1);
       }
     }
-    console.log('tags is ', $scope.data.currentProduct.tags);
+  };
+
+  $scope.updateProduct = function () {
+    $scope.updateMode = false;
+    Products.updateProduct($scope.data.currentProduct)
+    .then(function () {
+      return $translate('productUpdateAlert');
+    })
+    .then(function (translatedValue) {
+      alert(translatedValue);
+      // $scope.getUserProducts();
+      console.log($scope.data.products);
+    });
   };
 
   $scope.getUserProducts();
