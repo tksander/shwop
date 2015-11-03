@@ -111,6 +111,7 @@ var esES = {
   //client>viewProductModel.html
   "productTitle": "Ver artículo",
   "updateButton": "Actualizar artículo",
+  "closeButton": "Cerrar",
 
   //client>app>services>services.js
   "antiques": "Antigüedades",
