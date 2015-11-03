@@ -21,34 +21,94 @@ module.exports = {
     });
   },
 
-  productsByTags: function (req, res, next) {
-    //query to find products by tags
-    var tags = req.params.tags.split('+');
-    // Category tag will always be inserted at end of tags array
-    var categoryTag = tags.pop();
-    var categoryProducts;
-    console.log(categoryTag);
+  // productsByTags: function (req, res, next) {
+  //   //query to find products by tags
+  //   var tags = req.params.tags.split('+');
+  //   // Category tag will always be inserted at end of tags array
+  //   var categoryTag = tags.pop();
+  //   var categoryProducts;
+  //   console.log(categoryTag);
 
-    // Get all associated products by Category tag
-    db.Tag.findOne({where: {tagName: categoryTag}})
-    .then(function (tag) {
-      if(tag === null) {
-        res.status(400).send('We could not find a tag in the database.');
+  //   // Get all associated products by Category tag
+  //   db.Tag.findOne({where: {tagName: categoryTag}})
+  //   .then(function (tag) {
+  //     if(tag === null) {
+  //       res.status(400).send('We could not find a tag in the database.');
+  //     }
+  //     return tag.getProducts();
+  //   })
+  //   .then(function (associatedProducts) {
+  //     if(associatedProducts === null) {
+  //       // Not sure if this is the correct error. Leaving in for future testing purposes. 
+  //       res.status(400).send('We could not find the associated tags in the database.');
+  //     }
+  //     categoryProducts = associatedProducts;
+  //     res.send({products: associatedProducts});
+  //   })
+  //   .catch(function (error) {
+  //     return next(error);
+  //   });
+  // },
+
+   productsByTagsOrNothing: function (req, res, next) {
+
+    // Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag
+    var tags = req.params.tags.split('+');
+
+    // Splits the Input Tag into separate words. This allows for search by each word entered into the search query. 
+    // E.g., "Search: Brown cow" -> ["Brown", "cow"],
+    var inputTags = tags[0].split(" ");
+
+    // Add the Category Tag to the array of tags to be searched/compared
+    inputTags.push(tags[1]);
+    console.log(inputTags);
+
+    var tagPromises = [];
+    // Search tags db by each Input Tag word in inputTags
+    // !!! I'm not sure what will happen if one of these returns Null!!!
+    for(var i = 0; i < inputTags.length; i++) {
+      tagPromises.push(db.Tag.findAll({where: {'tagName': inputTags[i]}}));
+    }
+
+    Promise.all(tagPromises)
+    .then(function (tags) {
+
+      // Create an array of tagIds from the tags result
+      var tagIds = [];
+      for(var z = 0; z < tags.length; z++) {
+        tagIds.push(tags[z].id);
       }
-      return tag.getProducts();
-    })
-    .then(function (associatedProducts) {
-      if(associatedProducts === null) {
-        // Not sure if this is the correct error. Leaving in for future testing purposes. 
-        res.status(400).send('We could not find the associated tags in the database.');
+
+      var tagIdPromises = [];
+      // Get all productIds from Product_Tags table that match tagId
+      for(var j = 0; j < tagIds.length; j++) {
+        tagIdPromises.push(db.Product_Tags.find({where: {'tagId': tagIds[j]}}));
       }
-      categoryProducts = associatedProducts;
-      res.send({products: associatedProducts});
+
+      Promise.all(tagIdPromises)
+      .then(function (productTags) {
+
+        // Now we have all the product tags in one place as an array of objects. 
+
+        // Create a library object of productIds
+
+          // while loop - if there is a number that equals total number of tags, return product
+
+          // else, decrement the number until condition is fulfilled
+
+          // if no products are found, return null
+          
+      })
+      .catch(function () {
+
+      })
+
     })
-    .catch(function (error) {
-      return next(error);
-    });
+    .catch(function () {
+
+    })
   },
+
 
   // adds a new product to the database
   newProduct: function (req, res, next) {
