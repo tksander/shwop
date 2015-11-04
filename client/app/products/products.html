@@ -22,6 +22,7 @@
     <label>Search: <input ng-model="searchText"></label>
     <button ng-click="submitSearch()">Search</button>
     <button ng-click="showSearchModal()">SearchModal</button>
+    <button ng-click="log()">log </button>
 
 
     <div class='btn-group pull-right collapsible'>
@@ -37,17 +38,17 @@
     <div class="carousel-item" ng-repeat= 'product in data.products.slice(0,3) | filter:search'>
 
       <div ng-if="!lastCard">
-      <div class='product-name-div'><strong class='product-name '>{{ product.name }}</strong></div>
-      <img ng-src='{{ product.photoURL }}' class='product-image'></img>
-        <div class='product-card-info'>
-        <div class='product-price'><strong>${{ product.price }}</strong></div>
-        <div >
-          <i class="fa fa-map-marker product-location"></i><span class='product-location'> {{ data.location }}</span>
-        </div>
+        <div class='product-name-div'><strong class='product-name '>{{ product.name }}</strong></div>
+        <img ng-src='{{ product.photoURL }}' class='product-image'></img>
+          <div class='product-card-info'>
+          <div class='product-price'><strong>${{ product.price }}</strong></div>
+          <div >
+            <i class="fa fa-map-marker product-location"></i><span class='product-location'> {{ data.location }}</span>
+          </div>
       </div>
 
       <div ng-if="lastCard">
-        <div ><span>O,snap! Looks like you've swiped through all of the items. Click below or enter a new search to continue shwopping! </span></div>
+        <div><span>O,snap! Looks like you've swiped through all of the items. Click below or enter a new search to continue shwopping! </span></div>
       <div ng-if="searchSubmitted">
         <button ng-click="refreshProductSet()">See Previous Search Items</button>
       </div>

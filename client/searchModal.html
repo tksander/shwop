@@ -10,13 +10,14 @@
       <div class='modal-body'>
         <form role='form' ng-submit='submitSearch()'>
            <fieldset>
+
             <div class='form-group has-success'>
               <label>{{ 'categoryLabel' | translate }}</label>
-              <select ng-model='$parent.product.category'
+              <select ng-model='product.category'
                      class='form-control'
                      ng-options='category.name as category.translation for category in categories'
                      >
-                <option value='$parent.product.category' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
+                <option value='product.category' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
               </select>
             </div>
 
@@ -24,12 +25,12 @@
               <label>{{ 'searchInput' | translate }}</label>
               <input type='text'
                      class='form-control'
-                     ng-model='$parent.searchText'
+                     ng-model='searchText'
                     >
             </div>
 
 
-            <button ui-turn-off="searchModal" ng-click="submitSearch()" class="btn btn-default btn-block">{{ 'searchButton' | translate }}</button>
+            <button ui-turn-off="searchModal" ng-click="log()" class="btn btn-default btn-block">{{ 'searchButton' | translate }}</button>
             <button ui-turn-off='searchModal'  class='btn btn-danger btn-block' ng-show='!$parent.updateMode'>{{ 'closeButton' | translate }}</button>
 
           </fieldset>

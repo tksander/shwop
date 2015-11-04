@@ -36,7 +36,6 @@ angular.module('shwop.products', [])
   }
 
   $scope.showSearchModal = function(){
-    console.log("showing search modal");
     $rootScope.Ui.turnOn('searchModal');
   }
 
@@ -79,10 +78,19 @@ angular.module('shwop.products', [])
     });
   };
 
+  $scope.log = function() {
+    console.log('$scope.data.products ', $scope.data.products);
+    console.log('Original: $parent.scope ', $scope.$parent);
+    console.log('Original: $scope ', $scope);
+  }
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
     console.log('$scope.searchText', $scope.searchText)
     console.log('$scope.product.category', $scope.product.category)
+    console.log("$scope", $scope);
+    console.log("$rootscope", $rootScope);
+
+    // If the user selects a search for all products
     if(($scope.searchText === null || $scope.searchText === "")  && $scope.product.category === "All Products") {
       console.log('if')
       $scope.getAllProducts();
@@ -99,12 +107,15 @@ angular.module('shwop.products', [])
 
         Products.getProductsByTag(tagsString)
           .then(function (promise) {
-            console.log("promise.categoryOnly", promise.data.categoryOnly);
+
+            console.log("getProductsByTag results, promise: ", promise);
             if(promise.data === '') {
+              console.log("Applying the results of the search1")
 
               alert("Sorry, no results matched your search. Please try again or keep shwoping!")
 
             } else if(promise.data.categoryOnly) {
+              console.log("Applying the results of the search2")
 
               alert("We were unable to find results matching \"" + $scope.searchText + 
                     "\". Showing results for \"" + $scope.product.category + "\". Happy shwopping!");
@@ -113,12 +124,19 @@ angular.module('shwop.products', [])
               Products.setCurrentProduct($scope.data.products[0]);
               // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
               $scope.data.products.push({alertCard: 'alertCard'});
-
             } else {
+              console.log("Applying the results of the search3")
+
               $scope.data.products = promise.data.products;
               Products.setCurrentProduct($scope.data.products[0]);
+              if($scope.$parent) {
+                $scope.$parent.$$childHead.data.products = promise.data.products;
+              } 
+              
               // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
               $scope.data.products.push({alertCard: 'alertCard'});
+              console.log('$scope.data.products ', $scope.data.products)
+              console.log('Modal: $parent.scope ', $scope.$parent);
             }
           })
           .catch(function (error) {
@@ -178,7 +196,8 @@ angular.module('shwop.products', [])
 
 
 
-  $scope.getAllProducts();
+  $scope.getAllProducts(function() {console.log("intial current product ", Products.getCurrentProduct());});
+
 }])
 
 // Angular directive to control drag functionality.
