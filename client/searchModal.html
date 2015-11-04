@@ -3,35 +3,37 @@
   <div class='modal-dialog'>
     <div class='modal-content' ng-hide='searchSubmitted'>
       <div class='modal-header'>
-        <button class='close' 
-                ui-turn-off='searchModal'>&times;</button>
+        <button class='close' ui-turn-off='searchModal'>&times;</button>
         <h4 class='modal-title'>{{ 'searchTitle' | translate }}</h4>
       </div>
-      <div class='modal-body'>
 
-      <form role='form' ng-submit='submitSearch()'>
-        <fieldset>
-          <div class='form-group has-success has-feedback'>
-            <input type='number'
-                   ng-model='bid'
-                   class='form-control'
-                   placeholder='{{ "bidPlaceholder" | translate }}'
-                   required>
-          </div>
-        </fieldset>
-        <hr>
-        <button class='btn btn-primary btn-block' ng-disabled='currentButtonText !== sendBidButton'>
-          {{currentButtonText}}
-        </button>
-        <button ui-turn-off="bidModal" class="btn btn-default btn-block">{{ 'cancelButton' | translate }}</button>
-      </form>
+      <div class='modal-body'>
+        <form role='form' ng-submit='submitSearch()'>
+           <fieldset>
+            <div class='form-group has-success'>
+              <label>{{ 'categoryLabel' | translate }}</label>
+              <select ng-model='$parent.product.category'
+                     class='form-control'
+                     ng-options='category.name as category.translation for category in categories'
+                     >
+                <option value='$parent.product.category' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
+              </select>
+            </div>
+
+            <div class='form-group has-success has-feedback'>
+              <label>{{ 'searchInput' | translate }}</label>
+              <input type='text'
+                     class='form-control'
+                     ng-model='$parent.searchText'
+                    >
+            </div>
+
+
+            <button ui-turn-off="searchModal" ng-click="submitSearch()" class="btn btn-default btn-block">{{ 'searchButton' | translate }}</button>
+            <button ui-turn-off='searchModal'  class='btn btn-danger btn-block' ng-show='!$parent.updateMode'>{{ 'closeButton' | translate }}</button>
+
+          </fieldset>
+        </form>
     </div>
-  </div>
-  <div class='modal-content' ng-show='bidSent'>
-   <div class='modal-body bid-success'>
-     <button class='close'
-             ui-turn-off='bidModal'>&times;</button>
-     <h4 class='modal-title bid-success'>{{ 'bidSuccessAlert' | translate }}<button ui-turn-off="bidModal" class="btn btn-default btn-block">{{ 'backToShwoppingButton' | translate }}</h4>
-   </div>
   </div>
 </div>
