@@ -79,16 +79,17 @@ module.exports = {
     .then(function (tags) {
       // Flattens the returned array of arrays into one array of objects
       tags = _.flatten(tags);
-      console.log("Tags: ", tags[0].dataValues.tagName);
-
-      if(tags[0].dataValues.tagName === categoryTag) {
-        console.log("we found a:  ", tags[0].dataValues.tagName);
-        foundOnlyCategoryResults = true;
-      }
-
+      
       if(tags.length === 0) {
         res.status(200).send(null);
       } 
+
+      // This works because we ever find a tag that matches the Search Input 
+      // that tag will be a lower index than the categoryTag
+      if(tags[0].dataValues.tagName === categoryTag) {
+        foundOnlyCategoryResults = true;
+      }
+
 
       // Create an array of tagIds from the tags result
       var tagIds = _.map(tags, function(tags) {
