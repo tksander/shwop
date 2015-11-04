@@ -43,6 +43,6 @@
     <div class="panel-body">
        <img ng-src='{{ product.productInfo.photoURL }}' class='store-product-image'>
     </div>
-    <h8 class="panel-title bid-amount">{{ 'bidAmount' | translate }} ${{ product.bidInfo.bidAmount }}</h8>
+    <h8 class="panel-title"><strong>{{ 'bidAmount' | translate }}</strong> ${{ product.bidInfo.bidAmount }}. <strong>{{ 'date' | translate }}</strong> {{ product.bidInfo.createdAt | date:'mediumDate'}}</h8>
   </div>
 </div>
