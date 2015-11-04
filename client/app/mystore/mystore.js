@@ -128,6 +128,8 @@ angular.module('shwop.mystore', [])
           break;
         }
       }
+      $scope.data.removedTags = [];
+      $scope.data.addedTags = [];
     });
   };
 

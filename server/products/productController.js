@@ -117,11 +117,16 @@ module.exports = {
       .spread(function () {
         var args = Array.prototype.slice.call(arguments);
         var productModel = args.pop();
-        var results = [];
+        var promises = [];
         for(var i = 0; i < args.length; i++) {
-          results.push(args[i][0]);
+          promises.push(
+            db.Product_Tag.create({
+              ProductId: productModel.id,
+              TagId: args[i][0].get('id')
+            })
+          );
         }
-        return productModel.setTags(results);
+        return Promise.all(promises);
       })
       .then(function () {
         next();
@@ -150,11 +155,12 @@ module.exports = {
         var productModel = args.pop();
         var promises = [];
         for(var i = 0; i < args.length; i++) {
+          console.log('args[i].get(\'id\') is', args[i].get('id'));
           promises.push(
             db.Product_Tag.destroy({
               where: {
                 ProductId: productModel.id,
-                TagId: args[i][0]
+                TagId: args[i].get('id')
               }
             })
           );
@@ -168,7 +174,7 @@ module.exports = {
         next(err);
       });
     } else {
-      next();
+      res.status(200).send('Item updated successfully');
     }
   },
 
