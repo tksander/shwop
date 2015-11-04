@@ -1,5 +1,6 @@
 var enUS = {
   // sidebar.html
+  "sidebarHeader": "Shwop Menu",
   "sidebarProducts": "Go Shwopping!",
   "sidebarWelcome": "Welcome",
   "sidebarSell": "Sell an Item",
@@ -19,20 +20,20 @@ var enUS = {
   "loginButton": "Log in",
 
   // client>app>auth>signup.html
-  "signinReturn": "Back To Sign In",  // LOOK INTO EMAIL PROMPT & PLACEHOLDER
+  "signinReturn": "Back To Sign In",
   "firstNameInput": "First Name",
   "firstNamePlaceholder": "Enter your first name here",
   "lastNameInput": "Last Name",
   "lastNamePlaceholder": "Enter your last name here",
   "phoneNumberInput": "Phone Number",
-  "phoneNumberPlaceholder": "Enter your number here",  // LOOK INTO PW & PW PLACEHOLDER & CANCEL & SUBMIT
+  "phoneNumberPlaceholder": "Enter your number here",
   "addressLine1Placeholder" : "Enter your address here",
   "addressLine2Placeholder" : "Enter your secondary address information here (if applicable)",
   "cityPlaceholder" : "Enter your city here",
   "statePlaceholder" : "Enter your state here",
   "zipPlaceholder" : "Enter your zip code here",
   "preciseLocationPlaceholder":"Use Precise Location",
-  "preciseLocationInfoPlaceholder": "Enter more information to set a more accurate default location for items you sell on shwop!",
+  "preciseLocationInfoPlaceholder": "Enter more information to set a more accurate default location for items you sell on Shwop!",
 
   // client>app>products>products.js
   "findingMessage": "We're finding you!",
@@ -57,7 +58,7 @@ var enUS = {
 
    // client>app>mybids>mybids.html
    "myBidsHeader": "My Bids",
-   "viewProductHeader": "View Item",
+   "viewProduct": "View Item",
    "updateProductHeader": "Update Item",
    "updateBid": "Update Bid",
    "cancelBid": "Cancel Bid",

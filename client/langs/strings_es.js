@@ -1,4 +1,14 @@
 var esES = {
+  // sidebar.html
+  "sidebarHeader": "Menú de Shwop",
+  "sidebarProducts": "¡A comprar!",
+  "sidebarWelcome": "Bienvenido",
+  "sidebarSell": "Vende un artículo",
+  "sidebarMyStore": "Mi tienda",
+  "sidebarMyBids": "Mis ofertas",
+  "sidebarProfile": "Perfil",
+
+  // client>app>auth>signin.html
   "signupPrompt": "¿No tienes cuenta? ¡Regístrate!",
   "emailPrompt": "Email",
   "emailPlaceholder": "Ingresa tu dirección",
@@ -8,14 +18,6 @@ var esES = {
   "submitButton": "Enviar",
   "signupButton": "Regístrate",
   "loginButton": "Acceso",
-
-  // sidebar.html
-  "sidebarProducts": "¡A comprar!",
-  "sidebarWelcome": "Bienvenido",
-  "sidebarSell": "Vende un artículo",
-  "sidebarMyStore": "Mi tienda",
-  "sidebarMyBids": "Mis ofertas",
-  "sidebarProfile": "Perfil",
 
   // client>app>auth>signup.html
   "signinReturn": "Regresa al Acceso",
@@ -31,7 +33,7 @@ var esES = {
   "statePlaceholder" : "Ingresa tu estado aquí",
   "zipPlaceholder" : "Ingresa tu código postal aquí",
   "preciseLocationPlaceholder":"Usa ubicación específica",
-  "preciseLocationInfoPlaceholder": "Ingresa más información para establecer una ubicación predeterminada más exacta para los artículos que vendes en ¡A Comprar!",
+  "preciseLocationInfoPlaceholder": "Ingresa más información para establecer una ubicación predeterminada más exacta para los artículos que vendes en Shwop!",
 
   // client>app>products>products.js
   "findingMessage": "¡Estamos en el proceso de localizarte!",
@@ -41,8 +43,8 @@ var esES = {
   // client>app>auth>welcome.html
   "menuTitle": "Menú",
   "logoutNav": "Cerrar sesión",
-  "welcomeHeader": "Bienvenido ¡A Comprar!",
-  "welcomeMessage": "¡Bienvenido ¡A Comprar! Usa los botones de navegación en el encabezado para empezar ¡A Comprar!",
+  "welcomeHeader": "¡Bienvenido a Shwop!",
+  "welcomeMessage": "¡Bienvenido a Shwop! Usa los botones de navegación en el encabezado para empezar ¡A Comprar!",
 
   // client>bidModal.html
   "bidTitle": "¡Haz una oferta!",
