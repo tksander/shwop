@@ -169,6 +169,7 @@ select:invalid option {
 .modal {
   overflow-y: auto; }
 
+<<<<<<< HEAD
 .shwopText {
   color: white; }
 
@@ -201,5 +202,12 @@ select:invalid option {
     font-size: 1vw; } }
 .container {
   text-align: center; }
+
+.right-align {
+  float: right; }
+
+.fake-link {
+  color: blue;
+  cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */

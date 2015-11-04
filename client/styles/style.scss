@@ -207,9 +207,10 @@ select:invalid option { color: black; }
 }
 
 .modal {
-    overflow-y:auto;
+  overflow-y:auto;
 }
 
+<<<<<<< HEAD
 .shwopText {
   color: white;
 }
@@ -251,4 +252,13 @@ select:invalid option { color: black; }
 
 .container {
   text-align: center;
+}
+
+.right-align {
+  float: right;
+}
+
+.fake-link {
+    color: blue;
+    cursor: pointer;
 }

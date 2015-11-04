@@ -63,16 +63,16 @@
             <label>{{ 'photoLabel' | translate }}</label>
             <div class='input-group'>
               <input type='file'
-                     fileread='productPhoto' 
+                     fileread='$parent.data.productPhoto' 
                      class='form-control'
                      placeholder='{{ "pricePlaceholder" | translate }}'
                      ng-disabled='!$parent.updateMode'>
               <span class ='input-group-btn'>
-                <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()' ng-disabled='!$parent.updateMode'>{{ 'uploadPhotoButton' | translate }}</button>
+                <button class='btn btn-default tag-button' type='button' ng-click='$parent.addPhoto()' ng-disabled='!$parent.updateMode'>{{ 'uploadPhotoButton' | translate }}</button>
               </span>
             </div>
-            <div ng-hide='product.photoURL === ""' class='tag'>
-              <div>{{ 'photoPreview' | translate }}</div>
+            <div ng-hide='$parent.data.updatedProduct.photoURL === ""' class='tag'>
+              <div><span>{{ 'photoPreview' | translate }}</span><span class='right-align fake-link' ng-click='$parent.removePhoto()' ng-show='$parent.updateMode'>X</span></div>
               <img ng-src='{{ $parent.data.updatedProduct.photoURL }}'>
             </div>
           </div>
@@ -89,7 +89,7 @@
           <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>
             {{ 'updateButton' | translate }}
           </button>
-          <button ui-turn-off='viewProductModal'  class="btn btn-danger btn-block" ng-show='!$parent.updateMode'>{{ 'closeButton' | translate }}</button>
+          <button ui-turn-off='viewProductModal'  class='btn btn-danger btn-block' ng-show='!$parent.updateMode'>{{ 'closeButton' | translate }}</button>
         </fieldset>
 
       </form>

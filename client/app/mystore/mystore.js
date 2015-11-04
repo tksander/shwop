@@ -1,6 +1,6 @@
 angular.module('shwop.mystore', [])
 
-.controller('MyStoreController', ['$scope', '$rootScope','$window', '$translate', 'Products', 'Auth', function ($scope, $rootScope, $window, $translate, Products, Auth) {
+.controller('MyStoreController', ['$scope', '$rootScope','$window', '$translate', 'Photos', 'Products', 'Auth', function ($scope, $rootScope, $window, $translate, Photos, Products, Auth) {
   $scope.data = {};
   $scope.data.currentProductId;
   $scope.data.currentProduct = {};
@@ -12,6 +12,8 @@ angular.module('shwop.mystore', [])
   $scope.data.removedTags = [];
   $scope.data.addedTags = [];
   $scope.data.tag = '';
+
+  $scope.data.productPhoto;
 
   $scope.categories = Products.categories;
   $scope.updateMode = false;
@@ -104,6 +106,19 @@ angular.module('shwop.mystore', [])
       $scope.data.updatedProduct.tags.push($scope.data.tag);
     }
     $scope.data.tag = '';
+  };
+
+  $scope.removePhoto = function () {
+    $scope.data.updatedProduct.photoURL = '';
+    console.log('photoURL is ', $scope.data.updatedProduct.photoURL);
+  };
+
+  $scope.addPhoto = function() {
+    $scope.filePath = '';
+    console.log('$scope.productPhoto is', $scope.data.productPhoto);
+    Photos.uploadPhoto($scope.data.productPhoto, function(url){
+      $scope.data.updatedProduct.photoURL = url;
+    }.bind($scope));
   };
 
   $scope.updateProduct = function () {
