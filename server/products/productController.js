@@ -178,47 +178,6 @@ module.exports = {
     }
   },
 
-  // update the product
-  // updateProduct: function (req, res, next) {
-  //   var promises = [];
-  //   var tagIds = [];
-  //   var productModel;
-
-  //   var updates = {};
-  //   if (req.body.product.name)     { updates.name     = req.body.product.name     ;}
-  //   if (req.body.product.photoURL) { updates.photoURL = req.body.product.photoURL ;}
-  //   if (req.body.product.price)    { updates.price    = req.body.product.price    ;}
-
-  //   promises.push(db.Product.update(updates, { where: { id: req.body.product.id }}));
-  //   for (var i = 0; i < req.body.addedTags.length; i++) {
-  //     promises.push(db.Tag.findOrCreate({ where: { tagName: req.body.addedTags[i]}}));
-  //   }
-  //   Promise.all(promises)
-  //   .spread(function () {
-  //     var args = Array.prototype.slice.call(arguments, 1);
-  //     for (var j = 0; j < args.length; j++) {
-  //       tagIds.push(args[j][0].get('id'));
-  //     }
-  //     return db.Product.findOne({ where: { id: req.body.product.id }})
-  //   .then(function (product) {
-  //     productModel = product;
-  //     return productModel.setTags(tagIds);
-  //   })
-  //   .then(function (results) {
-  //     var toRemovePromises = [];
-  //     console.log('results is ', results);
-  //     for (var k = 0; k < req.body.removedTags.length; k++) {
-  //       db.
-  //     } 
-  //   })
-
-  //     res.status(200).send('Update successful');
-  //   })
-  //   .catch(function (error) {
-  //     res.status(400).send('Error updating the product in database: ' + error);
-  //   });
-  // },
-
   // delete the product
   deleteProduct: function (req, res, next) {
     var productId = req.params.productId;
