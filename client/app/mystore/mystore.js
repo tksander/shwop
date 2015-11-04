@@ -59,7 +59,6 @@ angular.module('shwop.mystore', [])
       $scope.data.currentProduct.tags = tags.data.tags.slice();
       $scope.data.updatedProduct.tags = tags.data.tags.slice();
       $rootScope.Ui.turnOn('viewProductModal');
-      console.log('$scope.data.updatedProductCategory is ', $scope.data.updatedProductCategory);
     });
   };
 

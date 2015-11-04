@@ -50,7 +50,7 @@
                       ng-disabled='!$parent.updateMode'
                       >
                       <span class ='input-group-btn'>
-                        <button class='btn btn-default tag-button' type='button' ng-click='$parent.addTag()'>{{ 'addTagButton' | translate }}</button>
+                        <button class='btn btn-default tag-button' type='button' ng-click='$parent.addTag()' ng-disabled='!$parent.updateMode'>{{ 'addTagButton' | translate }}</button>
                       </span>
             </div>
             
@@ -68,7 +68,7 @@
                      placeholder='{{ "pricePlaceholder" | translate }}'
                      ng-disabled='!$parent.updateMode'>
               <span class ='input-group-btn'>
-                <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()'>{{ 'uploadPhotoButton' | translate }}</button>
+                <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()' ng-disabled='!$parent.updateMode'>{{ 'uploadPhotoButton' | translate }}</button>
               </span>
             </div>
             <div ng-hide='product.photoURL === ""' class='tag'>
