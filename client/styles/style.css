@@ -163,11 +163,10 @@ select:invalid option {
 .medText {
   font-size: 3vw; }
 
-.welcome-text {
+.welcome-padding {
   padding-top: 35vh; }
 
 .backshade {
-  display: inline-block;
   padding: 10px;
   border-radius: 10px;
   /* Fallback for web browsers that don't support RGBa */

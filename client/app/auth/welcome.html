@@ -1,25 +1,26 @@
-<div class='something' style='background-image: url(http://pre14.deviantart.net/f563/th/pre/f/2012/235/f/7/marrakesh_marketplace_by_wolfewolf-d5c69vj.jpg); background-size: cover'>
-<div class='scrollable-header'>
-  <nav class='navbar navbar-app navbar-relative-top'>
-    <strong class="navbar-brand-center navbar-brand">Shwop</strong>
-    <div class="btn-group pull-left">
-      <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
-        <i class="fa fa-bars"></i> {{ 'menuTitle' | translate }}
+<div style='background-image: url(http://pre14.deviantart.net/f563/th/pre/f/2012/235/f/7/marrakesh_marketplace_by_wolfewolf-d5c69vj.jpg); background-size: cover'>
+  <div class='scrollable-header'>
+    <nav class='navbar navbar-app navbar-relative-top'>
+      <strong class="navbar-brand-center navbar-brand">Shwop</strong>
+      <div class="btn-group pull-left">
+        <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
+          <i class="fa fa-bars"></i> {{ 'menuTitle' | translate }}
+        </div>
+      </div>
+      <div class='btn-group pull-right'>
+        <a ng-click='signout()' class='btn btn-navbar'>{{ 'logoutNav' | translate }}</a>
+      </div>
+    </nav>
+
+    <div class='container' style='width: 100vw; height: 100vh'>
+      <div class='welcome-padding'>
+      </div>
+
+      <div class='text-center backshade inline-element'>
+        <h1 class='shwopText bigText'>{{ 'welcomeHeader' | translate }}</h1>
+        <hr>
+        <p class='shwopText medText'>{{ 'welcomeMessage' | translate }}</p>
       </div>
     </div>
-    <div class='btn-group pull-right'>
-      <a ng-click='signout()' class='btn btn-navbar'>{{ 'logoutNav' | translate }}</a>
-    </div>
-  </nav>
-
-<div class='container' style='width: 100vw; height: 100vh'>
-  <div class='welcome-text'>
   </div>
-
-    <div class='text-center backshade'>
-      <h1 class='shwopText bigText'>{{ 'welcomeHeader' | translate }}</h1>
-      <hr>
-      <p class='shwopText medText'>{{ 'welcomeMessage' | translate }}</p>
-    </div>
-</div>
 </div>
