@@ -78,6 +78,7 @@ div {
 .carousel {
   padding: 20px;
   overflow: visible;
+  background-color: #9BD7EB !important;
 
   .item, .carousel-item {
     top: 0;
@@ -191,3 +192,45 @@ select:invalid option { color: black; }
     overflow-y:auto;
 }
 
+.shwopText {
+  color: white;
+}
+
+.bigText {
+  font-size: 8vw;
+}
+
+.medText {
+  font-size: 3vw;
+}
+
+.welcome-text {
+  padding-top: 35vh;
+}
+
+.backshade {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  /* Fallback for web browsers that don't support RGBa */
+  background-color: rgb(0, 0, 0);
+  /* RGBa with 0.6 opacity */
+  background-color: rgba(0, 0, 0, 0.6);
+  /* For IE 5.5 - 7*/
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+  /* For IE 8*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+@media (min-width: 992px) {
+  .bigText {
+    font-size:4vw;
+  }
+  .medText {
+    font-size: 1vw;
+  }
+}
+
+.container {
+  text-align: center;
+}
