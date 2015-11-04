@@ -121,6 +121,7 @@ var enUS = {
   "closeButton": "Close",
 
   //client>app>services>services.js
+  "allProducts": "All Products",
   "antiques": "Antiques",
   "appliances": "Appliances",
   "artsCrafts": "Arts, Crafts & Sewing",
