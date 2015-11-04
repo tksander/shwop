@@ -35,6 +35,11 @@ angular.module('shwop.products', [])
     $rootScope.Ui.turnOn('bidModal');
   }
 
+  $scope.showSearchModal = function(){
+    console.log("showing search modal");
+    $rootScope.Ui.turnOn('searchModal');
+  }
+
   $scope.data = {};
   var findingMessage = $translate.instant('findingMessage');
   $scope.data.location = findingMessage;

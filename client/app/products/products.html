@@ -21,6 +21,7 @@
     
     <label>Search: <input ng-model="searchText"></label>
     <button ng-click="submitSearch()">Search</button>
+    <button ng-click="showSearchModal()">SearchModal</button>
 
 
     <div class='btn-group pull-right collapsible'>
@@ -58,6 +59,7 @@
 
 <div ui-content-for="modals">
   <div ng-include="'bidModal.html'"></div>
+  <div ng-include="'searchModal.html'"></div>
 </div>
 
 <!-- style='background-image: url({{ product.photoURL }}); background-position: center; background-size: contain; background-repeat: no-repeat' -->
