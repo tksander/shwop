@@ -1,40 +1,43 @@
 <div class='scrollable'>
-  <div class='scrollable-header'>
-    <nav class='navbar navbar-app navbar-relative-top'>
-      <div class='btn-group justified'>
-        <a href='#/signup' class='btn btn-navbar active'>{{ 'signupPrompt' | translate }}</a>
-      </div>
-    </nav>
-  </div>
 
-  <div class='container scrollable-content section'>
-    <div class='row'>
-      <form class='form-horizontal col-md-5 col-centered' ng-submit='signin()'>
-        <div class='modal-body'>
-          <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label'>{{ 'emailPrompt' | translate }}</label>
-            <div class='col-sm-7'>
-              <input ng-model='user.email' type='email' class='form-control' placeholder='{{ "emailPlaceholder" | translate }}' required autofocus>
-            </div>
-          </div>
 
-          <div class='form-group sign-up-field'>
-            <label class='col-sm-4 control-label signin-label'>{{ 'passwordPrompt' | translate }}</label>
-            <div class='col-sm-7'>
-              <input ng-model='user.password' type='password' class='form-control' placeholder='{{ "passwordPlaceholder" | translate }}' required>
-            </div>
-          </div>
-
+  <div class='container scrollable-content section' style='background-image: url(https://upload.wikimedia.org/wikipedia/commons/9/9f/SF_Ferry_Building_interior_4.JPG); background-size: cover'>
+    <div class='backshade col-sm-6 col-centered'>
+    <strong class='bigText shwopText'>Shwop!</strong>
+      <form role='form' ng-submit='signin()'>
+      <fieldset>
+        <div class='form-group has-success has-feedback'>
+          <label class='shwopText'>{{ 'emailPrompt' | translate }}</label>
+          
+          <input type='email' 
+                 ng-model='user.email'
+                 class='form-control'
+                 placeholder='{{ "emailPlaceholder" | translate }}' 
+                 required 
+                 autofocus>
+          
         </div>
-
-        <div class='modal-footer'>
-          <div class='form-group'>
-            <div class='col-sm-offset-5 col-sm-6'>
-              <button type='button' ng-click='goToSignUp()' class='btn btn-info'>{{ 'signupButton' | translate }}</button>
-              <button type='submit' class='btn btn-primary'>{{ 'loginButton' | translate }}</button>
-            </div>
-          </div>
+        
+        <div class='form-group has-success has-feedback'>
+          <label class='shwopText'>{{ 'passwordPrompt' | translate }}</label>
+          <input type='password'
+                 ng-model='user.password'
+                 class='form-control' 
+                 type='password' 
+                 placeholder='{{ "passwordPlaceholder" | translate }}' 
+                 required>
         </div>
+        
+
+      <hr>
+
+        <button type='submit' class='btn btn-primary btn-block'>{{ 'loginButton' | translate }}</button>
+        <button type='button' ng-click='goToSignUp()' class='btn btn-info btn-block'>{{ 'signupPrompt' | translate }}</button>
+      
+      
+      
+
+      </fieldset>
       </form>
     </div>
   </div>
