@@ -331,6 +331,7 @@ angular.module('shwop.services', [])
   };
 
   return {
+    getPhotoAPIKeys: getPhotoAPIKeys,
     uploadPhoto: uploadPhoto
   };
 
