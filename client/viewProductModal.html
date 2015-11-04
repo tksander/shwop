@@ -43,14 +43,14 @@
             <label>{{ 'tagsLabel' | translate }}</label>
             <div class='input-group'>
                 <input type='text'
-                      ng-model='$parent.data.updatedProduct.newTags' 
+                      ng-model='$parent.data.tag' 
                       class='form-control'
                       placeholder='{{ "tagsPlaceholder" | translate }}'
-                      ng-enter='addTag()'
+                      ng-enter='$parent.addTag()'
                       ng-disabled='!$parent.updateMode'
                       >
                       <span class ='input-group-btn'>
-                        <button class='btn btn-default tag-button' type='button' ng-click='addTag()'>{{ 'addTagButton' | translate }}</button>
+                        <button class='btn btn-default tag-button' type='button' ng-click='$parent.addTag()'>{{ 'addTagButton' | translate }}</button>
                       </span>
             </div>
             

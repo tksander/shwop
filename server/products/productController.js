@@ -2,6 +2,8 @@ var db = require('../db/db_config.js');
 var util = require('../config/utils.js');
 var helpers = require('../db/helpers.js');
 var jwt  = require('jwt-simple');
+var Promise = require('bluebird');
+
 
 module.exports = {
 
@@ -80,23 +82,136 @@ module.exports = {
     }
   },
 
-  // update the product
+
   updateProduct: function (req, res, next) {
+    console.log('updating product');
     var updates = {};
     if (req.body.product.name)     { updates.name     = req.body.product.name     ;}
     if (req.body.product.photoURL) { updates.photoURL = req.body.product.photoURL ;}
     if (req.body.product.price)    { updates.price    = req.body.product.price    ;}
 
-    db.Product.update(updates, {
-      where: { id: req.body.product.id }
+    db.Product.update(updates, { 
+      where: { 
+        id: req.body.product.id
+      }
     })
-    .then(function () {
-      res.status(200).send('Update successful');
+    .then( function () {
+      next();
     })
-    .catch(function (error) {
-      res.status(400).send('Error updating the product in database: ' + error);
+    .catch( function (err) {
+      next(err);
     });
   },
+
+  addTags: function (req, res, next) {
+    console.log('adding tags:', req.body.addedTags);
+
+    if (req.body.addedTags.length > 0) {
+      var promiseModels = [];
+      for(var i = 0; i < req.body.addedTags.length; i++) {
+        promiseModels.push(db.Tag.findOrCreate({where: { tagName: req.body.addedTags[i] }}));
+      }
+      promiseModels.push(db.Product.findOne({where: {id: req.body.product.id }}));
+
+      Promise.all(promiseModels)
+      .spread(function () {
+        var args = Array.prototype.slice.call(arguments);
+        var productModel = args.pop();
+        var results = [];
+        for(var i = 0; i < args.length; i++) {
+          results.push(args[i][0]);
+        }
+        return productModel.setTags(results);
+      })
+      .then(function () {
+        next();
+      })
+      .catch(function (err) {
+        next(err);
+      });
+    } else {
+      next();
+    }
+  },
+
+  removeTags: function (req, res, next) {
+    console.log('removing tags:', req.body.removedTags);
+
+    if (req.body.removedTags.length > 0) {
+      var promiseModels = [];
+      for(var i = 0; i < req.body.removedTags.length; i++) {
+        promiseModels.push(db.Tag.find({where: { tagName: req.body.removedTags[i] }}));
+      }
+      promiseModels.push(db.Product.findOne({where: {id: req.body.product.id }}));
+
+      Promise.all(promiseModels)
+      .spread(function () {
+        var args = Array.prototype.slice.call(arguments);
+        var productModel = args.pop();
+        var promises = [];
+        for(var i = 0; i < args.length; i++) {
+          promises.push(
+            db.Product_Tag.destroy({
+              where: {
+                ProductId: productModel.id,
+                TagId: args[i][0]
+              }
+            })
+          );
+        }
+        return Promise.all(promises);
+      })
+      .then(function () {
+        res.status(200).send('Item updated succcessfully');
+      })
+      .catch(function (err) {
+        next(err);
+      });
+    } else {
+      next();
+    }
+  },
+
+  // update the product
+  // updateProduct: function (req, res, next) {
+  //   var promises = [];
+  //   var tagIds = [];
+  //   var productModel;
+
+  //   var updates = {};
+  //   if (req.body.product.name)     { updates.name     = req.body.product.name     ;}
+  //   if (req.body.product.photoURL) { updates.photoURL = req.body.product.photoURL ;}
+  //   if (req.body.product.price)    { updates.price    = req.body.product.price    ;}
+
+  //   promises.push(db.Product.update(updates, { where: { id: req.body.product.id }}));
+  //   for (var i = 0; i < req.body.addedTags.length; i++) {
+  //     promises.push(db.Tag.findOrCreate({ where: { tagName: req.body.addedTags[i]}}));
+  //   }
+  //   Promise.all(promises)
+  //   .spread(function () {
+  //     var args = Array.prototype.slice.call(arguments, 1);
+  //     for (var j = 0; j < args.length; j++) {
+  //       tagIds.push(args[j][0].get('id'));
+  //     }
+  //     return db.Product.findOne({ where: { id: req.body.product.id }})
+  //   .then(function (product) {
+  //     productModel = product;
+  //     return productModel.setTags(tagIds);
+  //   })
+  //   .then(function (results) {
+  //     var toRemovePromises = [];
+  //     console.log('results is ', results);
+  //     for (var k = 0; k < req.body.removedTags.length; k++) {
+  //       db.
+  //     } 
+  //   })
+
+  //     res.status(200).send('Update successful');
+  //   })
+  //   .catch(function (error) {
+  //     res.status(400).send('Error updating the product in database: ' + error);
+  //   });
+  // },
 
   // delete the product
   deleteProduct: function (req, res, next) {

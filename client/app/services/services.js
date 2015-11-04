@@ -89,12 +89,14 @@ angular.module('shwop.services', [])
     });
   };
 
-  var updateProduct = function (product) {
+  var updateProduct = function (product, addedTags, removedTags) {
     return $http({
       method: 'PUT',
       url: '/api/products/',
       data: {
-        product: product
+        product: product,
+        addedTags: addedTags,
+        removedTags: removedTags
       }
     });
   };

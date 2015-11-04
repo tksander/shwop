@@ -5,10 +5,14 @@ angular.module('shwop.mystore', [])
   $scope.data.currentProductId;
   $scope.data.currentProduct = {};
   $scope.data.currentProductCategory;
+
   $scope.data.updatedProduct = {};
   $scope.data.updatedProductCategory;
+
   $scope.data.removedTags = [];
   $scope.data.addedTags = [];
+  $scope.data.tag = '';
+
   $scope.categories = Products.categories;
   $scope.updateMode = false;
 
@@ -70,6 +74,7 @@ angular.module('shwop.mystore', [])
 
   $scope.cancelChanges = function () {
     $scope.updateMode = false;
+    $scope.data.tag = '';
     $('.tag').addClass('disabled-tag');
     $scope.data.updatedProduct = $.extend(true, {}, $scope.data.currentProduct);
   };
@@ -94,16 +99,24 @@ angular.module('shwop.mystore', [])
     }
   };
 
-  $scope.addTag = function (tag) {
-    $scope.data.addedTags.push(tag);
+  $scope.addTag = function () {
+    if ($scope.data.updatedProduct.tags.indexOf($scope.data.tag) === -1) {
+      $scope.data.addedTags.push($scope.data.tag);
+      $scope.data.updatedProduct.tags.push($scope.data.tag);
+    }
+    $scope.data.tag = '';
   };
 
   $scope.updateProduct = function () {
-    console.log('$scope.data.removedTags are ', $scope.data.removedTags);
+    if ($scope.data.updatedProductCategory !== $scope.data.currentProductCategory) {
+      $scope.data.removedTags.push($scope.data.currentProductCategory);
+      $scope.data.addedTags.push($scope.data.updatedProductCategory);
+      $scope.data.currentProductCategory = $scope.data.updatedProductCategory;
+    }
     $scope.updateMode = false;
     $('.tag').addClass('disabled-tag');
     $scope.data.currentProduct = $.extend(true, {}, $scope.data.updatedProduct);
-    Products.updateProduct($scope.data.updatedProduct)
+    Products.updateProduct($scope.data.updatedProduct, $scope.data.addedTags, $scope.data.removedTags)
     .then(function () {
       return $translate('productUpdateAlert');
     })
@@ -115,7 +128,6 @@ angular.module('shwop.mystore', [])
           break;
         }
       }
-      console.log($scope.data.products);
     });
   };
 

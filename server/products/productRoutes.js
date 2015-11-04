@@ -21,7 +21,7 @@ module.exports = function (app) {
   app.route('/')
     .get(userController.checkAuth, productController.allProducts)
     .post(userController.checkAuth, productController.newProduct)
-    .put(userController.checkAuth, productController.updateProduct);
+    .put(userController.checkAuth, productController.updateProduct, productController.addTags, productController.removeTags);
 
   app.delete('/:productId', userController.checkAuth, productController.deleteProduct);
 
