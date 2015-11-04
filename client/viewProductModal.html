@@ -30,12 +30,12 @@
 
           <div class='form-group has-success'>
             <label>{{ 'categoryLabel' | translate }}</label>
-            <select ng-model='$parent.data.updatedProduct.category'
+            <select ng-model='$parent.data.updatedProductCategory'
                    class='form-control'
                    ng-options='category.name as category.translation for category in categories'
                    ng-disabled='!$parent.updateMode'
                    >
-              <option value='' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
+              <option value='$parent.data.updatedProductCategory' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
             </select>
           </div>
 
@@ -43,18 +43,18 @@
             <label>{{ 'tagsLabel' | translate }}</label>
             <div class='input-group'>
                 <input type='text'
-                      ng-model='$parent.data.updatedProduct.newTags' 
+                      ng-model='$parent.data.tag' 
                       class='form-control'
                       placeholder='{{ "tagsPlaceholder" | translate }}'
-                      ng-enter='addTag()'
+                      ng-enter='$parent.addTag()'
                       ng-disabled='!$parent.updateMode'
                       >
                       <span class ='input-group-btn'>
-                        <button class='btn btn-default tag-button' type='button' ng-click='addTag()'>{{ 'addTagButton' | translate }}</button>
+                        <button class='btn btn-default tag-button' type='button' ng-click='$parent.addTag()' ng-disabled='!$parent.updateMode'>{{ 'addTagButton' | translate }}</button>
                       </span>
             </div>
             
-            <div  class='tag' ng-repeat='tag in $parent.data.updatedProduct.tags'>
+            <div class='tag disabled-tag' ng-repeat='tag in $parent.data.updatedProduct.tags'>
               <a ng-click='$parent.removeTag(tag)'>{{  tag.name || tag  }}</a>
             </div>
           </div>
@@ -63,16 +63,16 @@
             <label>{{ 'photoLabel' | translate }}</label>
             <div class='input-group'>
               <input type='file'
-                     fileread='productPhoto' 
+                     fileread='$parent.data.productPhoto' 
                      class='form-control'
                      placeholder='{{ "pricePlaceholder" | translate }}'
                      ng-disabled='!$parent.updateMode'>
               <span class ='input-group-btn'>
-                <button class='btn btn-default tag-button' type='button' ng-click='addPhoto()'>{{ 'uploadPhotoButton' | translate }}</button>
+                <button class='btn btn-default tag-button' type='button' ng-click='$parent.addPhoto()' ng-disabled='!$parent.updateMode'>{{ 'uploadPhotoButton' | translate }}</button>
               </span>
             </div>
-            <div ng-hide='product.photoURL === ""' class='tag'>
-              <div>{{ 'photoPreview' | translate }}</div>
+            <div ng-hide='$parent.data.updatedProduct.photoURL === ""' class='tag'>
+              <div><span>{{ 'photoPreview' | translate }}</span><span class='right-align fake-link' ng-click='$parent.removePhoto()' ng-show='$parent.updateMode'>X</span></div>
               <img ng-src='{{ $parent.data.updatedProduct.photoURL }}'>
             </div>
           </div>
@@ -89,7 +89,7 @@
           <button class='btn btn-primary btn-block' ng-click='$parent.updateProductMode()' ng-show='!$parent.updateMode'>
             {{ 'updateButton' | translate }}
           </button>
-          <button ui-turn-off='viewProductModal'  class="btn btn-danger btn-block" ng-show='!$parent.updateMode'>{{ 'closeButton' | translate }}</button>
+          <button ui-turn-off='viewProductModal'  class='btn btn-danger btn-block' ng-show='!$parent.updateMode'>{{ 'closeButton' | translate }}</button>
         </fieldset>
 
       </form>

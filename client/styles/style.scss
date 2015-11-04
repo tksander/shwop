@@ -159,6 +159,10 @@ div {
   color:blue;
 }
 
+.disabled-tag {
+   pointer-events: none;
+   cursor: default;
+}
 
 .tag-button{
   border:1px solid black;
@@ -203,7 +207,7 @@ select:invalid option { color: black; }
 }
 
 .modal {
-    overflow-y:auto;
+  overflow-y:auto;
 }
 
 .shwopText {
@@ -247,4 +251,13 @@ select:invalid option { color: black; }
 
 .container {
   text-align: center;
+}
+
+.right-align {
+  float: right;
+}
+
+.fake-link {
+    color: blue;
+    cursor: pointer;
 }

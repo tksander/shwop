@@ -89,12 +89,14 @@ angular.module('shwop.services', [])
     });
   };
 
-  var updateProduct = function (product) {
+  var updateProduct = function (product, addedTags, removedTags) {
     return $http({
       method: 'PUT',
       url: '/api/products/',
       data: {
-        product: product
+        product: product,
+        addedTags: addedTags,
+        removedTags: removedTags
       }
     });
   };
@@ -127,6 +129,16 @@ angular.module('shwop.services', [])
       method: 'GET',
       url: '/api/products/tags/' + productId
     });
+  };
+
+  var splitCategoryFromTags = function (tags) {
+    for (var i = 0; i < tags.length; i++) {
+      for (var j = 0; j < categories.length; j++) {
+        if (tags[i] === categories[j].name) {
+          return tags.splice(i, 1)[0];
+        }
+      }
+    }
   };
 
   // var getLocation = function () {
@@ -208,6 +220,7 @@ angular.module('shwop.services', [])
     updateProduct: updateProduct,
     getDistance: getDistance,
     getTags: getTags,
+    splitCategoryFromTags: splitCategoryFromTags,
     categories: categories
   };
 

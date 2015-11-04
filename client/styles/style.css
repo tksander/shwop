@@ -125,6 +125,10 @@ div .padded-all {
   margin-top: 5px;
   color: blue; }
 
+.disabled-tag {
+  pointer-events: none;
+  cursor: default; }
+
 .tag-button {
   border: 1px solid black;
   height: 33.9931px; }
@@ -197,5 +201,12 @@ select:invalid option {
     font-size: 1vw; } }
 .container {
   text-align: center; }
+
+.right-align {
+  float: right; }
+
+.fake-link {
+  color: blue;
+  cursor: pointer; }
 
 /*# sourceMappingURL=style.css.map */
