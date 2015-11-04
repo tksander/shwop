@@ -72,22 +72,33 @@ div {
 .product-image {
   text-align: center;
   border: 5px solid black;
+  border-radius: 3px;
   max-height:40vh;
 }
 
 .product-price {
   text-align: center;
   color: green;
-  font-size: 40px;
-  -webkit-text-stroke: 2px yellow;
+  font-size: 5vh;
+  
 }
 
 .product-name {
   text-align: center;
   color: #007AFF;
-  font-size: 50px;
-};
+  font-size: 7vh;
+}
 
+.product-name-div {
+  max-height: 13vh;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+.product-location {
+  font-size: 4vh;
+}
 
 .carousel {
   padding: 20px;
@@ -100,10 +111,11 @@ div {
     position: absolute;
     display: block;
     width: 100%;
-    height: 80%;
+    height: 60%;
     background-size: cover;
-    padding: 20px;
-    min-height:400px;
+    padding: 10px;
+    padding-top: 0px;
+    min-height:80vh;
   };
 }
 
@@ -121,6 +133,8 @@ div {
   -moz-transition: opacity 0.3s;
   transition: opacity 0.3s;
   opacity: 1;
+  border: 10px solid #BFBFBF;
+  border-radius: 20px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -227,13 +241,25 @@ select:invalid option { color: black; }
 }
 
 .backshade {
-  
   padding: 10px;
   border-radius: 10px;
   /* Fallback for web browsers that don't support RGBa */
   background-color: rgb(0, 0, 0);
   /* RGBa with 0.6 opacity */
   background-color: rgba(0, 0, 0, 0.6);
+  /* For IE 5.5 - 7*/
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+  /* For IE 8*/
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+}
+
+.product-card-info {
+  margin-top: 10px;
+  border-radius: 10px;
+  /* Fallback for web browsers that don't support RGBa */
+  background-color: rgb(0, 0, 0);
+  /* RGBa with 0.6 opacity */
+  background-color: rgba(191, 191, 191, 1);
   /* For IE 5.5 - 7*/
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
   /* For IE 8*/
@@ -248,6 +274,7 @@ select:invalid option { color: black; }
     font-size: 1vw;
   }
 }
+
 
 .container {
   text-align: center;
