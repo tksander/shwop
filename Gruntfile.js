@@ -86,7 +86,7 @@ module.exports = function(grunt) {
             'client/lib/angular-mocks/angular-mocks.js',
             'client/app/**/*.js',
             'client/langs/*.js',
-            'test/client/*.js'
+            'test/client/unit_testing/**/*.js'
           ]
         }
       }
