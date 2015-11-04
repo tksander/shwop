@@ -34,15 +34,23 @@
 <div class="carousel" style='background-image: url(http://pre14.deviantart.net/f563/th/pre/f/2012/235/f/7/marrakesh_marketplace_by_wolfewolf-d5c69vj.jpg); background-size: cover'>
   <div class="carousel-inner">
     <div class="carousel-item" ng-repeat= 'product in data.products.slice(0,3) | filter:search'>
-      
-        <div class='product-name-div'><strong class='product-name '>{{ product.name }}</strong></div>
-        <img ng-src='{{ product.photoURL }}' class='product-image'></img>
-          <div class='product-card-info'>
-          <div class='product-price'><strong>${{ product.price }}</strong></div>
-          <div >
-            <i class="fa fa-map-marker product-location"></i><span class='product-location'> {{ data.location }}</span>
-          </div>
+
+      <div ng-if="!lastCard">
+      <div class='product-name-div'><strong class='product-name '>{{ product.name }}</strong></div>
+      <img ng-src='{{ product.photoURL }}' class='product-image'></img>
+        <div class='product-card-info'>
+        <div class='product-price'><strong>${{ product.price }}</strong></div>
+        <div >
+          <i class="fa fa-map-marker product-location"></i><span class='product-location'> {{ data.location }}</span>
         </div>
+      </div>
+
+      <div ng-if="lastCard">
+        <div ><span>O,snap! Looks like you've swiped through all of the items. Click below or enter a new search to continue shwopping! </span></div>
+      <div ng-if="searchSubmitted">
+        <button ng-click="refreshProductSet()">See Previous Search Items</button>
+      </div>
+        <button ng-click="getAllProducts()">See All Items</button>
       </div>
     </div>
   </div>
