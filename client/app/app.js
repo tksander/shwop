@@ -12,6 +12,11 @@ angular.module('shwop', [
   'pascalprecht.translate',
   'ngRoute'
 ])
+.controller('SidebarController', ['$scope', '$translate', function ($scope, $translate) {
+  $scope.toggleLanguage = function (lang) {
+    $translate.use(lang);
+  };
+}])
 .config(['$routeProvider', '$httpProvider', '$translateProvider', function ($routeProvider, $httpProvider, $translateProvider) {
   $routeProvider
     .when('/', {

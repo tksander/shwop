@@ -40,7 +40,7 @@ var esES = {
 
   // client>app>auth>welcome.html
   "menuTitle": "Menú",
-  "logoutNav": "Cerrar la sesión",
+  "logoutNav": "Cerrar sesión",
   "welcomeHeader": "Bienvenido ¡A Comprar!",
   "welcomeMessage": "¡Bienvenido ¡A Comprar! Usa los botones de navegación en el encabezado para empezar ¡A Comprar!",
 
