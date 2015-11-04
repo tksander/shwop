@@ -1,6 +1,5 @@
 <div class="scrollable" ng-controller="SidebarController">
   <h1 class="scrollable-header app-name">Shwop Menu</h1>
-  <h1>{{ stringTest }}</h1>
   <div class="scrollable-content">
     <div class="list-group" ui-turn-off='uiSidebarLeft'>
       <a class="list-group-item" href="#/products">{{ 'sidebarProducts' | translate }} <i class="fa fa-chevron-right pull-right"></i></a>
@@ -10,8 +9,8 @@
       <a class="list-group-item" href="#/mybids">{{ 'sidebarMyBids' | translate }}<i class="fa fa-chevron-right pull-right"></i></a>
       <a class="list-group-item" href="#/profile">{{ 'sidebarProfile' | translate }}<i class="fa fa-chevron-right pull-right"></i></a>
       <div class="langButtons">
-        <a class="lang" id="english" alt="english" ng-click="toggleLanguage('en')"><img src="../../assets/images/UnitedStates_small.png" alt="English" /></a>
-        <a class="lang" id="spanish" alt="spanish" ng-click="toggleLanguage('es')"><img src="../../assets/images/Spain_small.png" alt="Spanish" /></a>
+        <a class="lang" id="english" alt="english" ng-click="toggleLanguage('en')">English</a><span class="lang"> | <span>
+        <a class="lang" id="spanish" alt="spanish" ng-click="toggleLanguage('es')">Español</a>
       </div>
     </div>
   </div>

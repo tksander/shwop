@@ -61,6 +61,7 @@ var enUS = {
    "updateProductHeader": "Update Item",
    "updateBid": "Update Bid",
    "cancelBid": "Cancel Bid",
+   "bidAmount": "Your bid: ",
 
    // client>app>mybids>mybids.js
    "cancelBidVerification": "Are you sure you want to cancel this bid?",
