@@ -60,6 +60,8 @@ var esES = {
   "updateProductHeader": "Actualizar artículo",
   "updateBid": "Actualizar oferta",
   "cancelBid": "Cancelar oferta",
+  "bidAmount": "Oferta: ",
+  "date": "Fecha: ",
 
   // client>app>mybids>mybids.js
   "cancelBidVerification": "¿Estás seguro que quieres cancelar esta oferta?",

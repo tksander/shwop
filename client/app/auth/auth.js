@@ -2,9 +2,13 @@
 // in our signup/signin forms using the injected Auth service
 angular.module('shwop.auth', [])
 
-.controller('AuthController', ['$scope', '$window', '$location', 'Auth', function ($scope, $window, $location, Auth) {
+.controller('AuthController', ['$scope', '$window', '$location', '$translate', 'Auth', function ($scope, $window, $location, $translate, Auth) {
   $scope.user = {};
   $scope.preciseLocation = false;
+
+  $scope.toggleLanguage = function (lang) {
+    $translate.use(lang);
+  };
 
   $scope.signin = function () {
     Auth.signin($scope.user)
