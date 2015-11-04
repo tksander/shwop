@@ -6,6 +6,8 @@ angular.module('shwop.products', [])
   $scope.product = {};
   $scope.product.category = null;
   $scope.searchText = null;
+  $scope.lastCard = false;
+  $scope.searchSubmitted = false;
 
   $scope.signout = function() {
     Auth.signout();
@@ -39,12 +41,19 @@ angular.module('shwop.products', [])
 
   // Calls factory method that returns all product info from DB and renders it.
   $scope.getAllProducts = function (callback) {
+    $scope.searchSubmitted = false;
+    $scope.lastCard = false;
     // This hacky callback is to allow the location function to be called after we get all the products
     callback = callback || function(){};
 
     Products.getAllProducts()
     .then(function (promise) {
       $scope.data.products = promise.data.products;
+
+      // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
+      $scope.data.products.push({alertCard: 'alertCard'});
+
+
       Products.setCurrentProduct($scope.data.products[0]);
 
       // Only run this if we do not already have the bidder location information
@@ -67,21 +76,37 @@ angular.module('shwop.products', [])
 
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
+    $scope.lastCard = false;
+    $scope.searchSubmitted = true;
+    
+    if($scope.searchText === "") {
+      $scope.searchText = null;
+    }
+
     var tagsString = $scope.searchText + "+" + $scope.product.category;
 
     Products.getProductsByTag(tagsString)
       .then(function (promise) {
         console.log("promise.categoryOnly", promise.data.categoryOnly);
         if(promise.data === '') {
+
           alert("Sorry, no results matched your search. Please try again or keep shwoping!")
+
         } else if(promise.data.categoryOnly) {
+
           alert("We were unable to find results matching \"" + $scope.searchText + 
                 "\". Showing results for \"" + $scope.product.category + "\". Happy shwopping!");
+
           $scope.data.products = promise.data.products;
           Products.setCurrentProduct($scope.data.products[0]);
+          // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
+          $scope.data.products.push({alertCard: 'alertCard'});
+
         } else {
           $scope.data.products = promise.data.products;
           Products.setCurrentProduct($scope.data.products[0]);
+          // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
+          $scope.data.products.push({alertCard: 'alertCard'});
         }
       })
       .catch(function (error) {
@@ -132,6 +157,12 @@ angular.module('shwop.products', [])
     })
   };
 
+  $scope.refreshProductSet = function() {
+    console.log("refreshing product set");
+    $scope.lastCard = false;
+    $scope.submitSearch();
+  };
+
 
 
   $scope.getAllProducts();
@@ -149,6 +180,12 @@ angular.module('shwop.products', [])
         if (event.keyCode === 37) {
           if ($scope.data.products.length > 1){
             $scope.data.products.shift();
+
+            if($scope.data.products.length === 1) {
+              console.log("last card");
+              $scope.lastCard = true;
+            }
+
             Products.setCurrentProduct($scope.data.products[0]);
 
             // This section gets the location for the next product in the stack
@@ -167,7 +204,7 @@ angular.module('shwop.products', [])
              var distanceUnits = $translate.instant('distanceUnits');
              $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
             })
-          } else {
+          } /* else {
             $scope.data.products.shift();
             
             // Gets all products if at the bottom of the stack, 
@@ -188,7 +225,7 @@ angular.module('shwop.products', [])
                 $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
               })
             });
-          }
+          } */
         } else if (event.keyCode === 39) {
             $scope.showModal();
         }
@@ -210,6 +247,12 @@ angular.module('shwop.products', [])
         if ($scope.data.products.length > 1){
           console.log('popping first product');
           $scope.data.products.shift();
+
+          if($scope.data.products.length === 1) {
+              console.log("last card");
+              $scope.lastCard = true;
+          }
+
           Products.setCurrentProduct($scope.data.products[0]);
           console.log(Products.getCurrentProduct());
 
@@ -232,7 +275,7 @@ angular.module('shwop.products', [])
           })
 
 
-        } else {
+        } /* else {
           $scope.data.products.shift();
 
           // Gets all products if at the bottom of the stack, 
@@ -253,7 +296,8 @@ angular.module('shwop.products', [])
               $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
             })
           });
-        }
+        } */
+
       };
 
       this.bid = function(){

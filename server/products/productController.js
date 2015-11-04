@@ -53,13 +53,14 @@ module.exports = {
     // Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag
     var tags = req.params.tags.split('+');
     var inputTags = [];
-    // Saving this variable to alert user if we only found a category tag and not their 
+    // Saving these tags variables to alert user if we only found a category tag and not their 
     // Input tags in the database as well
     var categoryTag = tags[1];
+    var inputTag = tags[0];
     var foundOnlyCategoryResults = false;
 
     // Splits the Input Tag into separate words. This allows for search by each word entered into the search query. 
-    // E.g., "Search: Brown cow" -> ["Brown", "cow"],
+    // E.g., "Search: Brown cow" -> ["Brown", "cow"]
     if(tags[0] !== "null") {
       var inputTags = tags[0].split(" ");
     }
@@ -83,9 +84,10 @@ module.exports = {
         res.status(200).send(null);
       } 
 
-      // This works because we ever find a tag that matches the Search Input 
+      // This works because if we ever find a tag that matches the Search Input 
       // that tag will be a lower index than the categoryTag
-      if(tags[0].dataValues.tagName === categoryTag) {
+      if(tags[0].dataValues.tagName === categoryTag && inputTag !== 'null') {
+        console.log("TOGGLING found category results")
         foundOnlyCategoryResults = true;
       }
 

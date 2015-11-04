@@ -34,13 +34,18 @@
 <div class="carousel">
   <div class="carousel-inner">
     <div class="carousel-item" ng-repeat= 'product in data.products.slice(0,3) | filter:search'>
-      <div>
+      <div ng-if="!lastCard">
         <div class='product-name'><span>{{ product.name }}</span></div>
         <img ng-src='{{ product.photoURL }}' class='product-image'></img>
         <div class='product-price'><strong>${{ product.price }}</strong></div>
-        <div >
-          <i class="fa fa-map-marker fa-2x"></i>   {{ data.location }}
-        </div>
+        <div ><i class="fa fa-map-marker fa-2x"></i>   {{ data.location }}</div>
+      </div>
+      <div ng-if="lastCard">
+        <div ><span>O,snap! Looks like you've swiped through all of the items. Click below or enter a new search to continue shwopping! </span></div>
+      <div ng-if="searchSubmitted">
+        <button ng-click="refreshProductSet()">See Previous Search Items</button>
+      </div>
+        <button ng-click="getAllProducts()">See All Items</button>
       </div>
     </div>
   </div>
