@@ -21,35 +21,6 @@ module.exports = {
     });
   },
 
-  // productsByTags: function (req, res, next) {
-  //   //query to find products by tags
-  //   var tags = req.params.tags.split('+');
-  //   // Category tag will always be inserted at end of tags array
-  //   var categoryTag = tags.pop();
-  //   var categoryProducts;
-  //   console.log(categoryTag);
-
-  //   // Get all associated products by Category tag
-  //   db.Tag.findOne({where: {tagName: categoryTag}})
-  //   .then(function (tag) {
-  //     if(tag === null) {
-  //       res.status(400).send('We could not find a tag in the database.');
-  //     }
-  //     return tag.getProducts();
-  //   })
-  //   .then(function (associatedProducts) {
-  //     if(associatedProducts === null) {
-  //       // Not sure if this is the correct error. Leaving in for future testing purposes. 
-  //       res.status(400).send('We could not find the associated tags in the database.');
-  //     }
-  //     categoryProducts = associatedProducts;
-  //     res.send({products: associatedProducts});
-  //   })
-  //   .catch(function (error) {
-  //     return next(error);
-  //   });
-  // },
-
    productsByTags: function (req, res, next) {
     // Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag
     var tags = req.params.tags.split('+');

@@ -76,42 +76,50 @@ angular.module('shwop.products', [])
 
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
-    $scope.lastCard = false;
-    $scope.searchSubmitted = true;
-    
-    if($scope.searchText === "") {
-      $scope.searchText = null;
-    }
+    console.log('$scope.searchText', $scope.searchText)
+    console.log('$scope.product.category', $scope.product.category)
+    if(($scope.searchText === null || $scope.searchText === "")  && $scope.product.category === "All Products") {
+      console.log('if')
+      $scope.getAllProducts();
+    } else {
+      console.log("else");
+        $scope.lastCard = false;
+        $scope.searchSubmitted = true;
 
-    var tagsString = $scope.searchText + "+" + $scope.product.category;
-
-    Products.getProductsByTag(tagsString)
-      .then(function (promise) {
-        console.log("promise.categoryOnly", promise.data.categoryOnly);
-        if(promise.data === '') {
-
-          alert("Sorry, no results matched your search. Please try again or keep shwoping!")
-
-        } else if(promise.data.categoryOnly) {
-
-          alert("We were unable to find results matching \"" + $scope.searchText + 
-                "\". Showing results for \"" + $scope.product.category + "\". Happy shwopping!");
-
-          $scope.data.products = promise.data.products;
-          Products.setCurrentProduct($scope.data.products[0]);
-          // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
-          $scope.data.products.push({alertCard: 'alertCard'});
-
-        } else {
-          $scope.data.products = promise.data.products;
-          Products.setCurrentProduct($scope.data.products[0]);
-          // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
-          $scope.data.products.push({alertCard: 'alertCard'});
+        if($scope.searchText === "") {
+          $scope.searchText = null;
         }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+        var tagsString = $scope.searchText + "+" + $scope.product.category;
+
+        Products.getProductsByTag(tagsString)
+          .then(function (promise) {
+            console.log("promise.categoryOnly", promise.data.categoryOnly);
+            if(promise.data === '') {
+
+              alert("Sorry, no results matched your search. Please try again or keep shwoping!")
+
+            } else if(promise.data.categoryOnly) {
+
+              alert("We were unable to find results matching \"" + $scope.searchText + 
+                    "\". Showing results for \"" + $scope.product.category + "\". Happy shwopping!");
+
+              $scope.data.products = promise.data.products;
+              Products.setCurrentProduct($scope.data.products[0]);
+              // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
+              $scope.data.products.push({alertCard: 'alertCard'});
+
+            } else {
+              $scope.data.products = promise.data.products;
+              Products.setCurrentProduct($scope.data.products[0]);
+              // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
+              $scope.data.products.push({alertCard: 'alertCard'});
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
   };
 
   var getBidderLocation = function (callback) {
