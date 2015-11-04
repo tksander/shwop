@@ -53,6 +53,10 @@ module.exports = {
     // Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag
     var tags = req.params.tags.split('+');
     var inputTags = [];
+    // Saving this variable to alert user if we only found a category tag and not their 
+    // Input tags in the database as well
+    var categoryTag = tags[1];
+    var foundOnlyCategoryResults = false;
 
     // Splits the Input Tag into separate words. This allows for search by each word entered into the search query. 
     // E.g., "Search: Brown cow" -> ["Brown", "cow"],
@@ -61,7 +65,7 @@ module.exports = {
     }
 
     // Add the Category Tag to the array of tags to be searched/compared
-    if(tags[1] !== 'null') {
+    if(tags[1] !== 'null' && tags[1] !== "All Products") {
       inputTags.push(tags[1]);
     }
 
@@ -72,14 +76,18 @@ module.exports = {
 
     Promise.all(tagPromises)
     .then(function (tags) {
-      console.log("Tags should equal null", tags.length);
-      if(tags[0].length === 0) {
-        res.status(200).send(null);
-      } 
-
       // Flattens the returned array of arrays into one array of objects
       tags = _.flatten(tags);
-      console.log("Tags after promise.all", tags);
+      console.log("Tags: ", tags[0].dataValues.tagName);
+
+      if(tags[0].dataValues.tagName === categoryTag) {
+        console.log("we found a:  ", tags[0].dataValues.tagName);
+        foundOnlyCategoryResults = true;
+      }
+
+      if(tags.length === 0) {
+        res.status(200).send(null);
+      } 
 
       // Create an array of tagIds from the tags result
       var tagIds = _.map(tags, function(tags) {
@@ -96,21 +104,20 @@ module.exports = {
 
         // Flattens the returned array of arrays into one array of objects
         productTags = _.flatten(productTags);
-        console.log(productTags);
 
         var productIdArray = helpers.maxProductId(productTags);   
-        console.log("productIdArray  ", productIdArray);
 
         var productPromises = _.map(productIdArray, function (productId) {
           return db.Product.findAll({where: {id: productId}});
         })
-        console.log("product promises", productPromises);
 
         Promise.all(productPromises)
         .then(function (products) {
           products = _.flatten(products);
-          console.log("Final products!", products[0].dataValues);
-          res.status(200).send({products: products});
+          res.status(200).send({
+            products: products,
+            categoryOnly: foundOnlyCategoryResults
+          });
         })
         .catch(function (error) {
           console.log(error);

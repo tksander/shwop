@@ -115,6 +115,7 @@ var esES = {
   "closeButton": "Cerrar",
 
   //client>app>services>services.js
+  "allProducts": "All Products",
   "antiques": "Antigüedades",
   "appliances": "Electrodomésticos",
   "artsCrafts": "Artes, artesanías y costura",

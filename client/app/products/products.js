@@ -67,18 +67,21 @@ angular.module('shwop.products', [])
 
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
-    console.log("Search text  ", $scope.searchText);
-    console.log("Category  ", $scope.product.category);
     var tagsString = $scope.searchText + "+" + $scope.product.category;
     console.log('tagsString  ', tagsString);
 
     Products.getProductsByTag(tagsString)
       .then(function (promise) {
+        console.log("promise.categoryOnly", promise.data.categoryOnly);
         if(promise.data === '') {
           console.log("No products!")
           alert("Sorry, no results matched your search. Please try again or keep shwoping!")
+        } else if(promise.data.categoryOnly) {
+          alert("We were unable to find results matching \"" + $scope.searchText + 
+                "\". Showing results for \"" + $scope.product.category + "\". Happy shwopping!");
+          $scope.data.products = promise.data.products;
+          Products.setCurrentProduct($scope.data.products[0]);
         } else {
-          console.log("Promise", promise);
           $scope.data.products = promise.data.products;
           Products.setCurrentProduct($scope.data.products[0]);
         }
