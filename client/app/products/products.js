@@ -52,7 +52,6 @@ angular.module('shwop.products', [])
         getProductLocation();
       }
       if($scope.searchSubmitted) {
-        console.log("we know a search was submitted")
         // Clear the form
         $scope.product.category = null;
         $scope.product.searchText = null;
@@ -71,6 +70,7 @@ angular.module('shwop.products', [])
   $scope.submitSearch = function () {
     $scope.searchSubmitted = true;
 
+    // Allows for optional arguments if user would like to re-submit previous search
     var args = Array.prototype.slice.call(arguments);
     if(args.length > 0) {
       $scope.product.searchText = args[0];
@@ -97,7 +97,7 @@ angular.module('shwop.products', [])
             if(promise.data === '') {
               alert("Sorry, no results matched your search. Please try again or keep shwoping!")
               $rootScope.Ui.turnOff('searchModal');
-            } else if(promise.data.categoryOnly) {
+            } else if(promise.data.categoryOnly) { // If Category input returns results but Search Input DOES NOT return results
 
               $scope.data.products = promise.data.products;
               Products.setCurrentProduct($scope.data.products[0]);
@@ -106,6 +106,7 @@ angular.module('shwop.products', [])
               $scope.data.products.push({alertCard: 'alertCard'});
               $rootScope.Ui.turnOff('searchModal');
 
+              // Stores previous search in case user re-submits previous search
               previousSearchText = $scope.product.searchText;
               previousProductCategory = $scope.product.category;
 
@@ -123,6 +124,7 @@ angular.module('shwop.products', [])
               $scope.data.products.push({alertCard: 'alertCard'});
               $rootScope.Ui.turnOff('searchModal');
 
+              // Stores previous search in case user re-submits previous search
               previousSearchText = $scope.product.searchText;
               previousProductCategory = $scope.product.category;
 
@@ -182,8 +184,6 @@ angular.module('shwop.products', [])
   };
 
   $scope.refreshProductSet = function() {
-    console.log('previousSearchText', previousSearchText);
-    console.log('previousProductCategory', previousProductCategory);
     $scope.lastCard = false;
     $scope.submitSearch(previousSearchText, previousProductCategory);
   };
@@ -208,7 +208,6 @@ angular.module('shwop.products', [])
             $scope.data.products.shift();
 
             if($scope.data.products.length === 1) {
-              console.log("last card");
               $scope.lastCard = true;
             }
 
@@ -230,28 +229,7 @@ angular.module('shwop.products', [])
              var distanceUnits = $translate.instant('distanceUnits');
              $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
             })
-          } /* else {
-            $scope.data.products.shift();
-            
-            // Gets all products if at the bottom of the stack, 
-            // then gets the location for the product at the top of the refreshed stack
-            $scope.getAllProducts(function () {
-                var currentProduct = $scope.data.products[0];
-                var userId = currentProduct.UserId;
-
-              // get the location of the user associated to the product
-              Users.getUserLocation(userId)
-              .then(function (user) {
-                var productLat = user.data.userInfo.latitude;
-                var productLong = user.data.userInfo.longitude;
-
-                var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-                var distanceDisplay = $translate.instant('distanceDisplay');
-                var distanceUnits = $translate.instant('distanceUnits');
-                $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
-              })
-            });
-          } */
+          }
         } else if (event.keyCode === 39) {
             $scope.showModal();
         }
@@ -271,11 +249,9 @@ angular.module('shwop.products', [])
         this.activeItem = this.activeItem === this.itemCount - 1 ? 0 : this.activeItem + 1;
         
         if ($scope.data.products.length > 1){
-          console.log('popping first product');
           $scope.data.products.shift();
 
           if($scope.data.products.length === 1) {
-              console.log("last card");
               $scope.lastCard = true;
           }
 
@@ -299,31 +275,7 @@ angular.module('shwop.products', [])
             var distanceUnits = $translate.instant('distanceUnits');
             $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
           })
-
-
-        } /* else {
-          $scope.data.products.shift();
-
-          // Gets all products if at the bottom of the stack, 
-          // then gets the location for the product at the top of the refreshed stack
-          $scope.getAllProducts(function () {
-              var currentProduct = $scope.data.products[0];
-              var userId = currentProduct.UserId;
-
-            // get the location of the user associated to the product
-            Users.getUserLocation(userId)
-            .then(function (user) {
-              var productLat = user.data.userInfo.latitude;
-              var productLong = user.data.userInfo.longitude;
-
-              var distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-              var distanceDisplay = $translate.instant('distanceDisplay');
-              var distanceUnits = $translate.instant('distanceUnits');
-              $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
-            })
-          });
-        } */
-
+        } 
       };
 
       this.bid = function(){
