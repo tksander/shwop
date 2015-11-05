@@ -6,10 +6,10 @@
       <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
         <i class="fa fa-bars"></i> {{ 'menuTitle' | translate }}
       </div>
+        <i  ng-click="showSearchModal()" class="btn btn-navbar fa fa-search fa-2x"></i>
     </div>
 
     <div class='btn-group pull-right collapsible'>
-      <i  ng-click="showSearchModal()" class="btn btn-navbar fa fa-search fa-2x"></i>
       <a ng-click='signout()' class='btn btn-navbar'>{{ 'logoutNav' | translate }}</a>
     </div>
 
