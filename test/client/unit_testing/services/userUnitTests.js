@@ -22,7 +22,7 @@ describe('Users Service', function() {
 
   beforeEach(angular.mock.module('shwop'));
   beforeEach(inject(function($injector) {
-    Products = $injector.get('Users');
+    Users = $injector.get('Users');
   }));
 
 
@@ -49,14 +49,19 @@ describe('Users Service', function() {
 
   it('Should post correct data to /api/users when addUser is called', function() {
     backend.expectPOST('/api/users', exampleUser).respond(200,'');
-    Users.addUser(exampleProduct);
+    Users.addUser(exampleUser);
     backend.flush();
   });
 
+  it('Should post correct data to /api/users/update when updateUser is called', function() {
+    backend.expectPOST('/api/users/update', {token: 'superSecretToken111', updatedUser: exampleUser}).respond(200,'');
+    Users.updateUser('superSecretToken111', exampleUser);
+    backend.flush();
+  });
 
   it('Should make a GET request to "/api/users/ + UserId" when getUserLocation is called', function() {
     backend.expectGET('/api/users/42').respond(200,'');
-    Products.getUserLocation(42);
+    Users.getUserLocation(42);
     backend.flush();
   });
 
