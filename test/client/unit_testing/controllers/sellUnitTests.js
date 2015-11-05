@@ -65,8 +65,3 @@ describe('SellController', function() {
   //   });
   // });
 });
-
-
-$scope.signout = function() {
-  Auth.signout();
-}
