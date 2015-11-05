@@ -8,6 +8,11 @@ var esES = {
   "sidebarMyBids": "Mis ofertas",
   "sidebarProfile": "Perfil",
 
+  // client>app>searchModal.html
+  "searchTitle": "Search",
+  "searchInput": "Search",
+  "searchButton": "Submit Search",
+
   // client>app>auth>signin.html
   "signupPrompt": "¿No tienes cuenta? ¡Regístrate!",
   "emailPrompt": "Email",

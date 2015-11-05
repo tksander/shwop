@@ -3,34 +3,23 @@ angular.module('shwop.products', [])
 
 .controller('ProductController', ['$scope', '$rootScope', '$translate', 'Products', 'Auth', '$window', 'Users', function ($scope, $rootScope, $translate, Products, Auth, $window, Users) {
   $scope.categories = Products.categories;
+  $scope.data = {};
   $scope.product = {};
   $scope.product.category = null;
-  $scope.searchText = null;
+  $scope.product.searchText = null;
+  var previousProductCategory = null;
+  var previousSearchText = null;
+
+  // lastCard toggle tells the DOM whether to show the Alert Card
   $scope.lastCard = false;
   $scope.searchSubmitted = false;
+
+  $scope.product.searchForm;
 
   $scope.signout = function() {
     Auth.signout();
   };
   
-  // Determines what happens when a user swipes a product photo left or right.
-  $scope.swiped = function(direction) {
-    // If user swipes left, the topmost photo is removed from the array, revealing
-    // the next product to the user.
-    if (direction === 'LEFT') {
-      console.log("swiped left")
-      $scope.data.products.shift();
-      
-      if ($scope.data.products.length === 0){
-        $scope.getAllProducts();
-      }
-      Products.setCurrentProduct($scope.data.products[0]);
-    } else {
-      // If user swipes right, the bid() factory method is called.
-      Products.bid();
-    }
-  };
-
   $scope.showModal = function(){
     $rootScope.Ui.turnOn('bidModal');
   }
@@ -39,104 +28,108 @@ angular.module('shwop.products', [])
     $rootScope.Ui.turnOn('searchModal');
   }
 
-  $scope.data = {};
   var findingMessage = $translate.instant('findingMessage');
   $scope.data.location = findingMessage;
 
   // Calls factory method that returns all product info from DB and renders it.
   $scope.getAllProducts = function (callback) {
-    $scope.searchSubmitted = false;
-    $scope.lastCard = false;
+    $scope.lastCard = false;    
+
     // This hacky callback is to allow the location function to be called after we get all the products
     callback = callback || function(){};
 
     Products.getAllProducts()
     .then(function (promise) {
       $scope.data.products = promise.data.products;
-
+      Products.setCurrentProduct($scope.data.products[0]);
       // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
       $scope.data.products.push({alertCard: 'alertCard'});
 
-
-      Products.setCurrentProduct($scope.data.products[0]);
 
       // Only run this if we do not already have the bidder location information
       if(!$scope.bidderLat) {
         console.log("intializing bidder location")
         getProductLocation();
       }
+      if($scope.searchSubmitted) {
+        console.log("we know a search was submitted")
+        // Clear the form
+        $scope.product.category = null;
+        $scope.product.searchText = null;
+      }
+
       callback();
     })
     .catch(function (err) {
       if (err){
-        console.log('/api/products GET failed. Populating products with dummy data: ', err);
-        $scope.data.products = [{url: '../../photos/chessboard.jpg', price: 60}, 
-        {url: '../../photos/decoration.jpg', price: 100}, {url: '../../photos/drone.jpg', price: 300}, 
-        {url: '../../photos/plane.jpg', price: 35000}];
-        Products.setCurrentProduct($scope.data.products[0]);
+        console.log('/api/products GET failed.', err);
       }
     });
   };
 
-  $scope.log = function() {
-    console.log('$scope.data.products ', $scope.data.products);
-    console.log('Original: $parent.scope ', $scope.$parent);
-    console.log('Original: $scope ', $scope);
-  }
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
-    console.log('$scope.searchText', $scope.searchText)
-    console.log('$scope.product.category', $scope.product.category)
-    console.log("$scope", $scope);
-    console.log("$rootscope", $rootScope);
+    $scope.searchSubmitted = true;
+
+    var args = Array.prototype.slice.call(arguments);
+    if(args.length > 0) {
+      $scope.product.searchText = args[0];
+      $scope.product.category = args[1];
+    }
+
 
     // If the user selects a search for all products
-    if(($scope.searchText === null || $scope.searchText === "")  && $scope.product.category === "All Products") {
-      console.log('if')
+    if(($scope.product.searchText === null || $scope.product.searchText === "")  && $scope.product.category === "All Products") {
       $scope.getAllProducts();
     } else {
-      console.log("else");
         $scope.lastCard = false;
         $scope.searchSubmitted = true;
 
-        if($scope.searchText === "") {
-          $scope.searchText = null;
+        if($scope.product.searchText === "") {
+          $scope.product.searchText = null;
         }
 
-        var tagsString = $scope.searchText + "+" + $scope.product.category;
+        var tagsString = $scope.product.searchText + "+" + $scope.product.category;
 
         Products.getProductsByTag(tagsString)
           .then(function (promise) {
 
-            console.log("getProductsByTag results, promise: ", promise);
             if(promise.data === '') {
-              console.log("Applying the results of the search1")
-
               alert("Sorry, no results matched your search. Please try again or keep shwoping!")
-
+              $rootScope.Ui.turnOff('searchModal');
             } else if(promise.data.categoryOnly) {
-              console.log("Applying the results of the search2")
-
-              alert("We were unable to find results matching \"" + $scope.searchText + 
-                    "\". Showing results for \"" + $scope.product.category + "\". Happy shwopping!");
 
               $scope.data.products = promise.data.products;
               Products.setCurrentProduct($scope.data.products[0]);
+
               // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
               $scope.data.products.push({alertCard: 'alertCard'});
+              $rootScope.Ui.turnOff('searchModal');
+
+              previousSearchText = $scope.product.searchText;
+              previousProductCategory = $scope.product.category;
+
+              // Clear the form
+              $scope.product.category = null;
+              $scope.product.searchText = null;
+
+              alert("We were unable to find results matching \"" + previousSearchText + 
+                    "\". Showing results for \"" + previousProductCategory + "\". Happy shwopping!");
+
             } else {
-              console.log("Applying the results of the search3")
-
               $scope.data.products = promise.data.products;
               Products.setCurrentProduct($scope.data.products[0]);
-              if($scope.$parent) {
-                $scope.$parent.$$childHead.data.products = promise.data.products;
-              } 
-              
               // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
               $scope.data.products.push({alertCard: 'alertCard'});
-              console.log('$scope.data.products ', $scope.data.products)
-              console.log('Modal: $parent.scope ', $scope.$parent);
+              $rootScope.Ui.turnOff('searchModal');
+
+              previousSearchText = $scope.product.searchText;
+              previousProductCategory = $scope.product.category;
+
+              // Clear the form
+              $scope.product.category = null;
+              $scope.product.searchText = null;
+
             }
           })
           .catch(function (error) {
@@ -189,9 +182,10 @@ angular.module('shwop.products', [])
   };
 
   $scope.refreshProductSet = function() {
-    console.log("refreshing product set");
+    console.log('previousSearchText', previousSearchText);
+    console.log('previousProductCategory', previousProductCategory);
     $scope.lastCard = false;
-    $scope.submitSearch();
+    $scope.submitSearch(previousSearchText, previousProductCategory);
   };
 
 
