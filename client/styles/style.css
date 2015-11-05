@@ -22,6 +22,16 @@ div .padded-all {
   padding-left: 0px !important;
   padding-right: 0px !important; }
 
+.search-explain {
+  font-size: 20px;
+  margin: 50px 0 10px; }
+
+.btn-search {
+  padding: 20px;
+  margin: 20px 0 0 0;
+  display: float;
+  width: 90%; }
+
 .input-box {
   margin: 5px auto; }
 

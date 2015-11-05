@@ -22,12 +22,13 @@ angular.module('shwop.mybids', [])
     })
   };
 
-  $scope.deleteBid = function (bidId) {
+  $scope.deleteBid = function (bidId, bidIndex) {
     var cancelBidVerification = $translate.instant('cancelBidVerification');
     if (window.confirm(cancelBidVerification)) {
       Products.deleteMyBid(bidId)
       .then(function (result) {
         console.log('Deleted bid' + result);
+        $scope.data.splice(bidIndex, 1);
       })
       .catch(function (err) {
         console.log('/api/bids/:BidId DELETE failed' + err);
@@ -35,9 +36,6 @@ angular.module('shwop.mybids', [])
     }
   };
 
-  $scope.remove = function(index) {
-    $scope.data.splice(index, 1);
-  }
 
   $scope.getBids();
 }]);
