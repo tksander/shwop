@@ -242,6 +242,13 @@ module.exports = {
       }
     })
     .then(function () {
+      db.Bid.destroy({
+        where: {
+          ProductId: productId 
+        }
+      });
+    })
+    .then(function () {
       db.Product.destroy({
         where: {
           id: productId
