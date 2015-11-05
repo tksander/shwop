@@ -79,10 +79,9 @@ angular.module('shwop.products', [])
 
 
     // If the user selects a search for all products
-    if(($scope.product.searchText === null || $scope.product.searchText === "")  && $scope.product.category === "All Products") {
+    if(($scope.product.searchText === null || $scope.product.searchText === "")  && ($scope.product.category === "All Products" || $scope.product.category === null)) {
       $scope.getAllProducts();
     } else {
-        $scope.lastCard = false;
         $scope.searchSubmitted = true;
 
         if($scope.product.searchText === "") {
@@ -97,8 +96,9 @@ angular.module('shwop.products', [])
             if(promise.data === '') {
               alert("Sorry, no results matched your search. Please try again or keep shwoping!")
               $rootScope.Ui.turnOff('searchModal');
-            } else if(promise.data.categoryOnly) { // If Category input returns results but Search Input DOES NOT return results
+            } else if (promise.data.categoryOnly) { // If Category input returns results but Search Input DOES NOT return results
 
+              $scope.lastCard = false;
               $scope.data.products = promise.data.products;
               Products.setCurrentProduct($scope.data.products[0]);
 
@@ -118,6 +118,7 @@ angular.module('shwop.products', [])
                     "\". Showing results for \"" + previousProductCategory + "\". Happy shwopping!");
 
             } else {
+              $scope.lastCard = false;
               $scope.data.products = promise.data.products;
               Products.setCurrentProduct($scope.data.products[0]);
               // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
