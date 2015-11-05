@@ -16,6 +16,7 @@
               <select ng-model='product.category'
                      class='form-control'
                      ng-options='category.name as category.translation for category in categories'
+                     ng-init="product.category = categories[0].translation"
                      >
                 <option value='product.category' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
               </select>
