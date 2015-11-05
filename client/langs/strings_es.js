@@ -45,6 +45,11 @@ var esES = {
   "distanceDisplay": "Distancia: ~",
   "distanceUnits": "millas",
 
+  // client>app>products>products.html
+  "continueSearch": "Looks like you've swiped through all items.\n Click below or submit a new search to continue shwopping.",
+  "previousSearch": "See Previous Search Items",
+  "allItems": "See All Items",
+
   // client>app>auth>welcome.html
   "menuTitle": "Menú",
   "logoutNav": "Cerrar sesión",

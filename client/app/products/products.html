@@ -33,11 +33,11 @@
     </div>
 
       <div ng-if="lastCard">
-        <div><span>O,snap! Looks like you've swiped through all of the items. Click below or enter a new search to continue shwopping! </span></div>
-      <span ng-if="searchSubmitted">
-        <button class="btn btn-primary" ng-click="refreshProductSet()">See Previous Search Items</button>
-      </span>
-        <button class="btn btn-primary" ng-click="getAllProducts()">See All Items</button>
+        <div><p class="search-explain"> {{ 'continueSearch' | translate }} </p></div>
+      <div ng-if="searchSubmitted">
+        <button class="btn btn-primary btn-lg btn-search" ng-click="refreshProductSet()">{{ 'previousSearch' | translate}} </button>
+      </div>
+        <button class="btn btn-primary btn-lg btn-search" ng-click="getAllProducts()">{{ 'allItems' | translate }} </button>
       </div>
     </div>
   </div>
