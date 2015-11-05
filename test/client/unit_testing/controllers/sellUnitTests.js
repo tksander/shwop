@@ -1,6 +1,6 @@
 
 
-describe('SellController', function() {
+xdescribe('SellController', function() {
   var backend, $rootScope, $location, $window, createController, authRequestHandler;
 
   var exampleArray = [1, 3, 5, 7];
