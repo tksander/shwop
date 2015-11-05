@@ -8,7 +8,11 @@ angular.module('shwop.services', [])
   var getAllProducts = function () {
     return $http({
       method: 'GET',
-      url: '/api/products'
+      url: '/api/products',
+      headers: {
+        myLocation:"user's location",
+        searchRadius:"myRadius"
+      }
     });
   };
 
@@ -68,7 +72,11 @@ angular.module('shwop.services', [])
   var getProductsByTag = function (tags) {
     return $http({
           method: 'GET',
-          url: '/api/products/' + tags
+          url: '/api/products/' + tags,
+          headers: {
+            myLocation:"user's location",
+            searchRadius:"myRadius"
+          }
     });
   };
 
