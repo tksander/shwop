@@ -1,5 +1,3 @@
-  <!-- TODO: (1) Research photo file path validation  -->
-
 <nav class='navbar navbar-app navbar-relative-top'>
   <strong class='navbar-brand-center navbar-brand'>Shwop</strong>
   <div class='btn-group pull-left'>
@@ -31,9 +29,6 @@
           ui-show="myDropdown{{product.productInfo.id}}"
           ui-turn-off="myDropdown{{product.productInfo.id}}">
 
-        <!--   <li><a>{{ 'viewProduct' | translate }}</a></li>
-          <li><a>{{ 'updateBid' | translate }}</a></li>
-          <li class="divider"></li> -->
           <li><a ng-click='deleteBid(product.productInfo.id, $index)'>{{ 'cancelBid' | translate }}</a></li>
         </ul>
       </div>
