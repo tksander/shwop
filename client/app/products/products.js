@@ -190,7 +190,7 @@ angular.module('shwop.products', [])
 
 
 
-  $scope.getAllProducts(function() {console.log("intial current product ", Products.getCurrentProduct());});
+  $scope.getAllProducts();
 
 }])
 
