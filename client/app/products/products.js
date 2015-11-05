@@ -230,7 +230,7 @@ angular.module('shwop.products', [])
              $scope.data.location = distanceDisplay + Math.round(distance) + " " + distanceUnits;
             })
           }
-        } else if (event.keyCode === 39) {
+        } else if (event.keyCode === 39 && !$scope.lastCard) {
             $scope.showModal();
         }
         $scope.$apply();
@@ -279,7 +279,9 @@ angular.module('shwop.products', [])
       };
 
       this.bid = function(){
-        $scope.showModal();
+        if(!$scope.lastCard) {
+          $scope.showModal();
+        }
       };
 
       this.prev = function(){
