@@ -10,7 +10,12 @@
 //  That route file then requires the respective controller and sets up all the routes.
 //  The controller then requires the respective model and sets up all our endpoints, which respond to requests.
 var express = require('express');
+var favicon = require('serve-favicon');
+var path = require('path');
 var app = express();
+
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 require('./config/middleware.js')(app, express);
 
