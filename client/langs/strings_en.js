@@ -49,7 +49,7 @@ var enUS = {
   "findingMessage": "We're finding you!",
   "distanceDisplay": "Distance: ~",
   "distanceUnits": "miles",
-  "noSearchResultsAlert1": "Sorry, no results matched your search. Please try again or keep shwoping!",
+  "noSearchResultsAlert1": "Sorry, no results matched your search. Please try again or keep shwopping!",
   "noSearchResultsAlert2": "We were unable to find results matching: ",
   "showingResultsMessage": "Showing results for: ",
   "happyShwoppingMessage": "Happy shwopping!",
@@ -140,7 +140,7 @@ var enUS = {
   "closeButton": "Close",
 
   //client>app>services>services.js
-  "allProducts": "All Products",
+  "allProducts": "All Items",
   "antiques": "Antiques",
   "appliances": "Appliances",
   "artsCrafts": "Arts, Crafts & Sewing",

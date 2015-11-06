@@ -9,9 +9,9 @@ var esES = {
   "sidebarProfile": "Perfil",
 
   // client>app>searchModal.html
-  "searchTitle": "Search",
-  "searchInput": "Search",
-  "searchButton": "Submit Search",
+  "searchTitle": "Búsqueda",
+  "searchInput": "Buscar",
+  "searchButton": "Envía la búsqueda",
 
   // client>app>auth>signin.html
   "signupPrompt": "¿No tienes cuenta? ¡Regístrate!",
@@ -138,7 +138,7 @@ var esES = {
   "closeButton": "Cerrar",
 
   //client>app>services>services.js
-  "allProducts": "All Products",
+  "allProducts": "Todos los artículos",
   "antiques": "Antigüedades",
   "appliances": "Electrodomésticos",
   "artsCrafts": "Artes, artesanías y costura",

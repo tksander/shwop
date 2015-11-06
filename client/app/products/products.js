@@ -109,20 +109,22 @@ angular.module('shwop.products', [])
               $scope.product.searchText = null;
 
               var noResultsAlert = '';
-              $translate()
+              $translate('noSearchResultsAlert2')
               .then(function (translatedValue) {
                 noResultsAlert += translatedValue + '"' + previousSearchText + '". ';
+                $translate('showingResultsMessage')
+                .then(function (translatedValue) {
+                  noResultsAlert += translatedValue + '"' + previousProductCategory + '". ';
+                  $translate('happyShwoppingMessage')
+                  .then(function (translatedValue) {
+                    noResultsAlert += translatedValue;
+                    alert(noResultsAlert);
+                  });
+                });
               });
-              $translate()
-              .then(function (translatedValue) {
-                noResultsAlert += translatedValue + '"' + previousProductCategory + '". '
-              });
-              $translate()
-              .then(function (translatedValue) {
-                noResultsAlert += translatedValue;
-                alert(noResultsAlert);
-              });
-              // alert("We were unable to find results matching: \"" + previousSearchText + '". ';
+              
+
+              // alert("We were unable to find results matching: \"" + previousSearchText + '". ' + 
               //       "\". Showing results for: \"" + previousProductCategory + "\". Happy shwopping!");
 
             } else {
