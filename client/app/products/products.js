@@ -31,40 +31,6 @@ angular.module('shwop.products', [])
   var findingMessage = $translate.instant('findingMessage');
   $scope.data.location = findingMessage;
 
-  // Calls factory method that returns all product info from DB and renders it.
-  $scope.getAllProducts = function (callback) {
-    $scope.lastCard = false;    
-
-    // This hacky callback is to allow the location function to be called after we get all the products
-    callback = callback || function(){};
-
-    Products.getAllProducts()
-    .then(function (promise) {
-      $scope.data.products = promise.data.products;
-      Products.setCurrentProduct($scope.data.products[0]);
-      // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
-      $scope.data.products.push({alertCard: 'alertCard'});
-
-
-      // Only run this if we do not already have the bidder location information
-      if(!$scope.bidderLat) {
-        console.log("intializing bidder location")
-        getProductLocation();
-      }
-      if($scope.searchSubmitted) {
-        // Clear the form
-        $scope.product.category = null;
-        $scope.product.searchText = null;
-      }
-
-      callback();
-    })
-    .catch(function (err) {
-      if (err){
-        console.log('/api/products GET failed.', err);
-      }
-    });
-  };
 
   // Calls factory method to get all products matching tag
   $scope.submitSearch = function () {
@@ -80,7 +46,33 @@ angular.module('shwop.products', [])
 
     // If the user selects a search for all products
     if(($scope.product.searchText === null || $scope.product.searchText === "")  && ($scope.product.category === "All Products" || $scope.product.category === null)) {
-      $scope.getAllProducts();
+      Products.getAllProducts()
+        .then(function (promise) {
+          $scope.data.products = promise.data.products;
+          Products.setCurrentProduct($scope.data.products[0]);
+          // Insert dummy card at end of deck for Alert card - tells user that they are at end of stack
+          $scope.data.products.push({alertCard: 'alertCard'});
+          $scope.lastCard = false;
+
+          // Only run this if we do not already have the bidder location information
+          if(!$scope.bidderLat) {
+            console.log("intializing bidder location")
+            getProductLocation();
+          }
+          if($scope.searchSubmitted) {
+            // Clear the form
+            $scope.product.category = null;
+            $scope.product.searchText = null;
+          }
+          
+          $rootScope.Ui.turnOff('searchModal');
+          //callback();
+        })
+        .catch(function (err) {
+          if (err){
+            console.log('/api/products GET failed.', err);
+          }
+        });
     } else {
         $scope.searchSubmitted = true;
 
@@ -94,8 +86,8 @@ angular.module('shwop.products', [])
           .then(function (promise) {
 
             if(promise.data === '') {
-              alert("Sorry, no results matched your search. Please try again or keep shwoping!")
-              $rootScope.Ui.turnOff('searchModal');
+              alert("Sorry, no results matched your search. Please try different search terms or hit the cancel button to keep shwoping!")
+              //$rootScope.Ui.turnOff('searchModal');
             } else if (promise.data.categoryOnly) { // If Category input returns results but Search Input DOES NOT return results
 
               $scope.lastCard = false;
@@ -191,7 +183,7 @@ angular.module('shwop.products', [])
 
 
 
-  $scope.getAllProducts();
+  $scope.submitSearch();
 
 }])
 
