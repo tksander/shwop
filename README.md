@@ -1,12 +1,15 @@
-# Project Name
+# Shwop
 
-> Pithy project description
+Peer-to-peer mobile optimized marketplace with intuitive swipe-based user experience, geolocation tracking and text notifications.
 
 ## Team
 
-  - Product Owner: John Wareing
-  - Scrum Master: Corey Roy
-  - Development Team Members: Tommy Sander, Brett Sanders
+  - Product Owner: John Wareing [LinkedIn](linkedin.com/in/johnwareing), [GitHub](github.com/jwareing)
+  - Scrum Master: Corey Roy [LinkedIn](linkedin.com/in/coreyroy), [GitHub](github.com/coreys)
+  - Development Team Members: 
+      Tommy Sander [LinkedIn](linkedin.com/in/thomasksander), [GitHub](github.com/tksander) 
+      Brett Sanders [LinkedIn](linkedin.com/in/brettwsanders), [GitHub](github.com/brettwsanders)
+
 
 ## Table of Contents
 
@@ -24,11 +27,10 @@
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node 
+- NPM
+- Bower
+- mySQL
 
 ## Development
 The following commands are written for OS X.  
@@ -41,14 +43,9 @@ $ npm install
 $ bower install
 ```
 
-### Starting The Node Server
-Open a new terminal window and run the following command to start a new server on Port 8080.
 
-```sh
-$ grunt start
-```
 
-### Creating A Local Database
+### Creating A Local mySQL Database
 Create the mySQL database:
 ```sh
 $ grunt create
@@ -63,7 +60,7 @@ Done, without errors.
 
 #### Accessing The Database
 
-If mySQL is not installed on machine. Check this by executing:
+Check if mySQL is installed on your machine by executing:
 ```sh
 $ which mySQL
 ```
@@ -75,34 +72,29 @@ Start up your mySQL server
 ```sh
 $ mySQL.server start
 ```
-Start the mySQL shell, login as the root user, and access the database, execute the below line. After executing the below command, 
+Start the mySQL shell, login as the root user, and access the database, by executing the below command.  
 ```sh
 $ mySQL -u root shwopDB
 ```
 
 Useful mySQL shell commands:
-‘show databases;’
-‘use [database];’
+```sh
 ‘show tables;’
 ‘describe [table];’
-(Open a new terminal window from mySQL shell) grunt create
-(In the new terminal window) grunt start (run from root directory)
-grunt runSass
-
-
-From within the root directory:
-
-
-
-```sh
-sudo npm install -g bower
-npm install
-bower install
 ```
 
-### Roadmap
+### Starting Node Server
+Open a new terminal window and run the following command to start a new Node server on Port 8080. 
+Running this command will also execute the Sequelize commands to 
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+```sh
+$ grunt start
+```
+#### Create Sass file
+grunt runSass
+
+### Roadmap
+View the project roadmap [here](https://github.com/ClandestineCalavera/shwop/issues)
 
 
 ## Contributing
