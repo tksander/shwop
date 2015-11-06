@@ -84,6 +84,7 @@ module.exports = function(grunt) {
             'client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.min.js',
             'client/lib/angular-translate/angular-translate.min.js',
             'client/lib/angular-mocks/angular-mocks.js',
+            'client/lib/ngFitText/src/ng-FitText.js',
             'client/lib/jquery/dist/jquery.min.js',
             'client/app/**/*.js',
             'client/langs/*.js',
