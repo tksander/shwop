@@ -40,10 +40,19 @@ var enUS = {
   "preciseLocationPlaceholder":"Use Precise Location",
   "preciseLocationInfoPlaceholder": "Enter more information to set a more accurate default location for items you sell on Shwop!",
 
+  // client>app>products>products.html
+  "lastCardMessage": "O,snap! Looks like you've swiped through all of the items. Click below or enter a new search to continue shwopping!",
+  "seePreviousSearchItemsButton": "See Previous Search Items",
+  "seeAllItemsButton": "See All Items",
+
   // client>app>products>products.js
   "findingMessage": "We're finding you!",
   "distanceDisplay": "Distance: ~",
   "distanceUnits": "miles",
+  "noSearchResultsAlert1": "Sorry, no results matched your search. Please try again or keep shwopping!",
+  "noSearchResultsAlert2": "We were unable to find results matching: ",
+  "showingResultsMessage": "Showing results for: ",
+  "happyShwoppingMessage": "Happy shwopping!",
 
   // client>app>products>products.html
   "continueSearch": "Looks like you've swiped through all items.\n Click below or submit a new search to continue shwopping.",
@@ -131,7 +140,7 @@ var enUS = {
   "closeButton": "Close",
 
   //client>app>services>services.js
-  "allProducts": "All Products",
+  "allProducts": "All Items",
   "antiques": "Antiques",
   "appliances": "Appliances",
   "artsCrafts": "Arts, Crafts & Sewing",

@@ -9,9 +9,9 @@ var esES = {
   "sidebarProfile": "Perfil",
 
   // client>app>searchModal.html
-  "searchTitle": "Search",
-  "searchInput": "Search",
-  "searchButton": "Submit Search",
+  "searchTitle": "Búsqueda",
+  "searchInput": "Buscar",
+  "searchButton": "Envía la búsqueda",
 
   // client>app>auth>signin.html
   "signupPrompt": "¿No tienes cuenta? ¡Regístrate!",
@@ -40,10 +40,19 @@ var esES = {
   "preciseLocationPlaceholder":"Usa ubicación específica",
   "preciseLocationInfoPlaceholder": "Ingresa más información para establecer una ubicación predeterminada más exacta para los artículos que vendes en Shwop!",
 
+  // client>app>products>products.html
+  "lastCardMessage": "Parece que has deslizado por todos los artículos. ¡Cliquea abajo o entra una búsqueda nueva para seguir comprando!",
+  "seePreviousSearchItemsButton": "Ver los artículos buscados anteriores",
+  "seeAllItemsButton": "Ver todos los artículos",
+
   // client>app>products>products.js
   "findingMessage": "¡Estamos en el proceso de localizarte!",
   "distanceDisplay": "Distancia: ~",
   "distanceUnits": "millas",
+  "noSearchResultsAlert1": "Lo siento, pero no hay resultados para tu búsqueda. ¡Favor de intentarlo de nuevo o seguir a comprar!",
+  "noSearchResultsAlert2": "No podemos encontrar resultados para: ",
+  "showingResultsMessage": "Se muestra los resultados para: ",
+  "happyShwoppingMessage": "¡Disfruta de tus compras!",
 
   // client>app>products>products.html
   "continueSearch": "Looks like you've swiped through all items.\n Click below or submit a new search to continue shwopping.",
@@ -129,7 +138,7 @@ var esES = {
   "closeButton": "Cerrar",
 
   //client>app>services>services.js
-  "allProducts": "All Products",
+  "allProducts": "Todos los artículos",
   "antiques": "Antigüedades",
   "appliances": "Electrodomésticos",
   "artsCrafts": "Artes, artesanías y costura",

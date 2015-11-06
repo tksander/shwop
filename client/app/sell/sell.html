@@ -44,7 +44,7 @@
       <label>{{ 'categoryLabel' | translate }}</label>
       <select ng-model='product.category'
              class='form-control'
-             ng-options='category.name as category.translation for category in categories'
+             ng-options='category.name as category.translation | translate for category in categories'
              required
              >
         <option value='' disabled selected hidden>{{ 'categoryPrompt' | translate }}</option>
