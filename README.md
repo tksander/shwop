@@ -45,7 +45,7 @@ Peer-to-peer mobile optimized marketplace with intuitive swipe-based user experi
 
 
 ## Code Highlight
-[Shwop Mobile Browser App](/client/products/products.js)
+[Shwop Mobile Browser App](/client/app/products/products.js)
 
 
 ## Requirements
