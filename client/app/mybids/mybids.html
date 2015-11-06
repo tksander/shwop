@@ -1,20 +1,25 @@
-<nav class='navbar navbar-app navbar-relative-top'>
-  <strong class='navbar-brand-center navbar-brand'>Shwop</strong>
-  <div class='btn-group pull-left'>
-    <div ui-toggle='uiSidebarLeft' class='btn sidebar-toggle'>
-      <i class='fa fa-bars'></i> {{ 'menuTitle' | translate }}
+<div class='scrollable-header'>
+  <nav class='navbar navbar-app navbar-relative-top'>
+    <strong class='navbar-brand-center navbar-brand'>Shwop</strong>
+    <div class='btn-group pull-left'>
+      <div ui-toggle='uiSidebarLeft' class='btn sidebar-toggle'>
+        <i class='fa fa-bars'></i> {{ 'menuTitle' | translate }}
+      </div>
     </div>
-  </div>
-  <div class='btn-group pull-right collapsible'>
-    <a ng-click='signout()' class='btn btn-navbar'>{{ 'logoutNav' | translate }}</a>
-  </div>
-</nav>
+    <div class='btn-group pull-right collapsible'>
+      <a ng-click='signout()' class='btn btn-navbar'>{{ 'logoutNav' | translate }}</a>
+    </div>
+  </nav>
+</div>
 
 <div class='scrollable-content section'>
 <h1 class='page-header'>{{ 'myBidsHeader' | translate }}</h1>
 
   <div ng-repeat='product in data' class="panel panel-default bid-product">
     <div class="panel-heading">
+      <div class='inline-element store-heading' data-fittext data-fittext-max='40'>
+        <h3 class="panel-title">{{ product.productInfo.name }}</h3>
+      </div>
       <div class="btn-group pull-right">
         <a ui-turn-on='myDropdown{{product.productInfo.id}}' class='btn'>
           <i class="fa fa-ellipsis-v"></i>
@@ -32,12 +37,11 @@
           <li><a ng-click='deleteBid(product.productInfo.id, $index)'>{{ 'cancelBid' | translate }}</a></li>
         </ul>
       </div>
-      <h3 class="panel-title">{{ product.productInfo.name }}</h3>
       
     </div>
-    <div class="panel-body">
-       <img ng-src='{{ product.productInfo.photoURL }}' class='store-product-image'>
+    <div class="panel-body store-product-div">
+      <img ng-src='{{ product.productInfo.photoURL }}' class='store-product-image'>
+      <h8 class='bid-info'><strong>{{ 'bidAmount' | translate }}</strong> ${{ product.bidInfo.bidAmount }}  <strong> {{ 'date' | translate }}</strong> {{ product.bidInfo.createdAt | date:'shortDate'}}</h8>
     </div>
-    <h8 class="panel-title"><strong>{{ 'bidAmount' | translate }}</strong> ${{ product.bidInfo.bidAmount }}  <strong> {{ 'date' | translate }}</strong> {{ product.bidInfo.createdAt | date:'shortDate'}}</h8>
   </div>
 </div>

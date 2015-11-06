@@ -212,9 +212,16 @@ select:invalid option { color: black; }
   margin: 5px;
 }
 
+.store-product-div {
+  height: 80%;
+}
+
 .store-product-image {
-  height: 200px;
-  width: 200px;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 3px;
 }
 
 .bid-success {
@@ -286,6 +293,10 @@ select:invalid option { color: black; }
   }
 }
 
+.store-heading {
+  word-wrap: break-word;
+  width:90%
+}
 
 .container {
   text-align: center;
