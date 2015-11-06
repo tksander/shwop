@@ -164,12 +164,14 @@
             <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'shwop.products'</span>, [])
 
 
-.controller(<span class="hljs-string">'ProductController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$rootScope'</span>, <span class="hljs-string">'Products'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'Users'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $rootScope, Products, Auth, $window, Users</span>) </span>{
+.controller(<span class="hljs-string">'ProductController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$rootScope'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-string">'Products'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'Users'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $rootScope, $translate, Products, Auth, $window, Users</span>) </span>{
   $scope.categories = Products.categories;
-
-  $scope.signout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-    Auth.signout();
-  };</pre></div></div>
+  $scope.data = {};
+  $scope.product = {};
+  $scope.product.category = <span class="hljs-literal">null</span>;
+  $scope.product.searchText = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">var</span> previousProductCategory = <span class="hljs-literal">null</span>;
+  <span class="hljs-keyword">var</span> previousSearchText = <span class="hljs-literal">null</span>;</pre></div></div>
             
         </li>
         
@@ -180,11 +182,29 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>Determines what happens when a user swipes a product photo left or right.</p>
+              <p>lastCard toggle tells the DOM whether to show the Alert Card</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.swiped = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">direction</span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $scope.lastCard = <span class="hljs-literal">false</span>;
+  $scope.searchSubmitted = <span class="hljs-literal">false</span>;
+
+  $scope.product.searchForm;
+
+  $scope.signout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    Auth.signout();
+  };
+  
+  $scope.showModal = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    $rootScope.Ui.turnOn(<span class="hljs-string">'bidModal'</span>);
+  }
+
+  $scope.showSearchModal = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    $rootScope.Ui.turnOn(<span class="hljs-string">'searchModal'</span>);
+  }
+
+  <span class="hljs-keyword">var</span> findingMessage = $translate.instant(<span class="hljs-string">'findingMessage'</span>);
+  $scope.data.location = findingMessage;</pre></div></div>
             
         </li>
         
@@ -195,20 +215,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
-              <p>If user swipes left, the topmost photo is removed from the array, revealing
-the next product to the user.</p>
+              <p>Calls factory method to get all products matching tag</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> (direction === <span class="hljs-string">'LEFT'</span>) {
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"swiped left"</span>)
-      $scope.data.products.shift();
-      
-      <span class="hljs-keyword">if</span> ($scope.data.products.length === <span class="hljs-number">0</span>){
-        $scope.getAllProducts();
-      }
-      Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);
-    } <span class="hljs-keyword">else</span> {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>  $scope.submitSearch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $scope.searchSubmitted = <span class="hljs-literal">true</span>;</pre></div></div>
             
         </li>
         
@@ -219,20 +231,15 @@ the next product to the user.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>If user swipes right, the bid() factory method is called.</p>
+              <p>Allows for optional arguments if user would like to re-submit previous search</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      Products.bid();
-    }
-  };
-
-  $scope.showModal = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-    $rootScope.Ui.turnOn(<span class="hljs-string">'bidModal'</span>);
-  }
-
-  $scope.data = {};
-  $scope.data.location = <span class="hljs-string">"We're finding you!"</span></pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);
+    <span class="hljs-keyword">if</span>(args.length &gt; <span class="hljs-number">0</span>) {
+      $scope.product.searchText = args[<span class="hljs-number">0</span>];
+      $scope.product.category = args[<span class="hljs-number">1</span>];
+    }</pre></div></div>
             
         </li>
         
@@ -243,11 +250,15 @@ the next product to the user.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Calls factory method that returns all product info from DB and renders it.</p>
+              <p>If the user selects a search for all products</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.getAllProducts = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span>(($scope.product.searchText === <span class="hljs-literal">null</span> || $scope.product.searchText === <span class="hljs-string">""</span>)  &amp;&amp; ($scope.product.category === <span class="hljs-string">"All Products"</span> || $scope.product.category === <span class="hljs-literal">null</span>)) {
+      Products.getAllProducts()
+        .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promise</span>) </span>{
+          $scope.data.products = promise.data.products;
+          Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);</pre></div></div>
             
         </li>
         
@@ -258,16 +269,12 @@ the next product to the user.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>This hacky callback is to allow the location function to be called after we get all the products</p>
+              <p>Insert dummy card at end of deck for Alert card - tells user that they are at end of stack</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    callback = callback || <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{};
-
-    Products.getAllProducts()
-    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promise</span>) </span>{
-      $scope.data.products = promise.data.products;
-      Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>          $scope.data.products.push({alertCard: <span class="hljs-string">'alertCard'</span>});
+          $scope.lastCard = <span class="hljs-literal">false</span>;</pre></div></div>
             
         </li>
         
@@ -282,22 +289,11 @@ the next product to the user.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span>(!$scope.bidderLat) {
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"intializing bidder location"</span>)
-        getProductLocation();
-      }
-      callback();
-    })
-    .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
-      <span class="hljs-keyword">if</span> (err){
-        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'/api/products GET failed. Populating products with dummy data: '</span>, err);
-        $scope.data.products = [{url: <span class="hljs-string">'../../photos/chessboard.jpg'</span>, price: <span class="hljs-number">60</span>}, 
-        {url: <span class="hljs-string">'../../photos/decoration.jpg'</span>, price: <span class="hljs-number">100</span>}, {url: <span class="hljs-string">'../../photos/drone.jpg'</span>, price: <span class="hljs-number">300</span>}, 
-        {url: <span class="hljs-string">'../../photos/plane.jpg'</span>, price: <span class="hljs-number">35000</span>}];
-        Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);
-      }
-    });
-  };</pre></div></div>
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">if</span>(!$scope.bidderLat) {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"intializing bidder location"</span>)
+            getProductLocation();
+          }
+          <span class="hljs-keyword">if</span>($scope.searchSubmitted) {</pre></div></div>
             
         </li>
         
@@ -308,17 +304,195 @@ the next product to the user.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Calls factory method to get all products matching tag</p>
+              <p>Clear the form</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  $scope.submitSearch = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">var</span> tag = $scope.data.tag;
-    Products.getProductsByTag(tag)
-      .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promise</span>) </span>{
-        $scope.data.products = promise.data.products;
-        Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);
-      });
+            <div class="content"><div class='highlight'><pre>            $scope.product.category = <span class="hljs-literal">null</span>;
+            $scope.product.searchText = <span class="hljs-literal">null</span>;
+          }
+          
+          $rootScope.Ui.turnOff(<span class="hljs-string">'searchModal'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>callback();</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        })
+        .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+          <span class="hljs-keyword">if</span> (err){
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'/api/products GET failed.'</span>, err);
+          }
+        });
+    } <span class="hljs-keyword">else</span> {
+        $scope.searchSubmitted = <span class="hljs-literal">true</span>;
+
+        <span class="hljs-keyword">if</span>($scope.product.searchText === <span class="hljs-string">""</span>) {
+          $scope.product.searchText = <span class="hljs-literal">null</span>;
+        }
+
+        <span class="hljs-keyword">var</span> tagsString = $scope.product.searchText + <span class="hljs-string">"+"</span> + $scope.product.category;
+
+        Products.getProductsByTag(tagsString)
+          .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">promise</span>) </span>{
+
+            <span class="hljs-keyword">if</span>(promise.data === <span class="hljs-string">''</span> || promise.data.products.length === <span class="hljs-number">0</span>) {
+              $translate(<span class="hljs-string">'noSearchResultsAlert1'</span>)
+              .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">translatedValue</span>) </span>{
+                alert(translatedValue);
+              });
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (promise.data.categoryOnly) { <span class="hljs-comment">// If Category input returns results but Search Input DOES NOT return results</span>
+
+              $scope.lastCard = <span class="hljs-literal">false</span>;
+              $scope.data.products = promise.data.products;
+              Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Insert dummy card at end of deck for Alert card - tells user that they are at end of stack</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>              $scope.data.products.push({alertCard: <span class="hljs-string">'alertCard'</span>});
+              $rootScope.Ui.turnOff(<span class="hljs-string">'searchModal'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Stores previous search in case user re-submits previous search</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>              previousSearchText = $scope.product.searchText;
+              previousProductCategory = $scope.product.category;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Clear the form</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>              $scope.product.category = <span class="hljs-literal">null</span>;
+              $scope.product.searchText = <span class="hljs-literal">null</span>;
+
+              <span class="hljs-keyword">var</span> noResultsAlert = <span class="hljs-string">''</span>;
+              $translate(<span class="hljs-string">'noSearchResultsAlert2'</span>)
+              .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">translatedValue</span>) </span>{
+                noResultsAlert += translatedValue + <span class="hljs-string">'"'</span> + previousSearchText + <span class="hljs-string">'". '</span>;
+                $translate(<span class="hljs-string">'showingResultsMessage'</span>)
+                .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">translatedValue</span>) </span>{
+                  noResultsAlert += translatedValue + <span class="hljs-string">'"'</span> + previousProductCategory + <span class="hljs-string">'". '</span>;
+                  $translate(<span class="hljs-string">'happyShwoppingMessage'</span>)
+                  .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">translatedValue</span>) </span>{
+                    noResultsAlert += translatedValue;
+                    alert(noResultsAlert);
+                  });
+                });
+              });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>alert(“We were unable to find results matching: \”” + previousSearchText + ‘“. ‘ + 
+      “\”. Showing results for: \”” + previousProductCategory + “\”. Happy shwopping!”);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+            } <span class="hljs-keyword">else</span> {
+              $scope.lastCard = <span class="hljs-literal">false</span>;
+              $scope.data.products = promise.data.products;
+              Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Insert dummy card at end of deck for Alert card - tells user that they are at end of stack</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>              $scope.data.products.push({alertCard: <span class="hljs-string">'alertCard'</span>});
+              $rootScope.Ui.turnOff(<span class="hljs-string">'searchModal'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Stores previous search in case user re-submits previous search</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>              previousSearchText = $scope.product.searchText;
+              previousProductCategory = $scope.product.category;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Clear the form</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>              $scope.product.category = <span class="hljs-literal">null</span>;
+              $scope.product.searchText = <span class="hljs-literal">null</span>;
+
+            }
+          })
+          .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+            <span class="hljs-built_in">console</span>.log(error);
+          });
+      }
   };
 
   <span class="hljs-keyword">var</span> getBidderLocation = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
@@ -340,11 +514,11 @@ the next product to the user.</p>
         </li>
         
         
-        <li id="section-9">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-9">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>Gets the location from the bidder to the product</p>
 
@@ -359,11 +533,11 @@ the next product to the user.</p>
         </li>
         
         
-        <li id="section-10">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-10">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>get the location of the user associated to the product</p>
 
@@ -379,18 +553,20 @@ the next product to the user.</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-19">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
               <p>return $scope.getDistanceFrom();</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">var</span> distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-        $scope.$apply($scope.data.location =  <span class="hljs-string">'Location: ~'</span> + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">'miles away'</span>);
+        <span class="hljs-keyword">var</span> distanceDisplay = $translate.instant(<span class="hljs-string">'distanceDisplay'</span>);
+        <span class="hljs-keyword">var</span> distanceUnits = $translate.instant(<span class="hljs-string">'distanceUnits'</span>);
+        $scope.data.location = distanceDisplay + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">" "</span> + distanceUnits;
       })
 
     })
@@ -399,25 +575,31 @@ the next product to the user.</p>
     })
   };
 
+  $scope.refreshProductSet = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $scope.lastCard = <span class="hljs-literal">false</span>;
+    $scope.submitSearch(previousSearchText, previousProductCategory);
+  };
 
 
-  $scope.getAllProducts();
+
+  $scope.submitSearch();
+
 }])</pre></div></div>
             
         </li>
         
         
-        <li id="section-12">
+        <li id="section-20">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
               <p>Angular directive to control drag functionality.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>.directive(<span class="hljs-string">'carousel'</span>, [<span class="hljs-string">'$document'</span>, <span class="hljs-string">'Users'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$document, Users</span>)</span>{
+            <div class="content"><div class='highlight'><pre>.directive(<span class="hljs-string">'carousel'</span>, [<span class="hljs-string">'$document'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-string">'Users'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$document, $translate, Users</span>)</span>{
   <span class="hljs-keyword">return</span> {
     restrict: <span class="hljs-string">'C'</span>,
     controller: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">$scope, Products</span>) </span>{
@@ -428,16 +610,21 @@ the next product to the user.</p>
         <span class="hljs-keyword">if</span> (event.keyCode === <span class="hljs-number">37</span>) {
           <span class="hljs-keyword">if</span> ($scope.data.products.length &gt; <span class="hljs-number">1</span>){
             $scope.data.products.shift();
+
+            <span class="hljs-keyword">if</span>($scope.data.products.length === <span class="hljs-number">1</span>) {
+              $scope.lastCard = <span class="hljs-literal">true</span>;
+            }
+
             Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);</pre></div></div>
             
         </li>
         
         
-        <li id="section-13">
+        <li id="section-21">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-21">&#182;</a>
               </div>
               <p>This section gets the location for the next product in the stack</p>
 
@@ -449,11 +636,11 @@ the next product to the user.</p>
         </li>
         
         
-        <li id="section-14">
+        <li id="section-22">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-14">&#182;</a>
+                <a class="pilcrow" href="#section-22">&#182;</a>
               </div>
               <p>get the location of the user associated to the product</p>
 
@@ -465,53 +652,13 @@ the next product to the user.</p>
               <span class="hljs-keyword">var</span> productLong = user.data.userInfo.longitude;
 
               <span class="hljs-keyword">var</span> distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-              $scope.data.location =  <span class="hljs-string">'Location: ~'</span> + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">'miles away'</span>;
+
+             <span class="hljs-keyword">var</span> distanceDisplay = $translate.instant(<span class="hljs-string">'distanceDisplay'</span>);
+             <span class="hljs-keyword">var</span> distanceUnits = $translate.instant(<span class="hljs-string">'distanceUnits'</span>);
+             $scope.data.location = distanceDisplay + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">" "</span> + distanceUnits;
             })
-          } <span class="hljs-keyword">else</span> {
-            $scope.data.products.shift();</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-15">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-15">&#182;</a>
-              </div>
-              <p>Gets all products if at the bottom of the stack, 
-then gets the location for the product at the top of the refreshed stack</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            $scope.getAllProducts(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-                <span class="hljs-keyword">var</span> currentProduct = $scope.data.products[<span class="hljs-number">0</span>];
-                <span class="hljs-keyword">var</span> userId = currentProduct.UserId;</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-16">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-16">&#182;</a>
-              </div>
-              <p>get the location of the user associated to the product</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>              Users.getUserLocation(userId)
-              .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
-                <span class="hljs-keyword">var</span> productLat = user.data.userInfo.latitude;
-                <span class="hljs-keyword">var</span> productLong = user.data.userInfo.longitude;
-
-                <span class="hljs-keyword">var</span> distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-                $scope.data.location =  <span class="hljs-string">'Location: ~'</span> + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">'miles away'</span>;
-              })
-            });
           }
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event.keyCode === <span class="hljs-number">39</span>) {
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event.keyCode === <span class="hljs-number">39</span> &amp;&amp; !$scope.lastCard) {
             $scope.showModal();
         }
         $scope.$apply();
@@ -530,19 +677,23 @@ then gets the location for the product at the top of the refreshed stack</p>
         <span class="hljs-keyword">this</span>.activeItem = <span class="hljs-keyword">this</span>.activeItem === <span class="hljs-keyword">this</span>.itemCount - <span class="hljs-number">1</span> ? <span class="hljs-number">0</span> : <span class="hljs-keyword">this</span>.activeItem + <span class="hljs-number">1</span>;
         
         <span class="hljs-keyword">if</span> ($scope.data.products.length &gt; <span class="hljs-number">1</span>){
-          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'popping first product'</span>);
           $scope.data.products.shift();
+
+          <span class="hljs-keyword">if</span>($scope.data.products.length === <span class="hljs-number">1</span>) {
+              $scope.lastCard = <span class="hljs-literal">true</span>;
+          }
+
           Products.setCurrentProduct($scope.data.products[<span class="hljs-number">0</span>]);
           <span class="hljs-built_in">console</span>.log(Products.getCurrentProduct());</pre></div></div>
             
         </li>
         
         
-        <li id="section-17">
+        <li id="section-23">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-17">&#182;</a>
+                <a class="pilcrow" href="#section-23">&#182;</a>
               </div>
               <p>This section gets the location for the next product in the stack</p>
 
@@ -554,11 +705,11 @@ then gets the location for the product at the top of the refreshed stack</p>
         </li>
         
         
-        <li id="section-18">
+        <li id="section-24">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-18">&#182;</a>
+                <a class="pilcrow" href="#section-24">&#182;</a>
               </div>
               <p>get the location of the user associated to the product</p>
 
@@ -570,58 +721,18 @@ then gets the location for the product at the top of the refreshed stack</p>
             <span class="hljs-keyword">var</span> productLong = user.data.userInfo.longitude;
 
             <span class="hljs-keyword">var</span> distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-            $scope.data.location =  <span class="hljs-string">'Location: ~'</span> + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">'miles away'</span>;
+
+            <span class="hljs-keyword">var</span> distanceDisplay = $translate.instant(<span class="hljs-string">'distanceDisplay'</span>);
+            <span class="hljs-keyword">var</span> distanceUnits = $translate.instant(<span class="hljs-string">'distanceUnits'</span>);
+            $scope.data.location = distanceDisplay + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">" "</span> + distanceUnits;
           })
-
-
-        } <span class="hljs-keyword">else</span> {
-          $scope.data.products.shift();</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-19">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-19">&#182;</a>
-              </div>
-              <p>Gets all products if at the bottom of the stack, 
-then gets the location for the product at the top of the refreshed stack</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>          $scope.getAllProducts(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-              <span class="hljs-keyword">var</span> currentProduct = $scope.data.products[<span class="hljs-number">0</span>];
-              <span class="hljs-keyword">var</span> userId = currentProduct.UserId;</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-20">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-20">&#182;</a>
-              </div>
-              <p>get the location of the user associated to the product</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>            Users.getUserLocation(userId)
-            .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
-              <span class="hljs-keyword">var</span> productLat = user.data.userInfo.latitude;
-              <span class="hljs-keyword">var</span> productLong = user.data.userInfo.longitude;
-
-              <span class="hljs-keyword">var</span> distance = Products.getDistance($scope.bidderLat, $scope.bidderLong, productLat, productLong);
-              $scope.data.location =  <span class="hljs-string">'Location: ~'</span> + <span class="hljs-built_in">Math</span>.round(distance) + <span class="hljs-string">'miles away'</span>;
-            })
-          });
-        }
+        } 
       };
 
       <span class="hljs-keyword">this</span>.bid = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-        $scope.showModal();
+        <span class="hljs-keyword">if</span>(!$scope.lastCard) {
+          $scope.showModal();
+        }
       };
 
       <span class="hljs-keyword">this</span>.prev = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
@@ -665,11 +776,11 @@ then gets the location for the product at the top of the refreshed stack</p>
         </li>
         
         
-        <li id="section-21">
+        <li id="section-25">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-21">&#182;</a>
+                <a class="pilcrow" href="#section-25">&#182;</a>
               </div>
               <p>This is an example of custom transform function</p>
 
@@ -680,11 +791,11 @@ then gets the location for the product at the top of the refreshed stack</p>
         </li>
         
         
-        <li id="section-22">
+        <li id="section-26">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-22">&#182;</a>
+                <a class="pilcrow" href="#section-26">&#182;</a>
               </div>
               <p>use translate both as basis for the new transform:</p>
 
@@ -695,11 +806,11 @@ then gets the location for the product at the top of the refreshed stack</p>
         </li>
         
         
-        <li id="section-23">
+        <li id="section-27">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-23">&#182;</a>
+                <a class="pilcrow" href="#section-27">&#182;</a>
               </div>
               <p>Add rotation:</p>
 
@@ -752,11 +863,11 @@ then gets the location for the product at the top of the refreshed stack</p>
         </li>
         
         
-        <li id="section-24">
+        <li id="section-28">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-24">&#182;</a>
+                <a class="pilcrow" href="#section-28">&#182;</a>
               </div>
               <p>Here you can see how to limit movement 
 to an element</p>
@@ -769,11 +880,11 @@ to an element</p>
         </li>
         
         
-        <li id="section-25">
+        <li id="section-29">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-25">&#182;</a>
+                <a class="pilcrow" href="#section-29">&#182;</a>
               </div>
               <p>go back to initial position</p>
 

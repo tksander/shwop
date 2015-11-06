@@ -291,14 +291,13 @@ This may be utilized later, once we figure out search</p>
             
             <div class="content"><div class='highlight'><pre>    $scope.product.tags.push($scope.product.category);
      <span class="hljs-keyword">var</span> request = {
-      <span class="hljs-string">"token"</span>: $<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'com.shwop'</span>),
-      <span class="hljs-string">"product"</span>: {
-                  <span class="hljs-string">"name"</span>: $scope.product.name,
-                  <span class="hljs-string">"photoURL"</span>: $scope.product.photoURL,
-                  <span class="hljs-string">"price"</span>: $scope.product.price
+      product: {
+        name: $scope.product.name,
+        photoURL: $scope.product.photoURL,
+        price: $scope.product.price
       },
-      <span class="hljs-string">"tags"</span>: $scope.product.tags
-    }
+      tags: $scope.product.tags
+    };
 
 
     Products.addProduct(request)
@@ -306,9 +305,26 @@ This may be utilized later, once we figure out search</p>
       $location.path(<span class="hljs-string">'/mystore'</span>);
     })
     .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Error in creating a bid:   "</span>, error);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Error in creating a bid:   '</span>, error);
     });
   };
+
+  $(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> msg=<span class="hljs-string">""</span>;
+  <span class="hljs-keyword">var</span> elements = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">"input"</span>);
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; elements.length; i++) {
+     elements[i].oninvalid =<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+        <span class="hljs-keyword">if</span> (!e.target.validity.valid) {
+          <span class="hljs-keyword">var</span> emptyFieldError = $translate.instant(<span class="hljs-string">"emptyFieldError"</span>);
+          e.target.setCustomValidity(emptyFieldError);
+       }
+      };
+     elements[i].oninput = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+          e.target.setCustomValidity(msg);
+      };
+  } 
+  });
 }])</pre></div></div>
             
         </li>

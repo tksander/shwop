@@ -165,6 +165,8 @@
 <span class="hljs-keyword">var</span> util = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../config/utils.js'</span>);
 <span class="hljs-keyword">var</span> helpers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../db/helpers.js'</span>);
 <span class="hljs-keyword">var</span> jwt  = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jwt-simple'</span>);
+<span class="hljs-keyword">var</span> <span class="hljs-built_in">Promise</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'bluebird'</span>);
+<span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
 
 <span class="hljs-built_in">module</span>.exports = {</pre></div></div>
             
@@ -181,8 +183,22 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  allProducts: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
-    db.Product.findAll()
+            <div class="content"><div class='highlight'><pre>  allProducts: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>var bounds = milesToLatLong(req.headers.lat, req.headers.long, req.headers.radius);</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    db.Product.findAll()
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">products</span>) </span>{
       <span class="hljs-keyword">if</span>(products === <span class="hljs-literal">null</span>) {
         res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'We could not find products in the database.'</span>);
@@ -194,22 +210,7 @@
     });
   },
 
-  productsByTags: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>query to find products by tags</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> tags = req.params.tags.split(<span class="hljs-string">'+'</span>);</pre></div></div>
+   productsByTags: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -220,13 +221,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-4">&#182;</a>
               </div>
-              <p>Category tag will always be inserted at end of tags array</p>
+              <p>Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> categoryTag = tags.pop();
-    <span class="hljs-keyword">var</span> categoryProducts;
-    <span class="hljs-built_in">console</span>.log(categoryTag);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> tags = req.params.tags.split(<span class="hljs-string">'+'</span>);
+    <span class="hljs-keyword">var</span> inputTags = [];</pre></div></div>
             
         </li>
         
@@ -237,19 +237,14 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-5">&#182;</a>
               </div>
-              <p>Get all associated products by Category tag</p>
+              <p>Saving these tags variables to alert user if we only found a category tag and not their 
+Input tags in the database as well</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    db.Tag.findOne({where: {tagName: categoryTag}})
-    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tag</span>) </span>{
-      <span class="hljs-keyword">if</span>(tag === <span class="hljs-literal">null</span>) {
-        res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'We could not find a tag in the database.'</span>);
-      }
-      <span class="hljs-keyword">return</span> tag.getProducts();
-    })
-    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">associatedProducts</span>) </span>{
-      <span class="hljs-keyword">if</span>(associatedProducts === <span class="hljs-literal">null</span>) {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> categoryTag = tags[<span class="hljs-number">1</span>];
+    <span class="hljs-keyword">var</span> inputTag = tags[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">var</span> foundOnlyCategoryResults = <span class="hljs-literal">false</span>;</pre></div></div>
             
         </li>
         
@@ -260,19 +255,14 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-6">&#182;</a>
               </div>
-              <p>Not sure if this is the correct error. Leaving in for future testing purposes. </p>
+              <p>Splits the Input Tag into separate words. This allows for search by each word entered into the search query. 
+E.g., “Search: Brown cow” -&gt; [“Brown”, “cow”]</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>        res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'We could not find the associated tags in the database.'</span>);
-      }
-      categoryProducts = associatedProducts;
-      res.send({products: associatedProducts});
-    })
-    .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
-      <span class="hljs-keyword">return</span> next(error);
-    });
-  },</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span>(tags[<span class="hljs-number">0</span>] !== <span class="hljs-string">"null"</span>) {
+      <span class="hljs-keyword">var</span> inputTags = tags[<span class="hljs-number">0</span>].split(<span class="hljs-string">" "</span>);
+    }</pre></div></div>
             
         </li>
         
@@ -283,15 +273,13 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-7">&#182;</a>
               </div>
-              <p>adds a new product to the database</p>
+              <p>Add the Category Tag to the array of tags to be searched/compared</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  newProduct: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
-
-    <span class="hljs-keyword">var</span> token = req.body.token;
-    <span class="hljs-keyword">if</span> (!token) {
-      res.status(<span class="hljs-number">401</span>).send(<span class="hljs-string">'We could not locate the required token.'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span>(tags[<span class="hljs-number">1</span>] !== <span class="hljs-string">'null'</span> &amp;&amp; tags[<span class="hljs-number">1</span>] !== <span class="hljs-string">"All Products"</span>) {
+      inputTags.push(tags[<span class="hljs-number">1</span>]);
+    }</pre></div></div>
             
         </li>
         
@@ -302,34 +290,16 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
-              <p>Keeping this error syntax for future reference. 
-next(new Error(‘No token’));</p>
+              <p>Search tags db by each Input Tag word in inputTags</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    } <span class="hljs-keyword">else</span> {
-      <span class="hljs-keyword">var</span> user = jwt.decode(token, <span class="hljs-string">'secret'</span>);
-      db.User.findOne({where: {email: user.email}})
-      .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">foundUser</span>) </span>{
-        <span class="hljs-keyword">if</span> (foundUser) {
-          <span class="hljs-keyword">var</span> product = req.body.product;
-          <span class="hljs-keyword">var</span> tags = req.body.tags;
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> tagPromises = _.map(inputTags, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">inputTag</span>) </span>{
+      <span class="hljs-keyword">return</span> db.Tag.findAll({where: {<span class="hljs-string">'tagName'</span>: inputTag}});
+    });
 
-          helpers.createProduct(foundUser, product, tags, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, result</span>) </span>{
-            <span class="hljs-keyword">if</span> (error) {
-              next(error);
-            }
-            res.send(<span class="hljs-number">200</span>);
-          });
-        } <span class="hljs-keyword">else</span> {
-          res.status(<span class="hljs-number">401</span>).send(<span class="hljs-string">'Error creating new product in database: We could not locate the product in the database.'</span>);
-        }
-      })
-      .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
-        next(error);
-      });
-    }
-  },</pre></div></div>
+    <span class="hljs-built_in">Promise</span>.all(tagPromises)
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tags</span>) </span>{</pre></div></div>
             
         </li>
         
@@ -340,27 +310,15 @@ next(new Error(‘No token’));</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-9">&#182;</a>
               </div>
-              <p>update the product</p>
+              <p>Flattens the returned array of arrays into one array of objects</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  updateProduct: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
-    <span class="hljs-keyword">var</span> updates = {};
-    <span class="hljs-keyword">if</span> (req.body.name) { updates.name = req.body.name; }
-    <span class="hljs-keyword">if</span> (req.body.photoURL) { updates.photoURL = req.body.photoURL; }
-    <span class="hljs-keyword">if</span> (req.body.price) { updates.price = req.body.price; }
-
-    db.Product.update(updates, {
-      where: { id: req.body.id }
-    })
-    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Successfully updated the product'</span>);
-      res.send(<span class="hljs-string">'Update successful'</span>);
-    })
-    .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
-      res.status(<span class="hljs-number">400</span>).send(<span class="hljs-string">'Error updating the product in database: '</span> + error);
-    });
-  },</pre></div></div>
+            <div class="content"><div class='highlight'><pre>      tags = _.flatten(tags);
+      
+      <span class="hljs-keyword">if</span>(tags.length === <span class="hljs-number">0</span>) {
+        res.status(<span class="hljs-number">200</span>).send(<span class="hljs-literal">null</span>);
+      }</pre></div></div>
             
         </li>
         
@@ -370,6 +328,240 @@ next(new Error(‘No token’));</p>
               
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>This works because if we ever find a tag that matches the Search Input 
+that tag will be a lower index than the categoryTag</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span>(tags[<span class="hljs-number">0</span>].dataValues.tagName === categoryTag &amp;&amp; inputTag !== <span class="hljs-string">'null'</span>) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"TOGGLING found category results"</span>)
+        foundOnlyCategoryResults = <span class="hljs-literal">true</span>;
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Create an array of tagIds from the tags result</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">var</span> tagIds = _.map(tags, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tags</span>) </span>{
+        <span class="hljs-keyword">return</span> tags.dataValues.id;
+      });</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Get all productIds from Product_Tags table that match tagId</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">var</span> tagIdPromises = _.map(tagIds, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tagId</span>) </span>{
+        <span class="hljs-keyword">return</span> db.Product_Tag.findAll({where: {<span class="hljs-string">'TagId'</span>: tagId}});
+      });
+
+      <span class="hljs-built_in">Promise</span>.all(tagIdPromises)
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">productTags</span>) </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Flattens the returned array of arrays into one array of objects</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        productTags = _.flatten(productTags);
+
+        <span class="hljs-keyword">var</span> productIdArray = helpers.maxProductId(productTags);   
+
+        <span class="hljs-keyword">var</span> productPromises = _.map(productIdArray, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">productId</span>) </span>{
+          <span class="hljs-keyword">return</span> db.Product.findAll({where: {id: productId}});
+        })
+
+        <span class="hljs-built_in">Promise</span>.all(productPromises)
+        .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">products</span>) </span>{
+          products = _.flatten(products);
+          res.status(<span class="hljs-number">200</span>).send({
+            products: products,
+            categoryOnly: foundOnlyCategoryResults
+          });
+        })
+        .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+          <span class="hljs-built_in">console</span>.log(error);
+        });
+
+        
+      })
+      .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+        <span class="hljs-keyword">return</span> next(error);
+      })
+
+    })
+    .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+      <span class="hljs-keyword">return</span> next(error);
+    })
+  },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>adds a new product to the database</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  newProduct: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+    <span class="hljs-keyword">var</span> token = req.headers[<span class="hljs-string">'x-access-token'</span>];
+    <span class="hljs-keyword">var</span> user = jwt.decode(token, <span class="hljs-string">'secret'</span>);
+    db.User.findOne({where: {email: user.email}})
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">foundUser</span>) </span>{
+      <span class="hljs-keyword">if</span> (foundUser) {
+        <span class="hljs-keyword">var</span> product = req.body.product;
+        <span class="hljs-keyword">var</span> tags = req.body.tags;
+
+        helpers.createProduct(foundUser, product, tags, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error, result</span>) </span>{
+          <span class="hljs-keyword">if</span> (error) {
+            next(error);
+          }
+          res.send(<span class="hljs-number">200</span>);
+        });
+      } <span class="hljs-keyword">else</span> {
+        res.status(<span class="hljs-number">401</span>).send(<span class="hljs-string">'Error creating new product in database: We could not locate the product in the database.'</span>);
+      }
+    })
+    .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) </span>{
+      next(error);
+    });
+  },
+
+
+  updateProduct: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'updating product'</span>);
+    <span class="hljs-keyword">var</span> updates = {};
+    <span class="hljs-keyword">if</span> (req.body.product.name)     { updates.name     = req.body.product.name     ;}
+    <span class="hljs-keyword">if</span> (req.body.product.photoURL) { updates.photoURL = req.body.product.photoURL ;}
+    <span class="hljs-keyword">if</span> (req.body.product.price)    { updates.price    = req.body.product.price    ;}
+
+    db.Product.update(updates, { 
+      where: { 
+        id: req.body.product.id
+      }
+    })
+    .then( <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      next();
+    })
+    .catch( <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+      next(err);
+    });
+  },
+
+  addTags: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'adding tags:'</span>, req.body.addedTags);
+
+    <span class="hljs-keyword">if</span> (req.body.addedTags.length &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">var</span> promiseModels = [];
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; req.body.addedTags.length; i++) {
+        promiseModels.push(db.Tag.findOrCreate({where: { tagName: req.body.addedTags[i] }}));
+      }
+      promiseModels.push(db.Product.findOne({where: {id: req.body.product.id }}));
+
+      <span class="hljs-built_in">Promise</span>.all(promiseModels)
+      .spread(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);
+        <span class="hljs-keyword">var</span> productModel = args.pop();
+        <span class="hljs-keyword">var</span> promises = [];
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; args.length; i++) {
+          promises.push(
+            db.Product_Tag.create({
+              ProductId: productModel.id,
+              TagId: args[i][<span class="hljs-number">0</span>].get(<span class="hljs-string">'id'</span>)
+            })
+          );
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(promises);
+      })
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        next();
+      })
+      .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+        next(err);
+      });
+    } <span class="hljs-keyword">else</span> {
+      next();
+    }
+  },
+
+  removeTags: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'removing tags:'</span>, req.body.removedTags);
+
+    <span class="hljs-keyword">if</span> (req.body.removedTags.length &gt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">var</span> promiseModels = [];
+      <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; req.body.removedTags.length; i++) {
+        promiseModels.push(db.Tag.find({where: { tagName: req.body.removedTags[i] }}));
+      }
+      promiseModels.push(db.Product.findOne({where: {id: req.body.product.id }}));
+
+      <span class="hljs-built_in">Promise</span>.all(promiseModels)
+      .spread(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">var</span> args = <span class="hljs-built_in">Array</span>.prototype.slice.call(<span class="hljs-built_in">arguments</span>);
+        <span class="hljs-keyword">var</span> productModel = args.pop();
+        <span class="hljs-keyword">var</span> promises = [];
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; args.length; i++) {
+          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'args[i].get(\'id\') is'</span>, args[i].get(<span class="hljs-string">'id'</span>));
+          promises.push(
+            db.Product_Tag.destroy({
+              where: {
+                ProductId: productModel.id,
+                TagId: args[i].get(<span class="hljs-string">'id'</span>)
+              }
+            })
+          );
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all(promises);
+      })
+      .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        res.status(<span class="hljs-number">200</span>).send(<span class="hljs-string">'Item updated succcessfully'</span>);
+      })
+      .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+        next(err);
+      });
+    } <span class="hljs-keyword">else</span> {
+      res.status(<span class="hljs-number">200</span>).send(<span class="hljs-string">'Item updated successfully'</span>);
+    }
+  },</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
               <p>delete the product</p>
 
@@ -383,6 +575,13 @@ next(new Error(‘No token’));</p>
       }
     })
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      db.Bid.destroy({
+        where: {
+          ProductId: productId 
+        }
+      });
+    })
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
       db.Product.destroy({
         where: {
           id: productId
@@ -393,11 +592,11 @@ next(new Error(‘No token’));</p>
         </li>
         
         
-        <li id="section-11">
+        <li id="section-16">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-11">&#182;</a>
+                <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
               <p>need to delete tags in the tags </p>
 
@@ -414,11 +613,11 @@ next(new Error(‘No token’));</p>
         </li>
         
         
-        <li id="section-12">
+        <li id="section-17">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-12">&#182;</a>
+                <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
               <p>get all products the user is selling</p>
 
@@ -457,11 +656,11 @@ next(new Error(‘No token’));</p>
         </li>
         
         
-        <li id="section-13">
+        <li id="section-18">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-13">&#182;</a>
+                <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
               <p>get all tags for a certain product</p>
 
@@ -494,6 +693,33 @@ next(new Error(‘No token’));</p>
   }
 
 };</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Utility function for finding bounds of search area. Might implement in the future.</p>
+<p>var milesToLatLong = function(lat,long,radius) {
+  var radiusEarth = 6371;  // earth radius in km
+  radius = radius <em> 1.60934; //convert mi to km
+  var long1 = long - ((180/Math.PI)</em>(radius/radiusEarth/Math.cos((Math.PI/180)<em>(lat))));
+  var long2 = long + (180/Math.PI)</em>(radius/radiusEarth/Math.cos((Math.PI/180)<em>(lat)));
+  var lat1 = lat + ((180/Math.PI)</em>(radius/radiusEarth));
+  var lat2 = lat - ((180/Math.PI)*(radius/radiusEarth));
+  return {
+    long1: long1,
+    long2: long2,
+    lat1: lat1,
+    lat2: lat2
+  };
+}</p>
+
+            </div>
             
         </li>
         

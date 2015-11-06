@@ -1,3 +1,5 @@
+// This bid controller is responsible for sending bids on items
+// for sale via the sendBid method of the injected Products service.
 angular.module('shwop.bid', [])
 
 .controller('BidController', ['$http', '$scope', '$rootScope', '$location', '$window', '$translate', 'Products', 'Auth', function ($http, $scope, $rootScope, $location, $window, $translate, Products, Auth) {

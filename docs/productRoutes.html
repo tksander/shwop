@@ -219,7 +219,7 @@ req.navLink before it reaches line 16.</p>
   app.route(<span class="hljs-string">'/'</span>)
     .get(userController.checkAuth, productController.allProducts)
     .post(userController.checkAuth, productController.newProduct)
-    .put(userController.checkAuth, productController.updateProduct);
+    .put(userController.checkAuth, productController.updateProduct, productController.addTags, productController.removeTags);
 
   app.delete(<span class="hljs-string">'/:productId'</span>, userController.checkAuth, productController.deleteProduct);
 

@@ -158,11 +158,12 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>This profile controller allows the user to retrieve, review, and update
+their profile information via methods from the injected Users service.</p>
+
             </div>
             
             <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'shwop.profile'</span>, [])
-
 
 .controller(<span class="hljs-string">'ProfileController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'Users'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $window, $translate, $location, Users, Auth</span>) </span>{
 
@@ -174,22 +175,9 @@
 
   $scope.signout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     Auth.signout();
-  };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>Calls factory mehtod that returns the user’s information</p>
+  };
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  $scope.getUserInfo = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  $scope.getUserInfo = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     <span class="hljs-keyword">var</span> token = $<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'com.shwop'</span>);
     Users.getUserInfo(token)
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">user</span>) </span>{
@@ -231,50 +219,8 @@
 
   $scope.backToShwopping = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     $location.path( <span class="hljs-string">"/products"</span> );
-  };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>$scope.getLocation = function () {</p>
+  };
 
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>  navigator.geolocation.getCurrentPosition(function(position) {
-    console.log(position.coords.latitude, position.coords.longitude);
-});</p>
-
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
-              </div>
-              <p>}</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
   $scope.getUserInfo();
 }]);</pre></div></div>
             

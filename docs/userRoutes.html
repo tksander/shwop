@@ -183,9 +183,9 @@
   app.post(<span class="hljs-string">'/signin'</span>, userController.signin);
   app.post(<span class="hljs-string">'/signup'</span>, userController.signup);
   app.get(<span class="hljs-string">'/signedin'</span>, userController.checkAuth);
-  app.post(<span class="hljs-string">'/profile'</span>, userController.userInfo);
-  app.post(<span class="hljs-string">'/update'</span>, userController.updateUser);
-  app.get(<span class="hljs-string">'/:userId'</span>, userController.getUserLocation)
+  app.get(<span class="hljs-string">'/profile'</span>, userController.checkAuth, userController.userInfo);
+  app.post(<span class="hljs-string">'/update'</span>, userController.checkAuth, userController.updateUser);
+  app.get(<span class="hljs-string">'/:userId'</span>, userController.checkAuth, userController.getUserLocation)
 };</pre></div></div>
             
         </li>
