@@ -306,6 +306,16 @@ select:invalid option { color: black; }
   float: right;
 }
 
+.signin-background {
+  background-image: url(../../assets/images/signin_background.JPG);
+  background-size: cover;
+}
+
+.welcome-background {
+  background-image: url(../../assets/images/welcome_background.jpg);
+  background-size: cover;
+}
+
 .fake-link {
     color: blue;
     cursor: pointer;

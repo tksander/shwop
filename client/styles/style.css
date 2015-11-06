@@ -245,6 +245,14 @@ select:invalid option {
 .right-align {
   float: right; }
 
+.signin-background {
+  background-image: url(../../assets/images/signin_background.JPG);
+  background-size: cover; }
+
+.welcome-background {
+  background-image: url(../../assets/images/welcome_background.jpg);
+  background-size: cover; }
+
 .fake-link {
   color: blue;
   cursor: pointer; }
