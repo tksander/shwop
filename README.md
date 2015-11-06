@@ -34,7 +34,62 @@
 
 ### Installing Dependencies
 
+Run the following commands from the root directory: 
+
+```sh
+$ npm install
+$ bower install
+```
+
+
+### Creating A Local Database
+
+Run the following commands from the root directory: 
+
+Create the mySQL database:
+```sh
+$ grunt create
+
+Running "create" task
+
+Running "shell:createdb" (shell) task
+Lets go shwoping!
+
+Done, without errors.
+```
+#### Accessing The Database
+
+If mySQL is not installed on machine. Check this by executing :
+```sh
+$ which mySQL
+```
+If mySQL is not installed, run:
+```sh
+$ brew install mySQL
+```
+Start up your mySQL server
+```sh
+$ mySQL.server start
+```
+Start the mySQL shell, login as the root user, and access the  execute the below line. 
+$ mySQL -u root 
+
+
+
+
+Useful mySQL shell commands:
+‘show databases;’
+‘use [database];’
+‘show tables;’
+‘describe [table];’
+(Open a new terminal window from mySQL shell) grunt create
+(In the new terminal window) grunt start (run from root directory)
+grunt runSass
+
+
 From within the root directory:
+
+
 
 ```sh
 sudo npm install -g bower
