@@ -9,7 +9,6 @@ module.exports = {
 
   // retrieve all the products from the database
   allProducts: function (req, res, next) {
-    console.log('the headers were '+JSON.stringify(req.headers));
     //var bounds = milesToLatLong(req.headers.lat, req.headers.long, req.headers.radius);
     db.Product.findAll()
     .then(function (products) {
@@ -24,7 +23,6 @@ module.exports = {
   },
 
    productsByTags: function (req, res, next) {
-    console.log('the headers BY TAG were '+JSON.stringify(req.headers));
     // Splits the received tags into two array elements: Element 1 = Input Tag, Element 2 = Category Tag
     var tags = req.params.tags.split('+');
     var inputTags = [];
