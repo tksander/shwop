@@ -4,11 +4,11 @@ Peer-to-peer mobile optimized marketplace with intuitive swipe-based user experi
 
 ## Team
 
-  - Product Owner: John Wareing [LinkedIn](linkedin.com/in/johnwareing), [GitHub](github.com/jwareing)
-  - Scrum Master: Corey Roy [LinkedIn](linkedin.com/in/coreyroy), [GitHub](github.com/coreys)
+  - Product Owner: John Wareing [LinkedIn](https://wwwlinkedin.com/in/johnwareing), [GitHub](https://github.com/jwareing)
+  - Scrum Master: Corey Roy [LinkedIn](https://linkedin.com/in/coreyroy), [GitHub](https://github.com/coreys)
   - Development Team Members: 
-      Tommy Sander [LinkedIn](linkedin.com/in/thomasksander), [GitHub](github.com/tksander) 
-      Brett Sanders [LinkedIn](linkedin.com/in/brettwsanders), [GitHub](github.com/brettwsanders)
+      Tommy Sander [LinkedIn](https://linkedin.com/in/thomasksander), [GitHub](https://github.com/tksander) 
+      Brett Sanders [LinkedIn](https://linkedin.com/in/brettwsanders), [GitHub](https://github.com/brettwsanders)
 
 
 
