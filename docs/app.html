@@ -173,8 +173,14 @@
   <span class="hljs-string">'mobile-angular-ui'</span>,
   <span class="hljs-string">'mobile-angular-ui.gestures'</span>,
   <span class="hljs-string">'pascalprecht.translate'</span>,
-  <span class="hljs-string">'ngRoute'</span>
+  <span class="hljs-string">'ngRoute'</span>,
+  <span class="hljs-string">'ngFitText'</span>
 ])
+.controller(<span class="hljs-string">'SidebarController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $translate</span>) </span>{
+  $scope.toggleLanguage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">lang</span>) </span>{
+    $translate.use(lang);
+  };
+}])
 .config([<span class="hljs-string">'$routeProvider'</span>, <span class="hljs-string">'$httpProvider'</span>, <span class="hljs-string">'$translateProvider'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$routeProvider, $httpProvider, $translateProvider</span>) </span>{
   $routeProvider
     .when(<span class="hljs-string">'/'</span>, {

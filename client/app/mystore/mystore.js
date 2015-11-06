@@ -1,3 +1,6 @@
+// This "My Store" controller allows users to retrieve and display all the items
+// that they have posted for sale, as well as modify or delete existing items, 
+// via methods from the injected Products and Photos services.
 angular.module('shwop.mystore', [])
 
 .controller('MyStoreController', ['$scope', '$rootScope','$window', '$translate', 'Photos', 'Products', 'Auth', function ($scope, $rootScope, $window, $translate, Photos, Products, Auth) {
@@ -22,9 +25,7 @@ angular.module('shwop.mystore', [])
     Auth.signout();
   };
   
-  // Calls factory method that returns all product info from DB and renders it.
   $scope.getUserProducts = function () {
-    //get the token
     var token = $window.localStorage.getItem('com.shwop');
     Products.getUserProducts(token)
     .then(function (myProducts) {

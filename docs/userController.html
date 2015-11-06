@@ -299,7 +299,8 @@ check to see if that user exists in the database</p>
   },
 
   userInfo: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
-    <span class="hljs-keyword">var</span> user = jwt.decode(req.body.token, <span class="hljs-string">'secret'</span>);
+    <span class="hljs-keyword">var</span> token = req.headers[<span class="hljs-string">'x-access-token'</span>];
+    <span class="hljs-keyword">var</span> user = jwt.decode(token, <span class="hljs-string">'secret'</span>);
     db.User.findOne({
       where: { id: user.id }
     })
@@ -328,17 +329,18 @@ check to see if that user exists in the database</p>
   },
 
   updateUser: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
-    <span class="hljs-keyword">var</span> user = jwt.decode(req.body.token, <span class="hljs-string">'secret'</span>);
+    <span class="hljs-keyword">var</span> token = req.headers[<span class="hljs-string">'x-access-token'</span>];
+    <span class="hljs-keyword">var</span> user = jwt.decode(token, <span class="hljs-string">'secret'</span>);
     db.User.update({ 
-      firstName: req.body.updatedUser.firstName,
-      lastName: req.body.updatedUser.lastName,
-      email: req.body.updatedUser.email,
-      phoneNumber: req.body.updatedUser.phoneNumber,
-      address1: req.body.updatedUser.address1,
-      address2: req.body.updatedUser.address2,
-      city: req.body.updatedUser.city,
-      state: req.body.updatedUser.state,
-      zip: req.body.updatedUser.zip
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      address1: req.body.address1,
+      address2: req.body.address2,
+      city: req.body.city,
+      state: req.body.state,
+      zip: req.body.zip
     }, {
       where: {
         id: user.id
@@ -348,7 +350,7 @@ check to see if that user exists in the database</p>
       res.send(<span class="hljs-number">200</span>);
     })
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      helpers.addLongAndLat(req.body.updatedUser);
+      helpers.addLongAndLat(req.body);
     })
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) </span>{
       <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Successfully added longitude and latitude'</span>);

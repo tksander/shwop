@@ -252,6 +252,17 @@
     });
   };
 
+  <span class="hljs-keyword">var</span> updateProduct = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">product, addedTags, removedTags</span>) </span>{
+    <span class="hljs-keyword">return</span> $http({
+      method: <span class="hljs-string">'PUT'</span>,
+      url: <span class="hljs-string">'/api/products/'</span>,
+      data: {
+        product: product,
+        addedTags: addedTags,
+        removedTags: removedTags
+      }
+    });
+  };
 
   <span class="hljs-keyword">var</span> getDistance = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">lat1,lon1,lat2,lon2</span>) </span>{
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'distance:  '</span>, lat1,lon1,lat2,lon2);
@@ -265,14 +276,14 @@
       ; 
     <span class="hljs-keyword">var</span> c = <span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.atan2(<span class="hljs-built_in">Math</span>.sqrt(a), <span class="hljs-built_in">Math</span>.sqrt(<span class="hljs-number">1</span>-a)); 
     <span class="hljs-keyword">var</span> d = R * c; <span class="hljs-comment">// Distance in km</span>
-    <span class="hljs-keyword">return</span> getMiles(d);
+    <span class="hljs-keyword">return</span> kmToMiles(d);
   };
 
   <span class="hljs-keyword">var</span> deg2rad = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">deg</span>) </span>{
     <span class="hljs-keyword">return</span> deg * (<span class="hljs-built_in">Math</span>.PI/<span class="hljs-number">180</span>)
   };
 
-  <span class="hljs-keyword">var</span> getMiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
+  <span class="hljs-keyword">var</span> kmToMiles = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">i</span>) </span>{
      <span class="hljs-keyword">return</span> i*<span class="hljs-number">0.62137</span>;
   };
 
@@ -281,6 +292,16 @@
       method: <span class="hljs-string">'GET'</span>,
       url: <span class="hljs-string">'/api/products/tags/'</span> + productId
     });
+  };
+
+  <span class="hljs-keyword">var</span> splitCategoryFromTags = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tags</span>) </span>{
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; tags.length; i++) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> j = <span class="hljs-number">0</span>; j &lt; categories.length; j++) {
+        <span class="hljs-keyword">if</span> (tags[i] === categories[j].name) {
+          <span class="hljs-keyword">return</span> tags.splice(i, <span class="hljs-number">1</span>)[<span class="hljs-number">0</span>];
+        }
+      }
+    }
   };</pre></div></div>
             
         </li>
@@ -335,46 +356,51 @@
             <div class="content"><div class='highlight'><pre>
 
   <span class="hljs-keyword">var</span> categories = [
-    {id: <span class="hljs-string">'1'</span>, name: <span class="hljs-string">'Antiques'</span>, translation: $translate.instant(<span class="hljs-string">'antiques'</span>)},
-    {id: <span class="hljs-string">'2'</span>, name: <span class="hljs-string">'Appliances'</span>, translation: $translate.instant(<span class="hljs-string">'appliances'</span>)},
-    {id: <span class="hljs-string">'3'</span>, name: <span class="hljs-string">'Arts, Crafts &amp; Sewing'</span>, translation: $translate.instant(<span class="hljs-string">'artsCrafts'</span>)},
-    {id: <span class="hljs-string">'4'</span>, name: <span class="hljs-string">'Automotive'</span>, translation: $translate.instant(<span class="hljs-string">'automotive'</span>)},
-    {id: <span class="hljs-string">'5'</span>, name: <span class="hljs-string">'Baby &amp; Kids'</span>, translation: $translate.instant(<span class="hljs-string">'babyKids'</span>)},
-    {id: <span class="hljs-string">'6'</span>, name: <span class="hljs-string">'Barter'</span>, translation: $translate.instant(<span class="hljs-string">'barter'</span>)},
-    {id: <span class="hljs-string">'7'</span>, name: <span class="hljs-string">'Beauty'</span>, translation: $translate.instant(<span class="hljs-string">'beauty'</span>)},
-    {id: <span class="hljs-string">'8'</span>, name: <span class="hljs-string">'Bikes'</span>, translation: $translate.instant(<span class="hljs-string">'bikes'</span>)},
-    {id: <span class="hljs-string">'9'</span>, name: <span class="hljs-string">'Boats'</span>, translation: $translate.instant(<span class="hljs-string">'boats'</span>)},
-    {id: <span class="hljs-string">'10'</span>, name: <span class="hljs-string">'Books'</span>, translation: $translate.instant(<span class="hljs-string">'books'</span>)},
-    {id: <span class="hljs-string">'11'</span>, name: <span class="hljs-string">'Cell Phones &amp; Accessories'</span>, translation: $translate.instant(<span class="hljs-string">'cellPhones'</span>)},
-    {id: <span class="hljs-string">'12'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Women'</span>, translation: $translate.instant(<span class="hljs-string">'clothingWomen'</span>)},
-    {id: <span class="hljs-string">'13'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Men'</span>, translation: $translate.instant(<span class="hljs-string">'clothingMen'</span>)},
-    {id: <span class="hljs-string">'14'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Girls'</span>, translation: $translate.instant(<span class="hljs-string">'clothingGirls'</span>)},
-    {id: <span class="hljs-string">'15'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Boys'</span>, translation: $translate.instant(<span class="hljs-string">'clothingBoys'</span>)},
-    {id: <span class="hljs-string">'16'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Baby'</span>, translation: $translate.instant(<span class="hljs-string">'clothingBaby'</span>)},
-    {id: <span class="hljs-string">'17'</span>, name: <span class="hljs-string">'Collectibles &amp; Fine Art'</span>, translation: $translate.instant(<span class="hljs-string">'collectibles'</span>)},
-    {id: <span class="hljs-string">'18'</span>, name: <span class="hljs-string">'Computers &amp; Software'</span>, translation: $translate.instant(<span class="hljs-string">'computers'</span>)},
-    {id: <span class="hljs-string">'19'</span>, name: <span class="hljs-string">'Electronics'</span>, translation: $translate.instant(<span class="hljs-string">'electronics'</span>)},
-    {id: <span class="hljs-string">'20'</span>, name: <span class="hljs-string">'Free'</span>, translation: $translate.instant(<span class="hljs-string">'free'</span>)},
-    {id: <span class="hljs-string">'21'</span>, name: <span class="hljs-string">'Furniture'</span>, translation: $translate.instant(<span class="hljs-string">'furniture'</span>)},
-    {id: <span class="hljs-string">'22'</span>, name: <span class="hljs-string">'Games &amp; Toys'</span>, translation: $translate.instant(<span class="hljs-string">'gamesToys'</span>)},
-    {id: <span class="hljs-string">'23'</span>, name: <span class="hljs-string">'Garage Sale'</span>, translation: $translate.instant(<span class="hljs-string">'garageSale'</span>)},
-    {id: <span class="hljs-string">'24'</span>, name: <span class="hljs-string">'General / Miscellaneous'</span>, translation: $translate.instant(<span class="hljs-string">'generalMisc'</span>)},
-    {id: <span class="hljs-string">'25'</span>, name: <span class="hljs-string">'Grocery &amp; Food'</span>, translation: $translate.instant(<span class="hljs-string">'groceryFood'</span>)},
-    {id: <span class="hljs-string">'26'</span>, name: <span class="hljs-string">'Handmade'</span>, translation: $translate.instant(<span class="hljs-string">'handmade'</span>)},
-    {id: <span class="hljs-string">'27'</span>, name: <span class="hljs-string">'Health &amp; Personal Care'</span>, translation: $translate.instant(<span class="hljs-string">'health'</span>)},
-    {id: <span class="hljs-string">'28'</span>, name: <span class="hljs-string">'Home &amp; Kitchen'</span>, translation: $translate.instant(<span class="hljs-string">'homeKitchen'</span>)},
-    {id: <span class="hljs-string">'29'</span>, name: <span class="hljs-string">'Industrial &amp; Scientific'</span>, translation: $translate.instant(<span class="hljs-string">'industrialScientific'</span>)},
-    {id: <span class="hljs-string">'30'</span>, name: <span class="hljs-string">'Luggage &amp; Travel Gear'</span>, translation: $translate.instant(<span class="hljs-string">'travel'</span>)},
-    {id: <span class="hljs-string">'31'</span>, name: <span class="hljs-string">'Movies &amp; TV'</span>, translation: $translate.instant(<span class="hljs-string">'moviesTV'</span>)},
-    {id: <span class="hljs-string">'32'</span>, name: <span class="hljs-string">'Music &amp; Musical Instruments'</span>, translation: $translate.instant(<span class="hljs-string">'music'</span>)},
-    {id: <span class="hljs-string">'33'</span>, name: <span class="hljs-string">'Office &amp; Business'</span>, translation: $translate.instant(<span class="hljs-string">'officeBusiness'</span>)},
-    {id: <span class="hljs-string">'34'</span>, name: <span class="hljs-string">'Patio, Lawn &amp; Garden'</span>, translation: $translate.instant(<span class="hljs-string">'patio'</span>)},
-    {id: <span class="hljs-string">'35'</span>, name: <span class="hljs-string">'Pet Supplies'</span>, translation: $translate.instant(<span class="hljs-string">'pet'</span>)},
-    {id: <span class="hljs-string">'36'</span>, name: <span class="hljs-string">'Sports &amp; Outdoors'</span>, translation: $translate.instant(<span class="hljs-string">'sportsOutdoors'</span>)},
-    {id: <span class="hljs-string">'37'</span>, name: <span class="hljs-string">'Tickets'</span>, translation: $translate.instant(<span class="hljs-string">'tickets'</span>)},
-    {id: <span class="hljs-string">'38'</span>, name: <span class="hljs-string">'Tools &amp; Home Improvement'</span>, translation: $translate.instant(<span class="hljs-string">'tools'</span>)},
-    {id: <span class="hljs-string">'39'</span>, name: <span class="hljs-string">'Video Games'</span>, translation: $translate.instant(<span class="hljs-string">'videoGames'</span>)}
+    {id: <span class="hljs-string">'0'</span>, name: <span class="hljs-string">'All Products'</span>, translation: <span class="hljs-string">'allProducts'</span>},
+    {id: <span class="hljs-string">'1'</span>, name: <span class="hljs-string">'Antiques'</span>, translation: <span class="hljs-string">'antiques'</span>},
+    {id: <span class="hljs-string">'2'</span>, name: <span class="hljs-string">'Appliances'</span>, translation: <span class="hljs-string">'appliances'</span>},
+    {id: <span class="hljs-string">'3'</span>, name: <span class="hljs-string">'Arts, Crafts &amp; Sewing'</span>, translation: <span class="hljs-string">'artsCrafts'</span>},
+    {id: <span class="hljs-string">'4'</span>, name: <span class="hljs-string">'Automotive'</span>, translation: <span class="hljs-string">'automotive'</span>},
+    {id: <span class="hljs-string">'5'</span>, name: <span class="hljs-string">'Baby &amp; Kids'</span>, translation: <span class="hljs-string">'babyKids'</span>},
+    {id: <span class="hljs-string">'6'</span>, name: <span class="hljs-string">'Barter'</span>, translation: <span class="hljs-string">'barter'</span>},
+    {id: <span class="hljs-string">'7'</span>, name: <span class="hljs-string">'Beauty'</span>, translation: <span class="hljs-string">'beauty'</span>},
+    {id: <span class="hljs-string">'8'</span>, name: <span class="hljs-string">'Bikes'</span>, translation: <span class="hljs-string">'bikes'</span>},
+    {id: <span class="hljs-string">'9'</span>, name: <span class="hljs-string">'Boats'</span>, translation: <span class="hljs-string">'boats'</span>},
+    {id: <span class="hljs-string">'10'</span>, name: <span class="hljs-string">'Books'</span>, translation: <span class="hljs-string">'books'</span>},
+    {id: <span class="hljs-string">'11'</span>, name: <span class="hljs-string">'Cell Phones &amp; Accessories'</span>, translation: <span class="hljs-string">'cellPhones'</span>},
+    {id: <span class="hljs-string">'12'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Women'</span>, translation: <span class="hljs-string">'clothingWomen'</span>},
+    {id: <span class="hljs-string">'13'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Men'</span>, translation: <span class="hljs-string">'clothingMen'</span>},
+    {id: <span class="hljs-string">'14'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Girls'</span>, translation: <span class="hljs-string">'clothingGirls'</span>},
+    {id: <span class="hljs-string">'15'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Boys'</span>, translation: <span class="hljs-string">'clothingBoys'</span>},
+    {id: <span class="hljs-string">'16'</span>, name: <span class="hljs-string">'Clothing, Shoes &amp; Jewelry - Baby'</span>, translation: <span class="hljs-string">'clothingBaby'</span>},
+    {id: <span class="hljs-string">'17'</span>, name: <span class="hljs-string">'Collectibles &amp; Fine Art'</span>, translation: <span class="hljs-string">'collectibles'</span>},
+    {id: <span class="hljs-string">'18'</span>, name: <span class="hljs-string">'Computers &amp; Software'</span>, translation: <span class="hljs-string">'computers'</span>},
+    {id: <span class="hljs-string">'19'</span>, name: <span class="hljs-string">'Electronics'</span>, translation: <span class="hljs-string">'electronics'</span>},
+    {id: <span class="hljs-string">'20'</span>, name: <span class="hljs-string">'Free'</span>, translation: <span class="hljs-string">'free'</span>},
+    {id: <span class="hljs-string">'21'</span>, name: <span class="hljs-string">'Furniture'</span>, translation: <span class="hljs-string">'furniture'</span>},
+    {id: <span class="hljs-string">'22'</span>, name: <span class="hljs-string">'Games &amp; Toys'</span>, translation: <span class="hljs-string">'gamesToys'</span>},
+    {id: <span class="hljs-string">'23'</span>, name: <span class="hljs-string">'Garage Sale'</span>, translation: <span class="hljs-string">'garageSale'</span>},
+    {id: <span class="hljs-string">'24'</span>, name: <span class="hljs-string">'General / Miscellaneous'</span>, translation: <span class="hljs-string">'generalMisc'</span>},
+    {id: <span class="hljs-string">'25'</span>, name: <span class="hljs-string">'Grocery &amp; Food'</span>, translation: <span class="hljs-string">'groceryFood'</span>},
+    {id: <span class="hljs-string">'26'</span>, name: <span class="hljs-string">'Handmade'</span>, translation: <span class="hljs-string">'handmade'</span>},
+    {id: <span class="hljs-string">'27'</span>, name: <span class="hljs-string">'Health &amp; Personal Care'</span>, translation: <span class="hljs-string">'health'</span>},
+    {id: <span class="hljs-string">'28'</span>, name: <span class="hljs-string">'Home &amp; Kitchen'</span>, translation: <span class="hljs-string">'homeKitchen'</span>},
+    {id: <span class="hljs-string">'29'</span>, name: <span class="hljs-string">'Industrial &amp; Scientific'</span>, translation: <span class="hljs-string">'industrialScientific'</span>},
+    {id: <span class="hljs-string">'30'</span>, name: <span class="hljs-string">'Luggage &amp; Travel Gear'</span>, translation: <span class="hljs-string">'travel'</span>},
+    {id: <span class="hljs-string">'31'</span>, name: <span class="hljs-string">'Movies &amp; TV'</span>, translation: <span class="hljs-string">'moviesTV'</span>},
+    {id: <span class="hljs-string">'32'</span>, name: <span class="hljs-string">'Music &amp; Musical Instruments'</span>, translation: <span class="hljs-string">'music'</span>},
+    {id: <span class="hljs-string">'33'</span>, name: <span class="hljs-string">'Office &amp; Business'</span>, translation: <span class="hljs-string">'officeBusiness'</span>},
+    {id: <span class="hljs-string">'34'</span>, name: <span class="hljs-string">'Patio, Lawn &amp; Garden'</span>, translation: <span class="hljs-string">'patio'</span>},
+    {id: <span class="hljs-string">'35'</span>, name: <span class="hljs-string">'Pet Supplies'</span>, translation: <span class="hljs-string">'pet'</span>},
+    {id: <span class="hljs-string">'36'</span>, name: <span class="hljs-string">'Sports &amp; Outdoors'</span>, translation: <span class="hljs-string">'sportsOutdoors'</span>},
+    {id: <span class="hljs-string">'37'</span>, name: <span class="hljs-string">'Tickets'</span>, translation: <span class="hljs-string">'tickets'</span>},
+    {id: <span class="hljs-string">'38'</span>, name: <span class="hljs-string">'Tools &amp; Home Improvement'</span>, translation: <span class="hljs-string">'tools'</span>},
+    {id: <span class="hljs-string">'39'</span>, name: <span class="hljs-string">'Video Games'</span>, translation: <span class="hljs-string">'videoGames'</span>}
   ];
+
+  <span class="hljs-keyword">var</span> categories = categories.sort(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">a, b</span>) </span>{
+    <span class="hljs-keyword">return</span> a.translation.localeCompare(b.translation);
+  });
 
   <span class="hljs-keyword">return</span> {
     getAllProducts: getAllProducts,
@@ -389,8 +415,10 @@
     getProductsByTag: getProductsByTag,
     getUserProducts: getUserProducts,
     deleteProduct: deleteProduct,
+    updateProduct: updateProduct,
     getDistance: getDistance,
     getTags: getTags,
+    splitCategoryFromTags: splitCategoryFromTags,
     categories: categories
   };
 
@@ -405,9 +433,8 @@
 
   <span class="hljs-keyword">var</span> getUserInfo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">token</span>) </span>{
     <span class="hljs-keyword">return</span> $http({
-      method: <span class="hljs-string">'POST'</span>,
-      url: <span class="hljs-string">'/api/users/profile'</span>,
-      data: {token: token}
+      method: <span class="hljs-string">'GET'</span>,
+      url: <span class="hljs-string">'/api/users/profile'</span>
     });
   };
 
@@ -423,7 +450,7 @@
     <span class="hljs-keyword">return</span> $http({
       method: <span class="hljs-string">'POST'</span>,
       url: <span class="hljs-string">'/api/users/update'</span>,
-      data: {token: token, updatedUser: updatedUser}
+      data: updatedUser
     });
   };
 
@@ -551,6 +578,7 @@ passes the url into uploadPhoto’s callback function.</p>
   };
 
   <span class="hljs-keyword">return</span> {
+    getPhotoAPIKeys: getPhotoAPIKeys,
     uploadPhoto: uploadPhoto
   };
 
