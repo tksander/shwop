@@ -44,9 +44,14 @@ Peer-to-peer mobile optimized marketplace with intuitive swipe-based user experi
 
 
 ## Code Highlight
+Client-side
 [Products View](/client/app/products/products.html)
 [Products Controller](/client/app/products/products.js)
+
+Server-side
 [Products Controller](/server/products/productsController.js)
+
+Database 
 
 
 ## Requirements
