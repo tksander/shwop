@@ -33,11 +33,11 @@
     </div>
 
       <div ng-if="lastCard">
-        <div><p class="search-explain"> {{ 'continueSearch' | translate }} </p></div>
+        <div><p class="search-explain"> {{ 'lastCardMessage' | translate }} </p></div>
       <div ng-if="searchSubmitted">
-        <button class="btn btn-primary btn-lg btn-search" ng-click="refreshProductSet()">{{ 'previousSearch' | translate}} </button>
+        <button class="btn btn-primary btn-lg btn-search" ng-click="refreshProductSet()">{{ 'seePreviousSearchItemsButton' | translate}} </button>
       </div>
-        <button class="btn btn-primary btn-lg btn-search" ng-click="getAllProducts()">{{ 'allItems' | translate }} </button>
+        <button class="btn btn-primary btn-lg btn-search" ng-click="getAllProducts()">{{ 'seeAllItemsButton' | translate }} </button>
       </div>
     </div>
   </div>

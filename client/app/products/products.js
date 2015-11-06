@@ -86,8 +86,10 @@ angular.module('shwop.products', [])
           .then(function (promise) {
 
             if(promise.data === '') {
-              alert("Sorry, no results matched your search. Please try different search terms or hit the cancel button to keep shwoping!")
-              //$rootScope.Ui.turnOff('searchModal');
+              $translate('noSearchResultsAlert1')
+              .then(function (translatedValue) {
+                alert(translatedValue);
+              });
             } else if (promise.data.categoryOnly) { // If Category input returns results but Search Input DOES NOT return results
 
               $scope.lastCard = false;
@@ -106,8 +108,22 @@ angular.module('shwop.products', [])
               $scope.product.category = null;
               $scope.product.searchText = null;
 
-              alert("We were unable to find results matching \"" + previousSearchText + 
-                    "\". Showing results for \"" + previousProductCategory + "\". Happy shwopping!");
+              var noResultsAlert = '';
+              $translate()
+              .then(function (translatedValue) {
+                noResultsAlert += translatedValue + '"' + previousSearchText + '". ';
+              });
+              $translate()
+              .then(function (translatedValue) {
+                noResultsAlert += translatedValue + '"' + previousProductCategory + '". '
+              });
+              $translate()
+              .then(function (translatedValue) {
+                noResultsAlert += translatedValue;
+                alert(noResultsAlert);
+              });
+              // alert("We were unable to find results matching: \"" + previousSearchText + '". ';
+              //       "\". Showing results for: \"" + previousProductCategory + "\". Happy shwopping!");
 
             } else {
               $scope.lastCard = false;
