@@ -4,27 +4,26 @@ Peer-to-peer mobile optimized marketplace with intuitive swipe-based user experi
 
 ## Team
 
-  - Product Owner: John Wareing [LinkedIn](https://wwwlinkedin.com/in/johnwareing), [GitHub](https://github.com/jwareing)
+  - Product Owner: John Wareing [LinkedIn](https://linkedin.com/in/johnwareing), [GitHub](https://github.com/jwareing)
   - Scrum Master: Corey Roy [LinkedIn](https://linkedin.com/in/coreyroy), [GitHub](https://github.com/coreys)
   - Development Team Members: 
       Tommy Sander [LinkedIn](https://linkedin.com/in/thomasksander), [GitHub](https://github.com/tksander) 
       Brett Sanders [LinkedIn](https://linkedin.com/in/brettwsanders), [GitHub](https://github.com/brettwsanders)
 
 
-
  - What the project does
-     - Features
-     - Developer: how to open up and start working on it
-     - Step to get things working
-     - Outline of the map - controllers, views, ect.
-     - Delineated section
-     - Screen shots of the product
-     - Links to the product
-     - how to run a test
-     - Contributors: link to profiles
-     -Look at the code: (Put this at the top of the Readme)
-     - Highlight which parts of the code they would like to look at first
-          - Front end - typical controller
+ - Features
+ - Developer: how to open up and start working on it
+ - Step to get things working
+ - Outline of the map - controllers, views, ect.
+ - Delineated section
+ - Screen shots of the product
+ - Links to the product
+ - how to run a test
+ - Contributors: link to profiles
+ - Look at the code: (Put this at the top of the Readme)
+ - Highlight which parts of the code they would like to look at first
+      - Front end - typical controller
 
 ## Table of Contents
 
@@ -43,7 +42,11 @@ Peer-to-peer mobile optimized marketplace with intuitive swipe-based user experi
 
 ## Usage
 
-> Some usage instructions
+
+
+## Code Highlight
+[Shwop Mobile Browser App](/client/products/products.js)
+
 
 ## Requirements
 
@@ -62,8 +65,6 @@ Run all of the following commands from the root directory to setup your dependen
 $ npm install
 $ bower install
 ```
-
-
 
 ### Creating A Local mySQL Database
 Create the mySQL database:
@@ -99,8 +100,8 @@ $ mySQL -u root shwopDB
 
 Useful mySQL shell commands:
 ```sh
-‘show tables;’
-‘describe [table];’
+show tables;
+describe [table];
 ```
 
 ### Starting Node Server
