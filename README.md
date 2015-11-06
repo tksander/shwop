@@ -11,6 +11,21 @@ Peer-to-peer mobile optimized marketplace with intuitive swipe-based user experi
       Brett Sanders [LinkedIn](linkedin.com/in/brettwsanders), [GitHub](github.com/brettwsanders)
 
 
+
+ - What the project does
+     - Features
+     - Developer: how to open up and start working on it
+     - Step to get things working
+     - Outline of the map - controllers, views, ect.
+     - Delineated section
+     - Screen shots of the product
+     - Links to the product
+     - how to run a test
+     - Contributors: link to profiles
+     -Look at the code: (Put this at the top of the Readme)
+     - Highlight which parts of the code they would like to look at first
+          - Front end - typical controller
+
 ## Table of Contents
 
 1. [Usage](#Usage)
