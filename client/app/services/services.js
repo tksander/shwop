@@ -236,9 +236,8 @@ angular.module('shwop.services', [])
 
   var getUserInfo = function(token) {
     return $http({
-      method: 'POST',
-      url: '/api/users/profile',
-      data: {token: token}
+      method: 'GET',
+      url: '/api/users/profile'
     });
   };
 
@@ -254,7 +253,7 @@ angular.module('shwop.services', [])
     return $http({
       method: 'POST',
       url: '/api/users/update',
-      data: {token: token, updatedUser: updatedUser}
+      data: updatedUser
     });
   };
 
