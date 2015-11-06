@@ -44,5 +44,9 @@ angular.module('shwop.auth', [])
   $scope.goToSignUp = function () {
     $location.path('/signup');
   };
+
+  $scope.goToProducts = function () {
+    $location.path('/products');
+  };
   
 }]);

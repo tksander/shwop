@@ -63,7 +63,7 @@ var esES = {
   "menuTitle": "Menú",
   "logoutNav": "Cerrar sesión",
   "welcomeHeader": "¡Bienvenido a Shwop!",
-  "welcomeMessage": "¡Bienvenido a Shwop! Usa los botones de navegación en el encabezado para empezar ¡A Comprar!",
+  "welcomeMessage": "¡Bienvenido a Shwop! Usa el botón de menú en el encabezado para empezar ¡A Comprar!",
 
   // client>bidModal.html
   "bidTitle": "¡Haz una oferta!",
