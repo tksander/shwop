@@ -21,8 +21,9 @@ angular.module('shwop', [
 .config(['$routeProvider', '$httpProvider', '$translateProvider', function ($routeProvider, $httpProvider, $translateProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'app/auth/signin.html',
-      controller: 'AuthController'
+      templateUrl: 'app/products/products.html',
+      controller: 'ProductController',
+      authenticate: true
     })
     .when('/signin', {
       templateUrl: 'app/auth/signin.html',
@@ -47,7 +48,8 @@ angular.module('shwop', [
     .when('/welcome', {
       templateUrl: 'app/auth/welcome.html',
       controller: 'AuthController',
-      css: '../styles/style.css'
+      css: '../styles/style.css',
+      authenticate: true
     })
     .when('/bid', {
       templateUrl: 'app/bid/bid.html',
