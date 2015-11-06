@@ -63,7 +63,7 @@ var enUS = {
   "menuTitle": "Menu",
   "logoutNav": "Logout",
   "welcomeHeader": "Welcome to Shwop!",
-  "welcomeMessage": "Welcome to Shwop! Use the nav buttons above to start Shwopping!",
+  "welcomeMessage": "Welcome to Shwop! Use the menu button above to start Shwopping!",
 
   // client>bidModal.html
   "bidTitle": "Place a Bid!",
