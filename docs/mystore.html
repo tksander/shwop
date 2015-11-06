@@ -158,49 +158,38 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>This “My Store” controller allows users to retrieve and display all the items
+that they have posted for sale, as well as modify or delete existing items, 
+via methods from the injected Products and Photos services.</p>
+
             </div>
             
             <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'shwop.mystore'</span>, [])
 
-.controller(<span class="hljs-string">'MyStoreController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$rootScope'</span>,<span class="hljs-string">'$window'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-string">'Products'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $rootScope, $window, $translate, Products, Auth</span>) </span>{
+.controller(<span class="hljs-string">'MyStoreController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$rootScope'</span>,<span class="hljs-string">'$window'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-string">'Photos'</span>, <span class="hljs-string">'Products'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $rootScope, $window, $translate, Photos, Products, Auth</span>) </span>{
   $scope.data = {};
+  $scope.data.currentProductId;
   $scope.data.currentProduct = {};
+  $scope.data.currentProductCategory;
+
+  $scope.data.updatedProduct = {};
+  $scope.data.updatedProductCategory;
+
+  $scope.data.removedTags = [];
+  $scope.data.addedTags = [];
+  $scope.data.tag = <span class="hljs-string">''</span>;
+
+  $scope.data.productPhoto;
+
+  $scope.categories = Products.categories;
   $scope.updateMode = <span class="hljs-literal">false</span>;
 
   $scope.signout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     Auth.signout();
-  };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>Calls factory method that returns all product info from DB and renders it.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  $scope.getUserProducts = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>get the token</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> token = $<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'com.shwop'</span>);
+  };
+  
+  $scope.getUserProducts = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> token = $<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'com.shwop'</span>);
     Products.getUserProducts(token)
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">myProducts</span>) </span>{
       $scope.data.products = myProducts.data.products;
@@ -231,33 +220,95 @@
   $scope.viewProduct = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     Products.getTags($scope.data.currentProduct.id)
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tags</span>) </span>{
-      $scope.data.currentProduct.tags = tags.data.tags;
+      $scope.data.currentProductCategory = Products.splitCategoryFromTags(tags.data.tags);
+      $scope.data.updatedProductCategory = $scope.data.currentProductCategory;
+      $scope.data.currentProduct.tags = tags.data.tags.slice();
+      $scope.data.updatedProduct.tags = tags.data.tags.slice();
       $rootScope.Ui.turnOn(<span class="hljs-string">'viewProductModal'</span>);
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tags is '</span>, $scope.data.currentProduct.tags);
     });
   };
 
   $scope.updateProductMode = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     $scope.updateMode = <span class="hljs-literal">true</span>;
+    $(<span class="hljs-string">'.tag'</span>).removeClass(<span class="hljs-string">'disabled-tag'</span>);
   };
 
   $scope.viewProductMode = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     $scope.updateMode = <span class="hljs-literal">false</span>;
   };
 
+  $scope.cancelChanges = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $scope.updateMode = <span class="hljs-literal">false</span>;
+    $scope.data.tag = <span class="hljs-string">''</span>;
+    $(<span class="hljs-string">'.tag'</span>).addClass(<span class="hljs-string">'disabled-tag'</span>);
+    $scope.data.updatedProduct = $.extend(<span class="hljs-literal">true</span>, {}, $scope.data.currentProduct);
+  };
+
+  $scope.closeProductModal = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $rootScope.Ui.turnOff(<span class="hljs-string">'viewProductModal'</span>);
+    $scope.updateMode = <span class="hljs-literal">false</span>;
+  };
+
   $scope.setCurrent = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">product</span>) </span>{
-    $scope.data.currentProduct = product;
+    $scope.data.currentProductId = product.id;
+    $scope.data.currentProduct = $.extend(<span class="hljs-literal">true</span>, {}, product);
+    $scope.data.updatedProduct = $.extend(<span class="hljs-literal">true</span>, {}, product);
   };
 
   $scope.removeTag = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">tagName</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'going to remove '</span>, tagName);
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tags is'</span>, $scope.data.currentProduct.tags);
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; $scope.data.currentProduct.tags; i++) {
-      <span class="hljs-keyword">if</span> ($scope.data.currentProduct.tags[i] === tagName) {
-        $scope.data.currentProduct.splice(i, <span class="hljs-number">1</span>);
+    $rootScope.$$childHead.data.removedTags.push(tagName);
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; $rootScope.$$childHead.data.updatedProduct.tags.length; i++) {
+      <span class="hljs-keyword">if</span> ($rootScope.$$childHead.data.updatedProduct.tags[i] === tagName) {
+        $rootScope.$$childHead.data.updatedProduct.tags.splice(i, <span class="hljs-number">1</span>);
       }
     }
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'tags is '</span>, $scope.data.currentProduct.tags);
+  };
+
+  $scope.addTag = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> ($scope.data.updatedProduct.tags.indexOf($scope.data.tag) === -<span class="hljs-number">1</span>) {
+      $scope.data.addedTags.push($scope.data.tag);
+      $scope.data.updatedProduct.tags.push($scope.data.tag);
+    }
+    $scope.data.tag = <span class="hljs-string">''</span>;
+  };
+
+  $scope.removePhoto = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    $scope.data.updatedProduct.photoURL = <span class="hljs-string">''</span>;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'photoURL is '</span>, $scope.data.updatedProduct.photoURL);
+  };
+
+  $scope.addPhoto = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    $scope.filePath = <span class="hljs-string">''</span>;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'$scope.productPhoto is'</span>, $scope.data.productPhoto);
+    Photos.uploadPhoto($scope.data.productPhoto, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url</span>)</span>{
+      $scope.data.updatedProduct.photoURL = url;
+    }.bind($scope));
+  };
+
+  $scope.updateProduct = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">if</span> ($scope.data.updatedProductCategory !== $scope.data.currentProductCategory) {
+      $scope.data.removedTags.push($scope.data.currentProductCategory);
+      $scope.data.addedTags.push($scope.data.updatedProductCategory);
+      $scope.data.currentProductCategory = $scope.data.updatedProductCategory;
+    }
+    $scope.updateMode = <span class="hljs-literal">false</span>;
+    $(<span class="hljs-string">'.tag'</span>).addClass(<span class="hljs-string">'disabled-tag'</span>);
+    $scope.data.currentProduct = $.extend(<span class="hljs-literal">true</span>, {}, $scope.data.updatedProduct);
+    Products.updateProduct($scope.data.updatedProduct, $scope.data.addedTags, $scope.data.removedTags)
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-keyword">return</span> $translate(<span class="hljs-string">'productUpdateAlert'</span>);
+    })
+    .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">translatedValue</span>) </span>{
+      alert(translatedValue);
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; $scope.data.products.length; i++) {
+        <span class="hljs-keyword">if</span> ($scope.data.products[i].id === $scope.data.currentProductId) {
+          $scope.data.products[i] = $.extend(<span class="hljs-literal">true</span>, {}, $scope.data.updatedProduct);
+          <span class="hljs-keyword">break</span>;
+        }
+      }
+      $scope.data.removedTags = [];
+      $scope.data.addedTags = [];
+    });
   };
 
   $scope.getUserProducts();

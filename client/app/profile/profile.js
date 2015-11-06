@@ -1,5 +1,6 @@
+// This profile controller allows the user to retrieve, review, and update
+// their profile information via methods from the injected Users service.
 angular.module('shwop.profile', [])
-
 
 .controller('ProfileController', ['$scope', '$window', '$translate', '$location', 'Users', 'Auth', function ($scope, $window, $translate, $location, Users, Auth) {
 
@@ -13,7 +14,6 @@ angular.module('shwop.profile', [])
     Auth.signout();
   };
 
-// Calls factory mehtod that returns the user's information
   $scope.getUserInfo = function () {
     var token = $window.localStorage.getItem('com.shwop');
     Users.getUserInfo(token)
@@ -57,14 +57,6 @@ angular.module('shwop.profile', [])
   $scope.backToShwopping = function () {
     $location.path( "/products" );
   };
-
-  // $scope.getLocation = function () {
-
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     console.log(position.coords.latitude, position.coords.longitude);
-  // });
-
-  // }
 
   $scope.getUserInfo();
 }]);

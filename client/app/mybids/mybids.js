@@ -1,3 +1,5 @@
+// This "My Bids" controller enables the retrieval and deletion of bids
+// made a single user via methods from the injected Products service.
 angular.module('shwop.mybids', [])
 
 .controller('MyBidsController', ['$scope', '$window', '$translate', 'Products', 'Auth', function ($scope, $window, $translate, Products, Auth) {
@@ -7,9 +9,7 @@ angular.module('shwop.mybids', [])
     Auth.signout();
   };
   
-  // Calls factory method that returns all bids info from DB and renders it.
   $scope.getBids = function () {
-    //get the token
     var token = $window.localStorage.getItem('com.shwop');
 
     Products.getAllBids(token)

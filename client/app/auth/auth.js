@@ -1,5 +1,5 @@
-// This auth controller is responsible for our client side authentication
-// in our signup/signin forms using the injected Auth service
+// This auth controller is responsible for client-side authentication
+// in our signup/signin forms via the injected Auth service.
 angular.module('shwop.auth', [])
 
 .controller('AuthController', ['$scope', '$window', '$location', '$translate', 'Auth', function ($scope, $window, $location, $translate, Auth) {

@@ -1,31 +1,21 @@
+//  Walkthrough of the server:
+//  Express and our server are initialized in server.js.
+//  We then inject the server into our config/middleware.js file for setup.
+//  We also export the server for easy testing.
+//  middleware.js requires all Express middleware and sets it up.
+//  It also sets up our authentication.
+//  We have created individual routers for our two main features - links and users.
+//  Each feature has its own folder with a model, controller, and route file.
+//  The respective route file is required in middleware.js and injected with its own router.
+//  That route file then requires the respective controller and sets up all the routes.
+//  The controller then requires the respective model and sets up all our endpoints, which respond to requests.
 var express = require('express');
-// var mongoose = require('mongoose');
-
 var app = express();
 
-// mongoose.connect('mongodb://localhost/shortly'); // connect to mongo database named shortly
-
-// configure our server with all the middleware and and routing
 require('./config/middleware.js')(app, express);
-
-// export our app for testing and flexibility, required by index.js
 
 var port = process.env.PORT || 8080;
 app.listen(port);
 console.log('Server is running on port:', port);
 
 module.exports = app;
-
-
-/* Walkthrough of the server
-  Express, mongoose, and our server are initialized here
-  Next, we then inject our server and express into our config/middleware.js file for setup.
-    We also exported our server for easy testing
-  middleware.js requires all express middleware and sets it up
-  our authentication is set up there as well
-  we also create individual routers for are two main features, links and users
-  each feature has its own folder with a model, controller, and route file
-    the respective file is required in middleware.js and injected with its mini router
-    that route file then requires the respective controller and sets up all the routes
-    that controller then requires the respective model and sets up all our endpoints which respond to requests
-*/

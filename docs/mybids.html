@@ -158,47 +158,22 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
+              <p>This “My Bids” controller enables the retrieval and deletion of bids
+made a single user via methods from the injected Products service.</p>
+
             </div>
             
             <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'shwop.mybids'</span>, [])
 
-.controller(<span class="hljs-string">'MyBidsController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'Products'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $window, Products, Auth</span>) </span>{
+.controller(<span class="hljs-string">'MyBidsController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-string">'Products'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $window, $translate, Products, Auth</span>) </span>{
   $scope.data = {};
 
   $scope.signout = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
     Auth.signout();
-  };</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>Calls factory method that returns all bids info from DB and renders it.</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>  $scope.getBids = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>get the token</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">var</span> token = $<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'com.shwop'</span>);
+  };
+  
+  $scope.getBids = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">var</span> token = $<span class="hljs-built_in">window</span>.localStorage.getItem(<span class="hljs-string">'com.shwop'</span>);
 
     Products.getAllBids(token)
     .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">bids</span>) </span>{   
@@ -210,11 +185,13 @@
     })
   };
 
-  $scope.deleteBid = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">bidId</span>) </span>{
-    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.confirm(<span class="hljs-string">'Are you sure you want to cancel this bid?'</span>)) {
+  $scope.deleteBid = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">bidId, bidIndex</span>) </span>{
+    <span class="hljs-keyword">var</span> cancelBidVerification = $translate.instant(<span class="hljs-string">'cancelBidVerification'</span>);
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.confirm(cancelBidVerification)) {
       Products.deleteMyBid(bidId)
       .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) </span>{
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Deleted bid'</span> + result);
+        $scope.data.splice(bidIndex, <span class="hljs-number">1</span>);
       })
       .catch(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
         <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'/api/bids/:BidId DELETE failed'</span> + err);
@@ -222,9 +199,6 @@
     }
   };
 
-  $scope.remove = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">index</span>) </span>{
-    $scope.data.splice(index, <span class="hljs-number">1</span>);
-  }
 
   $scope.getBids();
 }]);</pre></div></div>

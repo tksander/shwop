@@ -158,88 +158,30 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-2">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
-              </div>
-              <p>var mongoose = require(‘mongoose’);</p>
+              <p> Walkthrough of the server:
+ Express and our server are initialized in server.js.
+ We then inject the server into our config/middleware.js file for setup.
+ We also export the server for easy testing.
+ middleware.js requires all Express middleware and sets it up.
+ It also sets up our authentication.
+ We have created individual routers for our two main features - links and users.
+ Each feature has its own folder with a model, controller, and route file.
+ The respective route file is required in middleware.js and injected with its own router.
+ That route file then requires the respective controller and sets up all the routes.
+ The controller then requires the respective model and sets up all our endpoints, which respond to requests.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>
-<span class="hljs-keyword">var</span> app = express();</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-3">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-3">&#182;</a>
-              </div>
-              <p>mongoose.connect(‘mongodb://localhost/shortly’); // connect to mongo database named shortly</p>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<span class="hljs-keyword">var</span> app = express();
 
-            </div>
-            
-        </li>
-        
-        
-        <li id="section-4">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-4">&#182;</a>
-              </div>
-              <p>configure our server with all the middleware and and routing</p>
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'./config/middleware.js'</span>)(app, express);
 
-            </div>
-            
-            <div class="content"><div class='highlight'><pre><span class="hljs-built_in">require</span>(<span class="hljs-string">'./config/middleware.js'</span>)(app, express);</pre></div></div>
-            
-        </li>
-        
-        
-        <li id="section-5">
-            <div class="annotation">
-              
-              <div class="pilwrap ">
-                <a class="pilcrow" href="#section-5">&#182;</a>
-              </div>
-              <p>export our app for testing and flexibility, required by index.js</p>
-
-            </div>
-            
-            <div class="content"><div class='highlight'><pre>
 <span class="hljs-keyword">var</span> port = process.env.PORT || <span class="hljs-number">8080</span>;
 app.listen(port);
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Server is running on port:'</span>, port);
 
-<span class="hljs-built_in">module</span>.exports = app;
-
-
-<span class="hljs-comment">/* Walkthrough of the server
-  Express, mongoose, and our server are initialized here
-  Next, we then inject our server and express into our config/middleware.js file for setup.
-    We also exported our server for easy testing
-  middleware.js requires all express middleware and sets it up
-  our authentication is set up there as well
-  we also create individual routers for are two main features, links and users
-  each feature has its own folder with a model, controller, and route file
-    the respective file is required in middleware.js and injected with its mini router
-    that route file then requires the respective controller and sets up all the routes
-    that controller then requires the respective model and sets up all our endpoints which respond to requests
-*/</span></pre></div></div>
+<span class="hljs-built_in">module</span>.exports = app;</pre></div></div>
             
         </li>
         

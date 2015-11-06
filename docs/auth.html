@@ -158,16 +158,20 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-1">&#182;</a>
               </div>
-              <p>This auth controller is responsible for our client side authentication
-in our signup/signin forms using the injected Auth service</p>
+              <p>This auth controller is responsible for client-side authentication
+in our signup/signin forms via the injected Auth service.</p>
 
             </div>
             
             <div class="content"><div class='highlight'><pre>angular.module(<span class="hljs-string">'shwop.auth'</span>, [])
 
-.controller(<span class="hljs-string">'AuthController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $window, $location, Auth</span>) </span>{
+.controller(<span class="hljs-string">'AuthController'</span>, [<span class="hljs-string">'$scope'</span>, <span class="hljs-string">'$window'</span>, <span class="hljs-string">'$location'</span>, <span class="hljs-string">'$translate'</span>, <span class="hljs-string">'Auth'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">$scope, $window, $location, $translate, Auth</span>) </span>{
   $scope.user = {};
   $scope.preciseLocation = <span class="hljs-literal">false</span>;
+
+  $scope.toggleLanguage = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">lang</span>) </span>{
+    $translate.use(lang);
+  };
 
   $scope.signin = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
     Auth.signin($scope.user)
