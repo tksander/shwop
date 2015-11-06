@@ -27,6 +27,7 @@
       <input type='text'
              ng-model='product.name'
              class="form-control"
+             maxlength='50'
              placeholder='{{ "itemNamePlaceholder" | translate }}'
              required>
     </div>
@@ -36,6 +37,8 @@
       <input type='number'
              ng-model='product.price' 
              class='form-control'
+             max='9999999'
+             title='Max price is $9,999,999!'
              placeholder='{{ "pricePlaceholder" | translate }}'
              required>
     </div>

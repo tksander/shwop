@@ -169,9 +169,15 @@ select:invalid option {
   padding: 5px;
   margin: 5px; }
 
+.store-product-div {
+  height: 80%; }
+
 .store-product-image {
-  height: 200px;
-  width: 200px; }
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  border: 5px solid black;
+  border-radius: 3px; }
 
 .bid-success {
   background-color: #007AFF;
@@ -229,11 +235,23 @@ select:invalid option {
 
   .medText {
     font-size: 1vw; } }
+.store-heading {
+  word-wrap: break-word;
+  width: 90%; }
+
 .container {
   text-align: center; }
 
 .right-align {
   float: right; }
+
+.signin-background {
+  background-image: url(../../assets/images/signin_background.JPG);
+  background-size: cover; }
+
+.welcome-background {
+  background-image: url(../../assets/images/welcome_background.jpg);
+  background-size: cover; }
 
 .fake-link {
   color: blue;
