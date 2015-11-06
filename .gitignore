@@ -9,14 +9,7 @@ sneakyLocal.js
 .sass-cache
 client/styles/style.css.map
 
-client/lib/jquery
-client/lib/angular
-client/lib/angular-mocks
-client/lib/angular-route
-client/lib/angular-translate
-client/lib/mobile-angular-ui/*
-!client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.js
-!client/lib/mobile-angular-ui/dist/js/mobile-angular-ui.gestures.min.js
+client/lib/**
 
 build/
 dist/
