@@ -17,7 +17,7 @@
 <!-- </div> -->
 
 
-<div class="carousel" style='background-image: url(http://pre14.deviantart.net/f563/th/pre/f/2012/235/f/7/marrakesh_marketplace_by_wolfewolf-d5c69vj.jpg); background-size: cover'>
+<div class="carousel" style='background-image: url(../../assets/images/welcome_background.jpg); background-size: cover'>
   <div class="carousel-inner">
     <div class="carousel-item" ng-repeat= 'product in data.products.slice(0,3) | filter:search'>
 
@@ -37,7 +37,7 @@
       <div ng-if="searchSubmitted">
         <button class="btn btn-primary btn-lg btn-search" ng-click="refreshProductSet()">{{ 'seePreviousSearchItemsButton' | translate}} </button>
       </div>
-        <button class="btn btn-primary btn-lg btn-search" ng-click="getAllProducts()">{{ 'seeAllItemsButton' | translate }} </button>
+        <button class="btn btn-primary btn-lg btn-search" ng-click="submitSearch()">{{ 'seeAllItemsButton' | translate }} </button>
       </div>
     </div>
   </div>
