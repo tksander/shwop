@@ -5,21 +5,6 @@ var jwt  = require('jwt-simple');
 var Promise = require('bluebird');
 var _ = require('underscore');
 
-var milesToLatLong = function(lat,long,radius) {
-  var radiusEarth = 6371;  // earth radius in km
-  radius = radius * 1.60934; //convert mi to km
-  var long1 = long - ((180/Math.PI)*(radius/radiusEarth/Math.cos((Math.PI/180)*(lat))));
-  var long2 = long + (180/Math.PI)*(radius/radiusEarth/Math.cos((Math.PI/180)*(lat)));
-  var lat1 = lat + ((180/Math.PI)*(radius/radiusEarth));
-  var lat2 = lat - ((180/Math.PI)*(radius/radiusEarth));
-  return {
-    long1: long1,
-    long2: long2,
-    lat1: lat1,
-    lat2: lat2
-  };
-}
-
 module.exports = {
 
   // retrieve all the products from the database
@@ -27,10 +12,6 @@ module.exports = {
     console.log('the headers were '+JSON.stringify(req.headers));
     //var bounds = milesToLatLong(req.headers.lat, req.headers.long, req.headers.radius);
     db.Product.findAll()
-    // db.Product.findAll({where:{
-    //   lat: {$between:[bounds.lat1,bounds.lat2]},
-    //   long: {$between:[bounds.long1,bounds.long2]}
-    // }})
     .then(function (products) {
       if(products === null) {
         res.status(400).send('We could not find products in the database.');
@@ -106,10 +87,6 @@ module.exports = {
 
         var productPromises = _.map(productIdArray, function (productId) {
           return db.Product.findAll({where: {id: productId}});
-          // return db.Product.findAll({where:{
-          //   lat: {$between:[bounds.lat1,bounds.lat2]},
-          //   long: {$between:[bounds.long1,bounds.long2]}
-          // }})
         })
 
         Promise.all(productPromises)
@@ -349,4 +326,21 @@ module.exports = {
 
 };
 
+
+// Utility function for finding bounds of search area. Might implement in the future.
+//
+// var milesToLatLong = function(lat,long,radius) {
+//   var radiusEarth = 6371;  // earth radius in km
+//   radius = radius * 1.60934; //convert mi to km
+//   var long1 = long - ((180/Math.PI)*(radius/radiusEarth/Math.cos((Math.PI/180)*(lat))));
+//   var long2 = long + (180/Math.PI)*(radius/radiusEarth/Math.cos((Math.PI/180)*(lat)));
+//   var lat1 = lat + ((180/Math.PI)*(radius/radiusEarth));
+//   var lat2 = lat - ((180/Math.PI)*(radius/radiusEarth));
+//   return {
+//     long1: long1,
+//     long2: long2,
+//     lat1: lat1,
+//     lat2: lat2
+//   };
+// }
 
