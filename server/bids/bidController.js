@@ -44,7 +44,7 @@ module.exports = {
         client.sendMessage({
             to: seller.get('phoneNumber'), // Any number Twilio can deliver to
             from: '+18327695630', // A number you bought from Twilio and can use for outbound communication
-            body: '' + bidder.get('firstName') + ' has bid ' + req.body.bidAmount + ' for your ' 
+            body: '' + bidder.get('firstName') + ' has bid $' + req.body.bidAmount + ' for your ' 
                   + product.get('name')+ ". The bid ID is " + result.get('id') + "."
                   + "Respond to them by sending a message to this number that starts with \"" + result.get('id') + ":\"."
 
