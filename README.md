@@ -10,7 +10,7 @@ Shwop is a peer-to-peer, mobile-optimized marketplace with intuitive swipe-based
 1. [Code Highlights](#code-highlights)
 1. [Requirements](#requirements)
 1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
+    - [Installing Dependencies](#installing-dependencies)
 1. [Roadmap](#roadmap)
 
 ## Overview and Features
@@ -27,13 +27,13 @@ Shwop makes the shopping experience streamlined, efficient, visual, and fun!
 
 ## Team
 
-  - Product Owner: John Wareing
-  - Scrum Master: Corey Roy 
-  - Development Team Members: 
-  Tommy Sander [LinkedIn](https://linkedin.com/in/thomasksander) | [GitHub](https://github.com/tksander)  
-  Brett Sanders [LinkedIn](https://linkedin.com/in/brettwsanders) | [GitHub](https://github.com/brettwsanders)  
-  John Wareing [LinkedIn](https://linkedin.com/in/johnwareing) | [GitHub](https://github.com/jwareing)  
-  Corey Roy [LinkedIn](https://linkedin.com/in/coreyroy), [GitHub](https://github.com/coreysf)  
+  *Product Owner*: John Wareing
+  *Scrum Master*: Corey Roy 
+  *Development Team Members*:
+  - Tommy Sander [LinkedIn](https://linkedin.com/in/thomasksander) | [GitHub](https://github.com/tksander)  
+  - Brett Sanders [LinkedIn](https://linkedin.com/in/brettwsanders) | [GitHub](https://github.com/brettwsanders)  
+  - John Wareing [LinkedIn](https://linkedin.com/in/johnwareing) | [GitHub](https://github.com/jwareing)  
+  - Corey Roy [LinkedIn](https://linkedin.com/in/coreyroy) | [GitHub](https://github.com/coreysf)  
 
 
 ## Screenshots
