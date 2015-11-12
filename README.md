@@ -5,12 +5,13 @@ Shwop is a peer-to-peer, mobile-optimized marketplace with intuitive swipe-based
 ## Table of Contents
 
 1. [Overview and Features](#overview-and-features)
+1. [Team](#team)
 1. [Screenshots](#screenshots)
 1. [Code Highlights](#code-highlights)
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-1. [Team](#team)
+1. [Roadmap](#roadmap)
 
 ## Overview and Features
 
@@ -45,13 +46,12 @@ Shwop makes the shopping experience streamlined, efficient, visual, and fun!
 
 Client-side
 - [Products View](/client/app/products/products.html)
-- [Products Controller](/client/app/products/products.js)
 
 Server-side
-- [Products Controller](/server/products/productsController.js)
+- [Products Controller](/server/products/productController.js)
 
 Database 
-- [Products Controller](/server/db/db_config.js)
+- [Database Configuration File](/server/db/db_config.js)
 
 Code-base Test 
 - [Server Intergration Test](/test/server/integration.js)
@@ -110,7 +110,6 @@ $ mySQL -u root shwopDB
 
 ### Starting Node Server
 Open a new terminal window and run the following command to start a new Node server on Port 8080. 
-Running this command will also execute the Sequelize commands to 
 
 ```sh
 $ grunt start
@@ -126,7 +125,6 @@ grunt runSass
 ```sh
 grunt test
 ```
-
 
 ### Roadmap
 View the project roadmap [here](https://github.com/ClandestineCalavera/shwop/issues)
