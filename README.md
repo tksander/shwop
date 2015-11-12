@@ -46,7 +46,7 @@ Shwop makes the shopping experience more streamlined, efficient, visual, and fun
 ## Screenshots
 
 ![Shwop App](/screenshots/ShwopMockup.png?raw=true "Web App")
-![Shwop Mobile Browser App](/iphone_white_angle2.png?raw=true "Mobile App")
+![Shwop Mobile Browser App](/screenshots/iphone_white_angle2.png?raw=true "Mobile App")
 
 
 ## Code Highlights
