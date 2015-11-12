@@ -14,11 +14,11 @@ Shwop is a peer-to-peer, mobile-optimized marketplace with intuitive swipe-based
 
 ## Overview and Features
 
-Shwop works by allowing users to swipe their way through available items for sale, rather than obliging them to click back and forth through endless links like more traditional sites do. And since all items are associated with a photo, a buyer knows exactly what he or she is getting.
+Shwop allows users to swipe their way through photos of available items for sale, rather than obliging them to click back and forth through endless links, like more traditional shopping sites. And since the shopping experience is photo-driven, a buyer knows exactly what he or she is getting.
 
 Shwop users can search for specific items, swiping left to browse through what is available for sale and swiping right to place a bid on an item. On a desktop or laptop, users can click and drag through items or use the left/right arrow keys.
 
-Once a bid is placed, the seller is sent an anonymous, peer-to-peer SMS message via Twilio, which contains information about the bid and how to reply to the bidder if they are interested in accepting the offer.
+Once a bid is placed, the seller is sent an anonymous, peer-to-peer SMS (text) message via Twilio, which contains information about the bid and how to reply to the bidder if they are interested in accepting the offer.
 
 In addition to uploading items for sale, users can also view a summary of all items that they have posted as well as all items for which they have submitted a bid. 
 
@@ -38,7 +38,7 @@ Shwop makes the shopping experience streamlined, efficient, visual, and fun!
 ## Screenshots
 
 ![Shwop App](/screenshots/ShwopMockup.png?raw=true "Web App")
-![Shwop Mobile Browser App](/screenshots/iphone_white_angle2.png?raw=true "Mobile App" =350x350)
+![Shwop Mobile Browser App](/screenshots/iphone_white_angle2.png?raw=true "Mobile App" =200x200)
 
 
 ## Code Highlights
