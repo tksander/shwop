@@ -30,10 +30,10 @@ Shwop makes the shopping experience streamlined, efficient, visual, and fun!
   - Product Owner: John Wareing
   - Scrum Master: Corey Roy 
   - Development Team Members: 
-  Tommy Sander [LinkedIn](https://linkedin.com/in/thomasksander) | [GitHub](https://github.com/tksander) 
-  Brett Sanders [LinkedIn](https://linkedin.com/in/brettwsanders) | [GitHub](https://github.com/brettwsanders)
-  John Wareing [LinkedIn](https://linkedin.com/in/johnwareing) | [GitHub](https://github.com/jwareing)
-  Corey Roy [LinkedIn](https://linkedin.com/in/coreyroy), [GitHub](https://github.com/coreysf)
+  Tommy Sander [LinkedIn](https://linkedin.com/in/thomasksander) | [GitHub](https://github.com/tksander)  
+  Brett Sanders [LinkedIn](https://linkedin.com/in/brettwsanders) | [GitHub](https://github.com/brettwsanders)  
+  John Wareing [LinkedIn](https://linkedin.com/in/johnwareing) | [GitHub](https://github.com/jwareing)  
+  Corey Roy [LinkedIn](https://linkedin.com/in/coreyroy), [GitHub](https://github.com/coreysf)  
 
 
 ## Screenshots
